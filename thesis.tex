@@ -1,27 +1,331 @@
 \documentclass{article}
-
-\include{modabvar/macros}
-
 \bibliographystyle{amsalpha}
+\include{modabvar/macros}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{booktabs}
 
 \author{Kevin Lui}
-\title{Things about $J_0(N)$}
-
-\begin{document}
-
+\title{Explicit Isogenies of $J_0(N)$}
+\begin{document} 
 \maketitle
+\tableofcontents 
+\listoftables
 
 \newpage
+\section{Introduction}%
+\label{sec:intro}
 
-\tableofcontents
 
-\newpage
+In this thesis, we compute explicit with isogenies of $J_0(N)$. 
 
-\section{Background and random facts about $J_0(N)$}
+We say a Jacobian is totally split if it is $\QQ$-isogenous to a product of
+elliptic curves. In Section~\ref{sec:totally_split}, we present techniques for
+computing the rational torsion subgroup of totally splt $J_0(N)$.
 
-\section{Totally Split Jacobians}
+In Section~\ref{sec:enum_isogenies}, we present techniques enumerating the
+$\QQ$-isogeny class of $J_0(N)$ under various conditions.
 
-\section{Enumerating Isogenies}
+
+\section{Background and random facts about $J_0(N)$}%
+\label{sec:back}
+
+\section{Totally Split Jacobians}%
+\label{sec:totally_split}
+
+A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
+product of elliptic curves. The classification and construction of totally
+split Jacobians of genus 2 curves has been
+well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two}
+and large rational torsion subgroup of totally split Jacobians of genus 2 and 3
+curves have been found~\cite{howe-leprevost-poonen:large}. The original
+motivation of this project was to compute the rational torsion subgroup for as
+many $J_0(N)$ as possible. The first $N$ for which Sage fails is $J_0(30)$
+which happens to be a product of 3 elliptic curves. The author and his adviser
+were able to compute the rational torsion subgroup using the fact that
+$J_0(30)$ is totally split, the fact that rational torsion subgroups of
+elliptic curves can be computed, and Galois cohomology. The goal of this
+section is to prove that there are finitely many totally split $J_0(N)$, to
+give a general (but totally impratical) method for computing the rational
+torsion subgroup, and to present some more practical techniques for computing
+the rational torsion subgroup. 
+
+
+
+\subsection{Provably enumerating the set of totally split modular Jacobians}
+
+The modular Jacobian $J_0(N)$ is totally split if and only if all cuspforms of
+level $N$ have rational Hecke coefficients. We expect this to be rare. In fact,
+Ralph Greenberg quickly gave an argument proving the set of totally split
+$J_0(N)$ is finite. However, his argument did not give an effective method of
+enumeration. The goal of this subsection is to provably enumerate the set of
+$J_0(N)$ that are totally split. There are 71 of them that are nontrivial.
+
+We have that $J_0(N)$ is totally split if and only if its dimension is equal to
+the number of (modular) elliptic curves of conductor $N$. If $N$ is less than
+the upper limit of conductors in the Cremona Database, then determining whether
+$J_0(N)$ is totally split is a quick computation since there is a closed-form
+formula for $\dim J_0(N)$.  
+
+\begin{lemma}
+    \label{lemma:good_primes}
+    The only possible primes $p$ so that $J_0(p)$ is a totally split Jacobian are
+    \[
+        2, 3, 5, 7, 11, 13, 17, 19, 37.
+    \]
+\end{lemma}
+\begin{proof}
+    Let $J=J_0(p)$ be a totally split Jacobian of prime level. If $\dim J=0$,
+    then $J$ is clearly totally split so assume $\dim J>0$. Then $J\cong
+    \prod_f E_f$ with $E_f$'s elliptic curves of conductor $p$. Let $n$ denote
+    the order of the rational cuspidal subgroup of $J$ which is, as mentioned
+    above, known to be the numerator of $(p-1)/12$. By Emerton's proof of
+    Stein's refined Eisenstein conjecture~\cite[Theorem B]{emerton:optimal}, if
+    $l$ divides $n$, then $l$ divides the order of $E_f(\QQ)$ for some elliptic
+    factor of $J$. But elliptic curves of prime conductor do not have much
+    rational torsion.
+
+    In particular, Miyawaki~\cite{miyawaki:ell_prime} enumerates all curves of prime
+    power conductor with odd-order rational torsion. The largest prime
+    conductor here being 37. This implies that if $p>37$, then $\#C(\QQ)$ must
+    be a power of 2 so $p=2^a 3^b + 1$ for some $a\geq 0$ and $b\in \{0,1\}$.
+    We now show $a\leq 2$.
+
+    If $a>2$, then $C(\QQ)$ has an order 2 element which implies some $E_i$ has
+    a rational 2-torsion point. As a result of Setzer~\cite[Theorem
+    2]{setzer:ell_prime}, $p=17$ or $p=u^2+64$ for some integer $u$. We split into 2
+    cases to show that $p$ is never $u^2+64$.
+
+    Suppose $b=0$. Then $p$ is a Fermat prime and thus a Fermat number. Outside
+    of $3$ and $5$, the recursive formula for Fermat numbers and an induction
+    argument shows that the last digit of Fermat numbers is always $7$. But the
+    only possible last digits of $u^2+64$ are $0, 3, 4, 5, 8, 9$.
+
+    Suppose $b=1$. Then $2^a\cdot 3 = u^2+63$. This implies $3$ divides $u$ so
+    $9$ divides $u^2$. But now the right-hand side is divisible by $9$ while the
+    left is not.
+
+    In conclusion, we know that if $J_0(p)$ is a totally split Jacobian, then $p\leq
+    37$. A computer search then gives us the list found in the statement of the
+    lemma.
+\end{proof}
+
+Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
+\emph{bad} otherwise. The simple factors of $J_0(N)$ are also factors of
+$J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad, then so is
+any multiple of $N$. This allows us to prune branches while doing a search for
+good integers on the divisiblity tree of the integers.
+
+\begin{algorithm}{Enumerating Good Integers}
+    \label{alg:find_split}
+    Given a finite list of good primes $S$, this algorithm will halt and
+    return the list of all good integers whose prime divisors lie in $S$
+    if and only if this list is finite.
+\end{algorithm}
+\begin{enumerate}
+    \item{} [Initialize] 
+        Set $i=1$ and $M_1=S$. Here $M_i$ will represent the set of all good
+        integers whose sum of exponents in the prime factorization is $i$.
+    \item{} [Find prime multiples of $M_i$ are that good]
+        Set
+        \[
+            M_{i+1}=\{pN: p\in S, N\in M_i, pN \text{ good}\}.
+        \]
+        If $M_{i+1}$ is non-empty, increment $i$ and repeat this step.
+    \item [Return] 
+        Return $\bigcup_i M_i$.
+\end{enumerate}
+
+\begin{theorem}
+    There are 71 integers $N$ for which $J_0(N)$ is a totally split Jacobian of
+    positive dimension. They are given in Table~\ref{split_table}.
+\end{theorem}
+\begin{proof}
+    We run Algorithm~\ref{alg:find_split} on the good primes found in
+    Lemma~\ref{lemma:good_primes} and it halts (luckily before reaching the end
+    of the Cremona database).
+\end{proof}
+
+\begin{table}%
+    \label{table:split}
+    \centering
+    \caption{Table of nontrivial totally split Jacobians along with dimension}
+    \label{split_table}
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & $\dim J_0(N)$ \\
+        \midrule
+        11 & 1 \\
+        14 & 1 \\
+        15 & 1 \\
+        17 & 1 \\
+        19 & 1 \\
+        20 & 1 \\
+        21 & 1 \\
+        22 & 2 \\
+        24 & 1 \\
+        26 & 2 \\
+        27 & 1 \\
+        28 & 2 \\
+        30 & 3 \\
+        32 & 1 \\
+        33 & 3 \\
+        34 & 3 \\
+        36 & 1 \\
+        37 & 2 \\
+        \bottomrule
+    \end{tabular}
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & $\dim J_0(N)$ \\
+        \midrule
+        38 & 4 \\
+        40 & 3 \\
+        42 & 5 \\
+        44 & 4 \\
+        45 & 3 \\
+        48 & 3 \\
+        49 & 1 \\
+        50 & 2 \\
+        52 & 5 \\
+        54 & 4 \\
+        56 & 5 \\
+        57 & 5 \\
+        60 & 7 \\
+        64 & 3 \\
+        66 & 9 \\
+        72 & 5 \\
+        75 & 5 \\
+        76 & 8 \\
+        \bottomrule
+    \end{tabular}
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & $\dim J_0(N)$ \\
+        \midrule
+        80 & 7 \\
+        84 & 11 \\
+        90 & 11 \\
+        96 & 9 \\
+        99 & 9 \\
+        100 & 7 \\
+        108 & 10 \\
+        112 & 11 \\
+        114 & 17 \\
+        120 & 17 \\
+        121 & 6 \\
+        128 & 9 \\
+        132 & 19 \\
+        144 & 13 \\
+        150 & 19 \\
+        168 & 25 \\
+        180 & 25 \\
+        192 & 21 \\
+        \bottomrule
+    \end{tabular}
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & $\dim J_0(N)$ \\
+        \midrule
+        198 & 29 \\
+        200 & 19 \\
+        216 & 25 \\
+        240 & 37 \\
+        288 & 33 \\
+        300 & 43 \\
+        336 & 53 \\
+        360 & 57 \\
+        384 & 49 \\
+        396 & 61 \\
+        400 & 43 \\
+        432 & 55 \\
+        576 & 73 \\
+        600 & 97 \\
+        720 & 121 \\
+        1152 & 161 \\
+        1200 & 205 \\
+            & \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Enumerating rational torsion is algorithmic}
+
+\begin{proposition}
+    Suppose $A$ is a totally split subvariety of $J_0(N)$ consisting of
+    $J_0(L)$-optimal curves in their isogeny class. Then we can compute
+    the following data:
+    \begin{enumerate}
+        \item
+            A number field containing $\QQ(A[n])$ for any $n$.
+        \item
+            Let $n$ be a positive integer and $L$ be a number field containing
+            $\QQ(A[n])$. The action of $\Gal(L/\QQ)$ on $A[n]$ can be
+            determined.
+        \item 
+            The rational homology representation of elements of $A(K)_\tor$ for any
+            number field $K$.
+    \end{enumerate}
+    Here the elements of $A[n]$ are represented by rational homology modulo
+    integral homology.
+\end{proposition}
+\begin{proof}
+    We will proceed by induction on the dimension, $d$, of $A$. We first
+    consider the case $d=1$. This is the elliptic curve case.
+    \begin{enumerate}
+        \item 
+            Let $n$ be a positive integer. Then using division polynomials, we
+            can determine a number field $L$ that contains $\QQ(A[n])$.
+        \item
+            Let $n$ be a positive integer and $L$ be a number field containing
+            $\QQ(A[n])$. Let $x\in A[n]$. This is on a point on rational
+            homology. The determine the action of Galois, it suffices to
+            identify $x$ as a point on the Weierstrass equation. To do this, we
+            can modular symbols/integration pairing to identify $x$ as a point
+            on the period lattice. We now numerically map $x$ to a point on the
+            Weierstrass equation using the elliptic logarithm map. Lutz-Nagell
+            determines what precision we will need.
+        \item
+            Let $K$ be a number field. Using reduction mod $p$, we can find an
+            $m$ such that $A(K)_\tor \subseteq A[m]$. Using (1), we can define
+            a number field $L$ that contains $\QQ(A[m])$. Then using (2), we
+            can compute
+            \[
+                A(K)_\tor = A[m]^{\Gal(L/K)}.
+            \]
+    \end{enumerate}
+
+    Now assume the result for all appropriate subvarieties of dimension $d\leq
+    l$. Let $A$ be of dimension $l+1$ and write $A=B+C$, where $B$ is of
+    dimension $l$ and $C$ is of dimension $1$.  We have the exact sequence
+    \[
+        0\to B\cap C \to B\times C \to A,
+    \]
+    where we identify $B\cap C$ as a subgroup of $B\times C$ via the
+    anti-diagonal embedding. So $A=(B\times C)/(B\cap C)$. Let $r$ be the
+    exponent of $B\cap C$. 
+    \begin{enumerate}
+        \item 
+            For any integer $n$, $A[n] \subseteq B[nr]+C[nr]$. So a number
+            field containing $\QQ(A[n])$ is the compositum  of the number
+            fields containing $\QQ(B[nr])$ and $\QQ(C[nr])$ which can be
+            determined by the inductive hypothesis.
+        \item
+            The Galois action can be determined on $A[n]$ by viewing $A[n]$ as
+            a subgroup of $(B[nr]\times C[nr])/(B\cap C)$.
+        \item
+            Using reduction mod $p$, there exists an integer $m$ such that
+            $A(K)_\tor\subseteq A[m]$. Using (1), we can find a number field
+            $L$ that contains $\QQ(A[m])$. Then we use (2), to compute
+            \[
+                A(K)_\tor = A[m]^{\Gal(L/K)}.
+            \]
+    \end{enumerate}
+\end{proof}
+
+
+\section{Enumerating Isogenies}%
+\label{sec:enum_isogenies}
 
 
 \bibliography{modabvar/biblio}
