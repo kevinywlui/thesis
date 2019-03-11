@@ -1,0 +1,3 @@
+[submodule "modabvar"]
+	path = modabvar
+	url = git@github.com:kevinywlui/modabvar.git
