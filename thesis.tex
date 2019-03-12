@@ -252,52 +252,54 @@ good integers on the divisiblity tree of the integers.
 \subsection{Enumerating rational torsion is algorithmic}
 
 \begin{proposition}
-    Suppose $A$ is a totally split subvariety of $J_0(N)$ consisting of
-    $J_0(L)$-optimal curves in their isogeny class. Then we can compute
-    the following data:
+    Suppose $A$ is a totally split abelian subvariety of $J=J_0(N)$ Then we can
+    compute the following data:
     \begin{enumerate}
         \item
-            A number field containing $\QQ(A[n])$ for any $n$.
+            A number field containing $\QQ(A[n])$ for positive integer $n$.
         \item
             Let $n$ be a positive integer and $L$ be a number field containing
-            $\QQ(A[n])$. The action of $\Gal(L/\QQ)$ on $A[n]$ can be
-            determined.
+            $\QQ(A[n])$. The action of $\Gal(L/\QQ)$ on $A[n]$.
         \item 
-            The rational homology representation of elements of $A(K)_\tor$ for any
-            number field $K$.
+            The $K$-rational torsion points of $A(K)_\tor$.
     \end{enumerate}
-    Here the elements of $A[n]$ are represented by rational homology modulo
-    integral homology.
+    In particular, we can compute the rational torsion subgroup of any totally
+    split Jacobian.
 \end{proposition}
 \begin{proof}
+    Recall that the abelian subvarieties are represented by giving a submodule
+    of the integral homology~\ref{}. Suppose $A$ is 1-dimensional subvariety of
+    $J$. Then by~\ref{}, we can compute an elliptic curve $E_A$ given in
+    Weierstrass defining equation and an isomorphism $\Phi_A:A_\tor\to
+    (E_A)_\tor$.
+
     We will proceed by induction on the dimension, $d$, of $A$. We first
-    consider the case $d=1$. This is the elliptic curve case.
+    consider the case $d=1$. 
     \begin{enumerate}
         \item 
             Let $n$ be a positive integer. Then using division polynomials, we
-            can determine a number field $L$ that contains $\QQ(A[n])$.
+            can compute a number field $L$ containing $\QQ(A[n])$.
         \item
             Let $n$ be a positive integer and $L$ be a number field containing
-            $\QQ(A[n])$. Let $x\in A[n]$. This is on a point on rational
-            homology. The determine the action of Galois, it suffices to
-            identify $x$ as a point on the Weierstrass equation. To do this, we
-            can modular symbols/integration pairing to identify $x$ as a point
-            on the period lattice. We now numerically map $x$ to a point on the
-            Weierstrass equation using the elliptic logarithm map. Lutz-Nagell
-            determines what precision we will need.
+            $\QQ(A[n])$. The Galois action on the points of $E_A[n]$ is given
+            by applying the Galois action to each coordinate. Using $\Phi_A$
+            and the action of $\Gal(L/\QQ)$ on $E_A$, we can explicit determine
+            the action of $\Gal(L/\QQ)$ on $A[n]$.
         \item
-            Let $K$ be a number field. Using reduction mod $p$, we can find an
-            $m$ such that $A(K)_\tor \subseteq A[m]$. Using (1), we can define
-            a number field $L$ that contains $\QQ(A[m])$. Then using (2), we
-            can compute
+            Let $K$ be a number field. Using reduction mod $p$, there exists an
+            integer $m$, such that that $A(K)_\tor \subseteq A[m]$. Using (1),
+            we can define a number field $L$ that contains $\QQ(A[m])$. Then
+            using (2), we can compute
             \[
                 A(K)_\tor = A[m]^{\Gal(L/K)}.
             \]
     \end{enumerate}
 
-    Now assume the result for all appropriate subvarieties of dimension $d\leq
-    l$. Let $A$ be of dimension $l+1$ and write $A=B+C$, where $B$ is of
-    dimension $l$ and $C$ is of dimension $1$.  We have the exact sequence
+    Now assume we can compute (1)-(3) for any totally split abelian subvariety
+    of dimension less than $k$.
+
+    Let $A$ be of dimension $k+1$ and write $A=B+C$, where $B$ is of
+    dimension $k$ and $C$ is of dimension $1$.  We have the exact sequence
     \[
         0\to B\cap C \to B\times C \to A,
     \]
@@ -309,7 +311,7 @@ good integers on the divisiblity tree of the integers.
             For any integer $n$, $A[n] \subseteq B[nr]+C[nr]$. So a number
             field containing $\QQ(A[n])$ is the compositum  of the number
             fields containing $\QQ(B[nr])$ and $\QQ(C[nr])$ which can be
-            determined by the inductive hypothesis.
+            computed by the inductive hypothesis.
         \item
             The Galois action can be determined on $A[n]$ by viewing $A[n]$ as
             a subgroup of $(B[nr]\times C[nr])/(B\cap C)$.
