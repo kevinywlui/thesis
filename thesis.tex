@@ -33,9 +33,142 @@ $\QQ$-isogeny class of $J_0(N)$ under various conditions.
 \section{Background and random facts about $J_0(N)$}%
 \label{sec:back}
 
+% TODO: special maps
+
+% TODO: insert old-subvariety, ling-ribet-shimura decomp
+
+
+% TODO: insert connected.tex, motivated from the earlier decomp
+
+\subsection{Connecteness of Hecke Algebra}%
+\label{sub:connecteness_of_hecke_algebra}
+
+In~\cite{}, Mazur proves that the Hecke Algebra $\TT(N)$ for $J_0(N)$ with $N$
+prime is connected. This was done by showing any direct product decomposition
+of $J_0(N)$ contradicts the irreducibility of the $\theta$-divsior. In
+Example~\ref{}, we show that $J_0(22)$ is a direct sum of elliptic curves. In
+this section, we give a mild generalization of Mazur's result in the semistable
+case and explain why Mazur's argument does not apply to $J_0(22)$.
+
+
+\subsubsection{General results for semistable Jacobians}
+
+We will begin with some fairly general results. So assume $J$ is a semistable
+abelian variety that is possibly not $J_0(N)$. By~\cite[Corollary 1.4]{ribet:endo}, isogenies,
+    endomorphisms, and abelian subvarieties (a priori defined over $\QQbar$)
+    are defined over $\QQ$. In this section, we use this fact freely and will
+    often make no reference to the field of definition.
+
+\begin{theorem}
+    \label{thm:theta_irred}
+    Any Jacobian $J$ taken with its principal polarization cannot be decomposed
+    into a nontrivial direct sum of principally polarized abelian varieties.
+\end{theorem}
+\begin{proof}
+    Any such decomposition will give a decomposition of the $\Theta$-divisor
+    attached to $J$ which contradicts the irreducibility of the
+    $\Theta$-divisor~\cite[\S 4(a)]{kempf:riemann}.
+\end{proof}
+
+\begin{lemma}
+    \label{lemma:decomp_isogeny}
+    Suppose $J$ decomposes nontrivially as the direct sum of abelian subvarieties
+    $A\oplus B$. Then $A$ must share an isogenous factor with $B$.
+\end{lemma}
+\begin{proof}
+    We proceed via contradiction. Suppose $A$ and $B$ share no isogenous
+    factors. Let $\lambda:J\to \hat{J}$ be the principal polarization induced
+    by its $\Theta$-divisor. Since $A$ shares no isogenous factors with $B$,
+    $\lambda(A)=\hat{A}$ so $\lambda|_A$ is a polarization of $A$. Similarly,
+    $\lambda|_B$ is a polarization of $B$. This now contradicts
+    Theorem~\ref{thm:theta_irred}.
+\end{proof}
+
+\begin{lemma}
+    \label{lemma:faithful}
+    Let $R$ be a ring acting faithfully on $J$. Let $S=\{A_1,\ldots,A_k\}$ be a
+    set of representatives of the isogeny class of subvarieties of $J$. 
+    Suppose that for all $A\in S$, and every idempotent $r\in R$, either
+    $rV_A=0$ or $rV_A=V_A$. Then $\Spec R$ is connected.
+\end{lemma}
+\begin{proof}
+    Recall that $\Spec R$ is connected if and only if $R$ contains an
+    idempotent $r$ different from $0$ or $1$. We proceed via by contradiction. 
+    Let $r\in R$ be an idempotent different from $0$ or $1$. Then $K = rK
+    \oplus (1-r) K$ is a decomposition of $K$ into subvarieties. Moreover, this
+    decomposition is nontrivial because $R$ acts faithfully.
+    
+    Let $S_1=\{A\in S:rV_A=V_A\}$ and $S_2=\{A\in S:(1-r)V_A=V_A\}$. Observe
+    that $r$ and $1-r$ kill every element of $S_2$ and $S_1$, respectively, so
+    $S=S_1\sqcup S_2$. We can rewrite the previous decomposition as
+    \[
+        J 
+        = rJ \oplus (1-r)J
+        = \left(\sum_{A\in S_1} V_A \right)
+        \oplus \left(\sum_{A\in S_2} V_A \right).
+    \]
+    The big summands share no isogenous factors which contradicts
+    Lemma~\ref{lemma:decomp_isogeny}.
+\end{proof}
+
+\subsubsection{Application to modular abelian varieties}
+
+The goal now is to apply Lemma~\ref{lemma:faithful} to the case of semistable
+$J$ and subrings of the Hecke algebra $\TT$. Recall that the action of the
+Hecke algebra on $J$ is faithful.
+
+\begin{proposition}\label{prop:new_jacobian_connected} 
+    Suppose that $J=J_{\new}$. Then $\Spec\TT$ is connected.
+\end{proposition}
+\begin{proof}
+    When all subvarieties are new, they appear with multiplicity 1 so the
+    conditions of Lemma~\ref{lemma:faithful} are automatic.
+\end{proof}
+
+\begin{proposition}
+    Suppose $\TT'$ is the anemic Hecke algebra for $J$. Then $\Spec\TT'$ is connected.
+\end{proposition}
+\begin{proof}
+    By Lemma~\ref{lemma:faithful}, it suffices to show that for any newform
+    $f$, and $r\in \TT'$, $rV_f=V_f$ or $rV_f=0$. Fix a newform $f$ of level
+    $L$ and $r\in \TT'$. We now abuse notation by overloading $T_\ell$ and $r$
+    as operators on $A_f$, $A_f^s$, and $J$. In the Formulaire section
+    of~\cite{ribet:old}, for $\ell\nmid N$, $T_\ell\circ \phi=\phi\circ T_\ell$
+    when $N$ is prime. However, this is also true with $N$ squarefree since
+    $T_\ell$ commutes with the pushforward and pullback of any degeneracy map
+    $\delta_d$ with $d\mid N$. So for any prime $\ell\nmid N$, 
+    \[
+        T_\ell(\Phi_f(x_1,\ldots,x_s))
+        = \Phi_f(T_\ell(x_1),\ldots,T_\ell(x_s)).
+    \]
+    It follows that
+    \[
+        r(\Phi_f(x_1,\ldots,x_s))
+        = \Phi_f(rx_1,\ldots,rx_s).
+    \]
+    Therefore,
+    \[
+        rV_f = r(\Phi_f(A_f)) = \Phi_f(rA_f,\ldots,rA_f)
+    \]
+    but $A_f$ is simple so either $rA_f=A_f$ or $rA_f=0$. Therefore, by
+    Lemma~\ref{lemma:faithful}, $\Spec\TT'$ is connected.
+\end{proof}
+
+\begin{remark}
+    When $N$ is prime, the arugment Mazur~\cite[Prop. 10.6]{mauzr:eisenstein}
+    gives is essentially the same as
+    Proposition~\ref{prop:new_jacobian_connected}. We see that this fails for
+    $J=J_0(22)$ since it decomposes into isogenous factors.
+\end{remark}
+
+
+% TODO: insert subvarieties.tex, would be cool to check computationally if all
+% subvarieties, make this into algorithm?
 
 
 \section{Algorithms for modular abelian varieties}
+
+% TODO: insert some stuff from modabvar?
 
 \subsection{Cuspidal subgroup}
 \subsection{Shimura subgroup}
