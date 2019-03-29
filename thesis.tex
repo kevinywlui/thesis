@@ -4,6 +4,7 @@
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{tikz-cd}
 
 \renewcommand{\old}{\mathrm{old}}
 \renewcommand{\tor}{\mathrm{tor}}
@@ -155,16 +156,110 @@ Hecke algebra on $J$ is faithful.
 \end{proof}
 
 \begin{remark}
-    When $N$ is prime, the arugment Mazur~\cite[Prop. 10.6]{mauzr:eisenstein}
+    When $N$ is prime, the argument Mazur~\cite[Prop. 10.6]{mauzr:eisenstein}
     gives is essentially the same as
     Proposition~\ref{prop:new_jacobian_connected}. We see that this fails for
-    $J=J_0(22)$ since it decomposes into isogenous factors.
+    $J=J_0(22)$ since it decomposes into two isogenous factors.
 \end{remark}
 
 
 % TODO: insert subvarieties.tex, would be cool to check computationally if all
 % subvarieties, make this into algorithm?
 
+\subsection{Subvarieties of $J_0(N)$}%
+\label{sub:subvarieties_of_j_0_n_}
+
+In this section, we will prove that every abelian subvariety of $J_0(N)$ is the
+image of degeneracy map and discuss some interesting questions arising from
+this.
+
+\begin{proposition}
+    \label{prop:integral_degen}
+    Let $A$ be a simple subvariety of $J_0(N)$. There exists a divisor $L$ of
+    $N$ and a newform $f$ of level $L$ such that $A_f \sim A$. Let
+    $d_1,\ldots,d_r$ be the full collection of degeneracy maps from $J_0(L)$ to
+    $J_0(N)$. Then there exists integers $n_1,\ldots,n_r$ such that $S:=\sum
+    n_i d_i|_{A_f}: A_f\to A$ is an isogeny from $A_f$ to $A$. Note that $S$ is
+    defined over $\QQ$.
+\end{proposition}
+\begin{proof}
+    Let $V_f=\sum_{i=1} ^r d_i(A_f)$ and $\Phi:A_f ^r \to V_f$ be defined by
+    $D(x_1,\ldots,x_r) = d_1(x_1)+\cdots+d_r(x_r)$. Let $K_f$ be the Fourier
+    coefficient field of $f$. Since $A$ is an abelian subvariety of $V_f$, there
+    exists $M\in \End_0(V)\cong M_r(\End_0(A_f)) = M_r (K_f)$ such that $\Im M
+    = A$. Let $i:A_f\to A_f ^r$ be the inclusion map into the first coordinate.
+    Then there exists $U\in \Aut(A_f ^r)=\GL_r (K_f)$ such that,
+    \[
+        \begin{tikzcd}
+            A_f \arrow[r,"i"] &
+            A_f ^r \arrow[r, dotted, "U"] &
+            A_f ^r \arrow[r, "D"] &
+            V_f \arrow[r, "M"] &
+            A,
+        \end{tikzcd}
+    \]
+    the map $T:=M \circ \Phi \circ U\circ i:A_f\to A\in \Hom_0(A_f, A)$ is
+    nonzero. Since degeneracy maps are $K_f$-linear, there exists coefficients
+    $a_1,\ldots,a_r\in K_f$ such that $T = \sum a_i d_i$. Now there exists
+    $b\in \ZZ^*$ such that $T':=bT\in \Hom(A_f, A)$ is nonzero and hence an
+    isogeny. Since $T'(\Lambda_{A_f})\subset \Lambda_A$, $T'=\sum q_i d_i$
+    for $q_i\in \QQ$. Finally, there exists $w\in \ZZ^*$ such that
+    $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
+\end{proof}
+
+As we've seen in Section~\ref{}, it is often the case that $(L, N)$ satisfy the
+$\star$-condition. Under these condition, the kernel of $S$ is always
+Eisenstein.
+
+% THIS IS WRONG!!! instead of divisible, we just need to factor out a thing
+The purpose of studying $\ker\Phi_L$ is the following computation. Let
+$A\subseteq J_0(N)$ be isogenous to $A_f$ where $f$ is of level $L$. Then from
+Proposition~\ref{prop:integral_degen}, there exists $S:=\sum n_i d_i:J_0(L)\to
+J_0(N)$ such that $S(A_f)=A$. Since abelian varieties are divisible, we may
+assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then 
+
+\begin{proposition}
+    \label{prop:star_eisenstein}
+    Suppose $(L, N)$ satisfies the $\star$-condition, then $\ker S\subseteq
+    \Sigma(L)$. In particular, this isogeny is Eisenstein.
+\end{proposition}
+\begin{proof}
+    Suppose $x\in \ker S$. We will continue with equation~\eqref{eq:S_to_ker}
+    so $(n_1 x, \ldots, n_r x)\in \ker\Phi_L = \Sigma(L)_0 ^r$. Hence, $n_i x\in
+    \Sigma(L)$ for all $i$. Since $\gcd(n_1,\ldots,n_r)=1$, $x\in \Sigma(L)$.
+\end{proof}
+
+\begin{question}
+    \label{question:iso}
+    Let $A$ be a simple subvariety of $J_0(N)$ for some $N$. Let $\mathcal{I}$
+    be the isogeny class of $A$. For all $B\in \mathcal{I}$, is $B$ a
+    subvariety of $J_0(M)$ for some $M$?
+\end{question}
+
+\begin{example}
+    Suppose $I$ is a Neumann-Setzer isogeny class of elliptic curves of
+    conductor $p$. Then there are exactly 2 elliptic curves $E_0$ and $E_1$,
+    where $E_0$ is $J_0(p)$-optimal and $E_1$ is $J_1(p)$-optimal
+    (Stein-Watkins). Viewing $E_0$ as a subvariety of $J_0(p)$ and taking $q$
+    to be a prime distinct from $p$, we have
+    \[
+        E_1 \isom \Im (d_1-d_q)(E_0)\subseteq J_0(pq),
+    \]
+    where $d_1, d_q:J_0(p)\to J_0(pq)$ are the natural degeneracy maps. This
+    gives an affirmative answer to Question~\ref{question:iso} in the
+    Neumann-Setzer isogeny class case.
+\end{example}
+
+
+\begin{question}
+    Let $M$ be a $\Gal(\QQbar/\QQ)$-submodule of $J_0(L)$. Does there exists
+    $N$ and an integral linear combination of degeneracy maps $S:=\sum n_i d_i$
+    such that $\ker S=M$? This is the converse to Corollary~\ref{cor:star}.
+\end{question}
+
+\begin{question}
+    Is $\ker S$ always Eisenstein? This is true under the $\star$-condition.
+\end{question}
 
 \section{Algorithms for modular abelian varieties}
 
