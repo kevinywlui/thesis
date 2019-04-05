@@ -385,9 +385,14 @@ algorithm.
 \end{algorithm}
 
 \subsection{Bounding support and valuations}%
-\label{sub:bounding_support_and_valuations} 
+\label{sub:bounding_support_and_valuations}
 
-The goal of this section is to
+The goal of this section is to give an ideal $Q$ such that
+$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (Proposition~\ref{prop:bound_support}). In
+light of Faltings' Isogeny Theorem, there exists $k$ such that
+$\M(A[Q^k])=\M(A(\QQbar)_\odd)$. We give a method for finding this $k$ as
+Proposition~\ref{prop:stop_looking}. We now have all the necessary ingredients
+for Algorithm~\ref{alg:odd_isogeny_class}.
 
 \begin{lemma}\label{lem:com_alg}
     Let $a,b\in \TT_A$, $\p$ such the localization $(\TT_A)_\p$ is a DVR, and
