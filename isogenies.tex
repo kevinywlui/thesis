@@ -10,8 +10,7 @@
 \newcommand{\odd}{\mathrm{odd}}
 \tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
 
-\usepackage{algpseudocode}
-
+\usepackage{showlabels}
 \begin{document}
 
 \tableofcontents
@@ -488,6 +487,7 @@ for Algorithm~\ref{alg:odd_isogeny_class}.
 
 Let $H=\{C_i\}$ be a set of integral representatives for $\Cl(\TT_A)$ and
 ${S=S_1\cup\bigcup_{C\in H}V(C)}$.
+
 \begin{proposition}%
     \label{prop:bound_support}
     Every finite odd $G_\QQ$-submodule is equivalent to one supported on $S$.
@@ -514,10 +514,7 @@ From henceforth, we assume that $\TT_A$ is integrally closed. We can now choose
 $H=\{C_i\}$ to be a set of integral representatives for $\Cl(\TT_A)$ of odd
 norm. Let $Q=\lcm(\{C:C\in H\}\cup \{\p:\p\in S_1\})$. We have that $V(Q)=S$
 so, in light of Proposition~\ref{prop:bound_support},
-$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$. Isogeny class are finite so there exists
-some $k$ so that $\M(A[Q^k])=\M(A(\QQbar)_\odd)$. We could have chosen any
-ideal with support $S$, but the ideal $Q$ here has the right valuation to
-concisely state the next proposition.
+$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
 
 \begin{proposition}%
     \label{prop:stop_looking}
@@ -552,36 +549,6 @@ concisely state the next proposition.
     $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
 \end{proof}
 
-\subsection{Enumerating isogenies}%
-\label{sub:enumerating_isogenies}
-
-In this section, we give the final ingredient for enumerating the isogeny class
-of $A$. We continue assuming $\TT_A$ is integrally closed. Using
-Proposition~\ref{prop:bound_support}, we can compute an ideal $Q$ of $\TT_A$
-such that $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
-It remains to show how to enumerate
-the $G_\QQ$-submodules of $A[Q^r]$. We have the direct sum decomposition
-\[
-    A[Q^r]=\bigoplus_{\p\in V(Q)} A[\p^{rv_\p(Q)}]
-\]
-so it suffices to describe how to enumerate the $G_\QQ$-submodules of $A[\p^s]$ for
-any $s$. We will do this by induction. Mazur handles the $s=1$ case.
-
-
-
-
-For the inductive step, we use a trick of Mazur~\cite[pg.
-112]{mazur:eisenstein}. Let $s\geq 2$, and
-$a_1,\ldots,a_t\in \p^s$ be a set of generators whose cosets generate
-$\p^{s-1}/\p^s$ as a $k_\p$-vector space. Then there is an $\TT[G_\QQ]$-inclusion
-\begin{align*}
-    \phi_s: A[\p^s]/A[\p^{s-1}] & \to A[\p]^t, \\
-    x+A[\p^{s-1}] & \mapsto (a_1x,\ldots,a_tx).
-\end{align*}
-The $G_\QQ$-submodules of $A[\p^s]$ are the $\ZZ$-submodules $X$ of $A[\p^s]$ with
-the property $\phi(X)$ is a $G_\QQ$-submodule of $A[\p]^t$ and $X\cap A[\p^{s-1}]$
-is a $G_\QQ$-submodule of $A[\p^{s-1}]$. So by induction, we can determine the
-$G_\QQ$-submodules of $A[\p^s]$ for any $s$. 
 
 \subsection{Table}%
 \label{sub:table}
