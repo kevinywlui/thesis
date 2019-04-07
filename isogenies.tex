@@ -103,7 +103,7 @@ following algorithm.
     \begin{enumerate}
         \item{} [Class group representatives]
             Compute a set of odd integral representatives $H=\{\q\}$ of
-            $\Cl(\TT_A)$. Let $Q = (\prod_{\q\in H})(\prod_{\p\in S_1} \p)$. 
+            $\Cl(\TT_A)$. Let $Q = (\prod_{\q\in H} \q)(\prod_{\p\in S_1} \p)$. 
         \item{} [Initialize search]
             Set $r=1$ and $X_{r-1}=\emptyset$.
         \item{} [$G_\QQ$-submodules of $A[Q^r]$]
@@ -204,18 +204,17 @@ Eichler-Shimura to deduce the $\TT$-stability of $V$ from its $G_\QQ$-stability.
     by $T_p$ for $p\nmid \ell N$ so it suffices to show $T_p(X_s)\subseteq X_s$
     for prime $p\nmid \ell N$.
 
-    Fix a prime $p\nmid \ell N$. We have that $X_s$ is unramified at $p$ and
-    that $J$ has good reduction at $p$. There exists a finite extension $K$ of
-    $\QQ$ unramified at $p$ such that the $G_\QQ$-action on $X_s$ factors
-    through $\Gal(K/\QQ)$. As in the proof of~\cite[Lemma
-    12.6.2]{ribet-stein:mod}, the reduction map induces an isomorphism
+    Fix a prime $p\nmid \ell N$. So $J$ has good reduction at $p$. Fix a place
+    $\p$ over $p$. The reduction map
+    yields an isomorphism~\cite[Theorem 1, Lemma 2]{serre-tate}
     \[
-        \tau:J(\QQbar)[\ell^\infty] \riso J_{/\F_p} (\Fpbar)[\ell^\infty].
+        \tau:J(\QQbar)[\ell^\infty] \riso J_{/\F_p} (\Fpbar)[\ell^\infty]
     \]
-    Under this isomorphism the natural $\TT$-action on $J(\QQ)$ maps to the
-    natural $\TT$-action on $J_{/\F_p}$. Moreover, the $\Frob_\p$ action on
-    $X_s$ is given by the absolute Frobenius map, $F$ on $J_{/\F_p}$. By
-    Eicher-Shimura, $T_p = F+p/F\in \End(J_{/\F_p})$ so
+    sending $\Frob_\p$ to $F_p$, where $F_p$ is the absolute Frobenius on
+    $J_{/\F_p}$. Under this isomorphism the natural $\TT$-action on $J(\QQ)$
+    maps to the natural $\TT$-action on $J_{/\F_p}$~\cite[\S
+    5.2]{ribet-stein:serre}. By Eicher-Shimura, $T_p = F+p/F\in
+    \End(J_{/\F_p})$ so
     \[
     \tau(T_p X_s) 
     = T_p\tau(X_s) 

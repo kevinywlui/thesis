@@ -1,6 +1,5 @@
 \documentclass{article}
 \bibliographystyle{amsalpha}
-\include{modabvar/macros}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{booktabs}
@@ -9,13 +8,21 @@
 \renewcommand{\old}{\mathrm{old}}
 \renewcommand{\tor}{\mathrm{tor}}
 
+\usepackage{microtype}
+\usepackage{tikz-cd}
+\renewcommand{\q}{\mathfrak{q}}
+\newcommand{\f}{\mathfrak{f}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\odd}{\mathrm{odd}}
+\tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
+\include{macros}
+
 \author{Kevin Lui}
 \title{Explicit Isogenies of $J_0(N)$}
 \begin{document} 
 \maketitle
 \tableofcontents 
 \listoftables
-
 \newpage
 \section{Introduction}%
 \label{sec:intro}
@@ -263,14 +270,127 @@ assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
 
 \section{Algorithms for modular abelian varieties}
 
-% TODO: insert some stuff from modabvar?
-
+\subsection{Defining Data}
 \subsection{Cuspidal subgroup}
 \subsection{Shimura subgroup}
-\subsection{Identifying abelian subvarieties}
+\subsection{Decomposing and Verifying Abelian subvarieties}
+
+\begin{algorithm}{Identifying simple newform abelian subvarieties}%
+    \label{alg:identifying_simples}
+    Given a simple abelian subvariety $A$, this algorithm returns a newform $f$ and
+    an isogeny $\phi:A_f\to A$.
+\end{algorithm}
+
+\begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
+    \label{alg:decomp_and_verify_subvarieties}
+    Let $J=J_0(N)$ and $V$ be a subspace of $0_1(J, \QQ)$. If $V$ corresponds
+    to a subvariety $A$ of $J$, then this algorithm will return a decomposition
+    into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
+    'NO'. Let $\T=\{T_1,\ldots\}$ be the 0ecke algebra of $J$.
+    \begin{enumerate}
+        \item{} [Decompose into potential 0ecke eigenspaces]
+            We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
+            W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
+            dividing $N$, such that either $W_i$ either corresponds to an
+            abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
+            abelian subvariety and we can return 'NO'.
+            \begin{enumerate}
+                \item{} [Initialize]
+                    Set $j=1$.
+                \item{} [Decompose into eigenspaces]
+                    Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
+                    n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
+                    U_{j, k}\neq V$, return 'NO'.
+                \item{} [Compare with newforms]
+                    Let $S_{j,k}$ be the set of newforms whose $l$th Fourier
+                    coefficient agrees with the eigenvalue of $T_l$ on $U_{j,
+                    k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for any
+                    $k=1,\ldots,n_j$, return 'NO". If $S_{j,k}$ is not
+                    singleton for any $k=1,\ldots, n_j$, increment $j$ and
+                    return to (b). Otherwise, $S_{j,k}$ is singleton for all
+                    $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
+            \end{enumerate}
+        \item{} [Is isogenous to power?]
+            We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
+            and give its decomposition. The $W_i$'s are pairwise non-isogenous
+            so we will do this individually for each $W_i$ and consider just a
+            single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
+            Let $d_1,\ldots,d_r:J_0(L)\to J_0(N)$ be the full collection of
+            degeneracy maps from $J_0(L)$ to $J_0(N)$.  Set $U=\{0\}$.
+            \begin{enumerate}
+                \item{} [Image of $\QQ$-combination of $d_j$'s?]
+                    Choose any $v\in V\setminus U$. By
+                    Proposition~\ref{prop:integral_degen}, if $W$ is an abelian
+                    subvariety then there exists $q_1,\ldots,q_r\in \QQ$
+                    such that $v\in \Im \left(\sum_{i=1} ^r q_i
+                    \delta_i\right)$. If this is not the case, return
+                    'NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
+                    \delta_i\right)$. If $R\not\subset V$, return 'NO'.
+                \item{} [Full space?]
+                    Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
+                    return to (b).
+            \end{enumerate}
+    \end{enumerate}
+\end{algorithm}
+
 \subsection{Map to Weierstrass equation}
-\subsection{Isogeny testing}
-\subsection{Isomorphic testing}
+
+In this section, we describe an algorithm for determining the Weierstrass
+equation of a 1-dimensional modular abelian subvarieties given the Weierstrass
+equations for optimal subvarieties of $J_0(N)$. The reason for doing this is to
+take advantage of the computations already done as part of the Cremona
+Database.
+
+\begin{algorithm}{Weierstrass equation}% 
+    \label{alg:weierstrass_equation}
+    Given a 1-dimension modular abelian subvariety $A$. This algorithm returns  
+\end{algorithm}
+
+
+\subsection{Homomorphism spaces}
+
+\subsection{Isogeny and isomorphism testing}
+
+In this section, we give an algorithm for determining when a pair of simple
+modular abelian varieties are isomorphic.
+
+\begin{algorithm}{Is isomorphic?}%
+    \label{is_isomorphic}
+    Given simple modular abelian varieties $A, B$, this algorithm determine if
+    $A, B$ are isomorphic. If so, this algorithm will also return an
+    isomorphism between $A, B$.
+    \begin{enumerate}
+        \item{}
+            [Isogenous?] Use Algorithm~\ref{} to find newforms $f,g$ and
+            isogenies $\phi_f:A_f\to A$ and $\phi_g:A_g\to B$. If $f\neq g$,
+            return `not isomorphic'. Otherwise, let $\phi:B\to A=\phi_g ^\vee
+            \circ \phi_f$.
+        \item{}
+            [Square degree?] The composition $\phi^\vee \circ \phi:B\to B$ is
+            the multiplication by $d$ map where $d$ is the degree of $\phi$. If
+            $d$ is not square, return `not isomorphic'.
+        \item{}
+            [Endomorphism algebra] Use Algorithm~\ref{} to find a number field
+            $K$, an order $\O\subseteq K$, and an isomorphism $\tau:\End(A)\to
+            \O$.
+        \item{}
+            [$\Hom(A, B)$] Use Algorithm~\ref{} to compute $\Hom(A,B)$.
+        \item{}
+            [Image under $\phi$] Compute the image $H_f$ of $\Hom(A, B)$ in
+            $\End(A)$ by composing with $f$.
+        \item{}
+            [Norm equation] Find solutions $x_1,\ldots,x_r$, up to units in
+            $\O$, to the norm equation $\Norm_{\O} (x) = \pm \sqrt{d}$. If
+            there are no solutions, return `not isomorphic'.
+        \item{}
+            [Isomorphic?] For each solution $x_i$, determine if $x_i\in H_f$,
+            if so, $x_i \circ f^{-1}$ is an isomorphism from $A\to B$. If
+            $x_i\notin H_f$ for all $x_i$, then return `not isomorphic'.
+    \end{enumerate}
+\end{algorithm}
+\begin{proof}
+    prove this
+\end{proof}
 
 \section{Totally Split Jacobians}%
 \label{sec:totally_split}
@@ -466,10 +586,538 @@ good integers on the divisiblity tree of the integers.
     \end{enumerate}
 \end{proof}
 
+\section{Enumerating Isogenies of Prime Level Subvarieties}
 
-\section{Enumerating Isogenies}%
-\label{sec:enum_isogenies}
-% TODO: Add writeup on isogenies
+The goal of this section is, under mild conditions, to give an algorithm to
+enumerate the odd-degree $\QQ$-isogeny class of simple abelian subvarieties
+$A_f$ of $J_0(N)$ for $N$ prime, up to isomorphism. Given a $\QQ$-isogeny
+$\psi:A_f\to A'$ with kernel $K$, so
+\[
+    0 \to K \to A_f \overset{\psi}{\to} A' \to 0.
+\]
+Since the isogeny is defined over $\QQ$, $K$ is a finite $G_\QQ$-submodule of
+$A_f(\QQbar)$ which determines $A'$, up to isomorphism. Conversely, for every
+$G_\QQ$-submodule $K$ of $A_f(\QQbar)$, there exists an isogeny of $A_f$ with
+kernel $K$. Therefore, we will enumerate the odd-degree isogeny class of $A_f$,
+by enumerating the finite odd-order $G_\QQ$-submodules of $A_f(\QQbar)$, up to
+isomorphism of the image of the corresponding isogeny. 
+
+We now fix notation, terminology, assumptions.
+\begin{itemize}
+    \item{} [Isomorphisms and Isogenies]
+        Unless otherwise stated, all isomorphisms and isogenies are defined
+        over $\QQ$.
+    \item{} [Jacobian notation]
+        Let $J = J_0(N)$ with $N$ prime. To avoid trivialities, assume $\dim
+        J>0$ or equivalently, $N=11$ or $N\geq 17$. Let $\TT$ be the Hecke
+        algebra of $J$ and $\I\subseteq \TT$ be the Eisenstein ideal.
+    \item{} [Abelian subvariety notation]
+        Let $A=A_f\subseteq J$ be a simple abelian subvariety of $J$. We will
+        fix a single simple abelian subvariety $A$ and its isogeny class will
+        be our object of study. We have that $A$ is $\TT$-invariant so let
+        $\TT_A$ be the image of $\TT$ in $\End(A)$ and $\I_A$ be the image of
+        the Eisenstein ideal in $\End(A)$. 
+    \item{} [Number theory of $\TT_A$ notation] 
+        Let $K_f$ be the Hecke eigenvalue field of $f$ so $K_f$ is a number
+        field of degree equal to $\dim A$. Moreover, $\TT_A$ is isomorphic to
+        an order in $K_f$. We will implicitly fix some embedding of $\TT_A$ and
+        treat $\TT_A$ as a subset of $K_f$. Let $\O_K$ be the ring of integers
+        of $K_f$ and $\f$ be the conductor of $\O_K$ over $\TT_A$.
+    \item{} [Galois-Hecke group ring notation]
+        Let $G_\QQ=\Gal(\QQbar/\QQ)$. The Hecke operators are defined over
+        $\QQ$, so $\TT_A$ commutes with $G_\QQ$ and we can form the group ring
+        $\TT[G_\QQ]=\TT_A[G_\QQ]$.
+    \item{} [Equivalence relation notation]
+        For finite $G_\QQ$-submodules $M$ and $M'$, we define a relationship
+        $M\sim M'$ if and only if $A/M \isom A/M'$. For any $G_\QQ$-submodule
+        $P$ of $A(\QQbar)$, let $\M(P)$ be set of equivalence classes of finite
+        $G_\QQ$-submodules of $A(\QQbar)_\odd$ with a representative that is a
+        submodule of $P$. So the goal of this chapter can be restated as
+        enumerating a set of representatives of $\M(A(\QQbar)_\odd)$.
+    \item{} [Sets of primes notation]
+        Let $S_0=\{\m\in \Spec\TT[\frac 12]: \m \nmid
+        \mathfrak{f}\mathcal{I}\}$ and $S_1 = \Spec\TT[\frac 12]\setminus S_0$.
+        The best fact about $S_0$ is that its elements are invertible and the
+        best fact about $S_1$ is that it is finite.
+    \item{} [$S_0$ and $S_1$ decomposition notation]
+        For an $\TT[G_\QQ]$-module $M$ of $A(\QQbar)_\odd$, let $M_{S_i}$ be the largest
+        $\TT[G_\QQ]$-submodule of $M$ supported on $S_i$ so $M_{S_i}=M[\prod_{\p\in S_i}
+        \p^\infty]$. Observe that $M = M_{S_0}\oplus M_{S_1}$.
+    \item{} [Odd]
+        A module is said to be odd if it is finite with odd cardinality.
+\end{itemize}
+
+The goal of this section is Algorithm~\ref{alg:odd_isogeny_class} which
+enumerates the odd isogeny class of $A$ when $\TT_A$ is integrally closed. From
+experimental data this conditions seems for be mild, at least for small primes.
+In particular, there are 450 simple abelian varieties of prime level less than
+1000 but only 42 are not integrally closed.
+
+The idea will be as follows. Let $M$ be a odd $G_\QQ$-submodule of
+$A(\QQbar)_\odd$. In
+subsection~\ref{sub:finite_odd_order_galois_modules_are_hecke}, we will show
+that $M$ is an $\TT[G_\QQ]$-module. This is useful because the $\TT$-structure is more
+easily understood than the $G_\QQ$-structure. For example, we are now able to
+talk about the support of $M$ as a $\TT$-module. Using
+Corollary~\ref{cor:bound_support}, we can give an explicit set $S$ such that
+every odd $G_\QQ$-module is equivalent to one supported on $S$. In other words,
+$\M(A(\QQbar)_\odd)=\M(A[Q^\infty])$, where $Q$ is some ideal with
+$\Supp(Q)=S$. Using Algorithm~\ref{}, we can compute the $G_\QQ$-submodules of
+$\M(A[Q^r])$ for any $r$ and Proposition~\ref{prop:stop_looking} produces a $k$
+such that $\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar))$. In summary, we have the
+following algorithm.
+\begin{algorithm}{Odd isogeny class}%
+    \label{alg:odd_isogeny_class}
+    Let $A$ be a simple abelian subvariety with $\TT_A$ integrally closed. This
+    algorithm will enumerate the odd isogeny class of $A$ by giving a set of
+    representatives of $\M(A(\QQbar)_\odd)$.
+    \begin{enumerate}
+        \item{} [Class group representatives]
+            Compute a set of odd integral representatives $H=\{\q\}$ of
+            $\Cl(\TT_A)$. Let $Q = (\prod_{\q\in H} \q)(\prod_{\p\in S_1} \p)$. 
+        \item{} [Initialize search]
+            Set $r=1$ and $X_{r-1}=\emptyset$.
+        \item{} [$G_\QQ$-submodules of $A[Q^r]$]
+            Use Section~\ref{sub:enumerating_isogenies} to give a set, $X_r$,
+            of representatives for $\M(A[Q^r])$.
+        \item{} [Done?]
+            By Corollary~\ref{prop:stop_looking}, if for all $x\in X_r$, $x\sim
+            y$ for some $y\in X_{r-1}$, then $X_r$ is a set of representatives
+            for $\M(A(\QQbar)_\odd)$. If this is not the case, increment $r$
+            and repeat the last step.
+        \item{} [Quotient and output]
+            Output $A/M$ for $M\in X_r$.
+    \end{enumerate}
+\end{algorithm}
+
+\subsection{Finite odd-order Galois Modules are Hecke}%
+\label{sub:finite_odd_order_galois_modules_are_hecke}
+
+The goal of this subsection is to prove every finite odd $G_\QQ$-submodule $M$
+of $A(\QQbar)$ is a Hecke module (Theorem~\ref{thm:G_modules_are_Hecke}). The
+Galois action of $J(\QQbar)$ has been extensively studied by
+Mazur~\cite{mazur:eisenstein}, so we weaken our hypothesis to $M$ a
+$G_\QQ$-submodule of $J(\QQbar)_\odd$. 
+
+It suffices to prove $M$ is a $\TT$-module for each $G_\QQ$-composition factor $V$
+of $M[\ell^\infty]$ for $\ell>2$. The irreducibility of $V$ implies that it is
+$\ell$-torsion. A theorem of Ribet~\cite[Proposition 2]{ribet:mult_p_finite}
+shows that $\TT/\ell \TT$ is generated by $T_p$ for primes $p\nmid \ell N$.
+By~\cite[\S 14]{mazur:eisenstein}, these are exactly the unramified primes of
+the Galois representation of $V$. We then reduce modulo $p$ and use
+Eichler-Shimura to deduce the $\TT$-stability of $V$ from its $G_\QQ$-stability.
+
+\begin{lemma}[Mazur]\label{lemma:cherry_street}
+    Let $V$ be an irreducible $\TT[G_\QQ]$-subquotient of $J[\ell^\infty]$. Then
+    $\Ann_\TT V$ is a maximal ideal $\m$ of $\TT$. Moreover, $V$ is
+    $\TT[G_\QQ]$-isomorphic to a subquotient of $J[\m]$.
+
+    % This is lemma is given in~\cite[\S 14, pg. 112], we are simply elaborating
+    % on the details.
+\end{lemma}
+\begin{proof}
+    This is given in~\cite[\S 14, pg. 112]{mazur:eisenstein}.
+\end{proof}
+
+\begin{theorem}[Mazur]\label{thm:irreducible_G_sub}
+    Let $V$ be an irreducible $G_\QQ$-subquotient of $J[\ell^\infty]$. Then either
+    \begin{itemize}
+        \item
+            $V\cong_{G_\QQ} \ZZ/\ell$ or $V\cong_{G_\QQ} \mu_\ell$ and is unramified away
+            from $\ell$, or
+        \item 
+            $V\cong_{G_\QQ} J[\m]$ for some non-Eisenstein maximal $\m$ and is
+            unramified away from $\ell N$.
+    \end{itemize}
+    In any case, $V$ is unramified away from $\ell N$.
+\end{theorem}
+\begin{proof}
+    This is essentially~\cite[\S 14]{mazur:eisenstein}.
+
+    Let $V$ be an irreducible $\TT[G_\QQ]$-module. By Lemma~\ref{lemma:cherry_street},
+    $\m=\Ann_\TT(V)$ is maximal and $V$ is $\TT[G_\QQ]$-isomorphic to a subquotient of
+    $J[\m]$. Either $\m$ is Eisenstein or it is not.
+    \begin{enumerate}
+        \item
+            If $\m$ is Eisenstein, then the action of $\TT$ factors through
+            $\ZZ$, so $V$ is irreducible as a $G_\QQ$-module. By~\cite[Proposition
+            14.1]{mazur:eisenstein}, $J[\m]$ has a $G_\QQ$-composition series
+            consisting of $\ZZ/\ell$ and $\mu_\ell$ (this is what Mazur calls
+            admissible) so $V$ is isomorphic as $G_\QQ$-module to either $\ZZ/\ell$
+            or $\mu_\ell$.
+        \item
+            If $\m$ is non-Eisenstein, then by~\cite[Proposition
+            14.2]{mazur:eisenstein}, $J[\m]$ is irreducible as a $G_\QQ$-module
+            so $V\cong_{G_\QQ} J[\m]$, which is unramified away from $\ell N$
+            by~\cite[Theorem 6.7]{deligne-serre}.
+    \end{enumerate}
+\end{proof} 
+
+\begin{theorem}\label{thm:G_modules_are_Hecke}
+    Suppose $M$ is an odd $G_\QQ$-module. Then $M$ is $\TT$-stable so $M$ is
+    an $\TT[G_\QQ]$-module.
+\end{theorem}
+\begin{proof}
+    It suffices to prove this for each $\ell$-primary part. Let $\ell>2$ and
+    assume $M\subseteq J[\ell^\infty]$. Let
+    \[
+        0 = M_0 \subsetneq \ldots \subsetneq M_n = M
+    \]
+    be an $G_\QQ$-composition series of $M$ with composition factors $X_i =
+    M_i/M_{i-1}$. We proceed by induction on $n$ with the base
+    case being the trivial $n=0$ case. 
+    
+    Assume $M_{s-1}$ is an $\TT[G_\QQ]$-module. We will show $M_s$ is an
+    $\TT[G_\QQ]$-module. Since $M_{s-1}$ is an $\TT[G_\QQ]$-module, for each
+    $t\in \TT$, we have a well-defined map $t:X_s\to J(\QQbar)/M_{s-1}$. The
+    goal is to show $t(X_s)\subseteq X_s$ for all $t\in \TT$.
+    By~\cite[Proposition 2]{ribet:mult_p_finite}, $\TT/\ell \TT$ is generated
+    by $T_p$ for $p\nmid \ell N$ so it suffices to show $T_p(X_s)\subseteq X_s$
+    for prime $p\nmid \ell N$.
+
+    Fix a prime $p\nmid \ell N$. So $J$ has good reduction at $p$. Fix a place
+    $\p$ over $p$. The reduction map
+    yields an isomorphism~\cite[Theorem 1, Lemma 2]{serre-tate}
+    \[
+        \tau:J(\QQbar)[\ell^\infty] \riso J_{/\F_p} (\Fpbar)[\ell^\infty]
+    \]
+    sending $\Frob_\p$ to $F_p$, where $F_p$ is the absolute Frobenius on
+    $J_{/\F_p}$. Under this isomorphism the natural $\TT$-action on $J(\QQ)$
+    maps to the natural $\TT$-action on $J_{/\F_p}$~\cite[\S
+    5.2]{ribet-stein:serre}. By Eicher-Shimura, $T_p = F+p/F\in
+    \End(J_{/\F_p})$ so
+    \[
+    \tau(T_p X_s) 
+    = T_p\tau(X_s) 
+    = (F+p/F)\tau(X_s)
+    = \tau((\Frob_\p+p/\Frob_\p)X_s)
+    \subseteq \tau(X_s)
+    \]
+    hence, $T_p X_s\subseteq X_s$, as desired.
+\end{proof}
+
+
+\subsection{Non-Eisenstein modules are kernels of Hecke}%
+\label{sub:non_eisenstein_modules_are_kernels_of_hecke}
+
+In light of Section~\ref{sub:finite_odd_order_galois_modules_are_hecke}, all
+odd $G_\QQ$-submodules of $J(\QQbar)$ are $\TT$-modules. We will now
+use this fact freely and will often refer to the $\TT$-support of an odd
+$G_\QQ$-submodule.
+
+The goal now is to identity the odd non-Eisenstein $G_\QQ$-submodules of
+$J(\QQbar)_\odd$ by their $\TT$-annihilators. Using
+Theorem~\ref{thm:G_modules_are_Hecke}, we can already do this in the
+irreducible case.
+\begin{corollary}
+    Let $\m$ be a non-Eisenstein prime of odd residue characteristic, if $M$ is
+    a nonzero finite irreducible $G_\QQ$-submodule of $J(\QQbar)$ supported
+    only on $\m$, then $M=J[\m]$.
+\end{corollary}
+\begin{proof}
+    By Lemma~\ref{lemma:cherry_street}, the annihilator of $M$ is $\m$. Hence,
+    $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
+    $G_\QQ$-module~\cite[Proposition 14.2]{mazur:eisenstein} so $M=J[\m]$.
+\end{proof}
+
+The general case will follow from the work of David Helm~\cite{helm:jacobian}.
+Helm considers the case of Jacobians of Shimura curves but the relevant results
+still apply mutatis mutandis.
+
+\begin{theorem}[{\cite[Corollary 4.8]{helm:jacobian}}]%
+    \label{thm:non_eisenstein_kernel_hecke}
+    Let $M$ be a finite $G_\QQ$-module supported only on the non-Eisenstein
+    primes of $\TT$ of odd residue characteristic with $\TT$-annihilator $I$.
+    Then $M=J[I]$.
+
+    Moreover, since $A$ is both $G_\QQ$ and $\TT$ invariant, if $M$ is a finite
+    $G_\QQ$-module supported only on the non-Eisenstein primes of odd residue
+    characteristic of $\TT_A$ with $\TT_A$-annihilator $I$. Then $M=A[I]$.
+\end{theorem}
+
+We have that $V(I)=\Supp_\TT(M)$ and $M\subseteq J[I]$ so suffices to prove
+$J[I]_\m = M_\m$ for each non-Eisenstein prime of odd residue characteristic.
+So let $\m$ be a non-Eisenstein prime of residue characteristic $\ell>2$. Let
+$T_\m J\isom \Hom(J[\m^\infty], \QQ_\ell/\ZZ_\ell)$ be the contravariant Tate
+module at $\m$ and $\overline{\rho}_\m$ be the Galois representation associated
+to $J[\m]^\vee$. Since $\m$ is an odd non-Eisenstein prime,
+$\overline{\rho}_\m$ is an irreducible $G_\QQ$-representation of dimension 2
+over $k_\m$ that is isomorphic to $J[\m]^\vee$~\cite[Prop.
+14.2]{mazur:eisenstein}.
+
+\begin{lemma}[{\cite[Lemma 4.6]{helm:jacobian}}]\label{lemma:finite_index}
+    Let $M$ be a $G_\QQ$-stable submodule of $T_\m J$ of finite index. Then
+    $M=IT_\m J$ for some ideal $I$ of $\TT$.
+\end{lemma}
+\begin{proof}
+    We proceed by induction on the maximal $G_\QQ$-composition series of $T_\m J/M$
+    with the base case being the trivial length zero case. Let 
+    \[
+        M = M_n \subsetneq M_{n-1} \subsetneq \cdots \subsetneq M_0 = T_\m J
+    \]
+    be a $G_\QQ$-composition series. By induction, $M_{n-1} = I'T_\m J$ for some
+    $I'\subseteq \TT$.
+
+    Consider $\m M_{n-1} + M$. This is a $G_\QQ$-module sitting between $M$ and
+    $M_{n-1}$. By Nakayama's lemma, if $\m M_{n-1} M + M = M_{n-1}$, then
+    $M=M_{n-1}$ which is a contradiction. Hence, $\m M_{n-1}+M=M$ so $M$
+    contains $\m M_{n-1}$ and we can form the quotient.
+
+    The module $M_{n-1}/\m M_{n-1}$ is $G_\QQ$-isomorphic to $(I'/\m
+    I')\otimes_{\TT/\m} (T_\m J/\m T_\m J) \cong (I'/\m I')\otimes_{\TT/\m}
+    J[\m]^\vee$, where $G_\QQ$ acts trivially on $I'/\m I'$. Let $V$ be the image
+    of $M$ in $M_{n-1}/\m M_{n-1}$. Since $V$ is $G_\QQ$-invariant, and
+    $J[\m]^\vee$ is irreducible, $V$ is given by $\hat{V}\otimes J[\m]^\vee$
+    for some $\TT/\m$-subspace $\hat{V}$ of $I'/\m I'$. Let $I$ be the preimage
+    of $\hat{V}$ in $I'$. Then $IT_m J = M$, since both contain $\m M_{n-1}$
+    and map to $V$ modulo $\m M_{n-1}$.
+\end{proof}
+
+We now return to the proof of the theorem.
+
+\begin{proof}[proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}]
+    Let $B=J/M$ be the quotient abelian variety equipped with the induced
+    $\TT$-action. So the projection $\phi:J \to B$ is an $\TT[G_\QQ]$-isogeny
+    with $\ker\phi = M$. For any odd non-Eisenstein prime $\m$, $\phi$ induces
+    the exact sequence
+    \[ 
+        0 \to T_\m B \to T_\m J \to M^\vee _\m \to 0.
+    \] 
+    In particular, the image of $T_\m B$ under $\phi$ is a finite index
+    $\TT[G_\QQ]$-submodule of $T_\m A$. By Lemma~\ref{lemma:finite_index}, we can find
+    an ideal $I'$ of $\TT$ such that the image of $T_\m B$ is $I' _\m T_\m A$
+    for all odd non-Eisenstein primes $\m$. We have $M^\vee _\m = T_\m J / I'
+    T_\m J\cong J[I']_\m ^\vee$. Therefore, by taking annihilators of the dual,
+    we have that $I_\m = I'_\m$ and then by taking duals $M_\m = J[I]_\m$, as
+    desired.
+\end{proof}
+
+\subsection{Enumerating representatives of $A[X]$}
+
+Assume $\TT_A$ is integrally closed and let $X$ be an odd ideal of $\TT_A$. The
+goal of this section is to give a set of representatives for $\M(A[X])$ by
+first enumerating the $G_\QQ$-submodules of $A[X]$. We
+have the decomposition $X=\bigoplus_{\p\in \Supp_{\TT_A} (X)} X[\p^{v_\p(X)}]$
+so it suffices to enumerate the $G_\QQ$-submodules of $A[\p^s]$ for any $s\geq
+1$. This will now follow from Mazur's study of the Galois action on torsion
+points~\cite[\S 14]{mazur:eisenstein}.
+
+\begin{proposition}[Mazur]\label{prop:all_G_subs}
+    Let $\p$ be a prime of residue characteristic $\ell>2$.
+    \begin{enumerate}
+        \item 
+            If $\p$ is Eisenstein, then $A[\p]=C_A[\ell]\oplus \Sigma_A[\ell]$,
+            where $C_A=C\cap A$ and $\Sigma_A=\Sigma \cap A$ with $C$ and
+            $\Sigma$ the cuspidal and Shimura subgroups of $J$. The
+            $G_\QQ$-submodules of $A[\p]$ are the direct sum of $\ZZ$-submodules of
+            $C_A[\ell]$ and $\ZZ$-submodules of $\Sigma_A[\ell]$.
+        \item
+            if $\p$ is non-Eisenstein, $A[\p]$ is irreducible~\cite[Prop
+            14.2]{mazur:eisenstein} as as a $G_\QQ$-module so the only
+            $G_\QQ$-submodules are $0$ and $A[\p]$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The Eisenstein case is~\cite[Corollary 16.3]{mazur:eisenstein} along with
+    the fact that $C[\ell]\isom \ZZ/\ell$ and $\Sigma[\ell]\isom \mu\ell$.
+
+    The non-Eisenstein case is~\cite[Propositon 14.2]{mazur:eisenstein}.
+\end{proof}
+
+Let $a\in \p^{s-1}\setminus \p^s$ so $a$ generates $\p^{s-1}/\p^s$ as a
+$k_\p$-space. There exists a $\TT_A[G_\QQ]$-injection given by
+$\phi_s:A[\p^s]/A[\p^{s-1}]\to A[\p]$. The $G_\QQ$-submodules, $M$, of
+$A[\p^s]$ are then the $\ZZ$-submodules of $A[\p^s]$ such that $M\cap
+A[\p^{s-1}]$ and $\phi_s(M)$ are $G_\QQ$-submodules. This yields the following
+algorithm.
+
+\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}
+    Given an odd ideal $X$ of $\TT_A$. This algorithm will output a set of
+    representatives for $\M(A[X])$.
+    \begin{enumerate}
+        \item{} [Factor $X$]
+            Compute the factorization $X=\prod \p_i ^{e_i}$.
+        \item{} [Non-Eisenstein part]
+            For each non-Eisenstein $\p_i$, let $W_i=\{A[\p^j]: 0 \leq j
+            \leq e_i\}$.
+        \item{} [Eisenstein part]
+            For each Eisenstein $\p_i$, set $V_1$ to be the set of
+            $G_\QQ$-submodules of $A[\p]$. For $j=2,\ldots,e_i$, set $V_j$ to
+            be the set of $\ZZ$-submodules, $M$, of $A[\p^j]$ such that $M\cap
+            A[\p^{j-1}]\in V_{j-1}$ and $\phi(M)\in V_1$.
+        \item{} [Combine]
+            Combine the $W_i$'s to form $W=\{\sum_i M_i: M_i \in W_i\}$.
+        \item{} [Output representatives]
+            Use Algorithm~\ref{isom_testing} to produce a set of
+            representatives of $\M(A[X])$ of elements of $W$.
+    \end{enumerate}
+\end{algorithm}
+
+\subsection{Bounding support and valuations}%
+\label{sub:bounding_support_and_valuations}
+
+The goal of this section is to give an ideal $Q$ such that
+$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (Proposition~\ref{prop:bound_support}). In
+light of Faltings' Isogeny Theorem, there exists $k$ such that
+$\M(A[Q^k])=\M(A(\QQbar)_\odd)$. We give a method for finding this $k$ as
+Proposition~\ref{prop:stop_looking}. We now have all the necessary ingredients
+for Algorithm~\ref{alg:odd_isogeny_class}.
+
+\begin{lemma}\label{lem:com_alg}
+    Let $a,b\in \TT_A$, $\p$ such the localization $(\TT_A)_\p$ is a DVR, and
+    $M$ an finite odd $G_\QQ$-submodule of $A(\QQbar)$ with $Z=\Ann_{\TT_A} M$.
+    Then
+    \begin{enumerate}
+        \item 
+            If $v_\p(Z) = k$, then $M[\p^\infty]\subseteq A[\p^k]$.
+        \item
+            We have $b^{-1}(A[Z])=A[bZ]$. This holds locally at $\p$ as well so
+            $b_\p ^{-1} A[Z]_\p = A[bZ]_\p$.
+        \item
+            Let $r=v_\p(b)-v_\p(a)+k$ and $\phi=a\circ b^{-1}$. If $r\leq
+            0$, then $\phi(M)[\p^\infty]=0$ so $\phi(M)_\p=0$.
+            
+            If $r>0$, then
+            $\phi(M)[\p^\infty]\subseteq A[\p^r]$. Here $b^{-1}$ is the
+            preimage of $b$.
+    \end{enumerate}
+    We will take on the convention that for negative $r$, $A[\p^r]=0$. So we can
+    write the last part as $\phi(M)[\p]\subseteq A[\p^r]$.
+\end{lemma}
+\begin{proof}
+    \mbox{}
+    \begin{enumerate}
+        \item 
+            Suppose $x\in M[\p^\infty]$ so $x\in A[\p^\infty]$. Moreover,
+            $v_\p(\Ann_{\TT_A} x) \leq v_\p(Z) = k$ so $x\in A[\p^k]$.
+        \item
+            We have $x\in b^{-1}(A[Z])$ if and only if $bx \in A[Z]$ if and
+            only if $x\in A[bZ]$.
+        \item
+            Suppose $r\leq 0$, then $\phi_\p \in Z_\p$ so
+            \[
+                \phi(M)[p^\infty]\subseteq \phi(M[\p^\infty])
+                \subseteq \phi(A[\p^k]) = 0.
+            \]
+            Suppose $r>0$ and then $x\in \phi(M)[\p^\infty] =
+            \phi(M[\p^\infty])\subseteq (a\circ
+            b^{-1})(A[\p^k])=A[\p^r]$.
+    \end{enumerate}
+\end{proof}
+
+
+\begin{lemma}\label{lem:principal_gives_iso}
+    Let $C, D$ be nonzero ideals of $\TT_A$, $a,b\in \TT_A$ be nonzero, and $aC
+    = bD$. Then there exists an isomorphism $\phi:A/A[D]\to A/A[C]$ such that
+    $\phi\circ b=a$.
+\end{lemma}
+\begin{proof}
+    Our argument will now reference the following diagram.
+    \[
+        \begin{tikzcd}
+            A/A[bD] 
+            \arrow[r, "\sim", "b"']
+            \ar[equal]{d}
+            &
+            A/A[D]
+            \ar[d, "\sim" labl, "\phi"]
+            \\
+            A/A[a C]
+            \arrow[r, "\sim", "a"']
+            &
+            A/A[C]
+        \end{tikzcd}
+    \]
+    We first establish the $b$ and $a$ isomorphism. We have the exact
+    sequence
+    \[
+        \begin{tikzcd}
+            0
+            \arrow[r]
+            &
+            (A/A[D])[b]
+            \arrow[hookrightarrow]{r}
+            &
+            A/A[D]
+            \arrow[twoheadrightarrow]{r}{b}
+            &
+            A/A[D]
+            \arrow[r]
+            &
+            0
+        \end{tikzcd}.
+    \]
+    We have that $x\in (A/A[D])[b]$ if and only if $bx \in A[D]$ if and only if
+    $x \in A[bD]$. Hence, $(A/A[D])[b]=A[bD]/A[D]$ so $b:A/A[bD]\xra{\sim}
+    A[D]$. A similar argument applies for $a$. 
+
+    We can now chase the diagram to obtain an isomorphism $\phi:A/A[D]\riso
+    A/A[C]$, as desired.
+\end{proof}
+
+Let $H=\{C_i\}$ be a set of integral representatives for $\Cl(\TT_A)$ and
+${S=S_1\cup\bigcup_{C\in H}V(C)}$.
+
+\begin{proposition}%
+    \label{prop:bound_support}
+    Every finite odd $G_\QQ$-submodule is equivalent to one supported on $S$.
+\end{proposition}
+\begin{proof}
+    Let $M$ be a finite odd $G_\QQ$-submodule. Let $M=M_{S'}\oplus M_S$ be the
+    direct sum decomposition of $M$ with $\Supp M_X \subseteq X$. By
+    Theorem~\ref{thm:non_eisenstein_kernel_hecke}, there exists an ideal
+    $I$ of $\TT_A$ with $V(I)\subseteq S'$. Since $S'$ consists of only
+    invertible primes, $I$ is also invertible. So there exists nonzero $a,b\in
+    \TT_A$ such that $bI=aC$. By Lemma~\ref{}, there exists an isomorphism
+    $\phi:A/A[I]\to A/A[C]$ such that $\phi\circ b = a$. Let $\psi:A/A[I]\to
+    A/(A[I]+M_S)$ be the isogeny given by quotienting by $M_S/A[I]$. Then
+    $\phi$ induces an isomorphism $\phi':A/(A[I]+M_S)\to A/(A[C]+\phi(M_S))$.
+
+    It is clear that $\Supp_{\TT_A}(A[C])\subseteq S$ so it remains to show
+    that $\phi(M_S)_\p =0$ for all $\p \in S'$. Let $\p\in S'$, then
+    $v_\p(b)-v_\p(a)+v_\p(\Ann(M_S))=v_\p(C)-v_\p(I)+v_\p(\Ann(M_S)) \leq 0$
+    since $V(C),V(\Ann(M_S))\subseteq S$. By Lemma~\ref{lem:com_alg},
+    $\phi(M_S)_\p = 0$. Therefore, $A[C]+\phi(M_S)$ is supported on $S$.
+\end{proof}
+
+From henceforth, we assume that $\TT_A$ is integrally closed. We can now choose
+$H=\{C_i\}$ to be a set of integral representatives for $\Cl(\TT_A)$ of odd
+norm. Let $Q=\lcm(\{C:C\in H\}\cup \{\p:\p\in S_1\})$. We have that $V(Q)=S$
+so, in light of Proposition~\ref{prop:bound_support},
+$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
+
+\begin{proposition}%
+    \label{prop:stop_looking}
+    Suppose $\TT_A$ is integrally closed. Suppose $\M(A[Q^k])=\M(A[Q^{k+1}])$
+    then $\M(A[Q^k])=\M(A[Q^\infty])$.
+
+    In terms of isogenies, this claim states that if $G_\QQ$-submodules of
+    $A[Q^{k+1}]$ produce no new odd-isogenies not found in $A[Q^k]$, then
+    $G_\QQ$-submodules of $A[Q^k]$ give the entire odd-isogeny class.
+\end{proposition}
+\begin{proof}
+    Every isogeny can be factored into a composition of irreducible isogenies.
+    Let $A'=A/M$ be a abelian variety with $M$ a $G_\QQ$-submodule of $A[Q^k]$. We
+    will show that the image of $A'$ under an irreducible isogeny is equivalent
+    to $A/Y$ for some $Y\in A[Q^{k+1}]$. This suffices because when
+    $A[Q^k]=A[Q^{k+1}]$, we obtain the full isogeny class.
+
+    Let $M'\subseteq A(\QQbar)_\odd$ be an extension of $M$ by an irreducible
+    $G_\QQ$-module $Y$. Let $\m$ be the annihilator of $Y$. If $\m\in S$, then
+    $M\subseteq A[\m Q^k]\subseteq A[Q^{k+1}]$ and we are done. So assume
+    $\m\notin S$ so $\m$ is an odd Eisenstein prime and $Y=A[\m]$
+    (Theorem~\ref{thm:irreducible_G_sub}). Since $\m\notin \Supp_{\TT_A}(M)$,
+    $M' = A[\m]\oplus M$. As in Proposition~\ref{prop:bound_support}, there is
+    an isomorphism $\phi':A/(A[I]+M_S)\to A/(A[C]+\phi(M_S))$ with $\phi\circ b
+    = a$. The goal is to show $A[C]+\phi(M)\subseteq A[Q^k]$. Since
+    $A[C]\subseteq A[Q^{k+1}]$ so it suffices to show $\phi(M)\subseteq
+    A[Q^{k+1}]$.
+    
+    As in Proposition~\ref{prop:bound_support}, $\Supp\phi(M)\subseteq S$. For all
+    $\p\in S$ (remember that $\m \notin S$), $v_\p(b)-v_\p(a) =
+    v_\p(C)-v_\p(\m)=v_\p(C)$ so by Lemma~\ref{lem:com_alg},
+    $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
+\end{proof}
 
 \section{Tables}
 
