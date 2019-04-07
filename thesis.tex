@@ -170,9 +170,6 @@ Hecke algebra on $J$ is faithful.
 \end{remark}
 
 
-% TODO: insert subvarieties.tex, would be cool to check computationally if all
-% subvarieties, make this into algorithm?
-
 \subsection{Subvarieties of $J_0(N)$}%
 \label{sub:subvarieties_of_j_0_n_}
 
@@ -213,6 +210,34 @@ this.
     for $q_i\in \QQ$. Finally, there exists $w\in \ZZ^*$ such that
     $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
 \end{proof}
+
+\begin{algorithm}{Identifying simple modular abelian subvarieties} 
+    Given a simple abelian subvariety $A\substeq J_0(N)$. This algorithm
+    gives a newform $f$ and a linear combination of degeneracy maps
+    $\phi=\sum n_i d_i:J_0(L)\to J_0(N)$ such that $\phi(A_f)=A$ with $L$ the
+    level of $f$.
+    \begin{enumerate}
+        \item{} [Decompose]
+            Use Algorithm~\ref{} to obtain the decomposition $J_0(N)=\sum_f
+            V_f$, where the sum runs over newforms $f$ of level dividing $N$
+            and $V_f$ is the sum of all abelian subvarieties of $J_0(N)$
+            isogenous to $A_f$.
+        \item{} [Determine newform]
+            Find the newform $f$ of level $L$ so that $A\subseteq V_f$. 
+        \item{} [Basis under degeneracy]
+            Let $\{b_1,\ldots,b_r\}$ be a $\ZZ$-basis for $\Lambda_{A_f}$ and
+            $\{d_1,\ldots,d_s\}$ be the set of degeneracy maps $d_j:J_0(L)\to
+            J_0(N)$. 
+        \item{} [Solve system]
+            Let $x$ be any nonzero element element of $\Lambda_A$. Find
+            $c_{ij}\in \QQ$ such that $x=\sum c_{ij} d_j(b_i)$.
+        \item{} [Output]
+            Let $i', j'$ be such that $c_{i'j'}\neq 0$. Let
+            $(n_1,\ldots,n_s)\in \ZZ^s$ be the vector obtained by 
+            clearing denominators from $(c_{i'1},\ldots,c_{i's})$.
+    \end{enumerate}
+\end{algorithm}
+
 
 As we've seen in Section~\ref{}, it is often the case that $(L, N)$ satisfy the
 $\star$-condition. Under these condition, the kernel of $S$ is always
