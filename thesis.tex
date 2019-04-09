@@ -556,7 +556,7 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
 \subsection{Simple abelian subvarieties as image of degeneracies}
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
-    Given a simple abelian subvariety $A\substeq J_0(N)$. This algorithm
+    Given a simple abelian subvariety $A\subseteq J_0(N)$. This algorithm
     gives a newform $f$ and a linear combination of degeneracy maps
     $\phi=\sum n_i d_i:J_0(L)\to J_0(N)$ such that $\phi(A_f)=A$ with $L$ the
     level of $f$.
@@ -973,20 +973,23 @@ of a forthcoming paper. For $\ell\nmid 2N$, let $\eta_\ell = T_\ell -
 \begin{lemma}[Stein]
     For every $\ell\nmid 2N$, $J(\QQ)_\tor\subseteq J(\RR)[\eta_\ell]$.
 \end{lemma}
-\begin{proof}
-    fill in
-\end{proof}
-Let $I$
-and $s$ be
-the star-involution on $J$. Then $J(\QQ)_\tor\subseteq J(\RR)=J[s]$.
-Stein showed that $J(\QQ)_\tor\subseteq J[\eta_\ell]$. So 
+
+Let $s$ be the star-involution so $J(\CC)[s]=J(\RR)$ then
 \[
     J(\QQ)_\tor \subseteq J[I^*],
 \]
+The advantage of this is that we still have information about the group
+structure.
+
+\subsection{Galois Cohomology Bounds}%
+\label{sub:galois_cohomology_bounds}
+
+Write up general approach to do totally split subvarieites
+
+\subsection{General Approach}
 
 This next lemma is a useful observation for computations but not interesting
-from a theory points of view. The $E$ here will often be Stein's Real
-Eisenstein Kernel.
+from a theory points of view. The $E$ here will often be
 \begin{lemma}
     Let $E$ be a finite subgroup of $J_0(N)$ containing $J_0(\QQ)_\tor$.
     Suppose $E\subseteq C(N)$. Then $J_0(N)(\QQ)_\tor=C(N)(\QQ)$.
@@ -1008,6 +1011,28 @@ Eisenstein Kernel.
     $x_i$. This implies $x_i\in J(\QQ)_\tor$ so $x_i=0$, by assumption.
     Therefore, $x_i\in C(\QQ)$.
 \end{proof}
+
+\subsubsection{Approach to computing $J(\QQ)_\tor$}%
+\label{ssub:approach_to_computing_j_qq__tor_}
+
+The following algorithm works for these Ns.
+\begin{algorithm}
+    Given a totally split Jacobian $J=J_0(N)$. This algorithm returns a bound on
+    $[J(\QQ)_\tor:C(\QQ)]$.
+    \begin{enumerate}
+        \item{} [Stein's Real Eisenstein Kernel]
+            Compute $E_s$ for some large $s$.
+        \item{} [Representative for $E_s/C(\QQ)$]
+            Let $x_1,\ldots,x_r$ be a set of for $E_s/C(\QQ)$.
+        \item{} [Find small containing abelian varieity]
+            For each $x_i$, find a small abelian subvariety, $A_i$, of $J_0(N)$
+            contain $x_i$.
+        \item{} [Verify Generalized Ogg Conjecture for $A_i$]
+            Use Algorithm~\ref{} to attempt to verify the Generalized Ogg
+            Conjecture for each $i$. If this succeeds, then the Generalized Ogg
+            Conjecture is true for $J$.
+    \end{enumerate}
+\end{algorithm}
 
 
 
