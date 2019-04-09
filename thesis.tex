@@ -5,17 +5,19 @@
 \usepackage{booktabs}
 \usepackage{tikz-cd}
 
-\renewcommand{\old}{\mathrm{old}}
-\renewcommand{\tor}{\mathrm{tor}}
+\usepackage[margin=1in]{geometry}
+
 
 \usepackage{microtype}
 \usepackage{tikz-cd}
+\tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
+\include{macros}
 \renewcommand{\q}{\mathfrak{q}}
+\renewcommand{\old}{\mathrm{old}}
+\renewcommand{\tor}{\mathrm{tor}}
 \newcommand{\f}{\mathfrak{f}}
 \newcommand{\I}{\mathcal{I}}
 \newcommand{\odd}{\mathrm{odd}}
-\tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
-\include{macros}
 
 \author{Kevin Lui}
 \title{Explicit Isogenies of $J_0(N)$}
@@ -27,29 +29,302 @@
 \section{Introduction}%
 \label{sec:intro}
 
-
+% (11, 1)
+% (14, 1)
+% (15, 1)
+% (17, 1)
+% (19, 1)
+% (20, 1)
+% (21, 1)
+% (24, 1)
+% (27, 1)
+% (32, 1)
+% (36, 1)
+% (49, 1)
+% (22, 1)
+% (26, 1)
+% (28, 1)
+% (50, 1)
+% (30, 1)
+% (33, 1)
+% (34, 1)
+% (40, 1)
+% (45, 1)
+% (48, 1)
+% (64, 1)
+% (38, 1)
+% (44, 1)
+% (54, 1)
+% (42, 1)
+% (52, 1)
+% (56, 1)
+% (72, 1)
+% (75, 1)
+% (60, 1)
+% (80, 1)
+% (100, 1)
+% (76, 1)
+% (66, 1)
+% (96, 64)
+% (108, 1)
+% (84, 8)
+% (90, 16)
+% (144, 64)
+% (120, 512)
+% (132, 32)
+% (150, 16)
+% (168, 512)
+% (180, 128)
 In this thesis, we compute explicit with isogenies of $J_0(N)$. 
 
 We say a Jacobian is totally split if it is $\QQ$-isogenous to a product of
 elliptic curves. In Section~\ref{sec:totally_split}, we present techniques for
 computing the rational torsion subgroup of totally splt $J_0(N)$.
 
-In Section~\ref{sec:enum_isogenies}, we present techniques enumerating the
-$\QQ$-isogeny class of $J_0(N)$ under various conditions.
 
 
 \section{Background and random facts about $J_0(N)$}%
 \label{sec:back}
 
-% TODO: special maps
+\subsection{Special maps}%
+\label{sub:special_maps}
 
-% TODO: insert old-subvariety, ling-ribet-shimura decomp
+
+\subsection{Optimal quotients and subvarieties}%
+\label{sub:optimal}
+
+\begin{definition}%
+    \label{defn:optimal_quotient}
+    Let $J$ be the Jacobian of a curve. Then an abelian variety $A$ is an
+    \emph{optimal quotient} of $J$, if there exists a surjective morphism $J
+    \twoheadrightarrow A$ with connected kernel (this is equivalent to the
+    kernel being an abelian variety).
+\end{definition}
+
+\begin{definition}%
+    \label{defn:optimal_subvariety}
+    A subvariety $A$ of $J_0(N)$ is an \emph{optimal subvariety} if it is
+    isogenous to $A_f$ with $f$ a newform of level $N$.
+\end{definition}
+
+There is a universal property definition of optimal quotients that
+justifies the adjective ``optimal''.
+
+\begin{proposition}
+    Suppose there is a surjection of abelian varieties $q:J\twoheadrightarrow A$.
+    Then there exists an isogenous abelian variety $A_\mathrm{opt}$ such that
+    $q$ factors through $A_\mathrm{opt}$. Moreover, any surjection of $J$ onto
+    any element of the isogeny class of $A_\mathrm{opt}$ must factor through
+    $A_\mathrm{opt}$.
+\end{proposition}
+
+If $A$ is an optimal quotient of $J$, then $A^\vee$ can be embedded as a
+subvariety of $J$. This particularly useful in the case where $J$ is totally
+split because both elliptic curves and Jacobians are self-dual.
+
+\begin{proposition}
+    \label{optimal}
+    Let $A$ be an abelian variety and $J$ a modular Jacobian. Then $A$ is an
+    optimal quotient of $J$ if and only if there exists an injection of
+    $A^\vee$ into $J$.
+
+    Suppose $A$ is self-dual, (for example, when $A$ is an elliptic curve), then
+    $A$ is an optimal quotient of $J$ if and only if it is an abelian
+    subvariety of $J$.
+\end{proposition}
+\begin{proof}
+    Suppose $A$ is an optimal quotient of $J$. Then by dualizing the sequence
+    of abelian varieties~\cite[Proposition 2.4.2]{MR1217487}
+    \[
+        0 \to C \to J \to A \to 0 \qquad 
+        0\to A^\vee \to J^\vee \to C^\vee \to 0,
+    \]
+    there is an injection of $A^\vee\hookrightarrow J^\vee$.
+
+    Conversely, if $A^\vee$ injects into $J$. Then by the Poincare Reducibility
+    Theorem, the quotient of $J$ by $A^\vee$ is again an abelian variety $C$.
+    Then by dualizing the sequence of abelian varieties
+    \[
+        0 \to A^\vee \to J \to C \to 0 \qquad 
+        0 \to C^\vee \to J^\vee \to A \to 0,
+    \]
+    there is a surjection of $J^\vee\cong J\twoheadrightarrow A$ with connected
+    kernel $C^\vee$.
+\end{proof}
+
+The Modularity Theorem of Elliptic Curves over $\QQ$ states that for every
+elliptic curve $E$ over $\QQ$, there exists an isogenous curve $E'$ that is an
+optimal quotient of $J_0(N)$.  Using the machinery of modular symbols, Cremona
+has created large databases of elliptic curves and their invariants, including
+the $J_0(N)$-optimal curve in each isogeny class. In this database, the curves
+are labeled $NXT$, where $N$ is the conductor, $X$ is the isogeny class within
+that conductor, and $T$ is the isomorphism class with that isogeny class. When
+$T=1$, then that curve is the $J_0(N)$-optimal curve with its isogeny class.
+For example, the curve $15a1$ is the $J_0(N)$-optimal curve within the isogeny
+class $15a$.
+
+We will soon also be interested in $J_1(N)$-optimal elliptic curves. Though the
+$J_0(N)$-optimal and $J_1(N)$-optimal curves often agree, this is not always
+the case.
+% TODO: discuss using Shimura subgroup
+We will instead rely on Steven's Conjecture~\cite[Conjecture
+II]{MR1010156} which states that within an isogeny class, the $J_1(N)$-optimal
+curve is the curve of minimal Faltings height. This conjecture has been proven
+in the prime level case by Stein and Watkins~\cite[\S 3]{MR2052021}.
 
 
-% TODO: insert connected.tex, motivated from the earlier decomp
+\subsection{Old subvariety}%
+\label{sub:old_subvariety}
 
-\subsection{Connecteness of Hecke Algebra}%
-\label{sub:connecteness_of_hecke_algebra}
+Let $L$ be a proper divisor of $N$, $M = N/L$ and, $t_1,\ldots,t_r$ be the
+divisors of $M$. For every divisor $t$ of $M$, there exists a degeneracy map
+between modular curves given on the non-cuspidal points by
+\begin{align*}
+    d_{L,t}: X_0(N) & \to X_0(L) \\
+    [ E, C_N ]      & \mapsto [ E/C_t, C_L ' ],
+\end{align*}
+where $C_N$ is a cyclic subgroup of $E$ of order $N$, $C_t$ is the unique
+cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
+unique subgroup of order $L$. By Pic functoriality, this induces a
+map $d_{L,t} ^*:J_0(L)\to J_0(N)$.  
+
+Moreover, for any integer $N$, there exists a map between modular curves given
+on the non-cuspidal points by
+\begin{align*}
+    s_N: X_1(N) & \to X_0(N) \\
+    [E, P]      & \mapsto [E, \langle P \rangle].
+\end{align*}
+By Pic functoriality, this induces a map $s_N ^*: J_0(N)\to J_1(N)$. The
+kernel of this map is the \emph{Shimura subgroup}, denoted $\Sigma(N)$. 
+
+We now gather all the degeneracy maps coming from $J_0(N)$ to define
+\[
+    \Phi_L = \prod_{i=1} ^r d_{L,t_i} ^* : J_0(L)^r \to J_0(N).
+\]
+The \emph{old subvariety} of $J_0(N)$ is $\sum_{L\mid N} \Im\Phi_L$ and the
+\emph{$M$-old subvariety} is $\Im\Phi_L$.
+
+There is a strong relationship between $\ker \Phi_L$ and 
+\[
+    \Sigma(L)_0 ^r =\{(x_1,\ldots,x_r)\in \Sigma(L)^r: \sum x_i = 0\}.
+\]
+Because degeneracy maps agree on the Shimura subgroup~\cite[Theorem
+4]{MR1141458}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L$. The reverse equality was
+established by Ribet~\cite{MR1042773} when $M$ a prime coprime to $L$ and was
+generalized by Ling~\cite{MR1352635} to:
+\begin{theorem}
+    \label{ling}
+    Let $L$ and $M$ be relatively prime integers with $M$ squarefree. Let
+    \[
+        \Phi_L = \prod_{i=1} ^r d_{L,t_i} ^* : J_0(L)^r \to J_0(LM)
+    \]
+    be as defined above. Then
+    \begin{enumerate}
+        \item 
+            If $L$ is odd or $M$ is prime, then $\Sigma(L)_0 ^r=\ker\Phi_L$.
+        \item
+            If $L$ is even and $M$ is not a prime, then $\Sigma(L)_0 ^r
+            \subseteq \ker\Phi_L$ and $[\ker\Phi_L: \Sigma(L)_0 ^r]$ is
+            a power of 2.
+    \end{enumerate}
+\end{theorem}
+
+Each $\sum\Im\Phi_L$ can then be further decomposed as $\sum \Im
+\delta_{L,t_i}$. In general, neither of these decompositions are direct.
+However, when $\ker\Phi_L = \Sigma(L)_0 ^r$, there is an useful direct sum
+decomposition of $\Im\Phi_L$, especially when $J_0(L)$ is an elliptic curve.
+
+\begin{corollary}
+    \label{elliptic_decomp}
+    Suppose that $\ker\Phi_L = \Sigma(L)_0 ^r$ and $E=J_0(L)$ is an elliptic
+    curve. Then there is a $\QQ$-isomorphism
+    \[
+        \Im\Phi_L \cong E \times F^{r-1},
+    \]
+    where $F$ is the $J_1(L)$-optimal curve in the isogeny class of $E$.
+\end{corollary}
+\begin{proof}
+    This follows from Proposition~\ref{decomp} and Proposition~\ref{optimal}.
+\end{proof}
+
+This decomposition is particularly useful because the $J_0(L)$-optimal curves
+are identified in Cremona's table and the $J_1(L)$-optimal curves can be
+identified using Steven's conjecture. For example, using this decompositon,
+$J_0(22) = J_0(22)_\old \cong E\times F$, where $E$ is the $J_0(11)$-optimal
+curve and $F$ is the $J_1(11)$-optimal curve (in this case, $E=J_0(11)$ and
+$F=J_1(11)$). So computing the BSD invariants of $J_0(22)$ amounts to computing
+the BSD invariants of the elliptic curves $E$ and $F$.
+
+\begin{proposition}
+    \label{decomp}
+    Suppose $\ker\Phi_L=\Sigma(L)_0 ^r$. Then there is a $\QQ$-isomorphism
+    \[
+        \Im\Phi_L \cong J_0(L)\times \Im(J_0(L)\to J_1(L))^r.
+    \]
+\end{proposition}
+\begin{proof}
+    For $i=1,\ldots,r-1$, let $m_i$ be
+    integers so that $m_i \equiv 1 \mod{\#\Sigma(L)}$. Define
+    \[
+        D_1 = \delta_{t_1}, 
+        \quad D_i = \delta_{t_i}-m_i\delta_{t_{i-1}}
+    \]
+    for $i=2,\ldots,r$. We first show
+    \[
+        \Im\Phi_L = \sum_{i=1} ^r \Im D_i
+    \]
+    with the sum being direct.
+
+    Define $\Phi_L '=\prod_{i=1} ^r D_i : J_0(L)^r \to J_0(N)$. We have that
+    $\Phi_L' = \Phi_L \circ T$, where
+    \begin{align*}
+        T:J_0(L)^r & \to J_0(L)^r \\
+        (x_1,x_2,\ldots,x_r)&\mapsto (x_1-m_2x_2,x_2-m_3 x_3,\ldots,x_{r-1}-m_r
+        x_r, x_r).
+    \end{align*}
+    The matrix associated to $T$ is consisted of $1$'s along the diagonal and
+    $m_i$'s along the superdiagonal. It follows that
+    \[
+        \sum_{i=1} ^r \Im D_i = \Im \Phi_L.
+    \]
+
+    The goal is to now show that this sum is direct. Let $y_1,\ldots,y_r\in
+    J_0(L)$. Suppose
+    \begin{equation}
+        \label{phiLprime}
+        \Phi_L ' (y_1,\ldots,y_r) =D_1(y_1)+ \cdots +D_r(y_r)=0.
+    \end{equation}
+    Then that $T(y_1,\ldots,y_r)\in \ker\Phi_L=\Sigma(L)_0 ^r$.  This
+    immediately implies that $y_r\in \Sigma(L)$ and then, by repeated
+    back-substitution, $y_i\in \Sigma(L)$ for $i=1,\ldots,r$. Since $m_i \equiv
+    1 \mod{\#\Sigma(L)}$,
+    \[
+        T(y_1,\ldots,y_r)=(y_1-y_2,y_2-y_3,\ldots,y_{n-1}-y_n,y_n).
+    \]
+    Since $T(y_1,\ldots,y_r)\in \Sigma(L)_0 ^r$, 
+    \[
+        (y_1-y_2)+(y_2-y_3)+\cdots+(y_{n-1}-y_n)+y_n =0.
+    \]
+    This implies that $y_1=0$ so $D_1(y_1)=0$. Moreover, for $i=2,\ldots,r$,
+    \begin{align*}
+        D_i(y_i) 
+            &= \delta_{i-1}(-y_i) + \delta_i (y_i) \\
+            &= \Phi_L (0,\ldots,0,-y_i,y_i,0,\ldots,0) \\
+            &= 0,
+    \end{align*}
+    where the last equality follows from the fact
+    $(0,\ldots,0,-y_i,y_i,0,\ldots,0)\in \Sigma(L)_0 ^r$. Therefore, the terms
+    in~\eqref{phiLprime} are trivial so $\sum \Im D_i$ is direct.
+
+    Because degeneracy maps are injective~\cite{MR1141458}, the image of $D_1$
+    is isomorphic to $J_0(L)$. Under the condition $\ker\Phi_L = \Sigma(L)_0
+    ^r$, the kernel of $D_i$ for $i\geq 2$ is exactly $\Sigma(L)=\ker(J_0(L)\to
+    J_1(L))$ so $\Im  D_i = \Im(J_0(N)\to J_1(N))$.
+\end{proof}
+
+
+\subsection{Connectedness of Hecke Algebra}%
+\label{sub:connectedness_of_hecke_algebra}
 
 Mazur~\cite[Prop. 10.6]{mazur:eisenstein} proves that the Hecke Algebra
 $\TT(N)$ for $J_0(N)$ with $N$ prime is connected. This was done by showing any
@@ -381,8 +656,8 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
                     subvariety then there exists $q_1,\ldots,q_r\in \QQ$
                     such that $v\in \Im \left(\sum_{i=1} ^r q_i
                     \delta_i\right)$. If this is not the case, return
-                    'NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If $R\not\subset V$, return 'NO'.
+                    `NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
+                    \delta_i\right)$. If $R\not\subset V$, return `NO'.
                 \item{} [Full space?]
                     Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
                     return to (b).
@@ -568,7 +843,8 @@ good integers on the divisiblity tree of the integers.
 
 \subsection{Enumerating rational torsion is algorithmic}
 
-
+In this section, we give a completely impractical algorithm to show that
+computing the rational torsion subgroup is possible.
 \begin{proposition}
     Suppose $A$ is a totally split abelian subvariety of $J=J_0(N)$ Then we can
     compute the following data:
@@ -642,6 +918,98 @@ good integers on the divisiblity tree of the integers.
             \]
     \end{enumerate}
 \end{proof}
+
+\subsection{Strategies for computing the rational torsion subgroup}
+
+In this section, we give techniques for computing the rational torsion subgroup
+of $J_0(N)$. Our main interest is the totally split rank-0 case
+though our techniques may apply more generally (Example~\ref{}). There are 46
+totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
+Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
+able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
+
+\subsubsection{Upper bound}%
+\label{ssub:upper_bound}
+
+In this subsection, we describe methods for obtaining an upper bound on the
+rational torsion order. 
+
+Let $A$ be a modular abelian variety with good reduction at primes $p$. A
+common technique for bounding $A(\QQ)_\tor$ is to inject it into the
+$\Fp$-points for odd primes $p$ of good reduction. In particular,
+by~\cite[Appendix]{katz:torsion}, if $\mathcal{A}$ is the Neron model for $A$,
+then the reduction map gives the inclusion
+\[
+    A(\QQ)_\tor \hookrightarrow \mathcal{A}_{/p}(\Fp).
+\]
+In particular, if $S$ is any set of good odd primes,
+\[
+    \# A(\QQ)_\tor = \gcd_{p\in S}\{ \# \mathcal{A}_{/p}(\Fp)\}.
+\]
+The expression $\#\mathcal{A}_{\p}(\Fp)$ is an isogeny invariant and
+multiplicative on direct products. So it suffices to describe how to compute
+$\mathcal{A}_{/p}(\Fp)$ when $A=A_f\subseteq J_0(N)$. Let $F_p$ be the absolute
+Frobenius at $p$ by Eicher-Shimura, $T_p = F_p + p/F_p\in
+\End(\mathcal{A}_{/p})$. Then
+\begin{equation}
+    \label{eq:katz_bound}
+    \#\mathcal{A}_{/p}(\Fp)=\deg(1-F_p)=|\det(1-F_p)|=\mathrm{charpoly}(F_p)(1)
+    = \mathrm{charpoly}(T_p)(p+1).
+\end{equation}
+The last term can then be explicitly using modular symbols. For the case, where
+$A_f\subseteq J_1(N)$, see~\cite[\S 3.5]{agashe-stein:bsd}. There are a few
+disadvantages to~\eqref{eq:katz_bound}. One is the loss of the groups
+structure. For example, if $A_f$ injects into both $\ZZ/2\times \ZZ/2$ and
+$\ZZ/4$, then we know that $A_f$ is either $\ZZ/2$ or trivial. Another
+disadvantages is the fact that~\eqref{eq:katz_bound}. In Example~\ref{}, we
+show that it is impossible for this method to show $J_0(30)$ satisfies the
+Generalized Ogg Conjecture. This example was the motivating example of this
+project.
+
+To take advantage of group structures, we use an idea of Stein which will part
+of a forthcoming paper. For $\ell\nmid 2N$, let $\eta_\ell = T_\ell -
+(1+\ell)\in \End(J)$.
+
+\begin{lemma}[Stein]
+    For every $\ell\nmid 2N$, $J(\QQ)_\tor\subseteq J(\RR)[\eta_\ell]$.
+\end{lemma}
+\begin{proof}
+    fill in
+\end{proof}
+Let $I$
+and $s$ be
+the star-involution on $J$. Then $J(\QQ)_\tor\subseteq J(\RR)=J[s]$.
+Stein showed that $J(\QQ)_\tor\subseteq J[\eta_\ell]$. So 
+\[
+    J(\QQ)_\tor \subseteq J[I^*],
+\]
+
+This next lemma is a useful observation for computations but not interesting
+from a theory points of view. The $E$ here will often be Stein's Real
+Eisenstein Kernel.
+\begin{lemma}
+    Let $E$ be a finite subgroup of $J_0(N)$ containing $J_0(\QQ)_\tor$.
+    Suppose $E\subseteq C(N)$. Then $J_0(N)(\QQ)_\tor=C(N)(\QQ)$.
+\end{lemma}
+\begin{proof}
+    We already have that $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$. For the
+    reverse equality, we take $\QQ$-rational points of $J_0(N)_\tor\subseteq E
+    \subseteq C(N)$.
+\end{proof}
+
+\begin{proposition}
+    Suppose $G$ is a finite subgroup of $J_0(N)$ containing $J_0(N)(\QQ)_\tor$.
+    Let $x_1, \ldots, x_n\in G$ be any set of representatives for the quotient
+    $G/C(\QQ)$. If $x_i\notin J(\QQ)_\tor$ for all $x_i\neq 0$, then the
+    $J_0(\QQ)_\tor$ is cuspidal.
+\end{proposition}
+\begin{proof}
+    Let $x\in J(\QQ)_\tor$. Then $x\in x_i+C(\QQ)$ for some representative
+    $x_i$. This implies $x_i\in J(\QQ)_\tor$ so $x_i=0$, by assumption.
+    Therefore, $x_i\in C(\QQ)$.
+\end{proof}
+
+
 
 \section{Enumerating Isogenies of Prime Level Subvarieties}
 
