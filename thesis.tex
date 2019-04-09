@@ -1,13 +1,15 @@
-\documentclass{article}
-\bibliographystyle{amsalpha}
+\documentclass[11pt, proquest]{uwthesis}
+\setcounter{tocdepth}{1}  % Print the chapter and sections to the toc
+
 \usepackage{url}
 \usepackage{hyperref}
+\hypersetup{%
+    colorlinks=true,
+    % linkcolor=blue,
+    % filecolor=magenta,      
+    % urlcolor=cyan,
+}
 \usepackage{booktabs}
-\usepackage{tikz-cd}
-
-\usepackage[margin=1in]{geometry}
-
-
 \usepackage{microtype}
 \usepackage{tikz-cd}
 \tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
@@ -19,15 +21,29 @@
 \newcommand{\I}{\mathcal{I}}
 \newcommand{\odd}{\mathrm{odd}}
 
-\author{Kevin Lui}
-\title{Explicit Isogenies of $J_0(N)$}
+\usepackage{showlabels}
 \begin{document} 
-\maketitle
-\tableofcontents 
-\listoftables
-\newpage
-\section{Introduction}%
-\label{sec:intro}
+\prelimpages
+
+\Title{Explicit Isogenies for $J_0(N)$}
+\Author{Kevin Lui}
+\Year{2019}
+\Program{Mathematics}
+
+\Chair{William Stein}{Professor}{Mathematics}
+\Signature{Ralph Greenberg}
+\Signature{Bianca Viray}
+
+\copyrightpage
+
+\titlepage  
+\tableofcontents
+\listoffigures
+
+\textpages
+
+\chapter{Introduction}%
+\label{chap:intro}
 
 % (11, 1)
 % (14, 1)
@@ -78,20 +94,20 @@
 In this thesis, we compute explicit with isogenies of $J_0(N)$. 
 
 We say a Jacobian is totally split if it is $\QQ$-isogenous to a product of
-elliptic curves. In Section~\ref{sec:totally_split}, we present techniques for
+elliptic curves. In Section~\ref{chap:totally_split}, we present techniques for
 computing the rational torsion subgroup of totally splt $J_0(N)$.
 
 
 
-\section{Background and random facts about $J_0(N)$}%
-\label{sec:back}
+\chapter{Background and random facts about $J_0(N)$}%
+\label{chap:back}
 
-\subsection{Special maps}%
-\label{sub:special_maps}
+\section{Special maps}%
+\label{sec:special_maps}
 
 
-\subsection{Optimal quotients and subvarieties}%
-\label{sub:optimal}
+\section{Optimal quotients and subvarieties}%
+\label{sec:optimal}
 
 \begin{definition}%
     \label{defn:optimal_quotient}
@@ -173,8 +189,8 @@ curve is the curve of minimal Faltings height. This conjecture has been proven
 in the prime level case by Stein and Watkins~\cite[\S 3]{MR2052021}.
 
 
-\subsection{Old subvariety}%
-\label{sub:old_subvariety}
+\section{Old subvariety}%
+\label{sec:old_subvariety}
 
 Let $L$ be a proper divisor of $N$, $M = N/L$ and, $t_1,\ldots,t_r$ be the
 divisors of $M$. For every divisor $t$ of $M$, there exists a degeneracy map
@@ -323,8 +339,8 @@ the BSD invariants of the elliptic curves $E$ and $F$.
 \end{proof}
 
 
-\subsection{Connectedness of Hecke Algebra}%
-\label{sub:connectedness_of_hecke_algebra}
+\section{Connectedness of Hecke Algebra}%
+\label{sec:connectedness_of_hecke_algebra}
 
 Mazur~\cite[Prop. 10.6]{mazur:eisenstein} proves that the Hecke Algebra
 $\TT(N)$ for $J_0(N)$ with $N$ prime is connected. This was done by showing any
@@ -334,7 +350,7 @@ as~\ref{TODO} gives a direct sum decomposition of $J_0(22)$. In this section,
 we dissect Mazur's proof and give a mild generalization. Moreover, we will
 explain why Mazur's argument fails in the composite case. 
 
-\subsubsection{General results for semistable Jacobians}
+\subsection{General results for semistable Jacobians}
 
 We will begin with some fairly general results. So assume $J$ is a semistable
 Jacobian defined over $\QQ$ that is possibly not $J_0(N)$. By~\cite[Corollary
@@ -394,7 +410,7 @@ fact freely and will make no reference to the field of definition.
     Lemma~\ref{lemma:decomp_isogeny}.
 \end{proof}
 
-\subsubsection{Application to modular abelian varieties}
+\subsection{Application to modular abelian varieties}
 
 The goal now is to apply Lemma~\ref{lemma:faithful} to the case of semistable
 $J$ and subrings of the Hecke algebra $\TT$. Recall that the action of the
@@ -451,8 +467,8 @@ Hecke algebra on $J$ is faithful.
 \end{example}
 
 
-\subsection{Subvarieties of $J_0(N)$}%
-\label{sub:subvarieties_of_j_0_n_}
+\section{secvarieties of $J_0(N)$}%
+\label{sec:subvarieties_of_j_0_n_}
 
 In this section, we will prove that every abelian subvariety of $J_0(N)$ is the
 image of degeneracy map and discuss some interesting questions arising from
@@ -547,13 +563,13 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
     Is $\ker S$ always Eisenstein? This is true under the $\star$-condition.
 \end{question}
 
-\section{Algorithms for modular abelian varieties}
+\chapter{Algorithms for modular abelian varieties}
 
-\subsection{Defining Data}
-\subsection{Cuspidal subgroup}
-\subsection{Shimura subgroup}
+\section{Defining Data}
+\section{Cuspidal subgroup}
+\section{Shimura subgroup}
 
-\subsection{Simple abelian subvarieties as image of degeneracies}
+\section{Simple abelian subvarieties as image of degeneracies}
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
     Given a simple abelian subvariety $A\subseteq J_0(N)$. This algorithm
@@ -605,7 +621,7 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
     \end{enumerate}
 \end{algorithm}
 
-\subsection{Decomposing and Verifying Abelian subvarieties}
+\section{Decomposing and Verifying Abelian subvarieties}
 
 \begin{algorithm}{Identifying simple newform abelian subvarieties}%
     \label{alg:identifying_simples}
@@ -618,26 +634,26 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
     Let $J=J_0(N)$ and $V$ be a subspace of $0_1(J, \QQ)$. If $V$ corresponds
     to a subvariety $A$ of $J$, then this algorithm will return a decomposition
     into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
-    'NO'. Let $\T=\{T_1,\ldots\}$ be the 0ecke algebra of $J$.
+    `NO'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
     \begin{enumerate}
-        \item{} [Decompose into potential 0ecke eigenspaces]
+        \item{} [Decompose into potential Hecke eigenspaces]
             We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
             W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
             dividing $N$, such that either $W_i$ either corresponds to an
             abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
-            abelian subvariety and we can return 'NO'.
+            abelian subvariety and we can return `NO'.
             \begin{enumerate}
                 \item{} [Initialize]
                     Set $j=1$.
                 \item{} [Decompose into eigenspaces]
                     Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
                     n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
-                    U_{j, k}\neq V$, return 'NO'.
+                    U_{j, k}\neq V$, return `NO'.
                 \item{} [Compare with newforms]
                     Let $S_{j,k}$ be the set of newforms whose $l$th Fourier
                     coefficient agrees with the eigenvalue of $T_l$ on $U_{j,
                     k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for any
-                    $k=1,\ldots,n_j$, return 'NO". If $S_{j,k}$ is not
+                    $k=1,\ldots,n_j$, return `NO'. If $S_{j,k}$ is not
                     singleton for any $k=1,\ldots, n_j$, increment $j$ and
                     return to (b). Otherwise, $S_{j,k}$ is singleton for all
                     $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
@@ -665,7 +681,7 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
     \end{enumerate}
 \end{algorithm}
 
-\subsection{Map to Weierstrass equation}
+\section{Map to Weierstrass equation}
 
 In this section, we describe an algorithm for determining the Weierstrass
 equation of a 1-dimensional modular abelian subvarieties given the Weierstrass
@@ -679,9 +695,9 @@ Database.
 \end{algorithm}
 
 
-\subsection{Homomorphism spaces}
+\section{Homomorphism spaces}
 
-\subsection{Isogeny and isomorphism testing}
+\section{Isogeny and isomorphism testing}
 
 In this section, we give an algorithm for determining when a pair of simple
 modular abelian varieties are isomorphic.
@@ -724,8 +740,8 @@ modular abelian varieties are isomorphic.
     prove this
 \end{proof}
 
-\section{Totally Split Jacobians}%
-\label{sec:totally_split}
+\chapter{Totally Split Jacobians}%
+\label{chap:totally_split}
 
 A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
 product of elliptic curves. The classification and construction of totally
@@ -746,7 +762,7 @@ the rational torsion subgroup.
 
 
 
-\subsection{Provably enumerating the set of totally split modular Jacobians}
+\section{Provably enumerating the set of totally split modular Jacobians}
 
 The modular Jacobian $J_0(N)$ is totally split if and only if all cuspforms of
 level $N$ have rational Hecke coefficients. We expect this to be rare. In fact,
@@ -841,7 +857,7 @@ good integers on the divisiblity tree of the integers.
 \end{proof}
 
 
-\subsection{Enumerating rational torsion is algorithmic}
+\section{Enumerating rational torsion is algorithmic}
 
 In this section, we give a completely impractical algorithm to show that
 computing the rational torsion subgroup is possible.
@@ -919,7 +935,7 @@ computing the rational torsion subgroup is possible.
     \end{enumerate}
 \end{proof}
 
-\subsection{Strategies for computing the rational torsion subgroup}
+\section{Strategies for computing the rational torsion subgroup}
 
 In this section, we give techniques for computing the rational torsion subgroup
 of $J_0(N)$. Our main interest is the totally split rank-0 case
@@ -928,8 +944,8 @@ totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
 Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
 able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
 
-\subsubsection{Upper bound}%
-\label{ssub:upper_bound}
+\subsection{Upper bound}%
+\label{sub:upper_bound}
 
 In this subsection, we describe methods for obtaining an upper bound on the
 rational torsion order. 
@@ -981,12 +997,12 @@ Let $s$ be the star-involution so $J(\CC)[s]=J(\RR)$ then
 The advantage of this is that we still have information about the group
 structure.
 
-\subsection{Galois Cohomology Bounds}%
-\label{sub:galois_cohomology_bounds}
+\section{Galois Cohomology Bounds}%
+\label{sec:galois_cohomology_bounds}
 
 Write up general approach to do totally split subvarieites
 
-\subsection{General Approach}
+\section{General Approach}
 
 This next lemma is a useful observation for computations but not interesting
 from a theory points of view. The $E$ here will often be
@@ -1012,8 +1028,8 @@ from a theory points of view. The $E$ here will often be
     Therefore, $x_i\in C(\QQ)$.
 \end{proof}
 
-\subsubsection{Approach to computing $J(\QQ)_\tor$}%
-\label{ssub:approach_to_computing_j_qq__tor_}
+\subsection{Approach to computing $J(\QQ)_\tor$}%
+\label{sub:approach_to_computing_j_qq__tor_}
 
 The following algorithm works for these Ns.
 \begin{algorithm}
@@ -1036,7 +1052,7 @@ The following algorithm works for these Ns.
 
 
 
-\section{Enumerating Isogenies of Prime Level Subvarieties}
+\chapter{Enumerating Isogenies of Prime Level Subvarieties}
 
 The goal of this section is, under mild conditions, to give an algorithm to
 enumerate the odd-degree $\QQ$-isogeny class of simple abelian subvarieties
@@ -1105,7 +1121,7 @@ In particular, there are 450 simple abelian varieties of prime level less than
 
 The idea will be as follows. Let $M$ be a odd $G_\QQ$-submodule of
 $A(\QQbar)_\odd$. In
-subsection~\ref{sub:finite_odd_order_galois_modules_are_hecke}, we will show
+subsection~\ref{sec:finite_odd_order_galois_modules_are_hecke}, we will show
 that $M$ is an $\TT[G_\QQ]$-module. This is useful because the $\TT$-structure is more
 easily understood than the $G_\QQ$-structure. For example, we are now able to
 talk about the support of $M$ as a $\TT$-module. Using
@@ -1128,7 +1144,7 @@ following algorithm.
         \item{} [Initialize search]
             Set $r=1$ and $X_{r-1}=\emptyset$.
         \item{} [$G_\QQ$-submodules of $A[Q^r]$]
-            Use Section~\ref{sub:enumerating_isogenies} to give a set, $X_r$,
+            Use Section~\ref{sec:enumerating_isogenies} to give a set, $X_r$,
             of representatives for $\M(A[Q^r])$.
         \item{} [Done?]
             By Corollary~\ref{prop:stop_looking}, if for all $x\in X_r$, $x\sim
@@ -1140,8 +1156,8 @@ following algorithm.
     \end{enumerate}
 \end{algorithm}
 
-\subsection{Finite odd-order Galois Modules are Hecke}%
-\label{sub:finite_odd_order_galois_modules_are_hecke}
+\section{Finite odd-order Galois Modules are Hecke}%
+\label{sec:finite_odd_order_galois_modules_are_hecke}
 
 The goal of this subsection is to prove every finite odd $G_\QQ$-submodule $M$
 of $A(\QQbar)$ is a Hecke module (Theorem~\ref{thm:G_modules_are_Hecke}). The
@@ -1247,10 +1263,10 @@ Eichler-Shimura to deduce the $\TT$-stability of $V$ from its $G_\QQ$-stability.
 \end{proof}
 
 
-\subsection{Non-Eisenstein modules are kernels of Hecke}%
-\label{sub:non_eisenstein_modules_are_kernels_of_hecke}
+\section{Non-Eisenstein modules are kernels of Hecke}%
+\label{sec:non_eisenstein_modules_are_kernels_of_hecke}
 
-In light of Section~\ref{sub:finite_odd_order_galois_modules_are_hecke}, all
+In light of Section~\ref{sec:finite_odd_order_galois_modules_are_hecke}, all
 odd $G_\QQ$-submodules of $J(\QQbar)$ are $\TT$-modules. We will now
 use this fact freely and will often refer to the $\TT$-support of an odd
 $G_\QQ$-submodule.
@@ -1342,7 +1358,7 @@ We now return to the proof of the theorem.
     desired.
 \end{proof}
 
-\subsection{Enumerating representatives of $A[X]$}
+\section{Enumerating representatives of $A[X]$}
 
 Assume $\TT_A$ is integrally closed and let $X$ be an odd ideal of $\TT_A$. The
 goal of this section is to give a set of representatives for $\M(A[X])$ by
@@ -1403,8 +1419,8 @@ algorithm.
     \end{enumerate}
 \end{algorithm}
 
-\subsection{Bounding support and valuations}%
-\label{sub:bounding_support_and_valuations}
+\section{Bounding support and valuations}%
+\label{sec:bounding_support_and_valuations}
 
 The goal of this section is to give an ideal $Q$ such that
 $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (Proposition~\ref{prop:bound_support}). In
@@ -1569,9 +1585,10 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
     $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
 \end{proof}
 
-\section{Tables}
+\chapter{Tables}
 
 \include{table_enumerate_totally_split}
 
-\bibliography{modabvar/biblio}
+\bibliographystyle{amsalpha}
+\bibliography{biblio}
 \end{document}
