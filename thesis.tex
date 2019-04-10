@@ -33,6 +33,7 @@
 \Chair{William Stein}{Professor}{Mathematics}
 \Signature{Ralph Greenberg}
 \Signature{Bianca Viray}
+\Signature{Yen-Chi Chen}
 
 \copyrightpage
 
@@ -139,7 +140,7 @@ subvariety of $J$. This particularly useful in the case where $J$ is totally
 split because both elliptic curves and Jacobians are self-dual.
 
 \begin{proposition}
-    \label{optimal}
+    \label{prop:optimal}
     Let $A$ be an abelian variety and $J$ a modular Jacobian. Then $A$ is an
     optimal quotient of $J$ if and only if there exists an injection of
     $A^\vee$ into $J$.
@@ -150,7 +151,7 @@ split because both elliptic curves and Jacobians are self-dual.
 \end{proposition}
 \begin{proof}
     Suppose $A$ is an optimal quotient of $J$. Then by dualizing the sequence
-    of abelian varieties~\cite[Proposition 2.4.2]{MR1217487}
+    of abelian varieties~\cite[Proposition 2.4.2]{lange-birkenhake:complex}
     \[
         0 \to C \to J \to A \to 0 \qquad 
         0\to A^\vee \to J^\vee \to C^\vee \to 0,
@@ -184,17 +185,18 @@ $J_0(N)$-optimal and $J_1(N)$-optimal curves often agree, this is not always
 the case.
 % TODO: discuss using Shimura subgroup
 We will instead rely on Steven's Conjecture~\cite[Conjecture
-II]{MR1010156} which states that within an isogeny class, the $J_1(N)$-optimal
+II]{stevens:param} which states that within an isogeny class, the $J_1(N)$-optimal
 curve is the curve of minimal Faltings height. This conjecture has been proven
-in the prime level case by Stein and Watkins~\cite[\S 3]{MR2052021}.
+in the prime level case by Stein and Watkins~\cite[\S 3]{stein-watkins:ns}.
+% TODO: include Vatsal
 
 
 \section{Old subvariety}%
 \label{sec:old_subvariety}
 
 Let $L$ be a proper divisor of $N$, $M = N/L$ and, $t_1,\ldots,t_r$ be the
-divisors of $M$. For every divisor $t$ of $M$, there exists a degeneracy map
-between modular curves given on the non-cuspidal points by
+divisors of $M$ in increasing order. For every divisor $t$ of $M$, there exists
+a degeneracy map between modular curves given on the non-cuspidal points by
 \begin{align*}
     d_{L,t}: X_0(N) & \to X_0(L) \\
     [ E, C_N ]      & \mapsto [ E/C_t, C_L ' ],
@@ -225,11 +227,11 @@ There is a strong relationship between $\ker \Phi_L$ and
     \Sigma(L)_0 ^r =\{(x_1,\ldots,x_r)\in \Sigma(L)^r: \sum x_i = 0\}.
 \]
 Because degeneracy maps agree on the Shimura subgroup~\cite[Theorem
-4]{MR1141458}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L$. The reverse equality was
-established by Ribet~\cite{MR1042773} when $M$ a prime coprime to $L$ and was
-generalized by Ling~\cite{MR1352635} to:
-\begin{theorem}
-    \label{ling}
+4]{ling-oesterle:shimura}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L$. The reverse equality was
+established by Ribet when $M$ a prime coprime to $L$ and was
+generalized by Ling to:
+\begin{theorem}[{\cite[Prop. 1]{ribet:raising}\cite[Thm. 3]{ling:shimura}}]
+    \label{thm:ribet-ling}
     Let $L$ and $M$ be relatively prime integers with $M$ squarefree. Let
     \[
         \Phi_L = \prod_{i=1} ^r d_{L,t_i} ^* : J_0(L)^r \to J_0(LM)
@@ -245,13 +247,14 @@ generalized by Ling~\cite{MR1352635} to:
     \end{enumerate}
 \end{theorem}
 
+
 Each $\sum\Im\Phi_L$ can then be further decomposed as $\sum \Im
 \delta_{L,t_i}$. In general, neither of these decompositions are direct.
 However, when $\ker\Phi_L = \Sigma(L)_0 ^r$, there is an useful direct sum
 decomposition of $\Im\Phi_L$, especially when $J_0(L)$ is an elliptic curve.
 
 \begin{corollary}
-    \label{elliptic_decomp}
+    \label{cor:elliptic_decomp}
     Suppose that $\ker\Phi_L = \Sigma(L)_0 ^r$ and $E=J_0(L)$ is an elliptic
     curve. Then there is a $\QQ$-isomorphism
     \[
@@ -260,19 +263,20 @@ decomposition of $\Im\Phi_L$, especially when $J_0(L)$ is an elliptic curve.
     where $F$ is the $J_1(L)$-optimal curve in the isogeny class of $E$.
 \end{corollary}
 \begin{proof}
-    This follows from Proposition~\ref{decomp} and Proposition~\ref{optimal}.
+    This follows from Proposition~\ref{prop:decomp} and
+    Proposition~\ref{prop:optimal}.
 \end{proof}
 
 This decomposition is particularly useful because the $J_0(L)$-optimal curves
 are identified in Cremona's table and the $J_1(L)$-optimal curves can be
-identified using Steven's conjecture. For example, using this decompositon,
+identified using Steven's conjecture. For example, using this decomposition,
 $J_0(22) = J_0(22)_\old \cong E\times F$, where $E$ is the $J_0(11)$-optimal
 curve and $F$ is the $J_1(11)$-optimal curve (in this case, $E=J_0(11)$ and
 $F=J_1(11)$). So computing the BSD invariants of $J_0(22)$ amounts to computing
 the BSD invariants of the elliptic curves $E$ and $F$.
 
 \begin{proposition}
-    \label{decomp}
+    \label{prop:decomp}
     Suppose $\ker\Phi_L=\Sigma(L)_0 ^r$. Then there is a $\QQ$-isomorphism
     \[
         \Im\Phi_L \cong J_0(L)\times \Im(J_0(L)\to J_1(L))^r.
@@ -322,12 +326,12 @@ the BSD invariants of the elliptic curves $E$ and $F$.
         (y_1-y_2)+(y_2-y_3)+\cdots+(y_{n-1}-y_n)+y_n =0.
     \]
     This implies that $y_1=0$ so $D_1(y_1)=0$. Moreover, for $i=2,\ldots,r$,
-    \begin{align*}
+    \begin{equation*}
         D_i(y_i) 
-            &= \delta_{i-1}(-y_i) + \delta_i (y_i) \\
-            &= \Phi_L (0,\ldots,0,-y_i,y_i,0,\ldots,0) \\
-            &= 0,
-    \end{align*}
+            = \delta_{i-1}(-y_i) + \delta_i (y_i) 
+            = \Phi_L (0,\ldots,0,-y_i,y_i,0,\ldots,0) 
+            = 0,
+    \end{equation*}
     where the last equality follows from the fact
     $(0,\ldots,0,-y_i,y_i,0,\ldots,0)\in \Sigma(L)_0 ^r$. Therefore, the terms
     in~\eqref{phiLprime} are trivial so $\sum \Im D_i$ is direct.
@@ -346,9 +350,9 @@ Mazur~\cite[Prop. 10.6]{mazur:eisenstein} proves that the Hecke Algebra
 $\TT(N)$ for $J_0(N)$ with $N$ prime is connected. This was done by showing any
 direct product decomposition of $J_0(N)$ with $N$ prime contradicts the
 irreducibility of the $\theta$-divisor. This was surprising to the author
-as~\ref{TODO} gives a direct sum decomposition of $J_0(22)$. In this section,
-we dissect Mazur's proof and give a mild generalization. Moreover, we will
-explain why Mazur's argument fails in the composite case. 
+as~\ref{cor:elliptic_decomp} gives a direct sum decomposition of $J_0(22)$. In
+this section, we dissect Mazur's proof and give a mild generalization.
+Moreover, we will explain why Mazur's argument fails in the composite case. 
 
 \subsection{General results for semistable Jacobians}
 
@@ -461,9 +465,9 @@ Hecke algebra on $J$ is faithful.
     multiplicity greater than 1.
 
     Using \sage, we can show that the Hecke algebra of $J_0(22)$ is isomorphic
-    to $\ZZ[i]$ and is thus connected. On the other hand, by~\ref{}, $J_0(22)$
-    is the direct product of elliptic curves so the endomorphism ring is not
-    connected.
+    to $\ZZ[i]$ and is thus connected. On the other hand,
+    by~\ref{cor:elliptic_decomp}, $J_0(22)$ is the direct product of elliptic
+    curves so the endomorphism ring is not connected.
 \end{example}
 
 
@@ -556,7 +560,7 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
 \begin{question}
     Let $M$ be a $\Gal(\QQbar/\QQ)$-submodule of $J_0(L)$. Does there exists
     $N$ and an integral linear combination of degeneracy maps $S:=\sum n_i d_i$
-    such that $\ker S=M$? This is the converse to Corollary~\ref{cor:star}.
+    such that $\ker S=M$?
 \end{question}
 
 \begin{question}
@@ -764,12 +768,13 @@ the rational torsion subgroup.
 
 \section{Provably enumerating the set of totally split modular Jacobians}
 
-The modular Jacobian $J_0(N)$ is totally split if and only if all cuspforms of
-level $N$ have rational Hecke coefficients. We expect this to be rare. In fact,
-Ralph Greenberg quickly gave an argument proving the set of totally split
-$J_0(N)$ is finite. However, his argument did not give an effective method of
-enumeration. The goal of this subsection is to provably enumerate the set of
-$J_0(N)$ that are totally split. There are 71 of them that are nontrivial.
+The modular Jacobian $J_0(N)$ is totally split if and only if all newforms of
+level dividing $N$ have rational Hecke coefficients. We expect this to be rare.
+In fact, Ralph Greenberg quickly gave an argument on the way to UW Number
+Theory Seminar lunch proving the set of totally split $J_0(N)$ is finite.
+However, his argument did not give an effective method of enumeration. The goal
+of this subsection is to provably enumerate the set of $J_0(N)$ that are
+totally split. There are 71 of them that are nontrivial.
 
 We have that $J_0(N)$ is totally split if and only if its dimension is equal to
 the number of (modular) elliptic curves of conductor $N$. If $N$ is less than
@@ -848,7 +853,7 @@ good integers on the divisiblity tree of the integers.
 
 \begin{theorem}
     There are 71 integers $N$ for which $J_0(N)$ is a totally split Jacobian of
-    positive dimension. They are given in Table~\ref{split_table}.
+    positive dimension. They are given in Table~\ref{tab:split_table}.
 \end{theorem}
 \begin{proof}
     We run Algorithm~\ref{alg:find_split} on the good primes found in
@@ -1125,7 +1130,7 @@ subsection~\ref{sec:finite_odd_order_galois_modules_are_hecke}, we will show
 that $M$ is an $\TT[G_\QQ]$-module. This is useful because the $\TT$-structure is more
 easily understood than the $G_\QQ$-structure. For example, we are now able to
 talk about the support of $M$ as a $\TT$-module. Using
-Corollary~\ref{cor:bound_support}, we can give an explicit set $S$ such that
+Proposition~\ref{prop:bound_support}, we can give an explicit set $S$ such that
 every odd $G_\QQ$-module is equivalent to one supported on $S$. In other words,
 $\M(A(\QQbar)_\odd)=\M(A[Q^\infty])$, where $Q$ is some ideal with
 $\Supp(Q)=S$. Using Algorithm~\ref{}, we can compute the $G_\QQ$-submodules of
