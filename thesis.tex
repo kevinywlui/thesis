@@ -1240,11 +1240,12 @@ irreducible case.
 \end{proof}
 
 The general case will follow from the work of David Helm~\cite{helm:jacobian}.
-Helm considers the case of Jacobians of Shimura curves. One distinguishing
-property of Jacobians of Shimura curves is that 
-\finishthing{
-but the relevant results
-still apply mutatis mutandis.
+Helm considers the case of Jacobians, $J$, of Shimura curves. One of the key
+inputs into Helm's proof is that for the maximal ideals $\m$ in question is
+that if $T_\m J$ is the contravariant $\m$-adic Tate module, then $T_\m J/\m
+T_\m J\cong J[\m]^\vee$ is dimension two over $\TT/\m$ and irreducible as a
+$G_\QQ$-module. By~\cite[Prop. 14.2]{mazur:eisenstein}, this is also the case
+for $J=J_0(N)$ and $\m$ a non-Eisenstein prime of odd residue characteristic.
 
 \begin{theorem}[{\cite[Corollary 4.8]{helm:jacobian}}]%
     \label{thm:non_eisenstein_kernel_hecke}
@@ -1267,7 +1268,7 @@ $\overline{\rho}_\m$ is an irreducible $G_\QQ$-representation of dimension 2
 over $k_\m$ that is isomorphic to $J[\m]^\vee$~\cite[Prop.
 14.2]{mazur:eisenstein}.
 
-\begin{lemma}[{\cite[Lemma 4.6]{helm:jacobian}}]\label{lemma:finite_index}
+\begin{lemma}[{\cite[Lemma 4.6]{helm:jacobian}}]\label{lem:finite_index}
     Let $M$ be a $G_\QQ$-stable submodule of $T_\m J$ of finite index. Then
     $M=IT_\m J$ for some ideal $I$ of $\TT$.
 \end{lemma}
@@ -1295,7 +1296,7 @@ over $k_\m$ that is isomorphic to $J[\m]^\vee$~\cite[Prop.
     and map to $V$ modulo $\m M_{n-1}$.
 \end{proof}
 
-We now return to the proof of the theorem.
+We now return to the proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}.
 
 \begin{proof}[proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}]
     Let $B=J/M$ be the quotient abelian variety equipped with the induced
@@ -1306,7 +1307,7 @@ We now return to the proof of the theorem.
         0 \to T_\m B \to T_\m J \to M^\vee _\m \to 0.
     \] 
     In particular, the image of $T_\m B$ under $\phi$ is a finite index
-    $\TT[G_\QQ]$-submodule of $T_\m A$. By Lemma~\ref{lemma:finite_index}, we can find
+    $\TT[G_\QQ]$-submodule of $T_\m A$. By Lemma~\ref{lem:finite_index}, we can find
     an ideal $I'$ of $\TT$ such that the image of $T_\m B$ is $I' _\m T_\m A$
     for all odd non-Eisenstein primes $\m$. We have $M^\vee _\m = T_\m J / I'
     T_\m J\cong J[I']_\m ^\vee$. Therefore, by taking annihilators of the dual,
