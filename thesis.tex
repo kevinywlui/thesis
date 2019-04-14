@@ -3,25 +3,15 @@
 
 \usepackage{url}
 \usepackage{hyperref}
-\hypersetup{%
-    colorlinks=true,
-    % linkcolor=blue,
-    % filecolor=magenta,      
-    % urlcolor=cyan,
-}
+\hypersetup{colorlinks=true}
 \usepackage{booktabs}
 \usepackage{microtype}
 \usepackage{tikz-cd}
 \tikzset{labl/.style={anchor=south, rotate=90, inner sep=.5mm}}
 \include{macros}
-\renewcommand{\q}{\mathfrak{q}}
-\renewcommand{\old}{\mathrm{old}}
-\renewcommand{\tor}{\mathrm{tor}}
-\newcommand{\f}{\mathfrak{f}}
-\newcommand{\I}{\mathcal{I}}
-\newcommand{\odd}{\mathrm{odd}}
 
 \usepackage[inline]{showlabels}
+
 \begin{document} 
 \prelimpages
 
@@ -46,94 +36,99 @@
 \chapter{Introduction}%
 \label{chap:intro}
 
-% (11, 1)
-% (14, 1)
-% (15, 1)
-% (17, 1)
-% (19, 1)
-% (20, 1)
-% (21, 1)
-% (24, 1)
-% (27, 1)
-% (32, 1)
-% (36, 1)
-% (49, 1)
-% (22, 1)
-% (26, 1)
-% (28, 1)
-% (50, 1)
-% (30, 1)
-% (33, 1)
-% (34, 1)
-% (40, 1)
-% (45, 1)
-% (48, 1)
-% (64, 1)
-% (38, 1)
-% (44, 1)
-% (54, 1)
-% (42, 1)
-% (52, 1)
-% (56, 1)
-% (72, 1)
-% (75, 1)
-% (60, 1)
-% (80, 1)
-% (100, 1)
-% (76, 1)
-% (66, 1)
-% (96, 64)
-% (108, 1)
-% (84, 8)
-% (90, 16)
-% (144, 64)
-% (120, 512)
-% (132, 32)
-% (150, 16)
-% (168, 512)
-% (180, 128)
 In this thesis, we compute explicit with isogenies of $J_0(N)$. 
 
 We say a Jacobian is totally split if it is $\QQ$-isogenous to a product of
 elliptic curves. In Section~\ref{chap:totally_split}, we present techniques for
-computing the rational torsion subgroup of totally splt $J_0(N)$.
+computing the rational torsion subgroup of totally split $J_0(N)$.
 
 
 
-\chapter{Background and random facts about $J_0(N)$}%
-\label{chap:back}
+\chapter{Preliminaries}%
+\label{chap:prelim}
 
-\section{Special maps}%
-\label{sec:special_maps}
+\section{Modular Abelian Varieties}
+
+In Chapter~\ref{chap:isogeny_class}, we will discuss enumerating the isogeny
+class of simple abelian subvarieties of $J_0(N)$. This leads us to define a
+class of abelian variety containing the subquotients of $J_0(N)$.
+
+\begin{definition}
+    \label{defn:modabvar}
+    Let $A$ be an abelian variety over $\QQ$. Then $A$ is \emph{modular} if
+    there exists some $N$ and a finite degree morphism $\phi:A\to J_1(N)$.
+
+    Note that modularity is closed under isogenies, subvarieties, and products.
+\end{definition}
+
+The natural quotient of $X_1(N)\to X_0(N)$ induces a finite degree map
+$J_0(N)\to J_1(N)$. The kernel of this map, $\Sigma(N)$, is finite and is the
+\emph{Shimura subgroup} of $J_0(N)$.
 
 
-\section{Optimal quotients and subvarieties}%
-\label{sec:optimal}
+\section{Galois Representations} 
 
+Let $B$ be a simple abelian variety over $\QQ$ with an embedding of a number
+field $E$ into its endomorphism algebra $\End(B)\otimes \QQ$. By functoriality,
+$E$ acts on the on the $\dim B$-dimensional vector space $\mathrm{Lie}(B)$.
+Therefore, there is a divisibility bound $\deg E\mid \dim B$. The simple
+abelian varieties that achieve this bound are called
+\emph{$\GL_2$-type}~\cite[\S 2]{ribet:abvars}. To motivate this definition,
+observe that $B[n]\cong (\ZZ/n)^{2\dim B}$ so $V_\ell(B)$ is a rank-2 $E\otimes
+\QQ_\ell$-module. Therefore, the $G_\QQ$-action on $V_\ell(B)$ gives the
+representation $G_\QQ\to \GL_2(E\otimes \QQ_\ell)$. More generally, we say an
+abelian variety is \emph{$\GL_2$-type} if it is isogenous to a product of
+simple $\GL_2$-type abelian varieties.
+
+Modular abelian varieties provide a large class of examples of such varieties.
+Let $f=\sum a_n q^n$ be a newform of $S_2(\Gamma_1(N))$ and
+$K_f=\QQ(\ldots,a_n,\ldots)$ be the \emph{Hecke eigenvalue field} of $f$.
+Shimura~\cite[Theorem 7.14]{shimura:intro} associates to $f$ an abelian variety
+$A_f$ defined over $\QQ$ and an embedding of $K_f$ into the endomorphism
+algebra $\End(A_f)\otimes \QQ$ with $\deg K_f = \dim A_f$. 
+
+This shows that every modular abelian varieties is of $\GL_2$-type so a natural
+question is whether every $\GL_2$-type abelian variety is modular. Assuming Serre's
+modularity conjecture~\cite[3.2.4]{serre:conjectures}, Ribet~\cite[Thm.
+4.4]{ribet:abvars} shows that the every $\GL_2$-type abelian variety is
+modular.
+
+
+\section{Natural maps}%
+\label{sec:natural_maps}
+
+In this section, we will describe some natural maps arising from modular forms.
+We only give the theoretical construction of these maps here. The explicit
+description will be given in~\ref{}
+
+\subsection{Degeneracy Maps}%
+\label{sub:degeneracy_maps} 
+
+\subsection{Hecke Operators}%
+\label{sub:hecke_operators}
+
+\subsection{Star involution}%
+\label{sub:star_involution}
+
+
+\subsection{Optimal Elliptic Curves}%
+\label{sub:optimal_elliptic_curves}
+
+Let $E$ be an elliptic curve of conductor $N$. By the Modularity Theorem for
+elliptic curves~\cite{breuil-conrad-diamond-taylor}. There exists a surjection
+$\phi:J_0(N)\onto E$. In general, $\ker\phi$ is not connected. There does
+$\phi':J_0(N)\onto E'$ with $E'$ isogenous to $E$ so that $\ker\phi'$ is
+connected. By Multiplicity One~\ref{}, this $E'$ is unique in its isogeny
+class. This leads to the definition of optimal quotients.
+ 
 \begin{definition}%
     \label{defn:optimal_quotient}
     Let $J$ be the Jacobian of a curve. Then an abelian variety $A$ is an
     \emph{optimal quotient} of $J$, if there exists a surjective morphism $J
-    \twoheadrightarrow A$ with connected kernel (this is equivalent to the
-    kernel being an abelian variety).
+    \twoheadrightarrow A$ with connected kernel. Equivalently, $A$ is an
+    optimal quotient of $J$ is it is the quotient of $J$ by an abelian
+    subvariety.
 \end{definition}
-
-\begin{definition}%
-    \label{defn:optimal_subvariety}
-    A subvariety $A$ of $J_0(N)$ is an \emph{optimal subvariety} if it is
-    isogenous to $A_f$ with $f$ a newform of level $N$.
-\end{definition}
-
-There is a universal property definition of optimal quotients that
-justifies the adjective ``optimal''.
-
-\begin{proposition}
-    Suppose there is a surjection of abelian varieties $q:J\twoheadrightarrow A$.
-    Then there exists an isogenous abelian variety $A_\mathrm{opt}$ such that
-    $q$ factors through $A_\mathrm{opt}$. Moreover, any surjection of $J$ onto
-    any element of the isogeny class of $A_\mathrm{opt}$ must factor through
-    $A_\mathrm{opt}$.
-\end{proposition}
 
 If $A$ is an optimal quotient of $J$, then $A^\vee$ can be embedded as a
 subvariety of $J$. This particularly useful in the case where $J$ is totally
@@ -158,7 +153,7 @@ split because both elliptic curves and Jacobians are self-dual.
     \]
     there is an injection of $A^\vee\hookrightarrow J^\vee$.
 
-    Conversely, if $A^\vee$ injects into $J$. Then by the Poincare Reducibility
+    Conversely, if $A^\vee$ injects into $J$. Then by the Poincar\`{e} Reducibility
     Theorem, the quotient of $J$ by $A^\vee$ is again an abelian variety $C$.
     Then by dualizing the sequence of abelian varieties
     \[
@@ -169,58 +164,40 @@ split because both elliptic curves and Jacobians are self-dual.
     kernel $C^\vee$.
 \end{proof}
 
-The Modularity Theorem of Elliptic Curves over $\QQ$ states that for every
-elliptic curve $E$ over $\QQ$, there exists an isogenous curve $E'$ that is an
-optimal quotient of $J_0(N)$.  Using the machinery of modular symbols, Cremona
-has created large databases of elliptic curves and their invariants, including
-the $J_0(N)$-optimal curve in each isogeny class. In this database, the curves
-are labeled $NXT$, where $N$ is the conductor, $X$ is the isogeny class within
-that conductor, and $T$ is the isomorphism class with that isogeny class. When
-$T=1$, then that curve is the $J_0(N)$-optimal curve with its isogeny class.
-For example, the curve $15a1$ is the $J_0(N)$-optimal curve within the isogeny
-class $15a$.
+Using the machinery of modular symbols, Cremona has created large databases of
+elliptic curves and their invariants, including the $J_0(N)$-optimal curve in
+each isogeny class. In this database, the curves are labeled $NXT$, where $N$
+is the conductor, $X$ is the isogeny class within that conductor, and $T$ is
+the isomorphism class with that isogeny class. When $T=1$, then that curve is
+the $J_0(N)$-optimal curve with its isogeny class. For example, the curve
+$15a1$ is the $J_0(N)$-optimal curve within the isogeny class $15a$.
 
 We will soon also be interested in $J_1(N)$-optimal elliptic curves. Though the
 $J_0(N)$-optimal and $J_1(N)$-optimal curves often agree, this is not always
-the case.
-% TODO: discuss using Shimura subgroup
-We will instead rely on Steven's Conjecture~\cite[Conjecture
-II]{stevens:param} which states that within an isogeny class, the $J_1(N)$-optimal
-curve is the curve of minimal Faltings height. This conjecture has been proven
-in the prime level case by Stein and Watkins~\cite[\S 3]{stein-watkins:ns}.
-% TODO: include Vatsal
+the case. We can use Algorithm~\ref{} to determine the Weierstrass equation of
+the $J_1(N)$-optimal curve. Alternatively, we can use Stevens
+Conjecture~\cite[Conjecture II]{stevens:param} which states that within an
+isogeny class, the $J_1(N)$-optimal curve is the curve of minimal Faltings
+height. This conjecture is still open but some progress has been made. Stein
+and Watkins~\cite[\S 3]{stein-watkins:ns} have proved Stevens conjecture for
+isogeny classes of prime conductor. Vatsal~\cite[Thm.
+1.11]{vatsal:multiplicative} has proved Stevens conjectures for isogeny classes
+containing an elliptic curve $E$ such that for some prime $\ell\geq 7$,
+$E[\ell]$ is reducible and $E$ is ordinary at $\ell$.
 
 
 \section{Old subvariety}%
 \label{sec:old_subvariety}
 
-Let $L$ be a proper divisor of $N$, $M = N/L$ and, $t_1,\ldots,t_r$ be the
-divisors of $M$ in increasing order. For every divisor $t$ of $M$, there exists
-a degeneracy map between modular curves given on the non-cuspidal points by
-\begin{align*}
-    d_{L,t}: X_0(N) & \to X_0(L) \\
-    [ E, C_N ]      & \mapsto [ E/C_t, C_L ' ],
-\end{align*}
-where $C_N$ is a cyclic subgroup of $E$ of order $N$, $C_t$ is the unique
-cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
-unique subgroup of order $L$. By Pic functoriality, this induces a
-map $d_{L,t} ^*:J_0(L)\to J_0(N)$.  
-
-Moreover, for any integer $N$, there exists a map between modular curves given
-on the non-cuspidal points by
-\begin{align*}
-    s_N: X_1(N) & \to X_0(N) \\
-    [E, P]      & \mapsto [E, \langle P \rangle].
-\end{align*}
-By Pic functoriality, this induces a map $s_N ^*: J_0(N)\to J_1(N)$. The
-kernel of this map is the \emph{Shimura subgroup}, denoted $\Sigma(N)$. 
-
-We now gather all the degeneracy maps coming from $J_0(N)$ to define
+Let $L$ be a proper divisor of $N$ and $t_1,\ldots,t_r$ be divisors of $N/L$ in
+some order. For each divisor $t_i$, the degeneracy map (\ref{}) gives an
+embedding $d_{L, t_i} ^*:J_0(L)\to J_0(N)$. We now gather all the degeneracy
+maps coming from $J_0(N)$ to define
 \[
     \Phi_L = \prod_{i=1} ^r d_{L,t_i} ^* : J_0(L)^r \to J_0(N).
 \]
 The \emph{old subvariety} of $J_0(N)$ is $\sum_{L\mid N} \Im\Phi_L$ and the
-\emph{$M$-old subvariety} is $\Im\Phi_L$.
+\emph{$N/L$-old subvariety} is $\Im\Phi_L$.
 
 There is a strong relationship between $\ker \Phi_L$ and 
 \[
@@ -241,15 +218,12 @@ generalized by Ling to:
         \item 
             If $L$ is odd or $M$ is prime, then $\Sigma(L)_0 ^r=\ker\Phi_L$.
         \item
-            If $L$ is even and $M$ is not a prime, then $\Sigma(L)_0 ^r
-            \subseteq \ker\Phi_L$ and $[\ker\Phi_L: \Sigma(L)_0 ^r]$ is
-            a power of 2.
+            If $L$ is even and $M$ is not a prime, then $[\ker\Phi_L:
+            \Sigma(L)_0 ^r]$ is a power of 2.
     \end{enumerate}
 \end{theorem}
 
 
-Each $\sum\Im\Phi_L$ can then be further decomposed as $\sum \Im
-\delta_{L,t_i}$. In general, neither of these decompositions are direct.
 However, when $\ker\Phi_L = \Sigma(L)_0 ^r$, there is an useful direct sum
 decomposition of $\Im\Phi_L$, especially when $J_0(L)$ is an elliptic curve.
 
@@ -569,7 +543,12 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
 
 \chapter{Algorithms for modular abelian varieties}
 
+In this chapter, we will review algorithms on modular abelian varieties.
+
 \section{Defining Data}
+
+Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
+
 \section{Cuspidal subgroup}
 \section{Shimura subgroup}
 
@@ -1057,7 +1036,8 @@ The following algorithm works for these Ns.
 
 
 
-\chapter{Enumerating Isogenies of Prime Level Subvarieties}
+\chapter{Enumerating Isogenies of Prime Level Subvarieties}%
+\label{chap:isogeny_class}
 
 The goal of this section is, under mild conditions, to give an algorithm to
 enumerate the odd-degree $\QQ$-isogeny class of simple abelian subvarieties
@@ -1547,6 +1527,8 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
     $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
 \end{proof}
 
+\section{Further Questions}
+
 \chapter{Tables}
 
 \include{table_enumerate_totally_split}
@@ -1554,3 +1536,49 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
 \bibliographystyle{amsalpha}
 \bibliography{biblio}
 \end{document}
+% (11, 1)
+% (14, 1)
+% (15, 1)
+% (17, 1)
+% (19, 1)
+% (20, 1)
+% (21, 1)
+% (24, 1)
+% (27, 1)
+% (32, 1)
+% (36, 1)
+% (49, 1)
+% (22, 1)
+% (26, 1)
+% (28, 1)
+% (50, 1)
+% (30, 1)
+% (33, 1)
+% (34, 1)
+% (40, 1)
+% (45, 1)
+% (48, 1)
+% (64, 1)
+% (38, 1)
+% (44, 1)
+% (54, 1)
+% (42, 1)
+% (52, 1)
+% (56, 1)
+% (72, 1)
+% (75, 1)
+% (60, 1)
+% (80, 1)
+% (100, 1)
+% (76, 1)
+% (66, 1)
+% (96, 64)
+% (108, 1)
+% (84, 8)
+% (90, 16)
+% (144, 64)
+% (120, 512)
+% (132, 32)
+% (150, 16)
+% (168, 512)
+% (180, 128)
