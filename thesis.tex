@@ -33,6 +33,30 @@
 
 \textpages
 
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+I've have written this thesis with accessibility in mind. In particular, my
+goal was to write a thesis assessable to myself as a second graduate student. I
+will assume reader has taken a graduate level algebra sequence and have some
+exposure to complex abelian varieties and modular forms. For learning about
+complex abelian varieties, I recommend the article of Rosen
+in~\cite{mr89b:14029}, and for learning modular forms, I recommend the
+combination of the books by Stein~\cite{stein:modform} and, Diamond and
+Shurman~\cite{diamond-shurman}.
+
+After reading the introduction, an interested expert can skip to
+Chapters~\ref{chap:totally_split} and~\ref{chap:isogeny_class}, and
+back-reference as needed.
+
+Chapter~\ref{chap:algorithms} has been largely taken from a forthcoming paper
+by Hao Chen, myself, and William Stein. For the most part, the algorithms were
+created and implemented into \sage and \magma and William Stein.
+
+Some of the more generic code in this thesis will be merged into
+\sage following the completion of this ticket: \url{TODO}. The code used to
+generate the tables and the tables themselves can be found here: \url{TODO}
+
 \chapter{Introduction}%
 \label{chap:intro}
 
@@ -204,8 +228,8 @@ There is a strong relationship between $\ker \Phi_L$ and
     \Sigma(L)_0 ^r =\{(x_1,\ldots,x_r)\in \Sigma(L)^r: \sum x_i = 0\}.
 \]
 Because degeneracy maps agree on the Shimura subgroup~\cite[Theorem
-4]{ling-oesterle:shimura}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L$. The reverse equality was
-established by Ribet when $M$ a prime coprime to $L$ and was
+4]{ling-oesterle:shimura}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L$. The reverse
+equality was established by Ribet when $M$ a prime coprime to $L$ and was
 generalized by Ling to:
 \begin{theorem}[{\cite[Prop. 1]{ribet:raising}\cite[Thm. 3]{ling:shimura}}]
     \label{thm:ribet-ling}
@@ -222,7 +246,6 @@ generalized by Ling to:
             \Sigma(L)_0 ^r]$ is a power of 2.
     \end{enumerate}
 \end{theorem}
-
 
 However, when $\ker\Phi_L = \Sigma(L)_0 ^r$, there is an useful direct sum
 decomposition of $\Im\Phi_L$, especially when $J_0(L)$ is an elliptic curve.
@@ -257,17 +280,10 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     \]
 \end{proposition}
 \begin{proof}
-    For $i=1,\ldots,r-1$, let $m_i$ be
-    integers so that $m_i \equiv 1 \mod{\#\Sigma(L)}$. Define
-    \[
-        D_1 = \delta_{t_1}, 
-        \quad D_i = \delta_{t_i}-m_i\delta_{t_{i-1}}
-    \]
-    for $i=2,\ldots,r$. We first show
-    \[
-        \Im\Phi_L = \sum_{i=1} ^r \Im D_i
-    \]
-    with the sum being direct.
+    Let $e$ be the exponent of $\Sigma(L)$. For $i=1,\ldots,r-1$, let $m_i$ be
+    integers so that $m_i \equiv 1 \pmod{e}$. Define $D_1 = \delta_{t_1},
+    D_i = \delta_{t_i}-m_i\delta_{t_{i-1}}$
+    for $i=2,\ldots,r$. We first show $\Im\Phi_L = \bigoplus_{i=1} ^r \Im D_i$.
 
     Define $\Phi_L '=\prod_{i=1} ^r D_i : J_0(L)^r \to J_0(N)$. We have that
     $\Phi_L' = \Phi_L \circ T$, where
@@ -277,7 +293,7 @@ the BSD invariants of the elliptic curves $E$ and $F$.
         x_r, x_r).
     \end{align*}
     The matrix associated to $T$ is consisted of $1$'s along the diagonal and
-    $m_i$'s along the superdiagonal. It follows that
+    $m_i$'s along the superdiagonal. The determinant is 1 so
     \[
         \sum_{i=1} ^r \Im D_i = \Im \Phi_L.
     \]
@@ -285,13 +301,13 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     The goal is to now show that this sum is direct. Let $y_1,\ldots,y_r\in
     J_0(L)$. Suppose
     \begin{equation}
-        \label{phiLprime}
+        \label{eq:phiLprime}
         \Phi_L ' (y_1,\ldots,y_r) =D_1(y_1)+ \cdots +D_r(y_r)=0.
     \end{equation}
     Then that $T(y_1,\ldots,y_r)\in \ker\Phi_L=\Sigma(L)_0 ^r$.  This
     immediately implies that $y_r\in \Sigma(L)$ and then, by repeated
     back-substitution, $y_i\in \Sigma(L)$ for $i=1,\ldots,r$. Since $m_i \equiv
-    1 \mod{\#\Sigma(L)}$,
+    1 \pmod{e}$,
     \[
         T(y_1,\ldots,y_r)=(y_1-y_2,y_2-y_3,\ldots,y_{n-1}-y_n,y_n).
     \]
@@ -308,12 +324,13 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     \end{equation*}
     where the last equality follows from the fact
     $(0,\ldots,0,-y_i,y_i,0,\ldots,0)\in \Sigma(L)_0 ^r$. Therefore, the terms
-    in~\eqref{phiLprime} are trivial so $\sum \Im D_i$ is direct.
+    in~\eqref{eq:phiLprime} are trivial so $\sum \Im D_i$ is direct.
 
-    Because degeneracy maps are injective~\cite{MR1141458}, the image of $D_1$
-    is isomorphic to $J_0(L)$. Under the condition $\ker\Phi_L = \Sigma(L)_0
-    ^r$, the kernel of $D_i$ for $i\geq 2$ is exactly $\Sigma(L)=\ker(J_0(L)\to
-    J_1(L))$ so $\Im  D_i = \Im(J_0(N)\to J_1(N))$.
+    It remains to show $D_1(J_0(L))\cong J_0(L)$ and $D_i(J_0(L))\cong
+    \Im(J_0(L)\to J_1(L))$ for $i\geq 2$. Notice that
+    $D_1(x)=\Phi_L(x,0,\ldots,0)$ and $D_i(x)=\Phi_L(\ldots,-m_ix,x,\ldots)$.
+    Since $\ker\Phi_L=\Sigma(L)_0 ^r$, $\ker D_1=0$ and $\ker D_i=\Sigma(L)$
+    for $i\geq 2$, as desired.
 \end{proof}
 
 
@@ -403,7 +420,8 @@ Hecke algebra on $J$ is faithful.
 \end{proof}
 
 \begin{proposition}
-    Suppose $\TT'$ is the anemic Hecke algebra for $J$. Then $\Spec\TT'$ is connected.
+    Suppose $\TT'$ is the anemic Hecke algebra for $J$. Then $\Spec\TT'$ is
+    connected.
 \end{proposition}
 \begin{proof}
     By Lemma~\ref{lemma:faithful}, it suffices to show that for any newform
@@ -541,7 +559,9 @@ $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then
     Is $\ker S$ always Eisenstein? This is true under the $\star$-condition.
 \end{question}
 
-\chapter{Algorithms for modular abelian varieties}
+\chapter{Algorithms for modular abelian varieties}%
+\label{chap:algorithms}
+
 
 In this chapter, we will review algorithms on modular abelian varieties.
 
@@ -582,7 +602,8 @@ Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
 \end{algorithm}
 
 
-\begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}
+\begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}%
+    \label{alg:weierstrass}
     Given a simple 1-dimensional subvariety $E$ of $J_0(N)$. This algorithm
     returns the Weierstrass equation for $E$.
     \begin{enumerate}
