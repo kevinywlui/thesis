@@ -31,6 +31,8 @@
 \tableofcontents
 \listoffigures
 
+\dedication{\begin{center}to mom and dad\end{center}}
+
 \textpages
 
 \chapter*{Preface}
@@ -38,9 +40,9 @@
 
 I've have written this thesis with accessibility in mind. In particular, my
 goal was to write a thesis assessable to myself as a second graduate student. I
-will assume reader has taken a graduate level algebra sequence and have some
-exposure to complex abelian varieties and modular forms. For learning about
-complex abelian varieties, I recommend the article of Rosen
+will assume reader has taken a graduate level algebra sequence and have had
+some exposure to complex abelian varieties and modular forms. For learning
+about complex abelian varieties, I recommend the article of Rosen
 in~\cite{mr89b:14029}, and for learning modular forms, I recommend the
 combination of the books by Stein~\cite{stein:modform} and, Diamond and
 Shurman~\cite{diamond-shurman}.
@@ -49,9 +51,11 @@ After reading the introduction, an interested expert can skip to
 Chapters~\ref{chap:totally_split} and~\ref{chap:isogeny_class}, and
 back-reference as needed.
 
-Chapter~\ref{chap:algorithms} has been largely taken from a forthcoming paper
-by Hao Chen, myself, and William Stein. For the most part, the algorithms were
-created and implemented into \sage and \magma and William Stein.
+Chapter~\ref{chap:algorithms} has been largely taken from the source code of
+\sage and a forthcoming paper by Hao Chen, myself, and William Stein. For the
+most part, the algorithms were created and implemented into \sage and \magma~by
+William Stein. This chapter is included in this thesis so we are not relying on
+currently unpublished work.
 
 Some of the more generic code in this thesis will be merged into
 \sage following the completion of this ticket: \url{TODO}. The code used to
@@ -71,6 +75,14 @@ computing the rational torsion subgroup of totally split $J_0(N)$.
 \chapter{Preliminaries}%
 \label{chap:prelim}
 
+\section{Congruence Groups}
+
+\section{Modular Forms}
+
+\section{Modular Curves}
+
+\section{Modular Jacobians}
+
 \section{Modular Abelian Varieties}
 
 In Chapter~\ref{chap:isogeny_class}, we will discuss enumerating the isogeny
@@ -87,7 +99,8 @@ class of abelian variety containing the subquotients of $J_0(N)$.
 
 The natural quotient of $X_1(N)\to X_0(N)$ induces a finite degree map
 $J_0(N)\to J_1(N)$. The kernel of this map, $\Sigma(N)$, is finite and is the
-\emph{Shimura subgroup} of $J_0(N)$.
+Shimura subgroup of $J_0(N)$. Therefore, all abelian varieties isogenous to a
+simple subvariety of $J_0(N)$ are modular.
 
 
 \section{Galois Representations} 
@@ -117,19 +130,44 @@ modularity conjecture~\cite[3.2.4]{serre:conjectures}, Ribet~\cite[Thm.
 4.4]{ribet:abvars} shows that the every $\GL_2$-type abelian variety is
 modular.
 
-
 \section{Natural maps}%
 \label{sec:natural_maps}
 
-In this section, we will describe some natural maps arising from modular forms.
-We only give the theoretical construction of these maps here. The explicit
-description will be given in~\ref{}
+In this section, we will describe some common maps encountered in the study of
+modular abelian varieties. We will only give the theoretical description of
+these maps. The explicit description, suitable for computations, will be given
+in Section~\ref{sec:alg_natural_maps}.
 
 \subsection{Degeneracy Maps}%
 \label{sub:degeneracy_maps} 
 
+Let $L\mid N$, $LM=N$, and $t_1,\ldots,t_r$ be the divisors of $M$ in
+increasing order. Then, for each $t_i$, there are degeneracy maps relating the
+modular curves, forms, and Jacobians of level $L$ and $N$. For ease of
+exposition, we will present the $\Gamma_0(N)$ case. The same arguments
+generalize easily to $\Gamma_1(N)$.
+
+We first define degeneracy maps on modular curves. Recall that the non-cuspidal
+points of $X_0(N)$ correspond to elliptic curves with some $N$-torsion data.
+The degeneracy map to $X_0(L)$ will forget some of this data. More precisely,
+on the non-cuspidal points
+\begin{align*}
+    d_{L,t}: Y_0(N) & \to Y_0(L) \\
+    [ E, C_N ]      & \mapsto [ E/C_t, C_L ' ],
+\end{align*}
+where $C_N$ is a cyclic subgroup of $E$ of order $N$, $C_t$ is the unique
+cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
+unique subgroup of order $L$. By~\cite[Chap. 1, Prop. 6.8]{hartshorne},
+$d_{L,t}$ extends uniquely to a map (which we give the same name)
+$d_{L,t}:X_0(N)\to X_0(L)$.
+
+By Pic and Alb functoriality, this induces the maps $d_{L,t} ^*:J_0(L)\to
+J_0(N)$, $d_{L, t}_*:J_0(N)\to J_0(L)$, respectively. Here's a more concrete
+description.
+
 \subsection{Hecke Operators}%
 \label{sub:hecke_operators}
+
 
 \subsection{Star involution}%
 \label{sub:star_involution}
@@ -1549,6 +1587,10 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
 \end{proof}
 
 \section{Further Questions}
+
+Why non-maximal is hard.
+
+Other Jacobians.
 
 \chapter{Tables}
 
