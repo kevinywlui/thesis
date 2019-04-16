@@ -147,23 +147,36 @@ modular curves, forms, and Jacobians of level $L$ and $N$. For ease of
 exposition, we will present the $\Gamma_0(N)$ case. The same arguments
 generalize easily to $\Gamma_1(N)$.
 
-We first define degeneracy maps on modular curves. Recall that the non-cuspidal
+We first give the more algebraic construction. Recall that the non-cuspidal
 points of $X_0(N)$ correspond to elliptic curves with some $N$-torsion data.
 The degeneracy map to $X_0(L)$ will forget some of this data. More precisely,
 on the non-cuspidal points
-\begin{align*}
-    d_{L,t}: Y_0(N) & \to Y_0(L) \\
-    [ E, C_N ]      & \mapsto [ E/C_t, C_L ' ],
-\end{align*}
+\begin{equation}
+    \label{eq:degen_moduli}
+    \begin{split}
+        d_{L,t}: Y_0(N)  \to Y_0(L) \\
+        [ E, C_N ]       \mapsto [ E/C_t, C_L ' ],
+    \end{split}
+\end{equation}
 where $C_N$ is a cyclic subgroup of $E$ of order $N$, $C_t$ is the unique
 cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
 unique subgroup of order $L$. By~\cite[Chap. 1, Prop. 6.8]{hartshorne},
-$d_{L,t}$ extends uniquely to a map (which we give the same name)
-$d_{L,t}:X_0(N)\to X_0(L)$.
+$d_{L,t}$ extends uniquely to a map (which we give the same name). By Pic and
+Alb functoriality, this induces the maps $d_{L,t} ^*:J_0(L)\to J_0(N)$, $d_{L,
+t}_*:J_0(N)\to J_0(L)$, respectively. 
 
-By Pic and Alb functoriality, this induces the maps $d_{L,t} ^*:J_0(L)\to
-J_0(N)$, $d_{L, t}_*:J_0(N)\to J_0(L)$, respectively. Here's a more concrete
-description.
+Now we give the more complex-analytic construction. Here we will view the
+non-cuspidal points of $X_0(N)$ as $\Gamma_0(N)\setminus \h$. Under this
+interpretation, \eqref{eq:degen_moduli} becomes
+\begin{equation}
+    \label{eq:degen_analytic}
+    \begin{split}
+        d_{L,t}: \Gamma_0(N)\setminus \h \to \Gamma_0(L)\setminus \h \\
+        \Gamma_0(N)z\mapsto \Gamma_0(L) tz.
+    \end{split}
+\end{equation}
+The induced map is something.
+
 
 \subsection{Hecke Operators}%
 \label{sub:hecke_operators}
