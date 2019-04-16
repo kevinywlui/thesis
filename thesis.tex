@@ -105,6 +105,9 @@ simple subvariety of $J_0(N)$ are modular.
 
 \section{Galois Representations} 
 
+\subsection{$\ell$-adic representation}%
+\label{sub:_ell_adic_representation}
+
 Let $B$ be a simple abelian variety over $\QQ$ with an embedding of a number
 field $E$ into its endomorphism algebra $\End(B)\otimes \QQ$. By functoriality,
 $E$ acts on the on the $\dim B$-dimensional vector space $\mathrm{Lie}(B)$.
@@ -129,6 +132,13 @@ question is whether every $\GL_2$-type abelian variety is modular. Assuming Serr
 modularity conjecture~\cite[3.2.4]{serre:conjectures}, Ribet~\cite[Thm.
 4.4]{ribet:abvars} shows that the every $\GL_2$-type abelian variety is
 modular.
+
+\subsection{Serre conjecture}%
+\label{sub:serre_conjecture}
+
+\subsection{Mazur and BLR}%
+\label{sub:mazur_and_blr} 
+
 
 \section{Natural maps}%
 \label{sec:natural_maps}
@@ -163,7 +173,7 @@ cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
 unique subgroup of order $L$. By~\cite[Chap. 1, Prop. 6.8]{hartshorne},
 $d_{L,t}$ extends uniquely to a map (which we give the same name). By Pic and
 Alb functoriality, this induces the maps $d_{L,t} ^*:J_0(L)\to J_0(N)$, $d_{L,
-t}_*:J_0(N)\to J_0(L)$, respectively. 
+t*} :J_0(N)\to J_0(L)$, respectively. 
 
 Now we give the more complex-analytic construction. Here we will view the
 non-cuspidal points of $X_0(N)$ as $\Gamma_0(N)\setminus \h$. Under this
@@ -620,7 +630,10 @@ In this chapter, we will review algorithms on modular abelian varieties.
 
 Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
 
+\section{Natural Maps}
+
 \section{Cuspidal subgroup}
+
 \section{Shimura subgroup}
 
 \section{Simple abelian subvarieties as image of degeneracies}
@@ -736,19 +749,6 @@ Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
     \end{enumerate}
 \end{algorithm}
 
-\section{Map to Weierstrass equation}
-
-In this section, we describe an algorithm for determining the Weierstrass
-equation of a 1-dimensional modular abelian subvarieties given the Weierstrass
-equations for optimal subvarieties of $J_0(N)$. The reason for doing this is to
-take advantage of the computations already done as part of the Cremona
-Database.
-
-\begin{algorithm}{Weierstrass equation}% 
-    \label{alg:weierstrass_equation}
-    Given a 1-dimension modular abelian subvariety $A$. This algorithm returns  
-\end{algorithm}
-
 
 \section{Homomorphism spaces}
 
@@ -816,7 +816,6 @@ torsion subgroup, and to present some more practical techniques for computing
 the rational torsion subgroup. 
 
 
-
 \section{Provably enumerating the set of totally split modular Jacobians}
 
 The modular Jacobian $J_0(N)$ is totally split if and only if all newforms of
@@ -880,7 +879,7 @@ Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
 \emph{bad} otherwise. The simple factors of $J_0(N)$ are also factors of
 $J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad, then so is
 any multiple of $N$. This allows us to prune branches while doing a search for
-good integers on the divisiblity tree of the integers.
+good integers on the divisibility tree of the positive integers.
 
 \begin{algorithm}{Enumerating Good Integers}
     \label{alg:find_split}
@@ -935,9 +934,9 @@ computing the rational torsion subgroup is possible.
 \begin{proof}
     Recall that the abelian subvarieties are represented by giving a submodule
     of the integral homology~\ref{TODO}. Suppose $A$ is 1-dimensional subvariety of
-    $J$. Then by~\ref{TODO}, we can compute an elliptic curve $E_A$ given in
-    Weierstrass defining equation and an isomorphism $\Phi_A:A_\tor\to
-    (E_A)_\tor$.
+    $J$. Then by~\ref{alg:weierstrass_equation}, we can compute an elliptic
+    curve $E_A$ given in Weierstrass defining equation and an isomorphism
+    $\Phi_A:A_\tor\to (E_A)_\tor$.
 
     We will proceed by induction on the dimension, $d$, of $A$. We first
     consider the case $d=1$. 
@@ -1056,7 +1055,7 @@ structure.
 \section{Galois Cohomology Bounds}%
 \label{sec:galois_cohomology_bounds}
 
-Write up general approach to do totally split subvarieites
+Insert the Galois cohomology technique.
 
 \section{General Approach}
 
@@ -1093,9 +1092,11 @@ The following algorithm works for these Ns.
     $[J(\QQ)_\tor:C(\QQ)]$.
     \begin{enumerate}
         \item{} [Stein's Real Eisenstein Kernel]
-            Compute $E_s$ for some large $s$.
+            Use Algorithm~\ref{alg:eta_group} to compute $E_s$ for some large
+            $s$, for example, $s=100$.
         \item{} [Representative for $E_s/C(\QQ)$]
-            Let $x_1,\ldots,x_r$ be a set of for $E_s/C(\QQ)$.
+            Compute a list of representatives $x_1,\ldots,x_r\in E_s$ that are
+            representatives for $E_s/C(\QQ)$. Here we can take $x_1=0$.
         \item{} [Find small containing abelian varieity]
             For each $x_i$, find a small abelian subvariety, $A_i$, of $J_0(N)$
             contain $x_i$.
@@ -1166,8 +1167,6 @@ We now fix notation, terminology, assumptions.
         For an $\TT[G_\QQ]$-module $M$ of $A(\QQbar)_\odd$, let $M_{S_i}$ be the largest
         $\TT[G_\QQ]$-submodule of $M$ supported on $S_i$ so $M_{S_i}=M[\prod_{\p\in S_i}
         \p^\infty]$. Observe that $M = M_{S_0}\oplus M_{S_1}$.
-    \item{} [Odd]
-        A module is said to be odd if it is finite with odd cardinality.
 \end{itemize}
 
 The goal of this section is Algorithm~\ref{alg:odd_isogeny_class} which
