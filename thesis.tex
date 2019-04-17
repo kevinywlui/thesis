@@ -883,7 +883,7 @@ good integers on the divisibility tree of the positive integers.
 
 \begin{algorithm}{Enumerating Good Integers}
     \label{alg:find_split}
-    Given a finite list of good primes $S$, this algorithm will halt and
+    Given a finite list of good primes $S$, this procedure will halt and
     return the list of all good integers whose prime divisors lie in $S$
     if and only if this list is finite.
 \end{algorithm}
@@ -1052,42 +1052,38 @@ Let $s$ be the star-involution so $J(\CC)[s]=J(\RR)$ then
 The advantage of this is that we still have information about the group
 structure.
 
-\section{Galois Cohomology Bounds}%
+\section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
 
-Insert the Galois cohomology technique.
+\subsection{Galois cohomology}%
+\label{sub:galois_cohomology}
 
-\section{General Approach}
+Let $0\to A\to B \to C$ be an exact sequence of abelian varieties over $\QQ$.
+The fixed-point functor $A\mapsto A^{G_\QQ}$ is left-exact so we have the long
+exact sequence from cohomology given by
 
-This next lemma is a useful observation for computations but not interesting
-from a theory points of view. The $E$ here will often be
-\begin{lemma}
-    Let $E$ be a finite subgroup of $J_0(N)$ containing $J_0(\QQ)_\tor$.
-    Suppose $E\subseteq C(N)$. Then $J_0(N)(\QQ)_\tor=C(N)(\QQ)$.
-\end{lemma}
-\begin{proof}
-    We already have that $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$. For the
-    reverse equality, we take $\QQ$-rational points of $J_0(N)_\tor\subseteq E
-    \subseteq C(N)$.
-\end{proof}
-
-\begin{proposition}
-    Suppose $G$ is a finite subgroup of $J_0(N)$ containing $J_0(N)(\QQ)_\tor$.
-    Let $x_1, \ldots, x_n\in G$ be any set of representatives for the quotient
-    $G/C(\QQ)$. If $x_i\notin J(\QQ)_\tor$ for all $x_i\neq 0$, then the
-    $J_0(\QQ)_\tor$ is cuspidal.
-\end{proposition}
-\begin{proof}
-    Let $x\in J(\QQ)_\tor$. Then $x\in x_i+C(\QQ)$ for some representative
-    $x_i$. This implies $x_i\in J(\QQ)_\tor$ so $x_i=0$, by assumption.
-    Therefore, $x_i\in C(\QQ)$.
-\end{proof}
 
 \subsection{Approach to computing $J(\QQ)_\tor$}%
 \label{sub:approach_to_computing_j_qq__tor_}
 
+\begin{proposition}
+    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$. Let
+    $x_1,\ldots,x_r\in E$ be a set of representatives of $E/(C(N)(\QQ))$.
+    Suppose for each $i$, there exists an abelian subvariety $A_i$ of $J_0(N)$
+    satisfying the Generalized Ogg Conjecture and containing $x_i$. Then
+    $C(N)(\QQ)=J_0(N)(\QQ)_\tor$ so $J_0(N)$ satisfies the Generalized Ogg
+    Conjecture.
+\end{proposition}
+\begin{proof}
+    We already have $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
+    reverse inclusion, let $x\in J_0(N)(\QQ)_\tor\subseteq E$. Then $x\in
+    x_i+C(N)(\QQ)$ for some representative $x_i$. This implies $x_i\in
+    J_0(N)(\QQ)_\tor$. But $A_i$ satisfies the Generalized Ogg Conjecture so
+    $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
+\end{proof}
+
 The following algorithm works for these Ns.
-\begin{algorithm}
+\begin{algorithm}{}
     Given a totally split Jacobian $J=J_0(N)$. This algorithm returns a bound on
     $[J(\QQ)_\tor:C(\QQ)]$.
     \begin{enumerate}
