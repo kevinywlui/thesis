@@ -426,7 +426,7 @@ fact freely and will make no reference to the field of definition.
 \end{proof}
 
 \begin{lemma}
-    \label{lemma:decomp_isogeny}
+    \label{lem:decomp_isogeny}
     Suppose $J$ decomposes nontrivially as the direct sum of abelian subvarieties
     $A\oplus B$. Then $A$ must share an isogenous factor with $B$.
 \end{lemma}
@@ -440,7 +440,7 @@ fact freely and will make no reference to the field of definition.
 \end{proof}
 
 \begin{lemma}
-    \label{lemma:faithful}
+    \label{lem:faithful}
     Let $R$ be a ring acting faithfully on $J$. Let $S=\{A_1,\ldots,A_k\}$ be a
     set of representatives of the isogeny class of subvarieties of $J$. 
     Suppose that for all $A\in S$, and every idempotent $r\in R$, either
@@ -463,12 +463,12 @@ fact freely and will make no reference to the field of definition.
         \oplus \left(\sum_{A\in S_2} V_A \right).
     \]
     The big summands share no isogenous factors which contradicts
-    Lemma~\ref{lemma:decomp_isogeny}.
+    Lemma~\ref{lem:decomp_isogeny}.
 \end{proof}
 
 \subsection{Application to modular abelian varieties}
 
-The goal now is to apply Lemma~\ref{lemma:faithful} to the case of semistable
+The goal now is to apply Lemma~\ref{lem:faithful} to the case of semistable
 $J$ and subrings of the Hecke algebra $\TT$. Recall that the action of the
 Hecke algebra on $J$ is faithful.
 
@@ -477,7 +477,7 @@ Hecke algebra on $J$ is faithful.
 \end{proposition}
 \begin{proof}
     When all subvarieties are new, they appear with multiplicity 1 so the
-    conditions of Lemma~\ref{lemma:faithful} are automatic.
+    conditions of Lemma~\ref{lem:faithful} are automatic.
 \end{proof}
 
 \begin{proposition}
@@ -485,7 +485,7 @@ Hecke algebra on $J$ is faithful.
     connected.
 \end{proposition}
 \begin{proof}
-    By Lemma~\ref{lemma:faithful}, it suffices to show that for any newform
+    By Lemma~\ref{lem:faithful}, it suffices to show that for any newform
     $f$, and $r\in \TT'$, $rV_f=V_f$ or $rV_f=0$. Fix a newform $f$ of level
     $L$ and $r\in \TT'$. We now abuse notation by overloading $T_\ell$ and $r$
     as operators on $A_f$, $A_f^s$, and $J$. In the Formulaire section
@@ -507,7 +507,7 @@ Hecke algebra on $J$ is faithful.
         rV_f = r(\Phi_f(A_f)) = \Phi_f(rA_f,\ldots,rA_f)
     \]
     but $A_f$ is simple so either $rA_f=A_f$ or $rA_f=0$. Therefore, by
-    Lemma~\ref{lemma:faithful}, $\Spec\TT'$ is connected.
+    Lemma~\ref{lem:faithful}, $\Spec\TT'$ is connected.
 \end{proof}
 
 \begin{example}
@@ -833,8 +833,8 @@ $J_0(N)$ is totally split is a quick computation since there is a closed-form
 formula for $\dim J_0(N)$.  
 
 \begin{lemma}
-    \label{lemma:good_primes}
-    The only possible primes $p$ so that $J_0(p)$ is a totally split Jacobian are
+    \label{lem:good_primes}
+    The only possible primes $p$ where $J_0(p)$ is totally split are
     \[
         2, 3, 5, 7, 11, 13, 17, 19, 37.
     \]
@@ -871,21 +871,22 @@ formula for $\dim J_0(N)$.
     left is not.
 
     In conclusion, we know that if $J_0(p)$ is a totally split Jacobian, then $p\leq
-    37$. A computer search then gives us the list found in the statement of the
-    lemma.
+    37$. A computer search then determines which primes less than or equal to
+    $37$ are totally split.
 \end{proof}
 
 Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
-\emph{bad} otherwise. The simple factors of $J_0(N)$ are also factors of
-$J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad, then so is
-any multiple of $N$. This allows us to prune branches while doing a search for
-good integers on the divisibility tree of the positive integers.
+\emph{bad} otherwise. The simple factors of $J_0(N)$ are isogenous to simple
+factors of $J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad,
+then so is any multiple of $N$. This allows us to prune divisibility branches
+while doing a search for good integers on the divisibility tree of the positive
+integers.
 
 \begin{algorithm}{Enumerating Good Integers}
     \label{alg:find_split}
-    Given a finite list of good primes $S$, this procedure will halt and
-    return the list of all good integers whose prime divisors lie in $S$
-    if and only if this list is finite.
+    Let $S$ be the set of primes found in Lemma~\ref{lem:good_primes}. This
+    procedure will halt (see Theorem~\ref{thm:finite_totally_split}) and return
+    the list of good integers.
 \end{algorithm}
 \begin{enumerate}
     \item{} [Initialize] 
@@ -902,20 +903,22 @@ good integers on the divisibility tree of the positive integers.
 \end{enumerate}
 
 \begin{theorem}
+    \label{thm:finite_totally_split}
     There are 71 integers $N$ for which $J_0(N)$ is a totally split Jacobian of
     positive dimension. They are given in Table~\ref{tab:split_table}.
 \end{theorem}
 \begin{proof}
-    We run Algorithm~\ref{alg:find_split} on the good primes found in
-    Lemma~\ref{lemma:good_primes} and it halts (luckily before reaching the end
-    of the Cremona database).
+    If $N$ is not supported on $S$ then it cannot be good so the good integers
+    must be supported on $S$. We then find the good integers by running
+    Algorithm~\ref{alg:find_split} which halts (luckily before reaching the end
+    of Cremona's database).
 \end{proof}
 
 
 \section{Enumerating rational torsion is algorithmic}
 
-In this section, we give a completely impractical algorithm to show that
-computing the rational torsion subgroup is possible.
+Here we give a totally impractical algorithm to compute the rational torsion
+subgroup of a totally split Jacobian $J_0(N)$ just to show it is possible.
 \begin{proposition}
     Suppose $A$ is a totally split abelian subvariety of $J=J_0(N)$ Then we can
     compute the following data:
@@ -992,8 +995,12 @@ computing the rational torsion subgroup is possible.
 
 \section{Strategies for computing the rational torsion subgroup}
 
-In this section, we give techniques for computing the rational torsion subgroup
-of $J_0(N)$. Our main interest is the totally split rank-0 case
+By~\ref{}, we have the inclusion $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ and the
+Generalized Ogg conjecture is the assertion that we have equality. In this
+section, we will give techniques for bounding the index
+$[J_0(\QQ)_\tor:C(N)(\QQ)]$.
+
+Our main interest is the totally split rank-0 case
 though our techniques may apply more generally (Example~\ref{}). There are 46
 totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
 Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
@@ -1002,8 +1009,16 @@ able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
 \subsection{Upper bound}%
 \label{sub:upper_bound}
 
-In this subsection, we describe methods for obtaining an upper bound on the
-rational torsion order. 
+In this subsection, we give two techniques for giving an upper bound for
+$J_0(N)(\QQ)_\tor$. The first technique uses reduction modulo $p$,
+Eicher-Shimura, and the Hecke polynomial to obtain a bound on the order. The
+second technique gives an ideal, $I^*$, similar to Mazur's Eisenstein ideal so
+that $J_0(N)(\QQ)_\tor\subseteq J_0(N)[I]$. We will be primarily using the
+second technique for our computations but we give the first technique to
+motivate the second.
+
+\subsubsection{Reduction modulo primes}%
+\label{ssub:reduction_modulo_primes} 
 
 Let $A$ be a modular abelian variety with good reduction at primes $p$. A
 common technique for bounding $A(\QQ)_\tor$ is to inject it into the
@@ -1019,38 +1034,103 @@ In particular, if $S$ is any set of good odd primes,
 \]
 The expression $\#\mathcal{A}_{\p}(\Fp)$ is an isogeny invariant and
 multiplicative on direct products. So it suffices to describe how to compute
-$\mathcal{A}_{/p}(\Fp)$ when $A=A_f\subseteq J_0(N)$. Let $F_p$ be the absolute
+$\mathcal{A}_{/p}(\Fp)$ when $A=A_f\subseteq J_0(N)$ (for $A_f\subseteq
+J_1(N)$, see~\cite[\S 3.5]{agashe-stein:bsd}). Let $F_p$ be the absolute
 Frobenius at $p$ by Eicher-Shimura, $T_p = F_p + p/F_p\in
 \End(\mathcal{A}_{/p})$. Then
-\begin{equation}
+\begin{align}
     \label{eq:katz_bound}
-    \#\mathcal{A}_{/p}(\Fp)=\deg(1-F_p)=|\det(1-F_p)|=\mathrm{charpoly}(F_p)(1)
-    = \mathrm{charpoly}(T_p)(p+1).
-\end{equation}
-The last term can then be explicitly using modular symbols. For the case, where
-$A_f\subseteq J_1(N)$, see~\cite[\S 3.5]{agashe-stein:bsd}. There are a few
-disadvantages to~\eqref{eq:katz_bound}. One is the loss of the groups
-structure. For example, if $A_f$ injects into both $\ZZ/2\times \ZZ/2$ and
-$\ZZ/4$, then we know that $A_f$ is either $\ZZ/2$ or trivial. Another
-disadvantages is the fact that~\eqref{eq:katz_bound}. In Example~\ref{}, we
-show that it is impossible for this method to show $J_0(30)$ satisfies the
-Generalized Ogg Conjecture. This example was the motivating example of this
-project.
+    \begin{split}
+    \#\mathcal{A}_{/p}(\Fp) 
+    & = \deg(1-F_p) \\
+    & = |\det(1-F_p)| \\
+    & = \mathrm{charpoly}(F_p)(1) \\
+    & = \mathrm{charpoly}(T_p)(p+1).
+    \end{split}
+\end{align}
+The last term is the characteristic polynomial of the matrix associated to the
+Hecke operator $T_p$. We now give the current \sage (Version 8.7)
+implementation of this algorithm by William Stein.
 
-To take advantage of group structures, we use an idea of Stein which will part
-of a forthcoming paper. For $\ell\nmid 2N$, let $\eta_\ell = T_\ell -
-(1+\ell)\in \End(J)$.
+\begin{algorithm}{Upper bound on rational torsion order}%
+    \label{alg:upper_bound_stable}
+    Given a modular Jacobian $J_0(N)$, this algorithm outputs an upper bound
+    for $\# J_0(N)(\QQ)_\tor$. This algorithm computes successive GCD's until
+    it stabilizes for 3 iterations. Of course, increasing the stability
+    threshold could lead to be a better bound.
+    \begin{enumerate}
+        \item{} [Initialize]
+            Let $i=0$, $p_0$ be the smallest prime greater than 2 not dividing
+            $N$. 
+        \item{} [Add another factor]
+            Use~\ref{} to compute the matrix associated to $T_{p_0}$. Let $m_i
+            = \mathrm{charpoly}(T_p)(p+1)$. If $i=0$, set $B_i=m_i$. Otherwise,
+            set $B_i=\gcd(B_{i-1}, m_i)$.
+        \item{} [Stable?/Output]
+            If $i\leq 2$, increment $i$ and return to Step 2. Otherwise, if
+            $B_i\neq B_{i-2}$, return to Step 2. Otherwise, $B_i$ has been
+            stable for 3 iterations and we output $B_i$.
+    \end{enumerate}
+\end{algorithm}
+There are two disadvantages to Algorithm~\ref{alg:upper_bound_stable}. 
 
-\begin{lemma}[Stein]
-    For every $\ell\nmid 2N$, $J(\QQ)_\tor\subseteq J(\RR)[\eta_\ell]$.
+The first is that is isogeny invariant so we expect the bound to not be tight.
+In Example~\ref{}, we show that there exists an abelian variety isogenous to
+$J_0(30)$ with strictly greater rational torsion order. So
+Algorithm~\ref{alg:upper_bound_stable} will never give a tight bound even if we
+increase the stability threshold. This Jacobian is the first $J_0(N)$ that
+\sage (Version 8.7) cannot compute and is the motivating example for this
+totally split Jacobian project of this thesis.
+
+The second is the loss of information of the group structure. For example,
+suppose for some $A_f$ and odd primes $p,q$ of good reduction, we have the
+group isomorphisms $\mathcal{A}_{/p}(\Fp)\cong \ZZ/2\times \ZZ/2$ and
+$\mathcal{A}_{/q}(\F_q)\cong \ZZ/4$. If we look only at the orders, we can only
+deduce $\# A_f(\QQ)_\tor\mid 4$. However, the group structure tells us that as
+a group $A_f(\QQ)_\tor$ is trivial or $A_f(\QQ)_\tor \cong \ZZ/2$. 
+
+\subsubsection{Real Eisenstein Kernel}%
+\label{ssub:real_eisenstein_kernel}
+
+This next technique avoids both of the mentioned disadvantages of the first
+technique. This technique was created by William Stein and will be elaborated
+on as part of a forthcoming paper by Hao Chen, the author, and William Stein.
+The idea give to construct an ideal $I$ so that $J_0(N)(\QQ)_\tor\subseteq
+J_0(N)[I]$.
+
+For any odd prime $\ell$ of good reduction (so $\ell\nmid 2N$), let
+$\eta_\ell = T_\ell - (\ell+1)$.
+\begin{lemma}[William Stein]%
+    \label{lem:rational_is_eta}
+    For any odd prime $\ell$ of good reduction, $J(\QQ)_\tor\subseteq
+    J[\eta_\ell]$.
 \end{lemma}
+\begin{proof}
+    Let $\ell$ be an odd prime of good reduction.
+    By~\cite[Appendix]{katz:torsion}, there the reduction modulo $\ell$ map
+    yields the inclusion $\tau:J(\QQ)_\tor \hookrightarrow J_{/\ell}(\F_\ell)$.
+    Let $F_\ell$ be the absolute Frobenius of of $J_{/\ell}$. By Eicher-Shimura,
+    $T_\ell=F_\ell+\ell/F_\ell$. Let $x\in J(\QQ)_\tor$ so
+    $F_\ell(\tau(x))=\tau(x)$. We have
+    \[
+        \tau(\eta_\ell(x)) = (T_\ell-(\ell+1))\tau(x) =
+        (F_\ell+\ell/F_\ell-(\ell+1))\tau(x) = 0.
+    \]
+    Since $\tau$ is injective $x\in J[\eta_\ell]$.
+\end{proof}
 
-Let $s$ be the star-involution so $J(\CC)[s]=J(\RR)$ then
-\[
-    J(\QQ)_\tor \subseteq J[I^*],
-\]
-The advantage of this is that we still have information about the group
-structure.
+Let $I= \langle \eta_\ell:\ell\nmid 2N \rangle$. By
+Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $s$ be
+the star-involution~\ref{}, and $I^*=I + \langle 1-s \rangle$. William Stein
+calls this the Real Eisenstein Ideal. We have that $J(\CC)[1-s]=J(\RR)$ so
+combined with Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq 
+J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$ and define
+\begin{equation}%
+    \label{eq:stein_eta_group}
+    E_r = J[I_r ^*]
+\end{equation}
+which again contains $J(\QQ)_\tor$. So an upper bound is given by computing
+$E_r$ for sufficiently large $r$. For example, this one. TODO.
 
 \section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
@@ -1061,7 +1141,36 @@ structure.
 Let $0\to A\to B \to C$ be an exact sequence of abelian varieties over $\QQ$.
 The fixed-point functor $A\mapsto A^{G_\QQ}$ is left-exact so we have the long
 exact sequence from cohomology given by
+\begin{equation}%
+    \label{eq:galois_cohomology}
+        \begin{tikzcd}
+            0 \rar &
+            A(\QQ) \rar &
+            B(\QQ) \rar &
+            C(\QQ) \ar[rounded corners,
+                to path={ -- ([xshift=2ex]\tikztostart.east)
+                          |- (X.center) \tikztonodes
+                          -| ([xshift=-2ex]\tikztotarget.west)
+                          -- (\tikztotarget)}]{dll}[at end]{} \\
+                          &
+            H^1(\QQ,A) \rar["\gamma"] &
+            H^1(\QQ,B) \rar & 
+            \ldots
+        \end{tikzcd}.
+\end{equation}
+So when~\eqref{eq:galois_cohomology} is a sequence of (algebraic) rank-0
+varieties,
+\begin{equation}%
+    \label{eq:galois_cohomology_order}
+    \# C(\QQ) =
+    \frac{\# B(\QQ) \# \ker\gamma}{\# A(\QQ)}.
+\end{equation}
+It still remains difficult to compute $\ker\gamma$ but we can often compute a
+sufficient bound.
 
+One approach to computing a bound is through the familiar Kummer sequence.
+
+Another is doing a more explicit computation.
 
 \subsection{Approach to computing $J(\QQ)_\tor$}%
 \label{sub:approach_to_computing_j_qq__tor_}
@@ -1083,25 +1192,6 @@ exact sequence from cohomology given by
 \end{proof}
 
 The following algorithm works for these Ns.
-\begin{algorithm}{}
-    Given a totally split Jacobian $J=J_0(N)$. This algorithm returns a bound on
-    $[J(\QQ)_\tor:C(\QQ)]$.
-    \begin{enumerate}
-        \item{} [Stein's Real Eisenstein Kernel]
-            Use Algorithm~\ref{alg:eta_group} to compute $E_s$ for some large
-            $s$, for example, $s=100$.
-        \item{} [Representative for $E_s/C(\QQ)$]
-            Compute a list of representatives $x_1,\ldots,x_r\in E_s$ that are
-            representatives for $E_s/C(\QQ)$. Here we can take $x_1=0$.
-        \item{} [Find small containing abelian varieity]
-            For each $x_i$, find a small abelian subvariety, $A_i$, of $J_0(N)$
-            contain $x_i$.
-        \item{} [Verify Generalized Ogg Conjecture for $A_i$]
-            Use Algorithm~\ref{} to attempt to verify the Generalized Ogg
-            Conjecture for each $i$. If this succeeds, then the Generalized Ogg
-            Conjecture is true for $J$.
-    \end{enumerate}
-\end{algorithm}
 
 
 
@@ -1286,7 +1376,7 @@ irreducible case.
     only on $\m$, then $M=J[\m]$.
 \end{corollary}
 \begin{proof}
-    By Lemma~\ref{lemma:cherry_street}, the annihilator of $M$ is $\m$. Hence,
+    By Lemma~\ref{lem:cherry_street}, the annihilator of $M$ is $\m$. Hence,
     $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
     $G_\QQ$-module~\cite[Proposition 14.2]{mazur:eisenstein} so $M=J[\m]$.
 \end{proof}
