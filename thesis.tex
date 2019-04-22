@@ -75,6 +75,10 @@ computing the rational torsion subgroup of totally split $J_0(N)$.
 \chapter{Preliminaries}%
 \label{chap:prelim}
 
+Let $E$ be a complex elliptic curve over $\CC$ so $E\cong \CC/\Lambda$ where
+$\Lambda$ is a rank-2 $\ZZ$-module given by $u_1,u_2$. After some isomorphisms,
+there $E\cong E'$ where $E\cong \CC/\Lambda'$ with things.
+
 \section{Congruence Groups}
 
 \section{Modular Forms}
@@ -1141,23 +1145,23 @@ $E_r$ for sufficiently large $r$. For example, this one. TODO.
 Let $0\to A\to B \to C$ be an exact sequence of abelian varieties over $\QQ$.
 The fixed-point functor $A\mapsto A^{G_\QQ}$ is left-exact so we have the long
 exact sequence from cohomology given by
-\begin{equation}%
-    \label{eq:galois_cohomology}
-        \begin{tikzcd}
-            0 \rar &
-            A(\QQ) \rar &
-            B(\QQ) \rar &
-            C(\QQ) \ar[rounded corners,
-                to path={ -- ([xshift=2ex]\tikztostart.east)
-                          |- (X.center) \tikztonodes
-                          -| ([xshift=-2ex]\tikztotarget.west)
-                          -- (\tikztotarget)}]{dll}[at end]{} \\
-                          &
-            H^1(\QQ,A) \rar["\gamma"] &
-            H^1(\QQ,B) \rar & 
-            \ldots
-        \end{tikzcd}.
-\end{equation}
+% \begin{equation}%
+%     \label{eq:galois_cohomology}
+%         \begin{tikzcd}
+%             0 \rar &
+%             A(\QQ) \rar &
+%             B(\QQ) \rar &
+%             C(\QQ) \ar[rounded corners,
+%                 to path={ -- ([xshift=2ex]\tikztostart.east)
+%                           |- (X.center) \tikztonodes
+%                           -| ([xshift=-2ex]\tikztotarget.west)
+%                           -- (\tikztotarget)}]{dll}[at end]{} \\
+%                           &
+%             H^1(\QQ,A) \rar["\gamma"] &
+%             H^1(\QQ,B) \rar & 
+%             \ldots
+%         \end{tikzcd}.
+% \end{equation}
 So when~\eqref{eq:galois_cohomology} is a sequence of (algebraic) rank-0
 varieties,
 \begin{equation}%
@@ -1175,13 +1179,15 @@ Another is doing a more explicit computation.
 \subsection{Approach to computing $J(\QQ)_\tor$}%
 \label{sub:approach_to_computing_j_qq__tor_}
 
+Our general approach is centered around using~\ref{} to bound the index.
+
 \begin{proposition}
-    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$. Let
-    $x_1,\ldots,x_r\in E$ be a set of representatives of $E/(C(N)(\QQ))$.
-    Suppose for each $i$, there exists an abelian subvariety $A_i$ of $J_0(N)$
-    satisfying the Generalized Ogg Conjecture and containing $x_i$. Then
-    $C(N)(\QQ)=J_0(N)(\QQ)_\tor$ so $J_0(N)$ satisfies the Generalized Ogg
-    Conjecture.
+    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$ (for
+    example $E=E_r$~\eqref{eq:stein_eta_group}). Let $x_1,\ldots,x_r\in E$ be a
+    set of representatives of $E/(C(N)(\QQ))$. Suppose for each $i$, there
+    exists an abelian subvariety $A_i$ of $J_0(N)$ satisfying the Generalized
+    Ogg Conjecture and containing $x_i$. Then $C(N)(\QQ)=J_0(N)(\QQ)_\tor$ so
+    $J_0(N)$ satisfies the Generalized Ogg Conjecture.
 \end{proposition}
 \begin{proof}
     We already have $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
@@ -1193,9 +1199,28 @@ Another is doing a more explicit computation.
 
 The following algorithm works for these Ns.
 \begin{algorithm}
-    Given a totally split Jacobian $J=J_0(N)$. This algorithm will output a
+    Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
     bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup
     of $J$.
+    \begin{enumerate}
+        \item{} [Upper bound by $E_{50}$]
+            Set $r=50$ in~\eqref{eq:stein_eta_group} and compute $E_{50}$.
+        \item{} [Set of representatives]
+            Compute a list of elements $x_1,\ldots,x_s\in E_{50}$ that form a
+            set of representatives for $E_{50}/C(N)$.
+        \item{} [Reduce to smaller abelian varieties]
+            For each $x_i$, try to find an abelian variety $A_i$ satisfying the
+            Generalized Ogg conjecture.
+            \begin{enumerate}
+                \item{} [Factor $J$]
+                    Write $J=\sum A_i$.
+                \item{} [Sequence of sums of abelian subvarieties]
+                    Form increasing sum of abelian varieties
+                \item{} [Check Generalized Ogg conjecture]
+                    Check the Generalized Ogg conjectures using Galois
+                    cohomology.
+            \end{enumerate}
+    \end{enumerate}
 \end{algorithm}
 
 
@@ -1203,82 +1228,45 @@ The following algorithm works for these Ns.
 \chapter{Enumerating Isogenies of Prime Level Subvarieties}%
 \label{chap:isogeny_class}
 
-The goal of this section is, under mild conditions, to give an algorithm to
-enumerate the odd-degree $\QQ$-isogeny class of simple abelian subvarieties
-$A_f$ of $J_0(N)$ for $N$ prime, up to isomorphism. Given a $\QQ$-isogeny
-$\psi:A_f\to A'$ with kernel $K$, so
-\[
-    0 \to K \to A_f \overset{\psi}{\to} A' \to 0.
-\]
-Since the isogeny is defined over $\QQ$, $K$ is a finite $G_\QQ$-submodule of
-$A_f(\QQbar)$ which determines $A'$, up to isomorphism. Conversely, for every
-$G_\QQ$-submodule $K$ of $A_f(\QQbar)$, there exists an isogeny of $A_f$ with
-kernel $K$. Therefore, we will enumerate the odd-degree isogeny class of $A_f$,
-by enumerating the finite odd-order $G_\QQ$-submodules of $A_f(\QQbar)$, up to
-isomorphism of the image of the corresponding isogeny. 
+Let $N$ be a prime number so that $J_0(N)$ is non-trivial so $N=11$ or $N\geq
+17$. Let $A$ be a simple abelian subvariety of $J_0(N)$. The goal of this
+section is to, under certain conditions, enumerate the $\QQ$-isomorphism
+classes of abelian varieties isogenous to $A$ by an odd-degree $\QQ$-isogeny.
+We will call this the \emph{odd-degree isogeny class} of $A$. 
+% TODO: Is this allowed?
 
-We now fix notation, terminology, assumptions.
-\begin{itemize}
-    \item{} [Isomorphisms and Isogenies]
-        Unless otherwise stated, all isomorphisms and isogenies are defined
-        over $\QQ$.
-    \item{} [Jacobian notation]
-        Let $J = J_0(N)$ with $N$ prime. To avoid trivialities, assume $\dim
-        J>0$ or equivalently, $N=11$ or $N\geq 17$. Let $\TT$ be the Hecke
-        algebra of $J$ and $\I\subseteq \TT$ be the Eisenstein ideal.
-    \item{} [Abelian subvariety notation]
-        Let $A=A_f\subseteq J$ be a simple abelian subvariety of $J$. We will
-        fix a single simple abelian subvariety $A$ and its isogeny class will
-        be our object of study. We have that $A$ is $\TT$-invariant so let
-        $\TT_A$ be the image of $\TT$ in $\End(A)$ and $\I_A$ be the image of
-        the Eisenstein ideal in $\End(A)$. 
-    \item{} [Number theory of $\TT_A$ notation] 
-        Let $K_f$ be the Hecke eigenvalue field of $f$ so $K_f$ is a number
-        field of degree equal to $\dim A$. Moreover, $\TT_A$ is isomorphic to
-        an order in $K_f$. We will implicitly fix some embedding of $\TT_A$ and
-        treat $\TT_A$ as a subset of $K_f$. Let $\O_K$ be the ring of integers
-        of $K_f$ and $\f$ be the conductor of $\O_K$ over $\TT_A$.
-    \item{} [Galois-Hecke group ring notation]
-        Let $G_\QQ=\Gal(\QQbar/\QQ)$. The Hecke operators are defined over
-        $\QQ$, so $\TT_A$ commutes with $G_\QQ$ and we can form the group ring
-        $\TT[G_\QQ]=\TT_A[G_\QQ]$.
-    \item{} [Equivalence relation notation]
-        For finite $G_\QQ$-submodules $M$ and $M'$, we define a relationship
-        $M\sim M'$ if and only if $A/M \isom A/M'$. For any $G_\QQ$-submodule
-        $P$ of $A(\QQbar)$, let $\M(P)$ be set of equivalence classes of finite
-        $G_\QQ$-submodules of $A(\QQbar)_\odd$ with a representative that is a
-        submodule of $P$. So the goal of this chapter can be restated as
-        enumerating a set of representatives of $\M(A(\QQbar)_\odd)$.
-    \item{} [Sets of primes notation]
-        Let $S_0=\{\m\in \Spec\TT[\frac 12]: \m \nmid
-        \mathfrak{f}\mathcal{I}\}$ and $S_1 = \Spec\TT[\frac 12]\setminus S_0$.
-        The best fact about $S_0$ is that its elements are invertible and the
-        best fact about $S_1$ is that it is finite.
-    \item{} [$S_0$ and $S_1$ decomposition notation]
-        For an $\TT[G_\QQ]$-module $M$ of $A(\QQbar)_\odd$, let $M_{S_i}$ be the largest
-        $\TT[G_\QQ]$-submodule of $M$ supported on $S_i$ so $M_{S_i}=M[\prod_{\p\in S_i}
-        \p^\infty]$. Observe that $M = M_{S_0}\oplus M_{S_1}$.
-\end{itemize}
+More precisely, let $\TT$ be the Hecke algebra of $J_0(N)$ and $\TT_A$ be the
+image of $\TT$ in $\End(A)$. There exists a newform $f=\sum a_n q^n$ associated
+$A$. By~\ref{}, $\TT_A$ is isomorphic to an order of the Hecke eigenvalue field
+- $\QQ(\ldots,a_n,\ldots)$. The goal of this chapter is the enumerate the
+odd-degree isogeny class of $A$ when $\TT_A$ is integrally closed.
 
-The goal of this section is Algorithm~\ref{alg:odd_isogeny_class} which
-enumerates the odd isogeny class of $A$ when $\TT_A$ is integrally closed. From
-experimental data this conditions seems for be mild, at least for small primes.
-In particular, there are 450 simple abelian varieties of prime level less than
-1000 but only 42 are not integrally closed.
+The image of an isogeny is determined by its kernel up to isomorphism. So
+define an equivalence relation on the set of finite odd-order
+$G_\QQ$-submodules of $A(\QQbar)$ given by $M_1\sim M_2$ if and only if
+$A/M_1\isom A/M_2$. For any odd-order $G_\QQ$-submodule $X$ of $A(\QQbar)$, let
+$\M(X)$ be the set of equivalence classes of finite odd-order
+$G_\QQ$-submodules of $A(\QQbar)$ with a representative that is a submodule of
+$X$. Let $A(\QQbar)_\odd$ be the odd-torsion part of $A(\QQbar)$. The goal of
+this chapter can then be restated as enumerating a set of representatives for
+$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed. From experimental data
+this conditions seems to be mild. In particular, there are 450 simple abelian
+varieties of prime level less than 1000 but only 42 are not integrally closed.
 
-The idea will be as follows. Let $M$ be a odd $G_\QQ$-submodule of
-$A(\QQbar)_\odd$. In
-subsection~\ref{sec:finite_odd_order_galois_modules_are_hecke}, we will show
-that $M$ is an $\TT[G_\QQ]$-module. This is useful because the $\TT$-structure is more
-easily understood than the $G_\QQ$-structure. For example, we are now able to
-talk about the support of $M$ as a $\TT$-module. Using
-Proposition~\ref{prop:bound_support}, we can give an explicit set $S$ such that
-every odd $G_\QQ$-module is equivalent to one supported on $S$. In other words,
-$\M(A(\QQbar)_\odd)=\M(A[Q^\infty])$, where $Q$ is some ideal with
-$\Supp(Q)=S$. Using Algorithm~\ref{}, we can compute the $G_\QQ$-submodules of
-$\M(A[Q^r])$ for any $r$ and Proposition~\ref{prop:stop_looking} produces a $k$
-such that $\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar))$. In summary, we have the
-following algorithm.
+The idea will be as follows. We begin by showing every finite $G_\QQ$-submodule
+of $A(\QQbar)_\odd$ is a $\TT_A$-module (\ref{}). This is useful because the
+$\TT$-structure is more easily understood than the $G_\QQ$-structure.\ For
+instance, we are now able to talk about the $\TT_A$-support of finite odd-order
+$G_\QQ$-submodules. Then we will give an finite set of odd primes $S$ such that
+every finite odd-order $G_\QQ$-submodule is equivalent to one support on $S$
+(\ref{}). We then construct an ideal $Q$ of $\TT_A$ such that $S$ is the set of
+primes dividing $Q$. So $\M(A[Q^\infty])=\M(A(\QQbar)_\odd$. It is from here on
+that we need to assume $\TT_A$ is integrally closed. In this case, we can take
+$S$ to be a set of odd primes and $Q$ to be an ideal of odd norm. We will then
+give an method for determining an integer $k$ such that
+$\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (\ref{}). Lastly, we give an
+algorithm for enumerating the finite $G_\QQ$-submodules of $\M(A[Q^k])$. In
+summary, we have the following algorithm. 
 \begin{algorithm}{Odd isogeny class}%
     \label{alg:odd_isogeny_class}
     Let $A$ be a simple abelian subvariety with $\TT_A$ integrally closed. This
@@ -1698,6 +1686,7 @@ Other Jacobians.
 \chapter{Tables}
 
 \include{table_enumerate_totally_split}
+
 
 \bibliographystyle{amsalpha}
 \bibliography{biblio}
