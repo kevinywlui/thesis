@@ -31,8 +31,6 @@
 \tableofcontents
 \listoffigures
 
-\dedication{\begin{center}to mom and dad\end{center}}
-
 \textpages
 
 \chapter*{Preface}
@@ -74,22 +72,6 @@ computing the rational torsion subgroup of totally split $J_0(N)$.
 
 \chapter{Preliminaries}%
 \label{chap:prelim}
-
-
-\section{Modular Curves}
-
-Let $\h$ be the upper half plane of $\CC$.
-
-Let $E$ be a complex elliptic curve over $\CC$ so $E\cong \CC/\Lambda$ where
-$\Lambda$ is a rank-2 $\ZZ$-module given by $u_1,u_2$. After some isomorphisms,
-there $E\cong E'$ where $E\cong \CC/\Lambda'$ with things. 
-
-Param.
-
-\section{Modular Forms}
-
-
-\section{Modular Jacobians}
 
 \section{Modular Abelian Varieties}
 
@@ -141,12 +123,6 @@ modularity conjecture~\cite[3.2.4]{serre:conjectures}, Ribet~\cite[Thm.
 4.4]{ribet:abvars} shows that the every $\GL_2$-type abelian variety is
 modular.
 
-\subsection{Serre conjecture}%
-\label{sub:serre_conjecture}
-
-\subsection{Mazur and BLR}%
-\label{sub:mazur_and_blr} 
-
 
 \section{Natural maps}%
 \label{sec:natural_maps}
@@ -158,6 +134,8 @@ in Section~\ref{sec:alg_natural_maps}.
 
 \subsection{Degeneracy Maps}%
 \label{sub:degeneracy_maps} 
+
+[[William: Writing down degeneracy maps seem cumbersome]]
 
 Let $L\mid N$, $LM=N$, and $t_1,\ldots,t_r$ be the divisors of $M$ in
 increasing order. Then, for each $t_i$, there are degeneracy maps relating the
@@ -194,14 +172,6 @@ interpretation, \eqref{eq:degen_moduli} becomes
     \end{split}
 \end{equation}
 The induced map is something.
-
-
-\subsection{Hecke Operators}%
-\label{sub:hecke_operators}
-
-
-\subsection{Star involution}%
-\label{sub:star_involution}
 
 
 \subsection{Optimal Elliptic Curves}%
@@ -585,6 +555,9 @@ Proposition~\ref{prop:integral_degen}, there exists $S:=\sum n_i d_i:J_0(L)\to
 J_0(N)$ such that $S(A_f)=A$. We may factor out $\gcd(n_1,\ldots, n_r)$ from
 $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then 
 
+[[William: $\star$-condition is when $\ker\Phi_L = \Sigma_0 ^r$, can I say
+this?]]
+
 \begin{proposition}
     \label{prop:star_eisenstein}
     Suppose $(L, N)$ satisfies the $\star$-condition, then $\ker S\subseteq
@@ -636,13 +609,79 @@ In this chapter, we will review algorithms on modular abelian varieties.
 
 \section{Defining Data}
 
-Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
+We represent modular abelian varieties explicitly as follows. Let $A$ be a
+modular abelian variety and $\varphi:A\to J$ a finite degree morphism. Let
+$B$ be the image of $A$ in $J$. Then there is an isogeny $B$ to $A$ with kernel
+$G$ such that $A\cong B/G$.
+\[
+    here is a diagram.
+\]
+So we can represent any modular abelian variety $J$ by giving $G\subseteq
+B\subseteq J$ all defined over $\QQ$. 
+
+\begin{itemize}
+    \item 
+        We will represent $J$ by giving a modular
+        symbol basis for $H_1(J, \ZZ)$ and $H_1(J, \QQ) = H_1(J, \ZZ)\otimes
+        \QQ$~\cite{}.
+    \item
+        We will represent $B$ as an abelian subvariety of $J$ as follows. The
+        inclusion of $B\subseteq J$ induces an inclusion of rational homology
+        $V=H_1(B, \QQ)$ into $H_1(J, \QQ)$ and $B$ is determined by this
+        inclusion. Therefore, we specify $B$ by a basis in reduced echelon form
+        for the subspace $V$. Of course, not every subspace of $H_1(J, \QQ)$
+        corresponds to an abelian subvariety. In~\ref{}, we determine exactly
+        when a subspace of $H_1(J, \QQ)$ corresponds to the rational homology
+        of an abelian subvariety.
+    \item
+        We will represent $G$ as a finite subgroup of $B$ as follows. Let
+        $\Lambda=V\cap H_1(J, \ZZ)$. Then the torsion subgroup of $B$ is given
+        by $B(\CC)_\tor=V/\Lambda$. Therefore, we represent $G$ as specifying a
+        Hermite normal form basis for the lattice $L$ with $\Lambda \subseteq L
+        \subseteq V$.
+\end{itemize}
+
+Therefore, we can represent any modular abelian variety $A$ with the triplet
+$(L, V, J)$ with the properties $J=J_1(N)$ for some $N$, $V\subseteq H_1(J,
+\QQ)$, $L$ a lattice containing $V\cap H_1(J, \ZZ)$. Since the $\QQ$-span of
+$L$ is $V$, $V$ can be recover from $L$ so $A$ can also be specified by $(L,
+J)$.
 
 \section{Natural Maps}
 
-\section{Cuspidal subgroup}
+[[William: Can I just cite your book?]]
+
+\section{Cuspidal subgroup and rational cuspidal subgroup}
+
+The cusps of $X_H(N)$ are the equivalence classes of $\P^1(\QQ)$ under
+$\Gamma_H(N)$. We will denote the elements by $[x/y]_{\Gamma_H(N)}$. The
+\defn{cuspidal subgroup} $C$ of $J$ is the subgroup of degree-0 divisors
+$(\alpha)-(\beta)$ where $\alpha, \beta$ are cusps on $J$. More generally, if
+$A=(L, V, J)$ is a modular abelian variety that is the quotient of $B$ by $L$.
+Then the cuspidal subgroup of $A$ is defined to be $(C\cap B)/L$, where $C$ is
+the cuspidal subgroup of $J$.
+
+The Galois structure of the cuspidal subgroup is well-understood~\cite[\S
+1.3]{stevens:thesis}. The points of the cuspidal subgroup are
+$\QQ(\mu_N)$-rational under the following Galois action. There is an abstract
+group homomorphism $\Gal(\QQ(\mu_N)/\QQ)\cong \ZZ/N\ZZ)^*$, let
+\[
+    \sigma_d\in \Gal(\Q(\mu_N)/\Q):\mu_N\mapsto \mu_N ^d
+\]
+then
+\[
+    \sigma_d([x/y]_{\Gamma_1})=[x/d'y]_{\Gamma_1},
+\]
+where $dd'\equiv 1 \mod{N}$. This explicit description of the Galois action
+\emph{rational cuspidal subgroup} $C(\QQ):=C^{\Gal(\QQ(\mu)/\QQ)}$.
 
 \section{Shimura subgroup}
+
+Let $\Sigma(N)$ be the Shimura subgroup of $J_0(N)$ so $\Sigma(N)$ is the
+kernel of the natural map $J_0(N)\to J_1(N)$. To compute $\Sigma(N)$, we will
+use a theorem by Ribet. We will choose some odd prime $p$ coprime to $N$,
+by~\cite[Prop. 1]{ribet:raising}, $\Sigma(N)=\ker(d_1-d_p)$, where
+$d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
 
 \section{Simple abelian subvarieties as image of degeneracies}
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
@@ -759,6 +798,8 @@ Let $\phi:A\to J$ be a finite degree homomorphism. Let $B=\Im \phi$ and $G$
 
 
 \section{Homomorphism spaces}
+
+take from modabvar
 
 \section{Isogeny and isomorphism testing}
 
