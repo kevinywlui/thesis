@@ -69,8 +69,7 @@ elliptic curves. In Section~\ref{chap:totally_split}, we present techniques for
 computing the rational torsion subgroup of totally split $J_0(N)$.
 
 
-
-\chapter{Preliminaries}%
+\chapter{Theoretical Preliminaries}%
 \label{chap:prelim}
 
 \section{Modular Abelian Varieties}
@@ -134,8 +133,6 @@ in Section~\ref{sec:alg_natural_maps}.
 
 \subsection{Degeneracy Maps}%
 \label{sub:degeneracy_maps} 
-
-[[William: Writing down degeneracy maps seem cumbersome]]
 
 Let $L\mid N$, $LM=N$, and $t_1,\ldots,t_r$ be the divisors of $M$ in
 increasing order. Then, for each $t_i$, there are degeneracy maps relating the
@@ -555,8 +552,6 @@ Proposition~\ref{prop:integral_degen}, there exists $S:=\sum n_i d_i:J_0(L)\to
 J_0(N)$ such that $S(A_f)=A$. We may factor out $\gcd(n_1,\ldots, n_r)$ from
 $S$ and assume that $\gcd(n_1, \ldots,n_r)=1$. Suppose $x\in \ker S$. Then 
 
-[[William: $\star$-condition is when $\ker\Phi_L = \Sigma_0 ^r$, can I say
-this?]]
 
 \begin{proposition}
     \label{prop:star_eisenstein}
@@ -806,8 +801,8 @@ take from modabvar
 In this section, we give an algorithm for determining when a pair of simple
 modular abelian varieties are isomorphic.
 
-\begin{algorithm}{Is isomorphic?}%
-    \label{is_isomorphic}
+\begin{algorithm}{Isomorphism testing}%
+    \label{alg:isomorphism_testing}
     Given simple modular abelian varieties $A, B$, this algorithm determine if
     $A, B$ are isomorphic. If so, this algorithm will also return an
     isomorphism between $A, B$.
