@@ -1261,14 +1261,18 @@ exact sequence from cohomology given by
             &
             B(\QQ)
             \arrow[r]
+            \arrow[phantom, ""{coordinate, name=Z}]{d}
             &
             C(\QQ)
-             \ar[rounded corners,
-            to path={ -- ([xshift=2ex]\tikztostart.east)
-                      |- (X.center) \tikztonodes
-                      -| ([xshift=-2ex]\tikztotarget.west)
-                  -- (\tikztotarget)}]{dll}[at end]{}
-            \\
+            \arrow[
+            rounded corners,
+            to path={%
+                -- ([xshift=2ex]\tikztostart.east)
+                |- (Z) [near end]\tikztonodes
+                -| ([xshift=-2ex]\tikztotarget.west)
+                -- (\tikztotarget)
+            }
+            ]{dll} \\
             &
             H^1(G_\QQ, A)
             \arrow[r, "\gamma"]
