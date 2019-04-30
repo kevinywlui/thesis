@@ -281,10 +281,10 @@ $15a1$ is the $J_0(N)$-optimal curve within the isogeny class $15a$.
 
 We will soon also be interested in $J_1(N)$-optimal elliptic curves. Though the
 $J_0(N)$-optimal and $J_1(N)$-optimal curves often agree, this is not always
-the case. We can use Algorithm~\ref{} to determine the Weierstrass equation of
-the $J_1(N)$-optimal curve. Alternatively, we can use Stevens
-Conjecture~\cite[Conjecture II]{stevens:param} which states that within an
-isogeny class, the $J_1(N)$-optimal curve is the curve of minimal Faltings
+the case. We can use Algorithm~\ref{alg:weierstrass} to determine the
+Weierstrass equation of the $J_1(N)$-optimal curve. Alternatively, we can use
+Stevens Conjecture~\cite[Conjecture II]{stevens:param} which states that within
+an isogeny class, the $J_1(N)$-optimal curve is the curve of minimal Faltings
 height. This conjecture is still open but some progress has been made. Stein
 and Watkins~\cite[\S 3]{stein-watkins:ns} have proved Stevens conjecture for
 isogeny classes of prime conductor. Vatsal~\cite[Thm.
@@ -643,7 +643,8 @@ this.
 
 In this chapter, we will review algorithms on modular abelian varieties.
 
-\section{Defining Data}
+\section{Defining Data}%
+\label{sec:defining_data}
 
 We represent modular abelian varieties explicitly as follows. Let $A$ be a
 modular abelian variety and $\varphi:A\to J$ a finite degree morphism. Let
@@ -679,9 +680,10 @@ B\subseteq J$ all defined over $\QQ$.
         $V=H_1(B, \QQ)$ into $H_1(J, \QQ)$ and $B$ is determined by this
         inclusion. Therefore, we specify $B$ by a basis in reduced echelon form
         for the subspace $V$. Of course, not every subspace of $H_1(J, \QQ)$
-        corresponds to an abelian subvariety. In~\ref{}, we determine exactly
-        when a subspace of $H_1(J, \QQ)$ corresponds to the rational homology
-        of an abelian subvariety.
+        corresponds to an abelian subvariety. In
+        Algorithm~\ref{sec:decomp_verify}, we give a method for determining
+        exactly when a subspace of $H_1(J, \QQ)$ corresponds to the rational
+        homology of an abelian subvariety.
     \item
         We will represent $G$ as a finite subgroup of $B$ as follows. Let
         $\Lambda=V\cap H_1(J, \ZZ)$. Then the torsion subgroup of $B$ is given
@@ -709,7 +711,101 @@ The Hecke operators~\cite[\S 8.3]{stein:modform}, degeneracy maps~\cite[\S
 useful maps defined on modular symbols which, in turn, induce maps on the
 Jacobian. For example, %TODO.
 
+\subsection{Decomposition and Verification of an Abelian Subvariety}
+\label{sec:decomp_verify}
 
+As mentioned in Section~\ref{sec:defining_data}, not every subspace $V$ of
+$H_1(J, \QQ)$ corresponds to an abelian subvariety of $J$. In this section, we
+will give an algorithm for verifying when $V$ corresponds to an abelian
+subvariety. This algorithm will also give a decomposition of $V$ into simple
+subvarieties.
+
+
+\begin{proposition}
+    \label{prop:integral_degen}
+    Let $A$ be a simple subvariety of $J_H(N)$. There exists a divisor $L$ of
+    $N$ and a newform $f$ of level $L$ such that $A_f \sim A$. Let
+    $d_1,\ldots,d_r$ be the full collection of degeneracy maps from $J_H(L)$ to
+    $J_H(N)$. Then there exists integers $n_1,\ldots,n_r$ such that $S:=\sum
+    n_i d_i|_{A_f}: A_f\to A$ is an isogeny from $A_f$ to $A$. Note that $S$ is
+    defined over $\QQ$.
+\end{proposition}
+\begin{proof}
+    Let $V_f=\sum_{i=1} ^r d_i(A_f)$ and $\Phi:A_f ^r \to V_f$ be defined by
+    $D(x_1,\ldots,x_r) = d_1(x_1)+\cdots+d_r(x_r)$. Let $K_f$ be the Fourier
+    coefficient field of $f$. Since $A$ is an abelian subvariety of $V_f$, there
+    exists $M\in \End_0(V)\cong M_r(\End_0(A_f)) = M_r (K_f)$ such that $\Im M
+    = A$. Let $i:A_f\to A_f ^r$ be the inclusion map into the first coordinate.
+    Then there exists $U\in \Aut(A_f ^r)=\GL_r (K_f)$ such that,
+    \[
+        \begin{tikzcd}
+            A_f \arrow[r,"i"] &
+            A_f ^r \arrow[r, dotted, "U"] &
+            A_f ^r \arrow[r, "D"] &
+            V_f \arrow[r, "M"] &
+            A,
+        \end{tikzcd}
+    \]
+    the map $T:=M \circ \Phi \circ U\circ i:A_f\to A\in \Hom_0(A_f, A)$ is
+    nonzero. Since degeneracy maps are $K_f$-linear, there exists coefficients
+    $a_1,\ldots,a_r\in K_f$ such that $T = \sum a_i d_i$. Now there exists
+    $b\in \ZZ^*$ such that $T':=bT\in \Hom(A_f, A)$ is nonzero and hence an
+    isogeny. Since $T'(\Lambda_{A_f})\subset \Lambda_A$, $T'=\sum q_i d_i$
+    for $q_i\in \QQ$. Finally, there exists $w\in \ZZ^*$ such that
+    $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
+\end{proof}
+
+\begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
+    \label{alg:decomp_and_verify_subvarieties}
+    Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
+    to a subvariety $A$ of $J$, then this algorithm will return a decomposition
+    into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
+    'NO'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
+    \begin{enumerate}
+        \item{} [Decompose into potential Hecke eigenspaces]
+            We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
+            W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
+            dividing $N$, such that either $W_i$ either corresponds to an
+            abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
+            abelian subvariety and we can return 'NO'.
+            \begin{enumerate}
+                \item{} [Initialize]
+                    Set $j=1$.
+                \item{} [Decompose into eigenspaces]
+                    Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
+                    n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
+                    U_{j, k}\neq V$, return 'NO'.
+                \item{} [Compare with newforms]
+                    Let $S_{j,k}$ be the set of newforms whose $l$th Fourier
+                    coefficient agrees with the eigenvalue of $T_l$ on $U_{j,
+                    k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for any
+                    $k=1,\ldots,n_j$, return 'NO". If $S_{j,k}$ is not
+                    singleton for any $k=1,\ldots, n_j$, increment $j$ and
+                    return to (b). Otherwise, $S_{j,k}$ is singleton for all
+                    $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
+            \end{enumerate}
+        \item{} [Is isogenous to power?]
+            We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
+            and give its decomposition. The $W_i$'s are pairwise non-isogenous
+            so we will do this individually for each $W_i$ and consider just a
+            single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
+            Let $d_1,\ldots,d_r:J_H(L)\to J_H(N)$ be the full collection of
+            degeneracy maps from $J_H(L)$ to $J_H(N)$.  Set $U=\{0\}$.
+            \begin{enumerate}
+                \item{} [Image of $\QQ$-combination of $d_j$'s?]
+                    Choose any $v\in V\setminus U$. By
+                    Proposition~\ref{prop:integral_degen}, if $W$ is an abelian
+                    subvariety then there exists $q_1,\ldots,q_r\in \QQ$
+                    such that $v\in \Im \left(\sum_{i=1} ^r q_i
+                    \delta_i\right)$. If this is not the case, return
+                    'NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
+                    \delta_i\right)$. If $R\not\subset V$, return 'NO'.
+                \item{} [Full space?]
+                    Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
+                    return to (b).
+            \end{enumerate}
+    \end{enumerate}
+\end{algorithm}
 \section{Cuspidal subgroup and rational cuspidal subgroup}
 
 The cusps of $X_H(N)$ are the equivalence classes of $\P^1(\QQ)$ under
@@ -751,10 +847,10 @@ $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
     level of $f$.
     \begin{enumerate}
         \item{} [Decompose]
-            Use Algorithm~\ref{} to obtain the decomposition $J_0(N)=\sum_f
-            V_f$, where the sum runs over newforms $f$ of level dividing $N$
-            and $V_f$ is the sum of all abelian subvarieties of $J_0(N)$
-            isogenous to $A_f$.
+            Use Algorithm~\ref{alg:decomp_and_verify_subvarieties} to obtain
+            the decomposition $J_0(N)=\sum_f V_f$, where the sum runs over
+            newforms $f$ of level dividing $N$ and $V_f$ is the sum of all
+            abelian subvarieties of $J_0(N)$ isogenous to $A_f$.
         \item{} [Determine newform]
             Find the newform $f$ of level $L$ so that $A\subseteq V_f$.
         \item{} [Basis under degeneracy]
@@ -858,7 +954,7 @@ $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
 
 \section{Homomorphism spaces}
 
-take from modabvar
+%TODO: take from modabvar?
 
 \section{Isogeny and isomorphism testing}
 
@@ -1070,10 +1166,10 @@ subgroup of a totally split Jacobian $J_0(N)$ just to show it is algorithmic.
 \end{proposition}
 \begin{proof}
     Recall that the abelian subvarieties are represented by giving a submodule
-    of the integral homology~\ref{TODO}. Suppose $A$ is 1-dimensional subvariety of
-    $J$. Then by~\ref{alg:weierstrass}, we can compute an elliptic
-    curve $E_A$ given in Weierstrass defining equation and an isomorphism
-    $\Phi_A:A_\tor\to (E_A)_\tor$.
+    of the integral homology~\ref{sec:defining_data}. Suppose $A$ is
+    1-dimensional subvariety of $J$. Then by~\ref{alg:weierstrass}, we can
+    compute an elliptic curve $E_A$ given in Weierstrass defining equation and
+    an isomorphism $\Phi_A:A_\tor\to (E_A)_\tor$.
 
     We will proceed by induction on the dimension, $d$, of $A$. We first
     consider the case $d=1$.
