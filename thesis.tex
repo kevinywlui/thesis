@@ -25,13 +25,28 @@
 \Signature{Bianca Viray}
 \Signature{Yen-Chi Chen}
 
+\abstract{%
+In this thesis, we aim to give algorithms for computing two key invariants of
+the modular Jacobians $J_0(N)$.
+
+We first give methods for computing the rational torsion order of rank-0
+Jacobians $J_0(N)$ that are isogenous to a product of elliptic curves. 
+
+Next we will give an algorithm for computing the rational isogeny class of a
+simple abelian subvariety $A$ of $J_0(N)$ under mild conditions. In particular,
+when the Hecke algebra of $A$ is isomorphic to a maximal order of a number
+field, we are able to enumerate the isogeny class. This will allow us to build
+a table of isogeny graphs of simple abelian subvarieties of $J_0(N)$.
+}
 \copyrightpage
 
 \titlepage
 \tableofcontents
 \listoffigures
 
+
 \textpages
+
 
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
@@ -1247,60 +1262,101 @@ $E_r$ for sufficiently large $r$. For example, this one. TODO.
 \subsection{Galois cohomology}%
 \label{sub:galois_cohomology}
 
-Let $0\to A\to B \to C$ be an exact sequence of abelian varieties over $\QQ$.
-The fixed-point functor $A\mapsto A^{G_\QQ}$ is left-exact so we have the long
-exact sequence from cohomology given by
+
+Let $A, B$ be abelian subvarieties of a totally split Jacobian $J_0(N)$. Then
+the exact sequence
 \begin{equation}%
-    \label{eq:galois_cohomology}
-        \begin{tikzcd}
-            0
-            \arrow[r]
-            &
-            A(\QQ)
-            \arrow[r]
-            &
-            B(\QQ)
-            \arrow[r]
-            \arrow[phantom, ""{coordinate, name=Z}]{d}
-            &
-            C(\QQ)
-            \arrow[
-            rounded corners,
-            to path={%
-                -- ([xshift=2ex]\tikztostart.east)
-                |- (Z) [near end]\tikztonodes
-                -| ([xshift=-2ex]\tikztotarget.west)
-                -- (\tikztotarget)
-            }
-            ]{dll} \\
-            &
-            H^1(G_\QQ, A)
-            \arrow[r, "\gamma"]
-            &
-            H^1(G_\QQ, B)
-            \arrow[r]
-            &
-            \cdots
-        \end{tikzcd}.
+    \label{eq:ses_ab}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        A\cap B \arrow[r,"d"] &
+        A\times B \arrow[r,"s"] &
+        A+B \arrow[r] &
+        0,
+    \end{tikzcd}
 \end{equation}
-So when~\eqref{eq:galois_cohomology} is a sequence of (algebraic) rank-0
-varieties,
+where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$ yields the sequence
+\begin{equation}%
+    \label{eq:les_ab}
+    \begin{tikzcd}
+        0 \rar 
+        &
+        (A\cap B)(\QQ) \rar 
+        &
+        (A\times B)(\QQ) \rar
+        \arrow[phantom, ""{coordinate, name=W}]{d}
+        &
+        (A+B)(\QQ)
+        \arrow[
+        rounded corners,
+        to path={%
+            -- ([xshift=2ex]\tikztostart.east)
+            |- (W) [near end]\tikztonodes
+            -| ([xshift=-2ex]\tikztotarget.west)
+            -- (\tikztotarget)
+        }
+        ]{dll} \\
+        &
+        H^1(\QQ,A\cap B) \rar["\gamma"] 
+        &
+        H^1(\QQ,A\times B) \rar 
+        & \ldots.
+    \end{tikzcd}
+\end{equation}
+We now have
 \begin{equation}%
     \label{eq:galois_cohomology_order}
-    \# C(\QQ) =
-    \frac{\# B(\QQ) \# \ker\gamma}{\# A(\QQ)}.
+    \# (A+B)(\QQ) =
+    \frac{\# (A\times B)(\QQ) \# \ker\gamma}{\# (A\cap B)(\QQ)}.
 \end{equation}
-It still remains difficult to compute $\ker\gamma$ but we can often compute a
-sufficient bound.
 
-One approach to computing a bound is through the familiar Kummer sequence.
+When $J$ is a rank-0 totally split Jacobian, \eqref{eq:galois_cohomology_order}
+gives way to inductively determine the rational torsion order
+$J(\QQ)_\tor=J(\QQ)$. Let $J$ be a rank-0 totally split Jacobian of dimension
+$k$ so $J = \sum_{i=1} ^k E_i$, where $E_i$ are elliptic subvarieties of $J$.
+We can compute the torsion order of $E_i$. To do induction, let these things.
 
-Another is doing a more explicit computation.
+\begin{algorithm}{Bounding rational torsion order}%
+    \label{alg:bound_rational_torsion_order}
+    Given a $k$-dimensional totally split rank-0 abelian subvariety $X$ of
+    $J_0(N)$. This algorithm returns a bound on $[X(\QQ)_\tor:C_X(\QQ)]$, where
+    $C_X=C(N)\cap X$.
+    \begin{itemize}
+        \item{} [Factor $X$ into elliptic curve subvarieties] 
+            Use Algorithm~\ref{} to factor $X$ into elliptic curve
+            subvarieties, $E_1,\ldots,E_k$.
+        \item{} [Iteractively add one-dimension piece]
+            Let $A_r = \sum_{i=1} ^r E_i$. We will interactively compute a
+            bound $b_r$ on things. %TODO fill in
+            \begin{itemize}
+                \item{} [Generic bound from $S$]
+                    Let $b=\# S_X/\#C_X(\QQ)$, where $S_X=S\cap X$ and
+                    $C_X=C(N)\cap X$.
+                \item{} [Refine using known results]
+                    The results of~\ref{} gives of the support, $S$, of
+                    $[X(\QQ):C_X(\QQ)]$. So if
+                    necessary, replace $b$ with the part of $b$ supported on
+                    $S$.
+                \item{} [Use Kummer sequence]
+                    If $A\cap B\neq B[n]$ for any $n$, skip this step.
+                    Otherwise, set $c=\# B(\QQ) / \#(nB(\QQ))$.
+                    A bound on $[Y(\QQ)_\tor:C_Y(\QQ)]$ is given by
+                    \[
+                        b' =
+                        \frac{\#C_A(\QQ)\cdot B(\QQ)\cdot c\cdot
+                        b_{i-1}}{\#(A\cap B)(\QQ)\cdot\# C_{A+B}(\QQ)}.
+                    \]
+                \item{} [Finish]
+                    Set $b_i=\gcd(b,b')$.
+            \end{itemize}
+        \item{} [Return]
+            Return $b_k$.
+    \end{itemize}
+\end{algorithm}
+
 
 \subsection{Approach to computing $J(\QQ)_\tor$}%
 \label{sub:approach_to_computing_j_qq__tor_}
-
-Our general approach is centered around using~\ref{} to bound the index.
 
 \begin{proposition}
     Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$ (for
@@ -1318,7 +1374,7 @@ Our general approach is centered around using~\ref{} to bound the index.
     $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
 \end{proof}
 
-The following algorithm works for these Ns.
+The following algorithm works for these Ns. %TODO
 \begin{algorithm}
     Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
     bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup
