@@ -969,7 +969,7 @@ suggested proving this using asymptotic bounds.
 Neither of their arguments gave an effective method of enumeration. The goal of
 this subsection is to provably enumerate the set of $J_0(N)$ that are totally
 split. There are 71 of totally split $J_0(N)$ that are nontrivial (see
-Table~\ref{tab:split_table}).
+Table~\ref{tab:split}).
 
 
 We have that $J_0(N)$ is totally split if and only if its dimension is equal to
@@ -1052,7 +1052,7 @@ eventually pruned so the number of good integers is finite.
 \begin{theorem}
     \label{thm:finite_totally_split}
     There are 71 integers $N$ for which $J_0(N)$ is a totally split Jacobian of
-    positive dimension. They are given in Table~\ref{tab:split_table}.
+    positive dimension. They are given in Table~\ref{tab:split}.
 \end{theorem}
 \begin{proof}
     We run Algorithm~\ref{alg:find_split} and it terminates after find 71
@@ -1278,14 +1278,13 @@ J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$ and define
     E_r = J[I_r ^*]
 \end{equation}
 which again contains $J(\QQ)_\tor$. So an upper bound is given by computing
-$E_r$ for sufficiently large $r$. For example, this one. TODO.
+$E_r$ for sufficiently large $r$.
 
 \section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
 
 \subsection{Galois cohomology}%
 \label{sub:galois_cohomology}
-
 
 Let $A, B$ be abelian subvarieties of a totally split Jacobian $J_0(N)$. Then
 the exact sequence
@@ -1398,7 +1397,14 @@ We can compute the torsion order of $E_i$. To do induction, let these things.
     $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
 \end{proof}
 
-The following algorithm works for these Ns. %TODO
+\begin{theorem}
+    There are 45 totally split rank-0 Jacobians $J_0(N)$. The Generalized Ogg
+    Conjecture has been verified for all but 9 $N$'s. In these cases, they are
+    bounded by a power of 2. In particular, let $b(N)=\log_2
+    ([J_0(N)(\QQ)_\tor:C(N)(\QQ)])$, where $C(N)$ is the cuspidal subgroup of
+    $N$. The 9 $N$'s where we have not verified the Generalize Ogg Conjecture
+    is given by
+\end{theorem}
 \begin{algorithm}
     Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
     bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup

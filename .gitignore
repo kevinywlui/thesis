@@ -24,3 +24,5 @@ misc/
 *.bbl
 *.lot
 *lof
+*synctex*
+*lof*
