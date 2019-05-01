@@ -1,0 +1,517 @@
+\chapter{Totally Split Jacobians}%
+\label{chap:totally_split}
+
+A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
+product of elliptic curves. The classification and construction of totally
+split Jacobians of genus 2 curves has been
+well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two}
+and large rational torsion subgroup of totally split Jacobians of genus 2 and 3
+curves have been found~\cite{howe-leprevost-poonen:large}. The original
+motivation of this project was to compute the rational torsion subgroup for as
+many $J_0(N)$ as possible. The first $N$ for which Sage fails is $J_0(30)$
+which happens to be a product of 3 elliptic curves. The author and his adviser
+were able to compute the rational torsion subgroup using the fact that
+$J_0(30)$ is totally split, the fact that rational torsion subgroups of
+elliptic curves can be computed, and Galois cohomology. The goal of this
+section is to prove that there are finitely many totally split $J_0(N)$, to
+give a general (but totally impractical) method for computing the rational
+torsion subgroup, and to present some more practical techniques for computing
+the rational torsion subgroup.
+
+
+\section{Provably enumerating the set of totally split $J_0(N)$}
+
+The modular Jacobian $J_0(N)$ is totally split if and only if all newforms of
+level dividing $N$ have rational Hecke coefficients. We expect this to be rare.
+In fact, there are only finitely many totally split $J_0(N)$. Ralph Greenberg
+quickly gave an argument on the way to UW Number Theory Seminar lunch proving
+the set of totally split $J_0(N)$ is finite but his argument did not give an
+effective method of enumeration. Moreover, at Sage Days 87, Alyson Dienes
+suggested proving this using asymptotic bounds.
+\begin{proposition}%
+    \label{prop:totally_split}
+    The set of totally split $J_0(N)$ is finite.
+\end{proposition}
+\begin{proof}
+    If $J_0(N)$ is a product of elliptic curves then the dimension is
+    exactly equal to the number of elliptic factors.
+    \begin{itemize}
+        \item
+            By~\cite[Thm. 6]{martin:dimension}, the dimension is bounded below
+            by $\frac{1}{12}N + O(\sqrt{N}\log\log N)$.
+        \item
+            By~\cite[Cor. 2]{brumer-silverman:number}, the number of elliptic
+            curve factors of $J_0(N)$ is bounded above by $O(N^{1/2+\epsilon})$
+            for any $\epsilon>0$.
+    \end{itemize}
+    Asymptotically, the lower bound will surpass the upper bound so there are
+    finitely many totally split $J_0(N)$.
+\end{proof}
+Neither of their arguments gave an effective method of enumeration. The goal of
+this subsection is to provably enumerate the set of $J_0(N)$ that are totally
+split. There are 71 of totally split $J_0(N)$ that are nontrivial (see
+Table~\ref{tab:split}).
+
+
+We have that $J_0(N)$ is totally split if and only if its dimension is equal to
+the number of (modular) elliptic curves of conductor $N$. If $N$ is less than
+the upper limit of conductors in the Cremona Database, then determining whether
+$J_0(N)$ is totally split is a quick computation since there is a closed-form
+formula for $\dim J_0(N)$.
+
+\begin{lemma}
+    \label{lem:good_primes}
+    The only possible primes $p$ where $J_0(p)$ is totally split are
+    \[
+        2, 3, 5, 7, 11, 13, 17, 19, 37.
+    \]
+\end{lemma}
+\begin{proof}
+    Let $J=J_0(p)$ be a totally split Jacobian of prime level. If $\dim J=0$,
+    then $J$ is clearly totally split so assume $\dim J>0$. Then $J\cong
+    \prod_f E_f$ with $E_f$'s elliptic curves of conductor $p$. Let $n$ denote
+    the order of the rational cuspidal subgroup of $J$ which is, as mentioned
+    above, known to be the numerator of $(p-1)/12$. By Emerton's proof of
+    Stein's refined Eisenstein conjecture~\cite[Theorem B]{emerton:optimal}, if
+    $l$ divides $n$, then $l$ divides the order of $E_f(\QQ)$ for some elliptic
+    factor of $J$. But elliptic curves of prime conductor do not have much
+    rational torsion.
+
+    In particular, Miyawaki~\cite{miyawaki:ell_prime} enumerates all curves of prime
+    power conductor with odd-order rational torsion. The largest prime
+    conductor here being 37. This implies that if $p>37$, then $\#C(\QQ)$ must
+    be a power of 2 so $p=2^a 3^b + 1$ for some $a\geq 0$ and $b\in \{0,1\}$.
+    We now show $a\leq 2$.
+
+    If $a>2$, then $C(\QQ)$ has an order 2 element which implies some $E_i$ has
+    a rational 2-torsion point. As a result of Setzer~\cite[Theorem
+    2]{setzer:ell_prime}, $p=17$ or $p=u^2+64$ for some integer $u$. We split into 2
+    cases to show that $p$ is never $u^2+64$.
+
+    Suppose $b=0$. Then $p$ is a Fermat prime and thus a Fermat number. Outside
+    of $3$ and $5$, the recursive formula for Fermat numbers and an induction
+    argument shows that the last digit of Fermat numbers is always $7$. But the
+    only possible last digits of $u^2+64$ are $0, 3, 4, 5, 8, 9$.
+
+    Suppose $b=1$. Then $2^a\cdot 3 = u^2+63$. This implies $3$ divides $u$ so
+    $9$ divides $u^2$. But now the right-hand side is divisible by $9$ while the
+    left is not.
+
+    In conclusion, we know that if $J_0(p)$ is a totally split Jacobian, then $p\leq
+    37$. A computer search then determines which primes less than or equal to
+    $37$ are totally split.
+\end{proof}
+
+Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
+\emph{bad} otherwise. The simple factors of $J_0(N)$ are isogenous to simple
+factors of $J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad,
+then so is any multiple of $N$. This allows us to prune divisibility branches
+while doing a search for good integers on the divisibility tree of the positive
+integers. Theorem~\ref{thm:finite_totally_split} asserts that all branches are
+eventually pruned so the number of good integers is finite.
+
+\begin{algorithm}{Enumerating Good Integers}
+    \label{alg:find_split}
+    Let $S$ be the set of primes found in Lemma~\ref{lem:good_primes}. This
+    procedure will halt (see Theorem~\ref{thm:finite_totally_split}) and return
+    the list of good integers.
+\end{algorithm}
+\begin{enumerate}
+    \item{} [Initialize]
+        \label{step:initialize}
+        Set $i=1$ and $M_1=S$. Here $M_i$ will represent the set of all good
+        integers with $i$ prime factors, counting multiplicity.
+    \item{} [Find prime multiples of $M_i$ are that good]
+        Set
+        \[
+            M_{i+1}=\{pN: p\in S, N\in M_i, pN \text{ good}\}.
+        \]
+        If $M_{i+1}$ is non-empty, increment $i$ and repeat this step.
+    \item{} [Return]
+        Return $\bigcup_i M_i$.
+\end{enumerate}
+\begin{theorem}
+    \label{thm:finite_totally_split}
+    There are 71 integers $N$ for which $J_0(N)$ is a totally split Jacobian of
+    positive dimension. They are given in Table~\ref{tab:split}.
+\end{theorem}
+\begin{proof}
+    We run Algorithm~\ref{alg:find_split} and it terminates after find 71
+    integers $N$ for which $J_0(N)$ is totally split (luckily before reaching
+    the end of the Cremona database). This proves the finiteness of totally
+    split $J_0(N)$ without using Proposition~\ref{prop:totally_split} but with
+    the added benefit of provably enumerating the totally split $J_0(N)$.
+\end{proof}
+
+
+\section{Enumerating rational torsion is algorithmic}
+
+Here we give a completely impractical algorithm to compute the rational torsion
+subgroup of a totally split Jacobian $J_0(N)$ just to show it is algorithmic.
+\begin{proposition}
+    Suppose $A$ is a totally split abelian subvariety of $J=J_0(N)$ Then we can
+    compute the following data:
+    \begin{enumerate}
+        \item
+            A number field containing $\QQ(A[n])$ for positive integer $n$.
+        \item
+            Let $n$ be a positive integer and $L$ be a number field containing
+            $\QQ(A[n])$. The action of $\Gal(L/\QQ)$ on $A[n]$.
+        \item
+            The $K$-rational torsion points of $A(K)_\tor$.
+    \end{enumerate}
+    In particular, we can compute the rational torsion subgroup of any totally
+    split Jacobian.
+\end{proposition}
+\begin{proof}
+    Recall that the abelian subvarieties are represented by giving a submodule
+    of the integral homology~\ref{sec:defining_data}. Suppose $A$ is
+    1-dimensional subvariety of $J$. Then by~\ref{alg:weierstrass}, we can
+    compute an elliptic curve $E_A$ given in Weierstrass defining equation and
+    an isomorphism $\Phi_A:A_\tor\to (E_A)_\tor$.
+
+    We will proceed by induction on the dimension, $d$, of $A$. We first
+    consider the case $d=1$.
+    \begin{enumerate}
+        \item
+            Let $n$ be a positive integer. Then using division polynomials, we
+            can compute a number field $L$ containing $\QQ(A[n])$.
+        \item
+            Let $n$ be a positive integer and $L$ be a number field containing
+            $\QQ(A[n])$. The Galois action on the points of $E_A[n]$ is given
+            by applying the Galois action to each coordinate. Using $\Phi_A$
+            and the action of $\Gal(L/\QQ)$ on $E_A$, we can explicit determine
+            the action of $\Gal(L/\QQ)$ on $A[n]$.
+        \item
+            Let $K$ be a number field. Using reduction mod $p$, there exists an
+            integer $m$, such that that $A(K)_\tor \subseteq A[m]$. Using (1),
+            we can define a number field $L$ that contains $\QQ(A[m])$. Then
+            using (2), we can compute
+            \[
+                A(K)_\tor = A[m]^{\Gal(L/K)}.
+            \]
+    \end{enumerate}
+
+    Now assume we can compute (1)-(3) for any totally split abelian subvariety
+    of dimension less than $k$.
+
+    Let $A$ be of dimension $k+1$ and write $A=B+C$, where $B$ is of
+    dimension $k$ and $C$ is of dimension $1$.  We have the exact sequence
+    \[
+        0\to B\cap C \to B\times C \to A,
+    \]
+    where we identify $B\cap C$ as a subgroup of $B\times C$ via the
+    anti-diagonal embedding. So $A=(B\times C)/(B\cap C)$. Let $r$ be the
+    exponent of $B\cap C$.
+    \begin{enumerate}
+        \item
+            For any integer $n$, $A[n] \subseteq B[nr]+C[nr]$. So a number
+            field containing $\QQ(A[n])$ is the compositum  of the number
+            fields containing $\QQ(B[nr])$ and $\QQ(C[nr])$ which can be
+            computed by the inductive hypothesis.
+        \item
+            The Galois action can be determined on $A[n]$ by viewing $A[n]$ as
+            a subgroup of $(B[nr]\times C[nr])/(B\cap C)$.
+        \item
+            Using reduction mod $p$, there exists an integer $m$ such that
+            $A(K)_\tor\subseteq A[m]$. Using (1), we can find a number field
+            $L$ that contains $\QQ(A[m])$. Then we use (2), to compute
+            \[
+                A(K)_\tor = A[m]^{\Gal(L/K)}.
+            \]
+    \end{enumerate}
+\end{proof}
+
+\section{Strategies for computing the rational torsion subgroup}
+
+By~\ref{}, we have the inclusion $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ and the
+Generalized Ogg conjecture is the assertion that we have equality. In this
+section, we will give techniques for bounding the index
+$[J_0(\QQ)_\tor:C(N)(\QQ)]$.
+
+Our main interest is the totally split rank-0 case
+though our techniques may apply more generally (Example~\ref{}). There are 46
+totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
+Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
+able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
+
+\subsection{Upper bound}%
+\label{sub:upper_bound}
+
+In this subsection, we give two techniques for giving an upper bound for
+$J_0(N)(\QQ)_\tor$. The first technique uses reduction modulo $p$,
+Eicher-Shimura, and the Hecke polynomial to obtain a bound on the order. The
+second technique gives an ideal, $I^*$, similar to Mazur's Eisenstein ideal so
+that $J_0(N)(\QQ)_\tor\subseteq J_0(N)[I]$. We will be primarily using the
+second technique for our computations but we give the first technique to
+motivate the second.
+
+\subsubsection{Reduction modulo primes}%
+\label{ssub:reduction_modulo_primes}
+
+Let $A$ be a modular abelian variety with good reduction at primes $p$. A
+common technique for bounding $A(\QQ)_\tor$ is to inject it into the
+$\Fp$-points for odd primes $p$ of good reduction. In particular,
+by~\cite[Appendix]{katz:torsion}, if $\mathcal{A}$ is the Neron model for $A$,
+then the reduction map gives the inclusion
+\[
+    A(\QQ)_\tor \hookrightarrow \mathcal{A}_{/p}(\Fp).
+\]
+In particular, if $S$ is any set of good odd primes,
+\[
+    \# A(\QQ)_\tor = \gcd_{p\in S}\{ \# \mathcal{A}_{/p}(\Fp)\}.
+\]
+The expression $\#\mathcal{A}_{\p}(\Fp)$ is an isogeny invariant and
+multiplicative on direct products. So it suffices to describe how to compute
+$\mathcal{A}_{/p}(\Fp)$ when $A=A_f\subseteq J_0(N)$ (for $A_f\subseteq
+J_1(N)$, see~\cite[\S 3.5]{agashe-stein:bsd}). Let $F_p$ be the absolute
+Frobenius at $p$ by Eicher-Shimura, $T_p = F_p + p/F_p\in
+\End(\mathcal{A}_{/p})$. Then
+\begin{align}
+    \label{eq:katz_bound}
+    \begin{split}
+    \#\mathcal{A}_{/p}(\Fp)
+    & = \deg(1-F_p) \\
+    & = |\det(1-F_p)| \\
+    & = \mathrm{charpoly}(F_p)(1) \\
+    & = \mathrm{charpoly}(T_p)(p+1).
+    \end{split}
+\end{align}
+The last term is the characteristic polynomial of the matrix associated to the
+Hecke operator $T_p$. We now give the current \sage (Version 8.7)
+implementation of this algorithm by William Stein.
+
+\begin{algorithm}{Upper bound on rational torsion order}%
+    \label{alg:upper_bound_stable}
+    Given a modular Jacobian $J_0(N)$, this algorithm outputs an upper bound
+    for $\# J_0(N)(\QQ)_\tor$. This algorithm computes successive GCD's until
+    it stabilizes for 3 iterations. Of course, increasing the stability
+    threshold could lead to be a better bound.
+    \begin{enumerate}
+        \item{} [Initialize]
+            Let $i=0$, $p_0$ be the smallest prime greater than 2 not dividing
+            $N$.
+        \item{} [Add another factor]
+            Use~\ref{} to compute the matrix associated to $T_{p_0}$. Let $m_i
+            = \mathrm{charpoly}(T_p)(p+1)$. If $i=0$, set $B_i=m_i$. Otherwise,
+            set $B_i=\gcd(B_{i-1}, m_i)$.
+        \item{} [Stable?/Output]
+            If $i\leq 2$, increment $i$ and return to Step 2. Otherwise, if
+            $B_i\neq B_{i-2}$, return to Step 2. Otherwise, $B_i$ has been
+            stable for 3 iterations and we output $B_i$.
+    \end{enumerate}
+\end{algorithm}
+There are two disadvantages to Algorithm~\ref{alg:upper_bound_stable}.
+
+The first is that is isogeny invariant so we expect the bound to not be tight.
+In Example~\ref{}, we show that there exists an abelian variety isogenous to
+$J_0(30)$ with strictly greater rational torsion order. So
+Algorithm~\ref{alg:upper_bound_stable} will never give a tight bound even if we
+increase the stability threshold. This Jacobian is the first $J_0(N)$ that
+\sage (Version 8.7) cannot compute and is the motivating example for this
+totally split Jacobian project of this thesis.
+
+The second is the loss of information of the group structure. For example,
+suppose for some $A_f$ and odd primes $p,q$ of good reduction, we have the
+group isomorphisms $\mathcal{A}_{/p}(\Fp)\cong \ZZ/2\times \ZZ/2$ and
+$\mathcal{A}_{/q}(\F_q)\cong \ZZ/4$. If we look only at the orders, we can only
+deduce $\# A_f(\QQ)_\tor\mid 4$. However, the group structure tells us that as
+a group $A_f(\QQ)_\tor$ is trivial or $A_f(\QQ)_\tor \cong \ZZ/2$.
+
+\subsubsection{Real Eisenstein Kernel}%
+\label{ssub:real_eisenstein_kernel}
+
+This next technique avoids both of the mentioned disadvantages of the first
+technique. This technique was created by William Stein and will be elaborated
+on as part of a forthcoming paper by Hao Chen, the author, and William Stein.
+The idea give to construct an ideal $I$ so that $J_0(N)(\QQ)_\tor\subseteq
+J_0(N)[I]$.
+
+For any odd prime $\ell$ of good reduction (so $\ell\nmid 2N$), let
+$\eta_\ell = T_\ell - (\ell+1)$.
+\begin{lemma}[William Stein]%
+    \label{lem:rational_is_eta}
+    For any odd prime $\ell$ of good reduction, $J(\QQ)_\tor\subseteq
+    J[\eta_\ell]$.
+\end{lemma}
+\begin{proof}
+    Let $\ell$ be an odd prime of good reduction.
+    By~\cite[Appendix]{katz:torsion}, there the reduction modulo $\ell$ map
+    yields the inclusion $\tau:J(\QQ)_\tor \hookrightarrow J_{/\ell}(\F_\ell)$.
+    Let $F_\ell$ be the absolute Frobenius of of $J_{/\ell}$. By Eicher-Shimura,
+    $T_\ell=F_\ell+\ell/F_\ell$. Let $x\in J(\QQ)_\tor$ so
+    $F_\ell(\tau(x))=\tau(x)$. We have
+    \[
+        \tau(\eta_\ell(x)) = (T_\ell-(\ell+1))\tau(x) =
+        (F_\ell+\ell/F_\ell-(\ell+1))\tau(x) = 0.
+    \]
+    Since $\tau$ is injective $x\in J[\eta_\ell]$.
+\end{proof}
+
+Let $I= \langle \eta_\ell:\ell\nmid 2N \rangle$. By
+Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $s$ be
+the star-involution~\ref{}, and $I^*=I + \langle 1-s \rangle$. William Stein
+calls this the Real Eisenstein Ideal. We have that $J(\CC)[1-s]=J(\RR)$ so
+combined with Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq
+J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$ and define
+\begin{equation}%
+    \label{eq:stein_eta_group}
+    E_r = J[I_r ^*]
+\end{equation}
+which again contains $J(\QQ)_\tor$. So an upper bound is given by computing
+$E_r$ for sufficiently large $r$.
+
+\section{General approach to bound}%
+\label{sec:galois_cohomology_bounds}
+
+\subsection{Galois cohomology}%
+\label{sub:galois_cohomology}
+
+Let $A, B$ be abelian subvarieties of a totally split Jacobian $J_0(N)$. Then
+the exact sequence
+\begin{equation}%
+    \label{eq:ses_ab}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        A\cap B \arrow[r,"d"] &
+        A\times B \arrow[r,"s"] &
+        A+B \arrow[r] &
+        0,
+    \end{tikzcd}
+\end{equation}
+where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$ yields the sequence
+\begin{equation}%
+    \label{eq:les_ab}
+    \begin{tikzcd}
+        0 \rar 
+        &
+        (A\cap B)(\QQ) \rar 
+        &
+        (A\times B)(\QQ) \rar
+        \arrow[phantom, ""{coordinate, name=W}]{d}
+        &
+        (A+B)(\QQ)
+        \arrow[
+        rounded corners,
+        to path={%
+            -- ([xshift=2ex]\tikztostart.east)
+            |- (W) [near end]\tikztonodes
+            -| ([xshift=-2ex]\tikztotarget.west)
+            -- (\tikztotarget)
+        }
+        ]{dll} \\
+        &
+        H^1(\QQ,A\cap B) \rar["\gamma"] 
+        &
+        H^1(\QQ,A\times B) \rar 
+        & \ldots.
+    \end{tikzcd}
+\end{equation}
+We now have
+\begin{equation}%
+    \label{eq:galois_cohomology_order}
+    \# (A+B)(\QQ) =
+    \frac{\# (A\times B)(\QQ) \# \ker\gamma}{\# (A\cap B)(\QQ)}.
+\end{equation}
+
+When $J$ is a rank-0 totally split Jacobian, \eqref{eq:galois_cohomology_order}
+gives way to inductively determine the rational torsion order
+$J(\QQ)_\tor=J(\QQ)$. Let $J$ be a rank-0 totally split Jacobian of dimension
+$k$ so $J = \sum_{i=1} ^k E_i$, where $E_i$ are elliptic subvarieties of $J$.
+We can compute the torsion order of $E_i$. To do induction, let these things.
+
+\begin{algorithm}{Bounding rational torsion order}%
+    \label{alg:bound_rational_torsion_order}
+    Given a $k$-dimensional totally split rank-0 abelian subvariety $X$ of
+    $J_0(N)$. This algorithm returns a bound on $[X(\QQ)_\tor:C_X(\QQ)]$, where
+    $C_X=C(N)\cap X$.
+    \begin{itemize}
+        \item{} [Factor $X$ into elliptic curve subvarieties] 
+            Use Algorithm~\ref{} to factor $X$ into elliptic curve
+            subvarieties, $E_1,\ldots,E_k$.
+        \item{} [Iteractively add one-dimension piece]
+            Let $A_r = \sum_{i=1} ^r E_i$. We will interactively compute a
+            bound $b_r$ on things. %TODO fill in
+            \begin{itemize}
+                \item{} [Generic bound from $S$]
+                    Let $b=\# S_X/\#C_X(\QQ)$, where $S_X=S\cap X$ and
+                    $C_X=C(N)\cap X$.
+                \item{} [Refine using known results]
+                    The results of~\ref{} gives of the support, $S$, of
+                    $[X(\QQ):C_X(\QQ)]$. So if
+                    necessary, replace $b$ with the part of $b$ supported on
+                    $S$.
+                \item{} [Use Kummer sequence]
+                    If $A\cap B\neq B[n]$ for any $n$, skip this step.
+                    Otherwise, set $c=\# B(\QQ) / \#(nB(\QQ))$.
+                    A bound on $[Y(\QQ)_\tor:C_Y(\QQ)]$ is given by
+                    \[
+                        b' =
+                        \frac{\#C_A(\QQ)\cdot B(\QQ)\cdot c\cdot
+                        b_{i-1}}{\#(A\cap B)(\QQ)\cdot\# C_{A+B}(\QQ)}.
+                    \]
+                \item{} [Finish]
+                    Set $b_i=\gcd(b,b')$.
+            \end{itemize}
+        \item{} [Return]
+            Return $b_k$.
+    \end{itemize}
+\end{algorithm}
+
+
+\subsection{Approach to computing $J(\QQ)_\tor$}%
+\label{sub:approach_to_computing_j_qq__tor_}
+
+\begin{proposition}
+    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$ (for
+    example $E=E_r$~\eqref{eq:stein_eta_group}). Let $x_1,\ldots,x_r\in E$ be a
+    set of representatives of $E/(C(N)(\QQ))$. Suppose for each $i$, there
+    exists an abelian subvariety $A_i$ of $J_0(N)$ satisfying the Generalized
+    Ogg Conjecture and containing $x_i$. Then $C(N)(\QQ)=J_0(N)(\QQ)_\tor$ so
+    $J_0(N)$ satisfies the Generalized Ogg Conjecture.
+\end{proposition}
+\begin{proof}
+    We already have $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
+    reverse inclusion, let $x\in J_0(N)(\QQ)_\tor\subseteq E$. Then $x\in
+    x_i+C(N)(\QQ)$ for some representative $x_i$. This implies $x_i\in
+    J_0(N)(\QQ)_\tor$. But $A_i$ satisfies the Generalized Ogg Conjecture so
+    $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
+\end{proof}
+
+Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
+\begin{theorem}%
+    \label{thm:verification_rank_zero}
+    There are 45 totally split rank-0 Jacobians $J_0(N)$ (See
+    Table~\ref{tab:split}). The Generalized Ogg Conjecture has been verified
+    for all but 9 such $N$'s given by
+    \[
+        84,90,96,120,132,144,150,168,180
+    \]
+    In these cases, they are bounded by a power of 2. See
+    Table~\ref{tab:rank_zero_bound}.
+\end{theorem}
+
+\begin{algorithm}%
+    Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
+    bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup
+    of $J$.
+    \begin{enumerate}
+        \item{} [Upper bound by $E_{50}$]
+            Set $r=50$ in~\eqref{eq:stein_eta_group} and compute $E_{50}$.
+        \item{} [Set of representatives]
+            Compute a list of elements $x_1,\ldots,x_s\in E_{50}$ that form a
+            set of representatives for $E_{50}/C(N)$.
+        \item{} [Reduce to smaller abelian varieties]
+            For each $x_i$, try to find an abelian variety $A_i$ satisfying the
+            Generalized Ogg conjecture.
+            \begin{enumerate}
+                \item{} [Factor $J$]
+                    Write $J=\sum A_i$.
+                \item{} [Sequence of sums of abelian subvarieties]
+                    Form increasing sum of abelian varieties
+                \item{} [Check Generalized Ogg conjecture]
+                    Check the Generalized Ogg conjectures using Galois
+                    cohomology.
+            \end{enumerate}
+    \end{enumerate}
+\end{algorithm}
