@@ -15,7 +15,10 @@
 \begin{document}
 \prelimpages
 
-\Title{Explicit Isogenies for $J_0(N)$}
+\Title{%
+    Arithmetic of Totally Split Modular Jacobians and Enumeration of Isogeny
+    Classes of Prime Level Simple Modular Abelian Varieties
+}
 \Author{Kevin Lui}
 \Year{2019}
 \Program{Mathematics}
@@ -39,16 +42,17 @@ Jacobians $J_0(N)$ that are isogenous to a product of elliptic curves. We call
 these the rank-0 totally split Jacobians. The rational torsion is an important
 invariant of the Generalized BSD conjecture so being able to compute the
 rational torsion order will provide evidence towards this conjecture. We will
-provably enumerate the set of totally split $J_0(N)$, show that computing the
-rational torsion subgroup is algorithmic, and later give techniques for
+provably enumerate the set of totally split $J_0(N)$, give an algorithm for
+computing the rational torsion subgroup, and later give techniques for
 computing the rational torsion order for rank-0 totally split Jacobians
 $J_0(N)$. 
 
 Next we will give an algorithm for computing the rational isogeny class of a
-simple abelian subvariety $A$ of $J_0(N)$ under mild conditions. In particular,
-when the Hecke algebra of $A$ is isomorphic to a maximal order of a number
-field, we are able to enumerate the isogeny class. This will allow us to build
-a table of isogeny graphs of simple abelian subvarieties of $J_0(N)$.
+simple abelian subvariety $A$ of $J_0(N)$ for prime $N$, under mild conditions.
+In particular, when the Hecke algebra of $A$ is isomorphic to a maximal order
+of a number field, we are able to enumerate the isogeny class. This will allow
+us to build a table of isogeny graphs of simple abelian subvarieties of
+$J_0(N)$.
 }
 
 
@@ -84,11 +88,20 @@ generate the tables and the tables themselves can be found here: \url{TODO}
 \chapter{Introduction}%
 \label{chap:intro}
 
-In this thesis, we compute explicit with isogenies of $J_0(N)$.
+Let $X_0(N)$ be the modular curve whose non-cuspidal points parameterize
+complex elliptic curve with some additional $N$-torsion data. Let
+$J_0(N)=\Jac(X_0(N))$ be the Jacobian variety of $X_0(N)$. The study of
+$J_0(N)$ has yielded many deep results in arithmetic geometry.
 
-We say a Jacobian is totally split if it is $\QQ$-isogenous to a product of
-elliptic curves. In Section~\ref{chap:totally_split}, we present techniques for
-computing the rational torsion subgroup of totally split $J_0(N)$.
+\section{Rational torsion points}%
+\label{sec:rational_torsion_points}
+
+The rational torsion subgroup is an 
+
+\section{Rational isogeny class}%
+\label{sec:rational_isogeny_class}
+
+%TODO 
 
 
 \chapter{Theoretical Preliminaries}%
@@ -225,7 +238,7 @@ Let $E$ be an elliptic curve of conductor $N$. By the Modularity Theorem for
 elliptic curves~\cite{breuil-conrad-diamond-taylor}. There exists a surjection
 $\phi:J_0(N)\onto E$. In general, $\ker\phi$ is not connected. There does
 $\phi':J_0(N)\onto E'$ with $E'$ isogenous to $E$ so that $\ker\phi'$ is
-connected. By Multiplicity One~\ref{}, this $E'$ is unique in its isogeny
+connected. By multiplicity one, this $E'$ is unique in its isogeny
 class. This leads to the definition of optimal quotients.
 
 \begin{definition}%
@@ -600,9 +613,9 @@ this.
     \Sigma(L)$. In particular, this isogeny is Eisenstein.
 \end{proposition}
 \begin{proof}
-    Suppose $x\in \ker S$. We will continue with equation~\eqref{eq:S_to_ker}
-    so $(n_1 x, \ldots, n_r x)\in \ker\Phi_L ^N = \Sigma(L)_0 ^r$. Hence, $n_i x\in
-    \Sigma(L)$ for all $i$. Since $\gcd(n_1,\ldots,n_r)=1$, $x\in \Sigma(L)$.
+    Suppose $x\in \ker S$. Then $(n_1 x, \ldots, n_r x)\in \ker\Phi_L ^N =
+    \Sigma(L)_0 ^r$. Hence, $n_i x\in \Sigma(L)$ for all $i$. Since
+    $\gcd(n_1,\ldots,n_r)=1$, $x\in \Sigma(L)$.
 \end{proof}
 
 \begin{question}
@@ -719,41 +732,6 @@ $H_1(J, \QQ)$ corresponds to an abelian subvariety of $J$. In this section, we
 will give an algorithm for verifying when $V$ corresponds to an abelian
 subvariety. This algorithm will also give a decomposition of $V$ into simple
 subvarieties.
-
-
-\begin{proposition}
-    \label{prop:integral_degen}
-    Let $A$ be a simple subvariety of $J_H(N)$. There exists a divisor $L$ of
-    $N$ and a newform $f$ of level $L$ such that $A_f \sim A$. Let
-    $d_1,\ldots,d_r$ be the full collection of degeneracy maps from $J_H(L)$ to
-    $J_H(N)$. Then there exists integers $n_1,\ldots,n_r$ such that $S:=\sum
-    n_i d_i|_{A_f}: A_f\to A$ is an isogeny from $A_f$ to $A$. Note that $S$ is
-    defined over $\QQ$.
-\end{proposition}
-\begin{proof}
-    Let $V_f=\sum_{i=1} ^r d_i(A_f)$ and $\Phi:A_f ^r \to V_f$ be defined by
-    $D(x_1,\ldots,x_r) = d_1(x_1)+\cdots+d_r(x_r)$. Let $K_f$ be the Fourier
-    coefficient field of $f$. Since $A$ is an abelian subvariety of $V_f$, there
-    exists $M\in \End_0(V)\cong M_r(\End_0(A_f)) = M_r (K_f)$ such that $\Im M
-    = A$. Let $i:A_f\to A_f ^r$ be the inclusion map into the first coordinate.
-    Then there exists $U\in \Aut(A_f ^r)=\GL_r (K_f)$ such that,
-    \[
-        \begin{tikzcd}
-            A_f \arrow[r,"i"] &
-            A_f ^r \arrow[r, dotted, "U"] &
-            A_f ^r \arrow[r, "D"] &
-            V_f \arrow[r, "M"] &
-            A,
-        \end{tikzcd}
-    \]
-    the map $T:=M \circ \Phi \circ U\circ i:A_f\to A\in \Hom_0(A_f, A)$ is
-    nonzero. Since degeneracy maps are $K_f$-linear, there exists coefficients
-    $a_1,\ldots,a_r\in K_f$ such that $T = \sum a_i d_i$. Now there exists
-    $b\in \ZZ^*$ such that $T':=bT\in \Hom(A_f, A)$ is nonzero and hence an
-    isogeny. Since $T'(\Lambda_{A_f})\subset \Lambda_A$, $T'=\sum q_i d_i$
-    for $q_i\in \QQ$. Finally, there exists $w\in \ZZ^*$ such that
-    $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
-\end{proof}
 
 \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
     \label{alg:decomp_and_verify_subvarieties}
@@ -891,69 +869,9 @@ $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
     \end{enumerate}
 \end{algorithm}
 
-\section{Decomposing and Verifying Abelian subvarieties}
-
-\begin{algorithm}{Identifying simple newform abelian subvarieties}%
-    \label{alg:identifying_simples}
-    Given a simple abelian subvariety $A$, this algorithm returns a newform $f$ and
-    an isogeny $\phi:A_f\to A$.
-\end{algorithm}
-
-\begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
-    \label{alg:decomp_and_verify_subvarieties}
-    Let $J=J_0(N)$ and $V$ be a subspace of $0_1(J, \QQ)$. If $V$ corresponds
-    to a subvariety $A$ of $J$, then this algorithm will return a decomposition
-    into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
-    `NO'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
-    \begin{enumerate}
-        \item{} [Decompose into potential Hecke eigenspaces]
-            We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
-            W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
-            dividing $N$, such that either $W_i$ either corresponds to an
-            abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
-            abelian subvariety and we can return `NO'.
-            \begin{enumerate}
-                \item{} [Initialize]
-                    Set $j=1$.
-                \item{} [Decompose into eigenspaces]
-                    Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
-                    n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
-                    U_{j, k}\neq V$, return `NO'.
-                \item{} [Compare with newforms]
-                    Let $S_{j,k}$ be the set of newforms whose $l$th Fourier
-                    coefficient agrees with the eigenvalue of $T_l$ on $U_{j,
-                    k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for any
-                    $k=1,\ldots,n_j$, return `NO'. If $S_{j,k}$ is not
-                    singleton for any $k=1,\ldots, n_j$, increment $j$ and
-                    return to (b). Otherwise, $S_{j,k}$ is singleton for all
-                    $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
-            \end{enumerate}
-        \item{} [Is isogenous to power?]
-            We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
-            and give its decomposition. The $W_i$'s are pairwise non-isogenous
-            so we will do this individually for each $W_i$ and consider just a
-            single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
-            Let $d_1,\ldots,d_r:J_0(L)\to J_0(N)$ be the full collection of
-            degeneracy maps from $J_0(L)$ to $J_0(N)$.  Set $U=\{0\}$.
-            \begin{enumerate}
-                \item{} [Image of $\QQ$-combination of $d_j$'s?]
-                    Choose any $v\in V\setminus U$. By
-                    Proposition~\ref{prop:integral_degen}, if $W$ is an abelian
-                    subvariety then there exists $q_1,\ldots,q_r\in \QQ$
-                    such that $v\in \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If this is not the case, return
-                    `NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If $R\not\subset V$, return `NO'.
-                \item{} [Full space?]
-                    Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
-                    return to (b).
-            \end{enumerate}
-    \end{enumerate}
-\end{algorithm}
 
 
-\section{Homomorphism spaces}
-
+% \section{Homomorphism spaces}
 %TODO: take from modabvar?
 
 \section{Isogeny and isomorphism testing}
@@ -1506,8 +1424,6 @@ The following algorithm works for these Ns. %TODO
     \end{enumerate}
 \end{algorithm}
 
-
-
 \chapter{Enumerating Isogenies of Prime Level Subvarieties}%
 \label{chap:isogeny_class}
 
@@ -1519,9 +1435,10 @@ We will call this the \emph{odd-degree isogeny class} of $A$.
 
 More precisely, let $\TT$ be the Hecke algebra of $J_0(N)$ and $\TT_A$ be the
 image of $\TT$ in $\End(A)$. There exists a newform $f=\sum a_n q^n$ associated
-$A$. By~\ref{}, $\TT_A$ is isomorphic to an order of the Hecke eigenvalue field
-- $\QQ(\ldots,a_n,\ldots)$. The goal of this chapter is the enumerate the
-odd-degree isogeny class of $A$ when $\TT_A$ is integrally closed.
+$A$. By~\cite[Prop. 7.14]{shimura:intro}, $\TT_A$ is isomorphic to an order of
+the Hecke eigenvalue field - $\QQ(\ldots,a_n,\ldots)$. The goal of this chapter
+is the enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is integrally
+closed.
 
 The image of an isogeny is determined by its kernel up to isomorphism. So
 define an equivalence relation on the set of finite odd-order
@@ -1531,7 +1448,7 @@ $\M(X)$ be the set of equivalence classes of finite odd-order
 $G_\QQ$-submodules of $A(\QQbar)$ with a representative that is a submodule of
 $X$. Let $A(\QQbar)_\odd$ be the odd-torsion part of $A(\QQbar)$. The goal of
 this chapter can then be restated as enumerating a set of representatives for
-$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed. From experimental data
+$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed. From experimental data,
 this conditions seems to be mild. In particular, there are 450 simple abelian
 varieties of prime level less than 1000 but only 42 are not integrally closed.
 
@@ -1542,22 +1459,25 @@ $\TT_A$ dividing $C_i$ for some $C_i\in H$, $E$ be the set of primes dividing
 the Eisenstein ideal, and $S=D\cup E$.
 
 We begin by showing every
-finite $G_\QQ$-submodule of $A(\QQbar)_\odd$ is a $\TT_A$-module (\ref{}). This
-is useful because the $\TT$-structure is more easily understood than the
+finite $G_\QQ$-submodule of $A(\QQbar)_\odd$ is a $\TT_A$-module
+(Proposition~\ref{prop:G_modules_are_hecke}). This
+is useful because the $\TT_A$-structure is more easily understood than the
 $G_\QQ$-structure.\ For instance, we are now able to talk about the
 $\TT_A$-support of finite odd-order $G_\QQ$-submodules. We then show that every
 finite odd-order $G_\QQ$-submodule is equivalent to one support on $S$
-(\ref{}). Now we construct an ideal $Q$ of $\TT_A$ such that $S$ is the set of
-primes dividing $Q$. So $\M(A[Q^\infty])=\M(A(\QQbar)_\odd$. We will then give
-an method for determining an integer $k$ such that
-$\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (\ref{}). Lastly, we give an
-algorithm for enumerating the finite $G_\QQ$-submodules of $\M(A[Q^k])$. In
-summary, we have the following algorithm.
+(\ref{prop:bound_support}). Now we construct an ideal $Q$ of $\TT_A$ such that
+$S$ is the set of primes dividing $Q$. So $\M(A[Q^\infty])=\M(A(\QQbar)_\odd$.
+We will then give an method for determining an integer $k$ such that
+$\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$
+(Proposition~\ref{prop:bound_support}). Lastly, we give an algorithm for
+enumerating the finite $G_\QQ$-submodules of $\M(A[Q^k])$. In summary, we have
+the following algorithm.
 
 \begin{algorithm}{Odd isogeny class}%
     \label{alg:odd_isogeny_class}
     Let $A$ be a simple abelian subvariety with $\TT_A$ integrally closed. This
-    algorithm will enumerate the odd-degree isogeny class of $A$.
+    algorithm will enumerate the class of abelian varieties isomorphic
+    isogenous to $A$ by an odd-degree isogeny.
     \begin{enumerate}
         \item{} [Class group representatives]
             Compute a set of odd integral representatives $H=\{C_i\}$ of
@@ -1566,8 +1486,8 @@ summary, we have the following algorithm.
         \item{} [Initialize search]
             Set $r=1$ and $X_{r-1}=\emptyset$.
         \item{} [$G_\QQ$-submodules of $A[Q^r]$]
-            Use Section~\ref{sec:enumerating_isogenies} to give a set, $X_r$,
-            of representatives for $\M(A[Q^r])$.
+            Use Algorithm~\ref{alg:enumerating_AX} to give a set, $X_r$, of
+            representatives for $\M(A[Q^r])$.
         \item{} [Done?]
             By Corollary~\ref{prop:stop_looking}, if for all $x\in X_r$, $x\sim
             y$ for some $y\in X_{r-1}$, then $X_r$ is a set of representatives
@@ -1582,7 +1502,7 @@ summary, we have the following algorithm.
 \label{sec:finite_odd_order_galois_modules_are_hecke}
 
 The goal of this subsection is to prove every finite odd $G_\QQ$-submodule $M$
-of $A(\QQbar)$ is a Hecke module (Theorem~\ref{thm:G_modules_are_Hecke}). The
+of $A(\QQbar)$ is a Hecke module (Proposition~\ref{prop:G_modules_are_hecke}). The
 Galois action of $J(\QQbar)$ has been extensively studied by
 Mazur~\cite{mazur:eisenstein}, so we weaken our hypothesis to $M$ a
 $G_\QQ$-submodule of $J(\QQbar)_\odd$.
@@ -1594,10 +1514,10 @@ $\TT/\ell \TT$ is generated by $T_p$ for primes $p\nmid \ell N$. So we reduce
 modulo $p$ for $p\nmid \ell N$, and use Eichler-Shimura to derived its
 $\TT$-stability from its $G_\QQ$-stability.
 
-\begin{theorem}\label{thm:G_modules_are_Hecke}
+\begin{proposition}\label{prop:G_modules_are_hecke}
     Suppose $M$ is a finite odd-order $G_\QQ$-submodule of $J_0(N)$, with $N$
     prime. Then $M$ is a $\TT[G_\QQ]$-module.
-\end{theorem}
+\end{proposition}
 \begin{proof}
     It suffices to show $M$ is $\TT$-stable for each $\ell$-primary part. Let
     $\ell>2$ and assume $M\subseteq J[\ell^\infty]$. Let
@@ -1648,7 +1568,7 @@ $G_\QQ$-submodule.
 
 The goal now is to identify the odd-order $G_\QQ$-submodules of
 $J(\QQbar)_\odd$ supported away from $E$ by their $\TT$-annihilators. Using
-Theorem~\ref{thm:G_modules_are_Hecke}, we can already do this in the
+Proposition~\ref{prop:G_modules_are_hecke}, we can already do this in the
 irreducible case.
 \begin{corollary}
     Let $\m$ be a non-Eisenstein prime of odd residue characteristic, if $M$ is
@@ -1776,7 +1696,8 @@ $A[\p^s]$ are then the $\ZZ$-submodules of $A[\p^s]$ such that $M\cap
 A[\p^{s-1}]$ and $\phi_s(M)$ are $G_\QQ$-submodules. This yields the following
 algorithm.
 
-\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}
+\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}%
+    \label{alg:enumerating_AX}
     Given an odd ideal $X$ of $\TT_A$. This algorithm will output a set of
     representatives for $\M(A[X])$.
     \begin{enumerate}
@@ -1793,8 +1714,11 @@ algorithm.
         \item{} [Combine]
             Combine the $W_i$'s to form $W=\{\sum_i M_i: M_i \in W_i\}$.
         \item{} [Output representatives]
-            Use Algorithm~\ref{isom_testing} to produce a set of
-            representatives of $\M(A[X])$ of elements of $W$.
+            Use isomorphism testing 
+            %TODO
+            % (Algorithm~\ref{alg:isom_testing})
+            to produce a set of representatives of $\M(A[X])$ of elements of
+            $W$.
     \end{enumerate}
 \end{algorithm}
 
@@ -1916,10 +1840,11 @@ dividing the Eisenstein ideal, and $S=D\cup E$.
     Theorem~\ref{thm:non_eisenstein_kernel_hecke}, there exists an ideal
     $I$ of $\TT_A$ with $V(I)\subseteq S'$. Since $S'$ consists of only
     invertible primes, $I$ is also invertible. So there exists nonzero $a,b\in
-    \TT_A$ such that $bI=aC$. By Lemma~\ref{}, there exists an isomorphism
-    $\phi:A/A[I]\to A/A[C]$ such that $\phi\circ b = a$. Let $\psi:A/A[I]\to
-    A/(A[I]+M_S)$ be the isogeny given by quotienting by $M_S/A[I]$. Then
-    $\phi$ induces an isomorphism $\phi':A/(A[I]+M_S)\to A/(A[C]+\phi(M_S))$.
+    \TT_A$ such that $bI=aC$. By Lemma~\ref{lem:principal_gives_iso}, there
+    exists an isomorphism $\phi:A/A[I]\to A/A[C]$ such that $\phi\circ b = a$.
+    Let $\psi:A/A[I]\to A/(A[I]+M_S)$ be the isogeny given by quotienting by
+    $M_S/A[I]$. Then $\phi$ induces an isomorphism $\phi':A/(A[I]+M_S)\to
+    A/(A[C]+\phi(M_S))$.
 
     It is clear that $\Supp_{\TT_A}(A[C])\subseteq S$ so it remains to show
     that $\phi(M_S)_\p =0$ for all $\p \in S'$. Let $\p\in S'$, then
@@ -1967,11 +1892,11 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
     $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
 \end{proof}
 
-\section{Further Questions}
+% \section{Further Questions}
 
-Why non-maximal is hard.
+% Why non-maximal is hard.
 
-Other Jacobians.
+% Other Jacobians.
 
 \chapter{Tables}
 
