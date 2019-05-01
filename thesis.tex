@@ -1397,15 +1397,20 @@ We can compute the torsion order of $E_i$. To do induction, let these things.
     $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
 \end{proof}
 
-\begin{theorem}
-    There are 45 totally split rank-0 Jacobians $J_0(N)$. The Generalized Ogg
-    Conjecture has been verified for all but 9 $N$'s. In these cases, they are
-    bounded by a power of 2. In particular, let $b(N)=\log_2
-    ([J_0(N)(\QQ)_\tor:C(N)(\QQ)])$, where $C(N)$ is the cuspidal subgroup of
-    $N$. The 9 $N$'s where we have not verified the Generalize Ogg Conjecture
-    is given by
+Using Algorithm~\ref{alg:final_bound_alg}, we have the following theorem.
+\begin{theorem}%
+    \label{thm:verification_rank_zero}
+    There are 45 totally split rank-0 Jacobians $J_0(N)$ (See
+    Table~\ref{tab:split}). The Generalized Ogg Conjecture has been verified
+    for all but 9 such $N$'s given by
+    \[
+        84,90,96,120,132,144,150,168,180
+    \]
+    In these cases, they are bounded by a power of 2. See
+    Table~\ref{tab:rank_zero_bound}.
 \end{theorem}
-\begin{algorithm}
+\begin{algorithm}%
+    \label{alg:final_bound_alg}
     Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
     bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup
     of $J$.
@@ -1898,63 +1903,12 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
     $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
 \end{proof}
 
-% \section{Further Questions}
-
-% Why non-maximal is hard.
-
-% Other Jacobians.
-
 \chapter{Tables}
 
 \include{table_enumerate_totally_split}
+\include{table_rank_zero_bound}
 
 
 \bibliographystyle{amsalpha}
 \bibliography{biblio}
 \end{document}
-% (11, 1)
-% (14, 1)
-% (15, 1)
-% (17, 1)
-% (19, 1)
-% (20, 1)
-% (21, 1)
-% (24, 1)
-% (27, 1)
-% (32, 1)
-% (36, 1)
-% (49, 1)
-% (22, 1)
-% (26, 1)
-% (28, 1)
-% (50, 1)
-% (30, 1)
-% (33, 1)
-% (34, 1)
-% (40, 1)
-% (45, 1)
-% (48, 1)
-% (64, 1)
-% (38, 1)
-% (44, 1)
-% (54, 1)
-% (42, 1)
-% (52, 1)
-% (56, 1)
-% (72, 1)
-% (75, 1)
-% (60, 1)
-% (80, 1)
-% (100, 1)
-% (76, 1)
-% (66, 1)
-% (96, 64)
-% (108, 1)
-% (84, 8)
-% (90, 16)
-% (144, 64)
-% (120, 512)
-% (132, 32)
-% (150, 16)
-% (168, 512)
-% (180, 128)
