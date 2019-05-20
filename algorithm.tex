@@ -1,15 +1,19 @@
 \chapter{Algorithms for modular abelian varieties}%
 \label{chap:algorithms}
 
-In this chapter, we will review algorithms on modular abelian varieties.
+In this chapter, we will review algorithms on modular abelian varieties. For
+the most part, the goal is to reduce the computation problems to linear algebra
+on modular symbol spaces.
 
 \section{Defining Data}%
 \label{sec:defining_data}
 
-We represent modular abelian varieties explicitly as follows. Let $A$ be a
-modular abelian variety and $\varphi:A\to J$ a finite degree morphism. Let
-$B$ be the image of $A$ in $J$. Then there is an isogeny $B$ to $A$ with kernel
-$G$ such that $A\cong B/G$.
+In this section, we will describe how to explicitly represent modular abelian
+varieties in a way suitable for linear algebraic computations. We represent
+modular abelian varieties explicitly as follows. Let $A$ be a modular abelian
+variety and $\varphi:A\to J$ a finite degree morphism. Let $B$ be the image of
+$A$ in $J$. Then there is an isogeny $B$ to $A$ with kernel $G$ such that
+$A\cong B/G$.
 \begin{equation}
     \label{eq:defining_data}
     \begin{tikzcd}
@@ -61,50 +65,52 @@ J)$.
 \section{Modular Symbols}
 \label{sec:modular_symbols}
 
-Modular symbols give a finite presentation for the homology group $H_1(X_0(N),
-\ZZ)$.
+In this section, we give a brief overview of modular symbols. Modular symbols
+give a finite presentation for the homology group $H_1(X_0(N), \ZZ)$.
 
 \section{Natural Maps}%
 \label{sec:alg_natural_maps}
 The Hecke operators~\cite[\S 8.3]{stein:modform}, degeneracy maps~\cite[\S
 8.6]{stein:modform}, and star involution~\cite[\S 8.5]{stein:modform} are
 useful maps defined on modular symbols which, in turn, induce maps on the
-Jacobian. For example, %TODO.
+Jacobian.
 
 \subsection{Decomposition and Verification of an Abelian Subvariety}
 \label{sec:decomp_verify}
 
 As mentioned in Section~\ref{sec:defining_data}, not every subspace $V$ of
-$H_1(J, \QQ)$ corresponds to an abelian subvariety of $J$. In this section, we
-will give an algorithm for verifying when $V$ corresponds to an abelian
-subvariety. This algorithm will also give a decomposition of $V$ into simple
+$H_1(J, \QQ)$ corresponds to an abelian subvariety, $B$, of $J$, meaning
+$B=(V,J)$. In this section, we will give an algorithm for verifying when $V$
+corresponds to an abelian subvariety. If $V$ does correspond to a subvariety
+$B$ of $J$, this algorithm will also give a decomposition of $B$ into simple
 subvarieties.
+
 
 \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
     \label{alg:decomp_and_verify_subvarieties}
     Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
     to a subvariety $A$ of $J$, then this algorithm will return a decomposition
     into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
-    `NO'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
+    `not a subvariety'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
     \begin{enumerate}
         \item{} [Decompose into potential Hecke eigenspaces]
             We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
             W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
             dividing $N$, such that either $W_i$ either corresponds to an
             abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
-            abelian subvariety and we can return `NO'.
+            abelian subvariety and we can return `not a subvariety'.
             \begin{enumerate}
                 \item{} [Initialize]
                     Set $j=1$.
                 \item{} [Decompose into eigenspaces]
                     Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
                     n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
-                    U_{j, k}\neq V$, return `NO'.
+                    U_{j, k}\neq V$, return `not a subvariety'.
                 \item{} [Compare with newforms]
-                    Let $S_{j,k}$ be the set of newforms whose $l$th Fourier
-                    coefficient agrees with the eigenvalue of $T_l$ on $U_{j,
-                    k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for any
-                    $k=1,\ldots,n_j$, return `NO'. If $S_{j,k}$ is not
+                    Let $S_{j,k}$ be the set of newforms whose $\ell$th Fourier
+                    coefficient agrees with the eigenvalue of $T_\ell$ on
+                    $U_{j, k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for
+                    any $k=1,\ldots,n_j$, return `not a subvariety'. If $S_{j,k}$ is not
                     singleton for any $k=1,\ldots, n_j$, increment $j$ and
                     return to (b). Otherwise, $S_{j,k}$ is singleton for all
                     $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
@@ -124,14 +130,22 @@ subvarieties.
                     such that $v\in \Im \left(\sum_{i=1} ^r q_i
                     \delta_i\right)$. If this is not the case, return
                     `NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If $R\not\subset V$, return `NO'.
+                    \delta_i\right)$. If $R\not\subset V$, return `not a
+                    subvariety'.
                 \item{} [Full space?]
                     Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
                     return to (b).
             \end{enumerate}
     \end{enumerate}
 \end{algorithm}
+
 \section{Cuspidal subgroup and rational cuspidal subgroup}
+
+In this section, we will review the computation of the cuspidal and rational
+cuspidal subgroups. The Generalized Ogg Conjecture states that the rational
+cuspidal subgroup of $J_0(N)$ is equal to $J_0(N)(\QQ)_\tor$. Consequently, the
+computation of these subgroups will be a crucial input to bounding the rational
+torsion subgroup (Section~\ref{sec:galois_cohomology_bounds}). 
 
 The cusps of $X_H(N)$ are the equivalence classes of $\P^1(\QQ)$ under
 $\Gamma_H(N)$. We will denote the elements by $[x/y]_{\Gamma_H(N)}$. The
@@ -157,6 +171,9 @@ where $dd'\equiv 1 \mod{N}$. This explicit description of the Galois action
 
 \section{Shimura subgroup}
 
+In this section, we will compute the Shimura subgroup. This subgroup will be
+used extensively (combine with previous?)
+
 Let $\Sigma(N)$ be the Shimura subgroup of $J_0(N)$ so $\Sigma(N)$ is the
 kernel of the natural map $J_0(N)\to J_1(N)$. To compute $\Sigma(N)$, we will
 use a theorem by Ribet. We will choose some odd prime $p$ coprime to $N$,
@@ -164,6 +181,9 @@ by~\cite[Prop. 1]{ribet:raising}, $\Sigma(N)=\ker(d_1-d_p)$, where
 $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
 
 \section{Simple abelian subvarieties as image of degeneracies}
+
+In this section, we will an algorithm
+
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
     Given a simple abelian subvariety $A\subseteq J_0(N)$. This algorithm
