@@ -8,12 +8,11 @@ on modular symbol spaces.
 \section{Defining Data}%
 \label{sec:defining_data}
 
-In this section, we will describe how to explicitly represent modular abelian
-varieties in a way suitable for linear algebraic computations. We represent
-modular abelian varieties explicitly as follows. Let $A$ be a modular abelian
-variety and $\varphi:A\to J$ a finite degree morphism. Let $B$ be the image of
-$A$ in $J$. Then there is an isogeny $B$ to $A$ with kernel $G$ such that
-$A\cong B/G$.
+We begin by giving an explicit description of modular abelian varieties that is
+suitable for linear algebraic computations. We represent modular abelian
+varieties explicitly as follows. Let $A$ be a modular abelian variety and
+$\varphi:A\to J$ a finite degree morphism. Let $B$ be the image of $A$ in $J$.
+Then there is an isogeny $B$ to $A$ with kernel $G$ such that $A\cong B/G$.
 \begin{equation}
     \label{eq:defining_data}
     \begin{tikzcd}
@@ -57,16 +56,15 @@ B\subseteq J$ all defined over $\QQ$.
 \end{itemize}
 
 Therefore, we can represent any modular abelian variety $A$ with the triplet
-$(L, V, J)$ with the properties $J=J_1(N)$ for some $N$, $V\subseteq H_1(J,
-\QQ)$, $L$ a lattice containing $V\cap H_1(J, \ZZ)$. Since the $\QQ$-span of
-$L$ is $V$, $V$ can be recover from $L$ so $A$ can also be specified by $(L,
-J)$.
+$(L, V, J)$, denoted $A\sim (L, V, J)$, with the properties $J=J_1(N)$
+for some $N$, $V\subseteq H_1(J, \QQ)$, $L$ a lattice containing $V\cap H_1(J,
+\ZZ)$. Since the $\QQ$-span of $L$ is $V$, $V$ can be recovered from $L$ so $A$
+can also be specified by $(L, J)$, denote $A\sim (L, J)$.
 
 \section{Modular Symbols}
 \label{sec:modular_symbols}
 
-In this section, we give a brief overview of modular symbols. Modular symbols
-give a finite presentation for the homology group $H_1(X_0(N), \ZZ)$.
+Modular symbols give a 
 
 \section{Natural Maps}%
 \label{sec:alg_natural_maps}
@@ -75,22 +73,27 @@ The Hecke operators~\cite[\S 8.3]{stein:modform}, degeneracy maps~\cite[\S
 useful maps defined on modular symbols which, in turn, induce maps on the
 Jacobian.
 
-\subsection{Decomposition and Verification of an Abelian Subvariety}
+\subsection{Decomposition and Verification of Abelian Subvarieties}
 \label{sec:decomp_verify}
 
-As mentioned in Section~\ref{sec:defining_data}, not every subspace $V$ of
-$H_1(J, \QQ)$ corresponds to an abelian subvariety, $B$, of $J$, meaning
-$B=(V,J)$. In this section, we will give an algorithm for verifying when $V$
-corresponds to an abelian subvariety. If $V$ does correspond to a subvariety
-$B$ of $J$, this algorithm will also give a decomposition of $B$ into simple
-subvarieties.
+Let $B$ be an abelian subvariety of $J$. The defining data of $B$ is given by
+$(L, V, J)$, where $V=H_1(B,\QQ)$ and $L = H_1(B, \ZZ)$. Since $L = V\cap
+H_1(J, \ZZ)$, the abelian subvariety $B$ is completely determined by the
+subspace $V\subseteq H_1(J, \QQ)$, denoted $B\sim (V, J)$. As mentioned in
+Section~\ref{sec:defining_data}, not every subspace $V$ of $H_1(J, \QQ)$
+corresponds to an abelian subvariety.
 
+In this section, we will give an algorithm for determining when a subspace $V$
+of $H_1(J, \QQ)$ corresponds to an abelian subvariety $B$, meaning $B\sim (V,
+J)$. When $V$ does correspond to an abelian subvariety $B$, we will also give
+a decomposition of $B$ into simple abelian subvarieties.
 
+% TODO: fix
 \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
     \label{alg:decomp_and_verify_subvarieties}
     Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
     to a subvariety $A$ of $J$, then this algorithm will return a decomposition
-    into simples $X_i=(V_i, J)$ of $A$, otherwise, this algorithm will return
+    into simples $X_i=(V_i, J)$ of $B$, otherwise, this algorithm will return
     `not a subvariety'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
     \begin{enumerate}
         \item{} [Decompose into potential Hecke eigenspaces]
@@ -121,7 +124,7 @@ subvarieties.
             so we will do this individually for each $W_i$ and consider just a
             single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
             Let $d_1,\ldots,d_r:J_H(L)\to J_H(N)$ be the full collection of
-            degeneracy maps from $J_H(L)$ to $J_H(N)$.  Set $U=\{0\}$.
+            degeneracy maps from $J_H(L)$ to $J_H(N)$. Set $U=\{0\}$ and 
             \begin{enumerate}
                 \item{} [Image of $\QQ$-combination of $d_j$'s?]
                     Choose any $v\in V\setminus U$. By
@@ -136,6 +139,7 @@ subvarieties.
                     Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
                     return to (b).
             \end{enumerate}
+        \item{} [Output]
     \end{enumerate}
 \end{algorithm}
 
@@ -182,11 +186,13 @@ $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
 
 \section{Simple abelian subvarieties as image of degeneracies}
 
-In this section, we will an algorithm
-
+Let $A$ be a simple modular abelian variety isogenous to $A_f$, where $f$ is a
+newform of level $L$. The goal of this section is to explicitly give an isogeny
+from $A_f ^\vee\subseteq J_0(L)$ to $A$.
+%TODO
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
-    Given a simple abelian subvariety $A\subseteq J_0(N)$. This algorithm
+    Given a simple modular abelian variety
     gives a newform $f$ and a linear combination of degeneracy maps
     $\phi=\sum n_i d_i:J_0(L)\to J_0(N)$ such that $\phi(A_f)=A$ with $L$ the
     level of $f$.
@@ -236,10 +242,27 @@ In this section, we will an algorithm
     \end{enumerate}
 \end{algorithm}
 
+\section{Morphisms}
+
+In this section, we will describe how we are explicitly representing morphisms
+between modular abelian varieties
+
+\section{Homomorphism spaces}
+
+Let $A, B$ be simple modular abelian varieties. In this section, we give
+algorithms for computing with homomorphism spaces between $A, B$. This
+algorithms will be crucial for determining when $A$ and $B$ are isomorphic. 
+
+We begin by giving an algorithm for computing a $\ZZ$-basis for $\Hom(A,B)$.
+By applying this algorithm to the case when $A=B$, we obtain an algorithm for
+computing a $\ZZ$-basis for $\End(A)$. Of course, $\End(A)$ also has the
+structure of a ring that is isomorphic to an order in a number field. So we
+will also give an algorithm for determining an order $\O$ isomorphic to
+$\End(A)$, as well as maps to and from $\O$.
 
 
-% \section{Homomorphism spaces}
-%TODO: take from modabvar?
+
+
 
 \section{Isogeny and isomorphism testing}
 
@@ -266,7 +289,7 @@ modular abelian varieties are isomorphic.
             $K$, an order $\O\subseteq K$, and an isomorphism $\tau:\End(A)\to
             \O$.
         \item{}
-            [$\Hom(A, B)$] Use Algorithm~\ref{} to compute $\Hom(A,B)$.
+            [Homomorphism space] Use Algorithm~\ref{} to compute $\Hom(A,B)$.
         \item{}
             [Image under $\phi$] Compute the image $H_f$ of $\Hom(A, B)$ in
             $\End(A)$ by composing with $f$.
@@ -280,6 +303,3 @@ modular abelian varieties are isomorphic.
             $x_i\notin H_f$ for all $x_i$, then return `not isomorphic'.
     \end{enumerate}
 \end{algorithm}
-% \begin{proof}
-%     prove this
-% \end{proof}
