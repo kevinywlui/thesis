@@ -61,6 +61,21 @@ for some $N$, $V\subseteq H_1(J, \QQ)$, $L$ a lattice containing $V\cap H_1(J,
 \ZZ)$. Since the $\QQ$-span of $L$ is $V$, $V$ can be recovered from $L$ so $A$
 can also be specified by $(L, J)$, denote $A\sim (L, J)$.
 
+\section{Morphisms}%
+\label{sec:morphisms}
+
+\subsection{Defining Data}%
+\label{sub:defining_data}
+
+\subsection{Kernel}%
+\label{sub:kernel}
+
+\subsection{Image}%
+\label{sub:image}
+
+\section{Finite Subgroups}%
+\label{sec:finite_subgroups}
+
 \section{Modular Symbols}
 \label{sec:modular_symbols}
 
@@ -88,14 +103,19 @@ of $H_1(J, \QQ)$ corresponds to an abelian subvariety $B$, meaning $B\sim (V,
 J)$. When $V$ does correspond to an abelian subvariety $B$, we will also give
 a decomposition of $B$ into simple abelian subvarieties.
 
-% TODO: fix
+% TODO: abelian subvariety need not be Hecke stable...
 \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
     \label{alg:decomp_and_verify_subvarieties}
     Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
-    to a subvariety $A$ of $J$, then this algorithm will return a decomposition
-    into simples $X_i=(V_i, J)$ of $B$, otherwise, this algorithm will return
-    `not a subvariety'. Let $\T=\{T_1,\ldots\}$ be the Hecke algebra of $J$.
+    to a subvariety $B$ of $J$, then this algorithm will return a decomposition
+    into simple abelian subvarieties $X_i=(V_i, J)$ of $B$, otherwise, this
+    algorithm will return `not a subvariety'.
     \begin{enumerate}
+        \item{} [$\ZZ$-basis for Hecke algebra]
+            Let $\TT$ be the Hecke algebra of $J$ and $s$ be the Sturm bound of
+            $\TT$. By~\cite[Appendix]{lario-schoof}, $\{T_1,T_2,\ldots, T_s\}$
+            spans $\TT$ as a $\ZZ$-module. So we can compute a $\ZZ$-basis
+            $\mathcal{B}$ of $\TT$.
         \item{} [Decompose into potential Hecke eigenspaces]
             We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
             W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
@@ -120,7 +140,7 @@ a decomposition of $B$ into simple abelian subvarieties.
             \end{enumerate}
         \item{} [Is isogenous to power?]
             We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
-            and give its decomposition. The $W_i$'s are pairwise non-isogenous
+            and give its decomposition. The $W_i$'so are pairwise non-isogenous
             so we will do this individually for each $W_i$ and consider just a
             single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
             Let $d_1,\ldots,d_r:J_H(L)\to J_H(N)$ be the full collection of
@@ -137,19 +157,28 @@ a decomposition of $B$ into simple abelian subvarieties.
                     subvariety'.
                 \item{} [Full space?]
                     Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
-                    return to (b).
+                    return to (B).
             \end{enumerate}
         \item{} [Output]
     \end{enumerate}
 \end{algorithm}
 
-\section{Cuspidal subgroup and rational cuspidal subgroup}
+\section{Cuspidal subgroup and rational cuspidal subgroup}%
+\label{sec:cuspidal_subgroup}
 
 In this section, we will review the computation of the cuspidal and rational
-cuspidal subgroups. The Generalized Ogg Conjecture states that the rational
+cuspidal subgroups. More precisely, we %lattice
+
+The Generalized Ogg Conjecture states that the rational
 cuspidal subgroup of $J_0(N)$ is equal to $J_0(N)(\QQ)_\tor$. Consequently, the
-computation of these subgroups will be a crucial input to bounding the rational
-torsion subgroup (Section~\ref{sec:galois_cohomology_bounds}). 
+computation of the rational cuspidal subgroup will be a crucial input to
+Chapter~\ref{chap:totally_split} where we attempt to verify the Generalized Ogg
+Conjecture for totally split $J_0(N)$. Moreover, along with the Shimura
+subgroup (Section~\ref{sec:shimura_subgroup}), when $N$ is prime, the cuspidal
+subgroup will be cyclic Galois subgroups of $J_0(N)(\QQbar)_\tor$ and will
+hence correspond to nontrivial isogenies. This idea will be applied in
+Chapter~\ref{chap:isogeny_class}, where we attempt to enumerate the odd-degree
+isogeny of simple subvarieties of $J_0(N)$ for $N$ prime.
 
 The cusps of $X_H(N)$ are the equivalence classes of $\P^1(\QQ)$ under
 $\Gamma_H(N)$. We will denote the elements by $[x/y]_{\Gamma_H(N)}$. The
@@ -159,6 +188,7 @@ $A=(L, V, J)$ is a modular abelian variety that is the quotient of $B$ by $L$.
 Then the cuspidal subgroup of $A$ is defined to be $(C\cap B)/L$, where $C$ is
 the cuspidal subgroup of $J$.
 
+% TODO: explain how to compute cuspidal subgroup
 The Galois structure of the cuspidal subgroup is well-understood~\cite[\S
 1.3]{stevens:thesis}. The points of the cuspidal subgroup are
 $\QQ(\mu_N)$-rational under the following Galois action. There is an abstract
@@ -173,10 +203,15 @@ then
 where $dd'\equiv 1 \mod{N}$. This explicit description of the Galois action
 \emph{rational cuspidal subgroup} $C(\QQ):=C^{\Gal(\QQ(\mu)/\QQ)}$.
 
-\section{Shimura subgroup}
+\section{Shimura subgroup}%
+\label{sec:shimura_subgroup}
 
-In this section, we will compute the Shimura subgroup. This subgroup will be
-used extensively (combine with previous?)
+In this section, we will explain how to compute the Shimura subgroup of
+$J_0(N)$. The \defn{Shimura subgroup}, $\Sigma(N)$, is the kernel of the
+natural map $J_0(N)\to J_1(N)$. This will be useful in
+Chapter~\ref{chap:totally_split}, where 
+Moreover, the Shimura subgroup is a Galois subgroup of $J_0(N)(\QQ)_\tor$. This
+fact will be used in Chapter~\ref{chap:isogeny_class} where we enumerate
 
 Let $\Sigma(N)$ be the Shimura subgroup of $J_0(N)$ so $\Sigma(N)$ is the
 kernel of the natural map $J_0(N)\to J_1(N)$. To compute $\Sigma(N)$, we will
@@ -238,14 +273,9 @@ from $A_f ^\vee\subseteq J_0(L)$ to $A$.
             Weierstrass equation for $A_f$.
         \item{}
             [Velu's formulas] Output the Weierstrass equation of $A_f/M'$ using
-            Velu's formulas.
+            Vela's formulas.
     \end{enumerate}
 \end{algorithm}
-
-\section{Morphisms}
-
-In this section, we will describe how we are explicitly representing morphisms
-between modular abelian varieties
 
 \section{Homomorphism spaces}
 
@@ -260,7 +290,104 @@ structure of a ring that is isomorphic to an order in a number field. So we
 will also give an algorithm for determining an order $\O$ isomorphic to
 $\End(A)$, as well as maps to and from $\O$.
 
+\subsection{Extending by $\QQ$}%
+\label{sub:extending_by_qq_}
 
+Let $A, B$ be simple modular abelian varieties both of dimension $d$. If $A$ is
+not isogenous $B$, then $\Hom(A, B)=0$ and we are done. If $A$ is isogenous to
+$B$, then $\Hom(A,B)\otimes \QQ \cong \End(A)\otimes \QQ\cong K_f$, where $K_f$
+is the Hecke eigenvalue field of a newform $f$ associated to the simple modular
+abelian variety $A$ (~\cite{shimura}). The goal of this section is to prove
+Proposition~\ref{prop:extend_QQ} which allows us to recover $\Hom(A,B)$ from
+$\Hom(A,B)\otimes \QQ$.
+
+After choosing a basis for $\Lambda_1 = H_1(A, \ZZ)$ and $H_1(B, \ZZ)$, 
+\[
+    \Hom(\Lambda_1, \Lambda_2) \cong (\ZZ^{(2d)})^2.
+\]
+\begin{proposition}%
+    \label{prop:extend_QQ}
+    Let $A, B$ be simple abelian varieties over $\QQ$, let $\Lambda_1=H_1(A,
+    \ZZ)$, and let $\Lambda_2=H_1(B, \ZZ)$. Embed $\Hom(A, B)$ into
+    $\Hom(\Lambda_1, \Lambda_2)$ by the action on homology. Then
+    \[
+        \Hom(A, B) = 
+        (\Hom(A, B) \otimes \QQ)\cap \Hom(\Lambda_1, \Lambda_2)
+    \]
+    where the intersection takes place in $\Hom(A,B)\otimes \QQ$.
+\end{proposition}
+
+We first prove a lemma that will be used in the proof of
+Proposition~\ref{prop:extend_QQ}.
+
+\begin{lemma}%
+    \label{lem:aut}
+    If $x\in \CC$ is fixed by every element of $\Aut(\CC/\QQ)$, then $x\in
+    \QQ$.
+\end{lemma}
+\begin{proof}
+    Suppose $x$ is transcendental, then there is a field automorphism
+    $\sigma:\QQbar(x)\to\QQbar(x)$ given by $x\mapsto x+1$. This automorphism
+    extends to an automorphism of $\CC$ that does not fix $x$. Therefore, $x$
+    must be algebraic and by standard Galois theory, $x\in \QQ$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:extend_QQ}]
+    An element of $\Hom(A, B)$ is certainly an element of $\Hom(A, B)\otimes
+    \QQ$. Moreover, an element of $\Hom(A, B) \subseteq \Hom_\CC (A,B)$ is a
+    complex linear map from $\Tan(A_\CC)\to \Tan(B_\CC)$ that sends $\Lambda_1$
+    to $\Lambda_2$ so it must be in $\Hom(\Lambda_1,\Lambda_2)$. This
+    establishes the forward inclusion.
+
+    Conversely, suppose $\varphi\in (\Hom(A, B)\otimes \QQ)\cap \Hom(\Lambda_1,
+    \Lambda_2)$. Then there exists a positive integer $n$ such that $n\varphi\n
+    \Hom(A, B)$. Hence, $n\varphi\in \Hom(A,B)\subseteq \Hom_\CC(A, B)$ is a
+    complex linear map from $\Tan(A_\CC)$ to $\Tan(B_\CC)$. Hence,
+    $\varphi=(1/n)n\varphi$ is also a complex linear map from $\Tan(A_\CC)$ to
+    $\Tan(B_\CC)$. By assumption, $\varphi$ also maps $\Lambda_1$ to
+    $\Lambda_2$ so $\varphi\in \Hom_\CC(A,B)$. It remains to show that
+    $\varphi$ is defined over $\QQ$. Let $\sigma\in \Gal(\CC/\QQ)$. Since
+    $[n]\varphi\in \Hom(A,B)$, $\sigma([n]\varphi)-[n]\varphi=0$. By
+    rearranging, $[n](\sigma\varphi-\varphi)=0$. The image of
+    $\sigma\varphi-\varphi$ is either infinite or 0 and the kernel of $[n]$ is
+    finite so we must have $\sigma\varphi=\varphi$. By Lemma~\ref{lem:aut},
+    $\varphi\in \Hom(A,B)$.
+\end{proof}
+
+\subsection{Homomorphism space}%
+\label{sub:_hom_a_b_}
+
+\subsection{Endomorphism Algebra as Field}%
+\label{sub:endomorphism_algebra_as_field}
+
+\begin{algorithm}{Endomorphism Algebra as Field}
+    Given a simple abelian variety $A$ over $\QQ$, this algorithm computes a
+    number field $F$ and an isomorphism from $\End(A)\otimes \QQ$ to $F$.
+    \begin{enumerate}
+        \item{} [Isogeny to $A_f ^\vee$]
+            Use Algorithm~\ref{simple_deg} to compute an optimal subvariety
+            $A_f ^\vee$ and an isogeny $\varphi:A\to A_f ^\vee$. This isogeny
+            induces an isomorphism $\End(A)\otimes\QQ$ to $\End(A_f)\otimes
+            \QQ$.
+        \item{} [Random endomorphism]
+            Use Algorithm~\ref{todo} to compute a $\ZZ$-basis $B$ for the Hecke
+            algebra, $\TT'$, of $A_f ^\vee$. We then generated a random
+            element, $T$, of $\End(A_f)$ by taking a random rational linear
+            combination of the elements of $B$.
+        \item{} [Is random element primitive?]
+            Let $g$ be the minimal polynomial of $T$. If $\dim A = \deg g$,
+            then $g$ will be a primitive generator for $\End(A)\otimes \QQ$ as
+            a field and we proceed to the next step. Otherwise, return to the
+            last step.
+        \item{} [Output]
+            Let $F$ be a number field generated a root, $\alpha$, of $g$. Let
+            $\Psi:\End(A)\otimes \QQ\to F$ be the unique map sending $T$ to
+            $\alpha$. We then precompose $\Psi$ with the isomorphism
+            $\End(A)\otimes \QQ$ \to $\End(A_f)\otimes \QQ$ to obtain the
+            desired isomorphism.
+    \end{enumerate}
+\end{algorithm}
+%TODO: proof
 
 
 
