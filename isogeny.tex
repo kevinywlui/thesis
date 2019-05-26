@@ -546,15 +546,45 @@ where $\ell$ is any good prime.
     where 
 \end{theorem}
 
+\begin{lemma}
+    Let $J = J_0(N)$ and $A$ an abelian subvariety of $J$. Let $K$ be a number
+    field and $\ell$ an odd completely split rational prime in $K$ of good
+    reduction for $A$. Then
+    \[
+        A(K)_\tor \hookrightarrow A_\ell(\FF_\ell).
+    \]
+\end{lemma}
+
+\begin{proposition}
+    Let $J=J_0(N)$ with $N$ prime and $A$ be a simple abelian subvariety of
+    $J$. Let $\TT_A:=\Im (\TT\to \End(A)$ be the Hecke algebra of $A$. Let
+    $\p\subseteq \TT_A$ be an Eisenstein prime of odd residue characteristic.
+    Let $r$ 
+\end{proposition}
+
 \begin{corollary}
-    Let $A$ be a simple subvariety of $J$ with $\TT_A$ a PID. If $\varphi:A\to
+    Let $A$ be a simple subvariety of $J$ with $\TT_A$ a PID\@. If $\varphi:A\to
     A'$ is an odd-degree isogeny, then
     \[
         A' \cong A/M,
     \]
     with $M$ a $G_\QQ$-submodule of $A[\mathcal{I}]_\odd$.
 \end{corollary}
+
+\begin{proposition}
+    Let $\p$ be an odd Eisenstein prime. Let $M$ be a submodule supported on
+    $\p$. If $A[\p]\not\subseteq M$, then $M\subseteq A[\p]$.
+\end{proposition}
 \begin{proof}
-    test   
+    Let $K=\QQ(M)$. Let $\q$ be an unramified prime of $K$ of odd residue characteristic
+    $\ell$ such that $A$ has good reduction at $\q$ and $\ell$ is a good prime.
+    This exists because there are infinitely many good primes while only
+    finitely many primes $\q$ where $\q$ is either ramified or $A$ has bad
+    reduction at $\q$. By~\ref{},
+    \[
+        M\subseteq A(K)_\tor \subseteq A[\eta_\ell]
+    \]
+    The issue is what is $K$? I know that $K$ is a 
 \end{proof}
+
 \end{document}
