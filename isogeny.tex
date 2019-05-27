@@ -15,8 +15,11 @@ More precisely, let $\TT$ be the Hecke algebra of $J_0(N)$ and $\TT_A$ be the
 image of $\TT$ in $\End(A)$. There exists a newform $f=\sum a_n q^n$ associated
 $A$. By~\cite[Prop. 7.14]{shimura:intro}, $\TT_A$ is isomorphic to an order of
 the Hecke eigenvalue field - $\QQ(\ldots,a_n,\ldots)$. The goal of this chapter
-is the enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is integrally
-closed.
+is to enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is integrally
+closed and (when Proposition~\ref{} works).
+
+Unless otherwise stated, in this chapter, all abelian varieties, isogenies, and
+isomorphisms are defined over $\QQ$.
 
 The image of an isogeny is determined by its kernel up to isomorphism. So we
 define an equivalence relation on the set of finite odd-order
@@ -26,21 +29,13 @@ $\M(X)$ be the set of equivalence classes of finite odd-order
 $G_\QQ$-submodules of $A(\QQbar)$ with a representative that is a submodule of
 $X$. Let $A(\QQbar)_\odd$ be the odd-torsion part of $A(\QQbar)$. The goal of
 this chapter can then be restated as enumerating a set of representatives for
-$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed. From experimental data,
-this condition appears to be mild. In particular, there are 450 simple abelian
-varieties of prime level less than 1000 and for only 42 of these, the Hecke
-algebra is not integrally closed.
-
-% The idea will be as follows. Assume $A$ is a simple abelian subvariety of
-% $J_0(N)$ with $\TT_A$ integral closed. Let $H=\{C_i\}$ be a set of odd-norm
-% integral representatives for $\Cl(\TT_A)$. Let $D$ be the set of primes of
-% $\TT_A$ dividing $C_i$ for some $C_i\in H$, $E$ be the set of primes dividing
-% the Eisenstein ideal, and $S=D\cup E$.
+$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed and (when
+Proposition~\ref{} works). 
 
 We begin by showing every finite $G_\QQ$-submodule of $A(\QQbar)_\odd$ is a
 $\TT_A$-module (Proposition~\ref{prop:G_modules_are_hecke}). This is useful
 because the $\TT_A$-structure is more easily understood than the
-$G_\QQ$-structure.\ For instance, we are now able to talk about the
+$G_\QQ$-structure. For instance, we are now able to talk about the
 $\TT_A$-support of finite odd-order $G_\QQ$-submodules. We then show that every
 finite odd-order $G_\QQ$-submodule is equivalent to one support on $S$
 (\ref{prop:bound_support}). Now we construct an ideal $Q$ of $\TT_A$ such that
@@ -79,7 +74,7 @@ the following algorithm.
 \section{Finite odd-order Galois Modules are Hecke}%
 \label{sec:finite_odd_order_galois_modules_are_hecke}
 
-The goal of this subsection is to prove every finite odd $G_\QQ$-submodule $M$
+The goal of this section is to prove every finite odd-order $G_\QQ$-submodule $M$
 of $A(\QQbar)$ is a Hecke module (Proposition~\ref{prop:G_modules_are_hecke}). The
 Galois action of $J(\QQbar)$ has been extensively studied by
 Mazur~\cite{mazur:eisenstein}, so we weaken our hypothesis to $M$ a
@@ -114,9 +109,9 @@ $\TT$-stability from its $G_\QQ$-stability.
     by $T_p$ for $p\nmid \ell N$ so it suffices to show $T_p(X_s)\subseteq X_s$
     for prime $p\nmid \ell N$.
 
-    Fix a prime $p\nmid \ell N$. So $J$ has good reduction at $p$. Fix a place
-    $\p$ over $p$. The reduction map
-    yields an isomorphism~\cite[Theorem 1, Lemma 2]{serre-tate}
+    Fix a prime $p\nmid \ell N$. Since $p$ does not divide $N$, $J$ has good
+    reduction at $p$. Fix a place $\p$ over $p$. The reduction map yields an
+    isomorphism~\cite[Theorem 1, Lemma 2]{serre-tate}
     \[
         \tau:J(\QQbar)[\ell^\infty] \riso J_{/\F_p} (\Fpbar)[\ell^\infty]
     \]
@@ -140,89 +135,93 @@ $\TT$-stability from its $G_\QQ$-stability.
 \label{sec:non_eisenstein_modules_are_kernels_of_hecke}
 
 In light of Section~\ref{sec:finite_odd_order_galois_modules_are_hecke}, all
-odd-order $G_\QQ$-submodules of $J(\QQbar)$ are $\TT$-modules. We will now
-use this fact freely and will often refer to the $\TT$-support of an odd
-$G_\QQ$-submodule.
+finite odd-order $G_\QQ$-submodules of $J(\QQbar)$ are $\TT$-modules. We will
+now use this fact freely and will often refer to the $\TT$-support of a finite
+odd-order $G_\QQ$-submodule.
 
-The goal now is to identify the odd-order $G_\QQ$-submodules of
-$J(\QQbar)_\odd$ supported away from $E$ by their $\TT$-annihilators. Using
-Proposition~\ref{prop:G_modules_are_hecke}, we can already do this in the
-irreducible case.
-\begin{corollary}
+The goal now is to identify the finite odd-order $G_\QQ$-submodules of
+$J(\QQbar)_\odd$ supported, as a $\TT$-module, on the non-Eisenstein primes by
+their $\TT$-annihilators. Using Proposition~\ref{prop:G_modules_are_hecke}, we
+can already do this in the irreducible case.
+
+\begin{proposition}
     Let $\m$ be a non-Eisenstein prime of odd residue characteristic, if $M$ is
     a nonzero finite irreducible $G_\QQ$-submodule of $J(\QQbar)$ supported
-    only on $\m$, then $M=J[\m]$.
-\end{corollary}
+    only on $\m$ as a $\TT$-module, then $M=J[\m]$.
+\end{proposition}
 \begin{proof}
-    By Lemma~\ref{lem:cherry_street}, the annihilator of $M$ is $\m$. Hence,
-    $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
+    By Lemma~\ref{lem:cherry_street}, the $\TT$-annihilator of $M$ is $\m$.
+    Hence, $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
     $G_\QQ$-module~\cite[Proposition 14.2]{mazur:eisenstein} so $M=J[\m]$.
 \end{proof}
 
-The general case will follow from the work of David Helm~\cite{helm:jacobian}.
-Helm considers the case of Jacobians, $J$, of Shimura curves. One of the key
-inputs into Helm's proof is that for the maximal ideals $\m$ in question is
-that if $T_\m J$ is the contravariant $\m$-adic Tate module, then $T_\m J/\m
-T_\m J\cong J[\m]^\vee$ is dimension two over $\TT/\m$ and irreducible as a
-$G_\QQ$-module. By~\cite[Prop. 14.2]{mazur:eisenstein}, this is also the case
-for $J=J_0(N)$ and $\m$ a non-Eisenstein prime of odd residue characteristic.
+The general case will follow from a mild adaptation of the work of David
+Helm~\cite{helm:jacobian}. Helm considers the case of Jacobians, $J$, of
+Shimura curves. One of the key inputs into Helm's proof is that for the maximal
+ideals $\m$ in question is that if $T_\m J$ is the contravariant $\m$-adic Tate
+module, then $T_\m J/\m T_\m J\cong J[\m]^\vee$ is dimension two over $\TT/\m$
+and irreducible as a $G_\QQ$-module. By~\cite[Prop. 14.2]{mazur:eisenstein},
+this is also the case for $J=J_0(N)$ with $N$ prime and $\m$ a non-Eisenstein
+prime of odd residue characteristic.
 
 \begin{theorem}[{\cite[Corollary 4.8]{helm:jacobian}}]%
     \label{thm:non_eisenstein_kernel_hecke}
-    Let $M$ be a finite $G_\QQ$-module supported only on the non-Eisenstein
-    primes of $\TT$ of odd residue characteristic with $\TT$-annihilator $I$.
-    Then $M=J[I]$.
+    Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT$-module,
+    only on the non-Eisenstein primes. If $I=\Ann_\TT(M)$, then $M=J[I]$.
 
-    Moreover, since $A$ is both $G_\QQ$ and $\TT$ invariant, if $M$ is a finite
-    $G_\QQ$-module supported only on the non-Eisenstein primes of odd residue
-    characteristic of $\TT_A$ with $\TT_A$-annihilator $I$. Then $M=A[I]$.
+    Moreover, since $A$ is both $\TT[G_\QQ]$-invariant, if $M$ is a finite
+    odd-order $G_\QQ$-submodule of $A(\QQbar)$ supported, as a $\TT_A$-module,
+    only on the non-Eisenstein primes. If $I=\Ann_{\TT_A}(M)$, then $M=A[I]$.
 \end{theorem}
 
-We have that $\Supp_\TT(M)$ is the set of primes lying for $I$ and $M\subseteq
-J[I]$ so suffices to prove $J[I]_\m = M_\m$ for each non-Eisenstein prime of
-odd residue characteristic. So let $\m$ be a non-Eisenstein prime of residue
-characteristic $\ell>2$. Let $T_\m J\isom \Hom(J[\m^\infty],
-\QQ_\ell/\ZZ_\ell)$ be the contravariant Tate module at $\m$ and
-$\overline{\rho}_\m$ be the Galois representation associated to $J[\m]^\vee$.
-Since $\m$ is an odd non-Eisenstein prime, $\overline{\rho}_\m$ is an
-irreducible $G_\QQ$-representation of dimension 2 over $k_\m$ that is
-isomorphic to $J[\m]^\vee$~\cite[Prop. 14.2]{mazur:eisenstein}.
+Since $M\subseteq J[I]$ and $\Supp_{\TT} M = \Supp_{\TT} J[I]$, it suffices to
+prove $J[I]_\m = M_\m$ for each non-Eisenstein prime of odd residue
+characteristic. So let $\m$ be a non-Eisenstein prime of odd residue
+characteristic. We start by reviewing the contravariant Tate modules of $J$ and
+proving Lemma~\ref{lem:finite_index}.
+
+Let $T_\m J\isom \Hom(J[\m^\infty], \QQ_\ell/\ZZ_\ell)$ be the contravariant
+Tate module at $\m$ and $\overline{\rho}_\m$ be the Galois representation
+associated to $J[\m]^\vee$. Since $\m$ is an odd non-Eisenstein prime,
+$\overline{\rho}_\m$ is an irreducible $G_\QQ$-representation of dimension 2
+over $k_\m$ that is isomorphic to $J[\m]^\vee$~\cite[Prop.
+14.2]{mazur:eisenstein}.
 
 \begin{lemma}[{\cite[Lemma 4.6]{helm:jacobian}}]\label{lem:finite_index}
-    Let $M$ be a $G_\QQ$-stable submodule of $T_\m J$ of finite index. Then
-    $M=IT_\m J$ for some ideal $I$ of $\TT$.
+    Let $R$ be a $G_\QQ$-stable submodule of $T_\m J$ of finite index. Then
+    $R=IT_\m J$ for some ideal $I$ of $\TT$.
 \end{lemma}
 \begin{proof}
-    We proceed by induction on the maximal $G_\QQ$-composition series of $T_\m J/M$
+    We proceed by induction on the maximal $G_\QQ$-composition series of $T_\m J/R$
     with the base case being the trivial length zero case. Let
     \[
-        M = M_n \subsetneq M_{n-1} \subsetneq \cdots \subsetneq M_0 = T_\m J
+        R = R_n \subsetneq R_{n-1} \subsetneq \cdots \subsetneq R_0 = T_\m J
     \]
-    be a $G_\QQ$-composition series. By induction, $M_{n-1} = I'T_\m J$ for some
+    be a $G_\QQ$-composition series. By induction, $R_{n-1} = I'T_\m J$ for some
     $I'\subseteq \TT$.
 
-    Consider $\m M_{n-1} + M$. This is a $G_\QQ$-module sitting between $M$ and
-    $M_{n-1}$. By Nakayama's lemma, if $\m M_{n-1} M + M = M_{n-1}$, then
-    $M=M_{n-1}$ which is a contradiction. Hence, $\m M_{n-1}+M=M$ so $M$
-    contains $\m M_{n-1}$ and we can form the quotient.
+    Consider $\m R_{n-1} + R$. This is a $G_\QQ$-module sitting between $R$ and
+    $R_{n-1}$. By Nakayama's lemma, if $\m R_{n-1} R + R = R_{n-1}$, then
+    $R=R_{n-1}$ which is a contradiction. Hence, $\m R_{n-1}+R=R$ so $R$
+    contains $\m R_{n-1}$ and we can form the quotient.
 
-    The module $M_{n-1}/\m M_{n-1}$ is $G_\QQ$-isomorphic to $(I'/\m
+    The module $R_{n-1}/\m R_{n-1}$ is $G_\QQ$-isomorphic to $(I'/\m
     I')\otimes_{\TT/\m} (T_\m J/\m T_\m J) \cong (I'/\m I')\otimes_{\TT/\m}
     J[\m]^\vee$, where $G_\QQ$ acts trivially on $I'/\m I'$. Let $V$ be the image
-    of $M$ in $M_{n-1}/\m M_{n-1}$. Since $V$ is $G_\QQ$-invariant, and
+    of $R$ in $R_{n-1}/\m R_{n-1}$. Since $V$ is $G_\QQ$-invariant, and
     $J[\m]^\vee$ is irreducible, $V$ is given by $\hat{V}\otimes J[\m]^\vee$
     for some $\TT/\m$-subspace $\hat{V}$ of $I'/\m I'$. Let $I$ be the preimage
-    of $\hat{V}$ in $I'$. Then $IT_m J = M$, since both contain $\m M_{n-1}$
-    and map to $V$ modulo $\m M_{n-1}$.
+    of $\hat{V}$ in $I'$. Then $IT_m J = R$, since both contain $\m R_{n-1}$
+    and map to $V$ modulo $\m R_{n-1}$.
 \end{proof}
 
 We now return to the proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}.
 
 \begin{proof}[proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}]
-    Let $B=J/M$ be the quotient abelian variety equipped with the induced
-    $\TT$-action. So the projection $\phi:J \to B$ is an $\TT[G_\QQ]$-isogeny
-    with $\ker\phi = M$. For any odd non-Eisenstein prime $\m$, $\phi$ induces
-    the exact sequence
+    Let $B=J/M$ be the quotient abelian variety. Since $M$ is a $\TT$-module,
+    we may equipped with a $\TT$-action. So the projection $\phi:J \to B$ is an
+    $\TT[G_\QQ]$-isogeny with $\ker\phi = M$. For any odd non-Eisenstein prime
+    $\m$, $\phi$ induces the exact sequence
     \[
         0 \to T_\m B \to T_\m J \to M^\vee _\m \to 0.
     \]
@@ -235,70 +234,92 @@ We now return to the proof of Theorem~\ref{thm:non_eisenstein_kernel_hecke}.
     desired.
 \end{proof}
 
-\section{Enumerating representatives of $A[X]$}
+%\section{Enumerating representatives of $A[X]$}
 
-Assume $\TT_A$ is integrally closed and let $X$ be an odd ideal of $\TT_A$. The
-goal of this section is to give a set of representatives for $\M(A[X])$ by
-first enumerating the $G_\QQ$-submodules of $A[X]$. We
-have the decomposition $X=\bigoplus_{\p\in \Supp_{\TT_A} (X)} X[\p^{v_\p(X)}]$
-so it suffices to enumerate the $G_\QQ$-submodules of $A[\p^s]$ for any $s\geq
-1$. This will now follow from Mazur's study of the Galois action on torsion
-points~\cite[\S 14]{mazur:eisenstein}.
+%Assume $\TT_A$ is integrally closed and let $X$ be an odd ideal of $\TT_A$. The
+%goal of this section is to give a set of representatives for $\M(A[X])$ by
+%first enumerating the $G_\QQ$-submodules of $A[X]$. We
+%have the decomposition $X=\bigoplus_{\p\in \Supp_{\TT_A} (X)} X[\p^{v_\p(X)}]$
+%so it suffices to enumerate the $G_\QQ$-submodules of $A[\p^s]$ for any $s\geq
+%1$. This will now follow from Mazur's study of the Galois action on torsion
+%points~\cite[\S 14]{mazur:eisenstein}.
 
-\begin{proposition}[Mazur]\label{prop:all_G_subs}
-    Let $\p$ be a prime of residue characteristic $\ell>2$.
-    \begin{enumerate}
-        \item
-            If $\p$ is Eisenstein, then $A[\p]=C_A[\ell]\oplus \Sigma_A[\ell]$,
-            where $C_A=C\cap A$ and $\Sigma_A=\Sigma \cap A$ with $C$ and
-            $\Sigma$ the cuspidal and Shimura subgroups of $J$. The
-            $G_\QQ$-submodules of $A[\p]$ are the direct sum of $\ZZ$-submodules of
-            $C_A[\ell]$ and $\ZZ$-submodules of $\Sigma_A[\ell]$.
-        \item
-            if $\p$ is non-Eisenstein, $A[\p]$ is irreducible~\cite[Prop
-            14.2]{mazur:eisenstein} as as a $G_\QQ$-module so the only
-            $G_\QQ$-submodules are $0$ and $A[\p]$.
-    \end{enumerate}
-\end{proposition}
-\begin{proof}
-    The Eisenstein case is~\cite[Corollary 16.3]{mazur:eisenstein} along with
-    the fact that $C[\ell]\isom \ZZ/\ell$ and $\Sigma[\ell]\isom \mu\ell$.
+%\begin{proposition}[Mazur]\label{prop:all_G_subs}
+%    Let $\p$ be a prime of residue characteristic $\ell>2$.
+%    \begin{enumerate}
+%        \item
+%            If $\p$ is Eisenstein, then $A[\p]=C_A[\ell]\oplus \Sigma_A[\ell]$,
+%            where $C_A=C\cap A$ and $\Sigma_A=\Sigma \cap A$ with $C$ and
+%            $\Sigma$ the cuspidal and Shimura subgroups of $J$. The
+%            $G_\QQ$-submodules of $A[\p]$ are the direct sum of $\ZZ$-submodules of
+%            $C_A[\ell]$ and $\ZZ$-submodules of $\Sigma_A[\ell]$.
+%        \item
+%            if $\p$ is non-Eisenstein, $A[\p]$ is irreducible~\cite[Prop
+%            14.2]{mazur:eisenstein} as as a $G_\QQ$-module so the only
+%            $G_\QQ$-submodules are $0$ and $A[\p]$.
+%    \end{enumerate}
+%\end{proposition}
+%\begin{proof}
+%    The Eisenstein case is~\cite[Corollary 16.3]{mazur:eisenstein} along with
+%    the fact that $C[\ell]\isom \ZZ/\ell$ and $\Sigma[\ell]\isom \mu\ell$.
 
-    The non-Eisenstein case is~\cite[Propositon 14.2]{mazur:eisenstein}.
-\end{proof}
+%    The non-Eisenstein case is~\cite[Propositon 14.2]{mazur:eisenstein}.
+%\end{proof}
 
-Let $a\in \p^{s-1}\setminus \p^s$ so $a$ generates $\p^{s-1}/\p^s$ as a
-$k_\p$-space. There exists a $\TT_A[G_\QQ]$-injection given by
-$\phi_s:A[\p^s]/A[\p^{s-1}]\to A[\p]$. The $G_\QQ$-submodules, $M$, of
-$A[\p^s]$ are then the $\ZZ$-submodules of $A[\p^s]$ such that $M\cap
-A[\p^{s-1}]$ and $\phi_s(M)$ are $G_\QQ$-submodules. This yields the following
-algorithm.
+%Let $a\in \p^{s-1}\setminus \p^s$ so $a$ generates $\p^{s-1}/\p^s$ as a
+%$k_\p$-space. There exists a $\TT_A[G_\QQ]$-injection given by
+%$\phi_s:A[\p^s]/A[\p^{s-1}]\to A[\p]$. The $G_\QQ$-submodules, $M$, of
+%$A[\p^s]$ are then the $\ZZ$-submodules of $A[\p^s]$ such that $M\cap
+%A[\p^{s-1}]$ and $\phi_s(M)$ are $G_\QQ$-submodules. This yields the following
+%algorithm.
 
-\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}%
-    \label{alg:enumerating_AX}
-    Given an odd ideal $X$ of $\TT_A$. This algorithm will output a set of
-    representatives for $\M(A[X])$.
-    \begin{enumerate}
-        \item{} [Factor $X$]
-            Compute the factorization $X=\prod \p_i ^{e_i}$.
-        \item{} [Non-Eisenstein part]
-            For each non-Eisenstein $\p_i$, let $W_i=\{A[\p^j]: 0 \leq j
-            \leq e_i\}$.
-        \item{} [Eisenstein part]
-            For each Eisenstein $\p_i$, set $V_1$ to be the set of
-            $G_\QQ$-submodules of $A[\p]$. For $j=2,\ldots,e_i$, set $V_j$ to
-            be the set of $\ZZ$-submodules, $M$, of $A[\p^j]$ such that $M\cap
-            A[\p^{j-1}]\in V_{j-1}$ and $\phi(M)\in V_1$.
-        \item{} [Combine]
-            Combine the $W_i$'s to form $W=\{\sum_i M_i: M_i \in W_i\}$.
-        \item{} [Output representatives]
-            Use isomorphism testing 
-            %TODO
-            % (Algorithm~\ref{alg:isom_testing})
-            to produce a set of representatives of $\M(A[X])$ of elements of
-            $W$.
-    \end{enumerate}
-\end{algorithm}
+%\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}%
+%    \label{alg:enumerating_AX}
+%    Given an odd ideal $X$ of $\TT_A$. This algorithm will output a set of
+%    representatives for $\M(A[X])$.
+%    \begin{enumerate}
+%        \item{} [Factor $X$]
+%            Compute the factorization $X=\prod \p_i ^{e_i}$.
+%        \item{} [Non-Eisenstein part]
+%            For each non-Eisenstein $\p_i$, let $W_i=\{A[\p^j]: 0 \leq j
+%            \leq e_i\}$.
+%        \item{} [Eisenstein part]
+%            For each Eisenstein $\p_i$, set $V_1$ to be the set of
+%            $G_\QQ$-submodules of $A[\p]$. For $j=2,\ldots,e_i$, set $V_j$ to
+%            be the set of $\ZZ$-submodules, $M$, of $A[\p^j]$ such that $M\cap
+%            A[\p^{j-1}]\in V_{j-1}$ and $\phi(M)\in V_1$.
+%        \item{} [Combine]
+%            Combine the $W_i$'s to form $W=\{\sum_i M_i: M_i \in W_i\}$.
+%        \item{} [Output representatives]
+%            Use isomorphism testing 
+%            %TODO
+%            % (Algorithm~\ref{alg:isom_testing})
+%            to produce a set of representatives of $\M(A[X])$ of elements of
+%            $W$.
+%    \end{enumerate}
+%\end{algorithm}
+
+\section{Bounding non-Eisenstein part}%
+\label{sec:bounding_non_eisenstein_part}
+
+In Section~\ref{sec:non_eisenstein_modules_are_kernels_of_hecke}, we showed
+that every finite odd-order $G_\QQ$-submodule of $A(\QQbar)_\tor$ supported, as
+a $\TT_A$-module, only on the non-Eisenstein primes are of the form $A[C]$ for
+some ideal $C$ of $\TT_A$. In this section, we will assume $\TT_A$ is
+integrally closed. The goal now is to prove Proposition~\ref{} which
+allows to reduce the non-Eisenstein part of an odd-degree isogeny to a finite
+list enumerated by the class group of $\TT_A$. 
+
+Let $\mathcal{H}$ be a set of integral representatives for $\Cl(\TT_A)$ coprime
+to $2\mathcal{I}_A$.
+
+The motivating idea this chapter is the following theorem of Frank Calegari
+communicated to William Stein. (I should ask Frank Calegari if he can be
+cited.)
+\begin{theorem}[F. Calegari]
+    Let $J=J_0(N)$ with $N$ prime. Let $A$ be a simple abelian subvariety of
+    $J$ with $\TT_A$ integrally closed. Suppose 
+\end{theorem}
 
 \section{Bounding support and valuations}%
 \label{sec:bounding_support_and_valuations}
