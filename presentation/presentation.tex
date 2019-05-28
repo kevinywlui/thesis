@@ -6,6 +6,7 @@
 \newcommand{\RR}{\mathbf{R}}
 \newcommand{\FF}{\mathbf{F}}
 \newcommand{\F}{\mathbf{F}}
+\newcommand{\I}{\mathcal{I}}
 \newcommand{\ZZ}{\mathbf{Z}}
 \newcommand{\CC}{\mathbf{C}}
 \newcommand{\SL}{\mathrm{SL}}
@@ -290,11 +291,43 @@
             (Stein) Let $\eta_\ell = T_\ell - (\ell+1)$. For any prime
             $\ell\nmid 2N$,
             \[
-                J_0(N)(\QQ)_\tor\subseteq J[\eta_\ell].
+                J_0(N)(\QQ)_\tor\subseteq J_0(N)[\eta_\ell].
             \]
         \item
-            Let $\mathcal{I}
+            Let $\mathcal{I} = \langle \eta_\ell:\ell\nmid 2N\rangle$. When $N$
+            this prime, Mazur calls this the Eisenstein ideal.
+            \[
+                J_0(N)(\QQ)_\tor \subseteq J_0(N)[I]
+            \]
     \end{itemize} 
+\end{frame}
+
+\begin{frame}{A better upper bound cont.}
+    \begin{itemize}
+        \item
+            \[
+                J_0(N)(\QQ)_\tor \subseteq J_0(N)[I]
+            \]
+        \item
+            The cuspidal and Shimura subgroups are contained on the right so
+            the group on the right contains some obviously not rational points.
+        \item
+            The star involution, $s$, is the map corresponding to complex
+            conjugation so
+            \[
+                J_0(N)(\CC)[s] = J_0(N)(\RR).
+            \]
+        \item
+            Let $\I^* = \langle \I, s \rangle$. William calls this the real
+            Eisenstein ideal.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Approximating real Eisenstein kernel}
+    \begin{itemize}
+        \item
+            Let $I_r ^*= \langle \eta:\ell:\ell\nmid 2N, \ell \leq r \rangle$
+    \end{itemize}
 \end{frame}
 
 \section{Enumerating the odd-isogeny class of simple abelian subvarieties of
