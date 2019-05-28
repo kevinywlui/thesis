@@ -1,12 +1,28 @@
 \documentclass{beamer}
 
+\usepackage{amsthm}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\RR}{\mathbf{R}}
+\newcommand{\FF}{\mathbf{F}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\ZZ}{\mathbf{Z}}
+\newcommand{\CC}{\mathbf{C}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\tor}{\mathrm{tor}}
+\newcommand{\p}{\mathfrak{p}}
+
+\usepackage{graphicx}
 \usetheme[block=fill, progressbar=frametitle, numbering=fraction]{metropolis}
 \definecolor{mPurple}{HTML}{4b2e83}
 \setbeamercolor{palette primary}{%
     bg = mPurple
 }
 
-\title{Enumerating Isogeny Classes}
+\title{%
+    Arithmetic of Totally Split Modular Jacobians and Enumeration of Isogeny
+    Classes of Prime Level Simple Modular Abelian Varieties
+}
 \author{Kevin Lui\\Adviser: William Stein}
 \date{May 30, 2019}
 \institute{Final Exam}
@@ -14,8 +30,275 @@
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}{test}
-    fewe
+\section{How I got started in my research}
+
+\begin{frame}{Google Summer of Code}
+    \begin{itemize}
+        \item 
+            Once upon a time, William implemented a lot of functionality
+            for modular abelian varieties into MAGMA.
+        \item
+            William started Sage but some of the functionality never made it
+            into Sage.
+        \item
+            I spent a summer working on improving some of the modular abelian
+            variety code. Thanks Google!
+    \end{itemize} 
 \end{frame}
+
+\begin{frame}{Table Making}
+    \begin{itemize}
+        \item
+            Working on the code required me to study a paper that Hao and
+            William were working on. I started working on this paper too.
+        \item
+            This paper had an outline of a table at the end. I tried to fill it
+            in.
+        \item
+            It was hard.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Research Goal}
+    \Huge{Compute as many as invariants as possible for modular abelian
+    varieties}
+\end{frame}
+
+\begin{frame}{Broad overview}
+    I created methods to attempt to
+    \begin{itemize}
+        \item
+            compute the rational torsion subgroup of totally split modular
+            Jacobian $J_0(N)$.
+        \item
+            enumerate the odd-isogeny class of a simple abelian subvarieties of
+            $J_0(N)$ with $N$ prime.
+    \end{itemize}
+\end{frame}
+
+\section{Some background on modular abelian varieties}
+
+
+% \begin{frame}{Elliptic curves}
+%     \begin{itemize}
+%         \item
+%             An elliptic curve, $E$, over a characteristic zero field is the
+%             solution space to $y^2=f(x)$, where $f(x)$ is a nonsingular cubic
+%             in $x$.
+%         \item
+%             Through the Weierstrass $P$ function, the complex points of $E$ is
+%             isomorphic to $\CC/\Lambda$.
+%         \item
+%             A morphism $\CC/\Lambda\to \CC/\Lambda'$ is a complex
+%             linear map $\varphi:\CC\to \CC$ such that
+%             $\varphi(\Lambda)\subseteq \Lambda'$.
+%         \item
+%             After some isomorphisms, every elliptic curve is isomorphic to
+%             $\CC/\Lambda_\tau$, where $\Lambda_\tau = \langle 1, \tau \rangle$.
+%         \item
+%             $\CC/\Lambda_\tau \cong \CC/\Lambda_{\tau'}$ if and only if
+%             there exists $M\in \SL_2(\ZZ)$ such that $M\tau = \tau'$.
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Modular Curve}
+    
+% \end{frame}
+
+\begin{frame}{Things we can do easily}
+    \begin{itemize}
+        \item
+            Hecke operators, star-involution, degeneracy maps -- these can all
+            be expressed using modular symbols.
+        \item
+            A decomposition of any modular abelian variety into simple factors
+            -- the new factors appear with multiplicity one, the old factors
+            are images of degeneracy maps.
+        \item 
+            Shimura and cuspidal subgroup -- Shimura is the kernel of a
+            difference of degeneracy maps, cuspidal can be obtain via
+            integration pairing.
+    \end{itemize}
+\end{frame}
+
+\section{Computing rational torsion subgroup for totally split $J_0(N)$}
+
+\begin{frame}{Current Sage approach}
+    \begin{itemize}
+        \item
+            Compute a lower bound -- rational cuspidal subgroup.
+        \item
+            Compute an upper bound -- reduction modulo primes.
+        \item
+            Hope they agree. 
+        \item
+            Sometimes they don't! The first example is $J_0(30)$ which
+            isogenous to a product of 3 elliptic curves.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Totally split $J_0(N)$}
+    \begin{definition}
+        A Jacobian $J_0(N)$ is \emph{totally split} if it is isogenous over
+        $\QQ$ to a product of elliptic curves.
+    \end{definition}
+
+    \begin{theorem}[K.L.]
+        There are 71 nontrivial totally split $J_0(N)$. We can provably
+        enumerate them all. The largest is $J_0(1200)$.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{The totally split hope}
+    \begin{itemize}
+        \item 
+            The rational torsion points of elliptic curves can be computed
+            using Nagell-Lutz.
+        \item
+            Using some Galois cohomology, we can try to reconstruct the
+            rational torsion of $J_0(N)$ from its elliptic factors.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Lower bound}
+    \begin{itemize}
+        \item    
+            The \emph{cuspidal subgroup} 
+            \[
+                C(N) = \langle (\alpha)-(\beta):\alpha,\beta~\text{cusps}
+                \rangle
+            \]
+            of $J_0(N)$ is the subgroup of
+            degree-zero divisors supported on the cusps of $X_0(N)$.
+            \pause
+        \item
+            Integration against cusp forms
+            gives a map $i:C\to \Hom(S_2(N), \CC)$ given by 
+            \[
+                (\alpha)-(\beta) \mapsto \int_\alpha ^\beta \bullet
+            \]
+            In our presentation of $J_0(N)$, the cuspidal subgroup is
+            quotient of $i(C)$ by $H_1(X_0(N), \ZZ)$. 
+            \pause
+        \item
+            Glenn Stevens determined the Galois action on $C(N)$ so we can
+            explicitly determine the \emph{rational cuspidal subgroup}
+            $C(N)(\QQ)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Upper bound}
+    \begin{itemize}
+        \item 
+            Let $A$ be an abelian variety defined over a number field $K$.
+            Suppose $\p$ is an unramified prime of $K$ of odd residue
+            characteristic. Then $A(K)_\tor \hookrightarrow A_\p(\FF_\p)$.
+        \item
+            In our case,
+            \[
+                \#J_0(N)(\QQ)_\tor \mid  \gcd_{p\nmid 2N} \#J_0(N)_p (\FF_p),
+            \]
+            where we can compute the term on the right by explicitly computing
+            the Frobenius polynomial using the Eichler-Shimura relations which
+            relates Frobenius with Hecke operators.
+        \item
+            The right hand side is an isogeny invariant so we expect it not to
+            be tight. In fact, there's an abelian variety isogenous to
+            $J_0(30)$ with strictly larger torsion.
+        \item
+            A better upper bound is coming!!
+    \end{itemize} 
+\end{frame}
+
+\begin{frame}{Ogg Conjecture}
+    \begin{itemize}
+        \item 
+            (Ogg) The cuspidal subgroup $C$ of $J_0(p)$ is cyclically generated
+            by $(0)-(\infty)$ and has order $\mathrm{num} (p-1)/12$. This
+            subgroup is rational so 
+            \[
+                C=C(\QQ)\subseteq J_0(p)(\QQ)_\tor.
+            \]
+            Ogg conjectured this is an equality.
+            \pause
+        \item
+            (Mazur) $C=J_0(p)(\QQ)_\tor$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Generalized Ogg Conjecture}
+    \begin{conjecture}[Generalized Ogg Conjecture]
+        Let $N$ be any positive integer and $C$ be the cuspidal subgroup of
+        $J_0(N)$. Then
+        \[
+            C(\QQ) = J_0(N)(\QQ)_\tor.
+        \]
+    \end{conjecture}
+\end{frame}
+
+\begin{frame}{Progress of Generalized Ogg Conjecture}
+    \begin{itemize}
+        \item 
+            (Mazur 77) When $N$ is prime, $J_0(N)(\QQ)_\tor =C(N)(\QQ)$.
+            \pause
+        \item
+            (Ohta 14) When $N$ is a positive squarefree integer,
+            \[
+                J_0(N)(\QQ)[q^\infty]=C(N)(\QQ)[q^\infty]
+            \]
+            for $q\nmid 6$.
+        \item
+            (Yoo 15) When $p>3$,
+            \[
+                J_0(3p)(\QQ)[3^\infty] = C(3p)(\QQ)[3^\infty]
+            \]
+            unless $p\equiv 1 \pmod{9}$ and $3^{\frac{p-1}{3}} \equiv 1
+            \pmod{9}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Progress of Generalized Ogg Conjecture}
+    \begin{itemize}
+        \item
+            (Ling 97) When $p\geq 5$ is a prime and $r$ a positive integer,
+            \[
+                J_0(p^r)(\QQ)[q^\infty] = C(p^r)(\QQ)[q^\infty]
+            \]
+            for any prime $q\nmid 6p$.
+        \item
+            (Ren 18) When $N$ is any positive integer,
+            \[
+                J_0(N)(\QQ)[q^\infty]=C(N)(\QQ)[q^\infty]
+            \]
+            for $q\nmid 6N\pi(N)$, where $\pi(N) = \prod_{p\mid N}
+            (p^2-1)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Restatement of goal}
+    \large{Bound $[J_0(\QQ)_\tor:C(N)(\QQ)]$ for totally split $J_0(N)$}
+\end{frame}
+
+\begin{frame}{A better upper bound}
+    \begin{itemize}
+        \item 
+            Recall that for any prime $\ell\nmid 2N$,
+            \[
+                J_0(N)(\QQ)_\tor\hookrightarrow J_\ell(\F_\ell).
+            \]
+        \item
+            (Stein) Let $\eta_\ell = T_\ell - (\ell+1)$. For any prime
+            $\ell\nmid 2N$,
+            \[
+                J_0(N)(\QQ)_\tor\subseteq J[\eta_\ell].
+            \]
+        \item
+            Let $\mathcal{I}
+    \end{itemize} 
+\end{frame}
+
+\section{Enumerating the odd-isogeny class of simple abelian subvarieties of
+$J_0(N)$ with $N$ prime}
+
     
 \end{document}
