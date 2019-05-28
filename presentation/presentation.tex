@@ -2,15 +2,23 @@
 
 \usepackage{amsthm}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\QQbar}{\overline{\mathbf{Q}}}
 \newcommand{\RR}{\mathbf{R}}
 \newcommand{\FF}{\mathbf{F}}
+\newcommand{\TT}{\mathbf{T}}
 \newcommand{\F}{\mathbf{F}}
 \newcommand{\I}{\mathcal{I}}
+\renewcommand{\H}{\mathcal{H}}
 \newcommand{\ZZ}{\mathbf{Z}}
 \newcommand{\CC}{\mathbf{C}}
 \newcommand{\SL}{\mathrm{SL}}
+\renewcommand{\Im}{\mathrm{Im}}
 \newcommand{\tor}{\mathrm{tor}}
+\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\End}{\mathrm{End}}
 \newcommand{\p}{\mathfrak{p}}
 
 \usepackage{graphicx}
@@ -20,6 +28,12 @@
     bg = mPurple
 }
 
+% \usefonttheme{professionalfonts} % required for mathspec
+% \usepackage{mathspec}
+% \setsansfont[BoldFont={Fira Sans},
+% Numbers={OldStyle}]{Fira Sans Light}
+% \setmathsfont(Digits)[Numbers={Lining, Proportional}]{Fira
+% Sans Light}
 \title{%
     Arithmetic of Totally Split Modular Jacobians and Enumeration of Isogeny
     Classes of Prime Level Simple Modular Abelian Varieties
@@ -61,18 +75,18 @@
 \end{frame}
 
 \begin{frame}{Research Goal}
-    \Huge{Compute as many as invariants as possible for modular abelian
+    \Huge{Compute as many invariants as possible for modular abelian
     varieties}
 \end{frame}
 
-\begin{frame}{Broad overview}
-    I created methods to attempt to
+\begin{frame}{Thesis overview}
+    I created methods for
     \begin{itemize}
         \item
-            compute the rational torsion subgroup of totally split modular
+            computing the rational torsion subgroup of totally split modular
             Jacobian $J_0(N)$.
         \item
-            enumerate the odd-isogeny class of a simple abelian subvarieties of
+            enumerating the odd-isogeny class of simple abelian subvarieties of
             $J_0(N)$ with $N$ prime.
     \end{itemize}
 \end{frame}
@@ -133,7 +147,7 @@
         \item
             Hope they agree. 
         \item
-            Sometimes they don't! The first example is $J_0(30)$ which
+            Sometimes they don't! The first example is $J_0(30)$ which is
             isogenous to a product of 3 elliptic curves.
     \end{itemize}
 \end{frame}
@@ -144,7 +158,7 @@
         $\QQ$ to a product of elliptic curves.
     \end{definition}
 
-    \begin{theorem}[K.L.]
+    \begin{theorem}[L.]
         There are 71 nontrivial totally split $J_0(N)$. We can provably
         enumerate them all. The largest is $J_0(1200)$.
     \end{theorem}
@@ -153,7 +167,7 @@
 \begin{frame}{The totally split hope}
     \begin{itemize}
         \item 
-            The rational torsion points of elliptic curves can be computed
+            The rational torsion points of elliptic curves can be determined
             using Nagell-Lutz.
         \item
             Using some Galois cohomology, we can try to reconstruct the
@@ -166,25 +180,23 @@
         \item    
             The \emph{cuspidal subgroup} 
             \[
-                C(N) = \langle (\alpha)-(\beta):\alpha,\beta~\text{cusps}
+                C = \langle (\alpha)-(\beta):\alpha,\beta~\text{cusps}
                 \rangle
             \]
             of $J_0(N)$ is the subgroup of
             degree-zero divisors supported on the cusps of $X_0(N)$.
-            \pause
         \item
             Integration against cusp forms
             gives a map $i:C\to \Hom(S_2(N), \CC)$ given by 
             \[
                 (\alpha)-(\beta) \mapsto \int_\alpha ^\beta \bullet
             \]
-            In our presentation of $J_0(N)$, the cuspidal subgroup is
+            In our presentation of $J_0(N)$, the cuspidal subgroup is the
             quotient of $i(C)$ by $H_1(X_0(N), \ZZ)$. 
-            \pause
         \item
-            Glenn Stevens determined the Galois action on $C(N)$ so we can
+            Glenn Stevens determined the Galois action on $C$ so we can
             explicitly determine the \emph{rational cuspidal subgroup}
-            $C(N)(\QQ)$.
+            $C(\QQ)$.
     \end{itemize}
 \end{frame}
 
@@ -205,7 +217,7 @@
         \item
             The right hand side is an isogeny invariant so we expect it not to
             be tight. In fact, there's an abelian variety isogenous to
-            $J_0(30)$ with strictly larger torsion.
+            $J_0(30)$ with strictly larger torsion order.
         \item
             A better upper bound is coming!!
     \end{itemize} 
@@ -221,7 +233,6 @@
                 C=C(\QQ)\subseteq J_0(p)(\QQ)_\tor.
             \]
             Ogg conjectured this is an equality.
-            \pause
         \item
             (Mazur) $C=J_0(p)(\QQ)_\tor$.
     \end{itemize}
@@ -240,12 +251,11 @@
 \begin{frame}{Progress of Generalized Ogg Conjecture}
     \begin{itemize}
         \item 
-            (Mazur 77) When $N$ is prime, $J_0(N)(\QQ)_\tor =C(N)(\QQ)$.
-            \pause
+            (Mazur 77) When $N$ is prime, $J_0(N)(\QQ)_\tor =C(\QQ)$.
         \item
             (Ohta 14) When $N$ is a positive squarefree integer,
             \[
-                J_0(N)(\QQ)[q^\infty]=C(N)(\QQ)[q^\infty]
+                J_0(N)(\QQ)[q^\infty]=C(\QQ)[q^\infty]
             \]
             for $q\nmid 6$.
         \item
@@ -269,7 +279,7 @@
         \item
             (Ren 18) When $N$ is any positive integer,
             \[
-                J_0(N)(\QQ)[q^\infty]=C(N)(\QQ)[q^\infty]
+                J_0(N)(\QQ)[q^\infty]=C(\QQ)[q^\infty]
             \]
             for $q\nmid 6N\pi(N)$, where $\pi(N) = \prod_{p\mid N}
             (p^2-1)$.
@@ -277,7 +287,7 @@
 \end{frame}
 
 \begin{frame}{Restatement of goal}
-    \large{Bound $[J_0(\QQ)_\tor:C(N)(\QQ)]$ for totally split $J_0(N)$}
+    \large{Bound $[J_0(\QQ)_\tor:C(\QQ)]$ for totally split $J_0(N)$}
 \end{frame}
 
 \begin{frame}{A better upper bound}
@@ -297,7 +307,7 @@
             Let $\mathcal{I} = \langle \eta_\ell:\ell\nmid 2N\rangle$. When $N$
             this prime, Mazur calls this the Eisenstein ideal.
             \[
-                J_0(N)(\QQ)_\tor \subseteq J_0(N)[I]
+                J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I]
             \]
     \end{itemize} 
 \end{frame}
@@ -306,7 +316,7 @@
     \begin{itemize}
         \item
             \[
-                J_0(N)(\QQ)_\tor \subseteq J_0(N)[I]
+                J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I]
             \]
         \item
             The cuspidal and Shimura subgroups are contained on the right so
@@ -326,12 +336,114 @@
 \begin{frame}{Approximating real Eisenstein kernel}
     \begin{itemize}
         \item
-            Let $I_r ^*= \langle \eta:\ell:\ell\nmid 2N, \ell \leq r \rangle$
+            Let $\I_r ^*= \langle \eta_\ell:\ell\nmid 2N, \ell \leq r \rangle$.
+        \item
+            Let $E_r = J_0(N)[\I_r]$.
+        \item 
+            We have
+            \[
+                C(\QQ)\subseteq J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I^*]
+                \subseteq E_r.
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reducing to subvarieties}
+    \begin{itemize}
+        \item
+            Let $x_1,\ldots,x_k\in E_r$ be a set of representatives for
+            $E_r/C(\QQ)$ with $x_1\in C(\QQ)$.
+        \item
+            To verify the Generalize Ogg Conjecture, it suffices to show
+            $x_i\notin J_0(N)(\QQ)_\tor$ for $i=2,\ldots,k$.
+        \item
+            Or equivalently, $x_i$ is in an abelian variety $A_i$ where we have
+            verified the Generalized Ogg Conjecture.
     \end{itemize}
 \end{frame}
 
 \section{Enumerating the odd-isogeny class of simple abelian subvarieties of
 $J_0(N)$ with $N$ prime}
+
+\begin{frame}{Working on paper with Hao and William}
+    \begin{itemize}
+        \item 
+            One of the sections in this paper is giving methods for enumerating
+            the rational isogeny class of modular abelian varieties. 
+        \item
+            In general, this seems hopelessly difficult.
+        \item
+            But Frank Calegari had an idea for a special case!
+    \end{itemize} 
+\end{frame}
+
+\begin{frame}{F. Calegari's Theorem}
+    Let $A\subseteq J_0(N)$ be a simple abelian variety with $N$ prime and
+    $\TT_A = \Im(\TT\to \End(A))$ integrally closed. Let $\H$ be a set of
+    odd integral representatives for $\Cl(\TT_A)$.
+    \begin{theorem}[F. Calegari]
+        Suppose $\phi:A\to A'$ be an isogeny with $\ker\phi$ supported only on the
+        non-Eisenstein primes of odd residue characteristic. Then
+        \[
+            A'\cong A/A[C]
+        \]
+        for some $C\in \H$.
+    \end{theorem}
+    Though there are infinitely many non-Eisenstein primes away from 2, this
+    theorem reduces the isogenies supported on these primes to just a finite
+    list!
+\end{frame}
+
+\begin{frame}{Some experimental data}
+    \begin{itemize}
+        \item 
+            There are [[this many]] simple abelian subvarieties, $A$, of
+            $J_0(N)$ with $\dim(A)\leq [[bound]]$ and $N\leq [[bound]]$
+        \item
+            For all of these abelian subvarieties, $\Cl(\TT_A)$ is trivial.
+    \end{itemize} 
+\end{frame}
+
+\begin{frame}{Restating in terms Galois submodules}
+    \begin{itemize}
+        \item 
+            The image of an isogeny is determined by its kernel up to isomorphism. 
+        \item
+            Define an equivalence relation on the set of finite odd-order
+            $G_\QQ$-submodules of $A(\QQbar)$ given by $M_1\sim M_2$ if and only if
+            $A/M_1\cong A/M_2$.
+        \item
+            So the goal is to enumerate the odd-order $G_\QQ$-submodules of
+            $A(\QQbar)_\mathrm{odd}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Making sense of F. Calegari's theorem}
+    \begin{proposition}
+        Suppose $M$ is a finite odd-order $G_\QQ$-submodule of $J_0(N)$, with $N$
+        prime. Then $M$ is a $\TT[G_\QQ]$-module.
+    \end{proposition}
+
+    In particular, we can refer to the support of $M\subseteq A$ as a
+    $\TT_A$-module.
+\end{frame}
+
+\begin{frame}{General Idea}
+    \begin{itemize}
+        \item 
+            Enumerate, up to equivalence, the finite odd-order submodules
+            supported on the non-Eisenstein primes. Done by F. Calegari!
+        \item
+            Enumerate, up to equivalence, the finite odd-order submodules
+            supported on the non-Eisenstein primes. To come!
+        \item
+            Put them together to enumerate the odd-degree isogeny class.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Eisenstein Isogenies}
+    this was hard
+\end{frame}
 
     
 \end{document}
