@@ -1,27 +1,35 @@
 \documentclass{beamer}
 
+\usepackage{booktabs}
 \usepackage{amsthm}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newcommand{\QQ}{\mathbf{Q}}
 \newcommand{\QQbar}{\overline{\mathbf{Q}}}
 \newcommand{\RR}{\mathbf{R}}
+\newcommand{\ZZ}{\mathbf{Z}}
 \newcommand{\FF}{\mathbf{F}}
 \newcommand{\TT}{\mathbf{T}}
+\newcommand{\Jac}{\mathrm{Jac}}
 \newcommand{\F}{\mathbf{F}}
 \newcommand{\I}{\mathcal{I}}
 \renewcommand{\H}{\mathcal{H}}
-\newcommand{\ZZ}{\mathbf{Z}}
+\renewcommand{\ZZ}{\mathbf{Z}}
 \newcommand{\CC}{\mathbf{C}}
 \newcommand{\SL}{\mathrm{SL}}
 \renewcommand{\Im}{\mathrm{Im}}
 \newcommand{\tor}{\mathrm{tor}}
+\newcommand{\Ann}{\mathrm{Ann}}
 \newcommand{\num}{\mathrm{num}}
+\newcommand{\old}{\mathrm{old}}
+\newcommand{\new}{\mathrm{new}}
 \newcommand{\Cl}{\mathrm{Cl}}
 \newcommand{\Hom}{\mathrm{Hom}}
 \newcommand{\Frob}{\mathrm{Frob}}
 \newcommand{\End}{\mathrm{End}}
 \newcommand{\p}{\mathfrak{p}}
+
+\usepackage{tikz-cd}
 
 \usepackage{graphicx}
 \usetheme[block=fill, progressbar=frametitle, numbering=fraction]{metropolis}
@@ -88,8 +96,8 @@
             computing the rational torsion subgroup of modular
             Jacobian $J_0(N)$.
         \item
-            enumerating the isogeny class of simple abelian subvarieties of
-            $J_0(N)$ with $N$ prime.
+            enumerating the isogeny class of abelian subvarieties of
+            $J_0(N)$.
     \end{itemize}
 \end{frame}
 
@@ -98,17 +106,93 @@
 \begin{frame}{Modular Jacobian}
     \begin{itemize}
         \item
-            The modular curve $X_0(N)$ is an algebraic curve defined over $\QQ$
-            which parameterizes elliptic curves with additional $N$-torsion
-            data.
+            The modular curves $X_0(N), X_1(N)$ is an algebraic curve defined
+            over $\QQ$ which parameterizes elliptic curves with additional
+            $N$-torsion data.
         \item 
-            Throughout $J=J_0(N)$ is the Jacobian of the modular curve
-            $X_0(N)$.
+            The Jacobians $J_0(N)=\Jac(X_0(N))$ and $J_1(N)=\Jac(X_1(N))$ are
+            abelian varieties over $\QQ$.
     \end{itemize} 
 \end{frame}
 
-\begin{frame}{Defining Data}
-    here is defining data
+\begin{frame}{Modular Abelian Varieties}
+    \begin{definition}[Modular Abelian Variety]
+        An abelian variety $A$ is a \emph{modular} if there is a finite-degree
+        morphism $\varphi:A\to J_1(N)$ for some $N$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}[fragile]{Defining Data}
+Let $B$ be the image of $A$ in $J$.
+Then there is an isogeny $B$ to $A$ with kernel $G$ such that $A\cong B/G$.
+\begin{equation}
+    \label{eq:defining_data}
+    \begin{tikzcd}
+        &
+        &
+        A \arrow[d]\arrow[dr,"\varphi"] &
+        &
+        &
+        \\
+        0 \arrow[r] &
+        G \arrow[r] &
+        B \arrow[r] &
+        J \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+So we can represent any modular abelian variety $J$ by giving $G\subseteq
+B\subseteq J$ all defined over $\QQ$.
+\end{frame}
+
+\begin{frame}{Defining Data cont.}
+    Recall $A\cong B/G$, $G\subseteq B \subseteq J$.
+    \begin{itemize}
+        \item
+            (Defining $J$) Give a modular symbol basis for $H_1(J, \ZZ)\cong
+            \ZZ^{2\mathrm{dim}(J)}$, $H_1(J, \QQ) = H_1(J, \ZZ)\otimes
+            \QQ\cong \QQ^{2\mathrm{dim}(J)}$. So $J(\CC)_\tor$ is given as
+            $H_1(J, \QQ)/H_1(J, \QQ)$.
+        \item
+            (Defining $B$) Give a basis for the subspace $V:=H_1(B,
+            \QQ)\subseteq H_1(J, \QQ)$. Then $H_1(B, \ZZ)=V\cap H_1(J, \QQ)$.
+        \item
+            (Defining $G$) Give a basis for the lattice $L$, $H_1(B, \ZZ)
+            \subseteq L \subseteq H_1(B, \QQ)$ such that $G\cong \Lambda/H_1(B,
+            \ZZ)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+    We give an example of the defining data of some elliptic curve factor of
+    the 3-dimensional abelian variety $J_0(30)$. Here $B$ is the image of
+    $J_0(15)\to J_0(30)$ under the degeneracy map corresponding to $1$ and $G$
+    is the Shimura subgroup of $B$.
+    \begin{itemize}
+        \item
+            (Defining $J$) A basis for our representation of $H_1(J, \ZZ)$ is
+            $\{e_1,\ldots,e_6\}$.
+        \item
+            (Defining $B$) A basis for $H_1(B, \ZZ)$ is $\{(1,0,-1,1,0,1),
+            (0,1,0,-1,1,0)\}$.
+        \item
+            (Defining $G$) A basis for $G$ is $\{(1/4, 1/2, -1/4, -1/4, 1/2,
+            1/4), (0,1,0,-1,1,0)\}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Defining data for groups, morphisms}
+    \begin{itemize}
+        \item 
+            (Define groups) Suppose $A\sim (L, V, J)$. A subgroup $H$ of
+            $A(\QQbar)_\tor$ is specified by giving a lattice $\Lambda$ so that
+            $H\cong \Lambda/L$. 
+        \item
+            (Define morphisms) Suppose $A\sim (L, V, J)$ and $B\sim (L', V', J')$.
+            Then $A\to B$ can be specified by giving a map $V\to V'$ sending
+            $L\to L'$.
+    \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Things we can do easily}
@@ -117,9 +201,9 @@
             Hecke operators, star-involution, degeneracy maps -- these can all
             be expressed using modular symbols.
         \item
-            A decomposition of any modular abelian variety into simple factors
-            -- the new factors appear with multiplicity one, the old factors
-            are images of degeneracy maps.
+            A decomposition of $A$ into a sum of its simple subvarieties. The
+            simple new subvariety appear with multiplicity one, the simple old
+            subvarieties are images of degeneracy maps.
         \item 
             Shimura and cuspidal subgroup -- Shimura is the kernel of a
             difference of degeneracy maps, cuspidal can be obtain via
@@ -128,6 +212,7 @@
 \end{frame}
 
 \section{Computing rational torsion subgroup for $J_0(N)$}
+
 
 \begin{frame}{Rational Torsion Subgroup}
     The \emph{cuspidal} subgroup, $C$, of $J_0(N)$ is the subgroup generated by
@@ -140,7 +225,7 @@
     \begin{theorem}[Mazur '77]
         If $N$ is prime, then
         \[
-            C(\QQ)=J_0(N)(\QQ)_\tor
+            C(\QQ)=J_0(N)(\QQ)_\tor.
         \]
     \end{theorem}
 \end{frame}
@@ -156,7 +241,6 @@
 \end{frame}
 
 \begin{frame}{Progress of Generalized Ogg Conjecture}
-
     \begin{theorem}[Mazur '77]
         When $N$ is prime, $J_0(N)(\QQ)_\tor =C(\QQ)$.
     \end{theorem}
@@ -177,7 +261,7 @@
     \end{theorem}
 \end{frame}
 
-\begin{frame}{Progress of Generalized Ogg Conjecture}
+\begin{frame}{Progress of Generalized Ogg Conjecture cont.}
     \begin{theorem}[Ling '97]
         When $p\geq 5$ is a prime and $r$ a positive integer,
         \[
@@ -195,7 +279,7 @@
     \end{theorem}
 \end{frame}
 
-\begin{frame}{Goal Generalized Ogg Conjecture}
+\begin{frame}{Goal for Generalized Ogg Conjecture}
     \begin{itemize}
         \item 
             Verify $[J_0(N)(\QQ)_\tor:C(\QQ)]=1$ for any many $J_0(N)$ as
@@ -265,22 +349,56 @@
                 \Phi_L(x_1,\ldots,x_r)=d_{t_1}(x_1)+\cdots+d_{t_r}(x_r).
             \]
             The image of this map is called the $N/L$-old subvariety.
-        \item
-            Shimuracondition-here
     \end{itemize}
 \end{frame}
 
-\begin{frame}{$J_0(30)$}
+\begin{frame}{Direct sum decomposition}
+    \begin{itemize}
+        \item 
+            Let $\Phi_L ^r: J_0(L)^r \to J_0(N)$ be given by
+            \[
+                \Phi_L(x_1,\ldots,x_r)=d_{t_1}(x_1)+\cdots+d_{t_r}(x_r).
+            \]
+        \item
+            Let $\Sigma(L)_0 ^r = \{(x_1,\ldots,x_r)\in \Sigma(L)^r: \sum
+            x_i=0\}\subseteq J_0(L)^r$.
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Direct Sum Decomposition}
+
+    \begin{proposition}[L.]
+        Suppose that $\ker\Phi_L ^r = \Sigma(L)_0 ^r$ and $E=J_0(L)$ is an elliptic
+        curve. Then there is a $\QQ$-isomorphism
+        \[
+            \Im\Phi_L ^N \cong E \times F^{r-1},
+        \]
+        where $F$ is the $J_1(L)$-optimal curve in the isogeny class of $E$.
+    \end{proposition}
+    \begin{theorem}[Ribet '90]
+        If $N/L=p$ is a prime coprime to $L$, then $\ker\Phi_L ^r = \Sigma(L)_0
+        ^r$.
+    \end{theorem}
+    Later generalized. (Ling '95)
+\end{frame}
+
+\begin{frame}{Computing $J_0(30)(\QQ)_\tor$}
     \begin{itemize}
         \item
-            $J_0(30)$ is isogenous to $E_{15} ^2\times E_{30}$, where $E_{15}$
-            and $E_{30}$ are elliptic curves contained the unique isogeny class
-            of conductor 15 and 30.
+            We have $\# C(\QQ) = 192$ and an upper bound is $768$.
         \item
-            Using the previous notation, 
+            $J_0(30)=J_\old+J_\new$, with $J_\old=E_1+E_2$, where $E_i$ are
+            elliptic curves of conductor 15 and $J_\new=E_3$, where $E_3$ is a
+            elliptic curve of conductor 30.
         \item
-            okayokay
+            Since $30/15=2$, $J_\old$ breaks up as a direct sum so we can
+            determine $\# J_\old  = 32$ which is the order of $C(\QQ)\cap
+            J_\old$.
     \end{itemize}
+\end{frame}
+
+\begin{frame}[standout]{Galois Cohomology}
+    \Huge{Blackboard time}
 \end{frame}
 
 \begin{frame}{The totally split hope}
@@ -337,101 +455,34 @@
     branches.
 \end{frame}
 
-
-\begin{frame}{Upper bound}
-    \begin{itemize}
-        \item 
-            Let $A$ be an abelian variety defined over a number field $K$.
-            Suppose $\p$ is an unramified prime of $K$ of odd residue
-            characteristic. Then $A(K)_\tor \hookrightarrow A_\p(\FF_\p)$.
-        \item
-            In our case,
-            \[
-                \#J_0(N)(\QQ)_\tor \mid  \gcd_{p\nmid 2N} \#J_0(N)_p (\FF_p),
-            \]
-            where we can compute the term on the right by explicitly computing
-            the Frobenius polynomial using the Eichler-Shimura relations which
-            relates Frobenius with Hecke operators.
-        \item
-            The right hand side is an isogeny invariant so we expect it not to
-            be tight. In fact, there's an abelian variety isogenous to
-            $J_0(30)$ with strictly larger torsion order.
-        \item
-            A better upper bound is coming!!
-    \end{itemize} 
-\end{frame}
-
-
-\begin{frame}{A better upper bound}
-    \begin{itemize}
-        \item 
-            Recall that for any prime $\ell\nmid 2N$,
-            \[
-                J_0(N)(\QQ)_\tor\hookrightarrow J_\ell(\F_\ell).
-            \]
-        \item
-            (Stein) Let $\eta_\ell = T_\ell - (\ell+1)$. For any prime
-            $\ell\nmid 2N$,
-            \[
-                J_0(N)(\QQ)_\tor\subseteq J_0(N)[\eta_\ell].
-            \]
-        \item
-            Let $\mathcal{I} = \langle \eta_\ell:\ell\nmid 2N\rangle$. When $N$
-            this prime, Mazur calls this the Eisenstein ideal.
-            \[
-                J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I]
-            \]
-    \end{itemize} 
-\end{frame}
-
-\begin{frame}{A better upper bound cont.}
-    \begin{itemize}
-        \item
-            \[
-                J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I]
-            \]
-        \item
-            The cuspidal and Shimura subgroups are contained on the right so
-            the group on the right contains some obviously not rational points.
-        \item
-            The star involution, $s$, is the map corresponding to complex
-            conjugation so
-            \[
-                J_0(N)(\CC)[s] = J_0(N)(\RR).
-            \]
-        \item
-            Let $\I^* = \langle \I, s \rangle$. William calls this the real
-            Eisenstein ideal.
-   \end{itemize} 
-\end{frame}
-
-\begin{frame}{Approximating real Eisenstein kernel}
-    \begin{itemize}
-        \item
-            Let $\I_r ^*= \langle \eta_\ell:\ell\nmid 2N, \ell \leq r \rangle$.
-        \item
-            Let $E_r = J_0(N)[\I_r]$.
-        \item 
-            We have
-            \[
-                C(\QQ)\subseteq J_0(N)(\QQ)_\tor \subseteq J_0(N)[\I^*]
-                \subseteq E_r.
-            \]
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Reducing to subvarieties}
-    \begin{itemize}
-        \item
-            Let $x_1,\ldots,x_k\in E_r$ be a set of representatives for
-            $E_r/C(\QQ)$ with $x_1\in C(\QQ)$.
-        \item
-            To verify the Generalize Ogg Conjecture, it suffices to show
-            $x_i\notin J_0(N)(\QQ)_\tor$ for $i=2,\ldots,k$.
-        \item
-            Or equivalently, $x_i$ is in an abelian variety $A_i$ where we have
-            verified the Generalized Ogg Conjecture.
-    \end{itemize}
+\begin{frame}{Results}
+\begin{table}%
+    \label{tab:rank_zero_bound}
+    \caption{Bound on $[J_0(N)(\QQ)_\tor:C(N)(\QQ)]$}
+    \centering
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & bound \\
+        \midrule
+        84 & 8 \\
+        90 & 16 \\
+        96 & 64 \\
+        120 & 512 \\
+        132 & 32 \\
+        \bottomrule
+    \end{tabular}
+    \begin{tabular}{rr}
+        \toprule
+        $N$ & bound \\
+        \midrule
+        144 & 64 \\
+        150 & 16 \\
+        168 & 512 \\
+        180 & 128  \\
+            &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 \end{frame}
 
 \section{Enumerating the odd-isogeny class of simple abelian subvarieties of
@@ -472,6 +523,9 @@ $J_0(N)$ with $N$ prime}
             There are [[this many]] simple abelian subvarieties, $A$, of
             $J_0(N)$ with $\dim(A)\leq [[bound]]$ and $N\leq [[bound]]$
         \item
+            For [[this many]] of [[this many]], [[this many]] are integrally
+            closed.
+        \item
             For all of these abelian subvarieties, $\Cl(\TT_A)$ is trivial.
     \end{itemize} 
 \end{frame}
@@ -494,10 +548,41 @@ $J_0(N)$ with $N$ prime}
     \begin{proposition}
         Suppose $M$ is a finite odd-order $G_\QQ$-submodule of $J_0(N)$, with $N$
         prime. Then $M$ is a $\TT[G_\QQ]$-module.
-    \end{proposition}
 
-    In particular, we can refer to the support of $M\subseteq A$ as a
-    $\TT_A$-module.
+        In particular, if $A\subseteq J_0(N)$, we can refer to the support of
+        $M\subseteq A$ as a $\TT_A$-module.
+    \end{proposition}
+\end{frame}
+
+\begin{frame}{Finite odd-order Galois modules are Hecke}
+    Let $M$ be a finite odd-order Galois module of $J_0(N)$. Let $\TT$ be the
+    Hecke algebra of $J_0(N)$. Want to show $\TT M = M$.
+    \begin{itemize}
+        \item
+            It suffices to prove this on $\ell$-primary parts for prime
+            $\ell>2$. It suffices to prove this for each each
+            $G_\QQ$-composition factor of $M$. 
+        \item
+            So assume $M$ is $\ell$-torsion.
+        \item
+            Ribet ('91) shows that $\TT/\ell \TT$ is generated by $T_p$ for
+            $p\nmid \ell N$. So it suffices to show $T_p M \subseteq M$.
+        \item
+            By Eichler-Shimura, $T_p = F+p/F\in \End(J_{/\F_p})$, where $F$ is
+            Frobenius. So we derivate the $T_p$-stability from its
+            $G_\QQ$-stability.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Non-eisenstein implies kernel of Hecke}
+    \begin{theorem}[Helm]
+        Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT$-module,
+        only on the non-Eisenstein primes. If $I=\Ann_\TT(M)$, then $M=J[I]$.
+
+        Moreover, since $A$ is both $\TT[G_\QQ]$-invariant, if $M$ is a finite
+        odd-order $G_\QQ$-submodule of $A(\QQbar)$ supported, as a $\TT_A$-module,
+        only on the non-Eisenstein primes. If $I=\Ann_{\TT_A}(M)$, then $M=A[I]$.
+    \end{theorem}
 \end{frame}
 
 \begin{frame}{General Idea}
@@ -513,14 +598,9 @@ $J_0(N)$ with $N$ prime}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Eisenstein Isogenies}
-    this was hard
-    \begin{itemize}
-        \item 
-            $\mathbb{Q}$
-        \item
-            $\mathbf{Q}$
-    \end{itemize}
+\begin{frame}{Eisenstein isogenies}
+   Under these really annoying conditions, we can enumerate the Eisenstein
+   isogenies. 
 \end{frame}
 
     

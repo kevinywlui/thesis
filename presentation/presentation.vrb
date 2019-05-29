@@ -1,0 +1,21 @@
+\frametitle{Defining Data}
+Let $B$ be the image of $A$ in $J$.
+Then there is an isogeny $B$ to $A$ with kernel $G$ such that $A\cong B/G$.
+\begin{equation}
+    \label{eq:defining_data}
+    \begin{tikzcd}
+        &
+        &
+        A \arrow[d]\arrow[dr,"\varphi"] &
+        &
+        &
+        \\
+        0 \arrow[r] &
+        G \arrow[r] &
+        B \arrow[r] &
+        J \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+So we can represent any modular abelian variety $J$ by giving $G\subseteq
+B\subseteq J$ all defined over $\QQ$.
