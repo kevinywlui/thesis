@@ -188,9 +188,11 @@
             \ZZ^{2\mathrm{dim}(J)}$, $H_1(J, \QQ) = H_1(J, \ZZ)\otimes
             \QQ\cong \QQ^{2\mathrm{dim}(J)}$. So $J(\QQbar)_\tor$ is given as
             $H_1(J, \QQ)/H_1(J, \QQ)$.
+            \pause
         \item
             (Defining $B$) Give a basis for the subspace $V:=H_1(B,
             \QQ)\subseteq H_1(J, \QQ)$. Then $H_1(B, \ZZ)=V\cap H_1(J, \ZZ)$.
+            \pause
         \item
             (Defining $G$) Give a basis for the lattice $L$, $H_1(B, \ZZ)
             \subseteq L \subseteq H_1(B, \QQ)$ such that $G\cong \Lambda/H_1(B,
@@ -207,9 +209,11 @@
         \item
             (Defining $J$) A basis for our representation of $H_1(J, \ZZ)$ is
             given by modular symbols.
+            \pause
         \item
             (Defining $B$) A basis for $H_1(B, \ZZ)$ is $\{(1,0,-1,1,0,1),
             (0,1,0,-1,1,0)\}$.
+            \pause
         \item
             (Defining $G$) A basis for $G$ is $\{(1/4, 1/2, -1/4, -1/4, 1/2,
             1/4), (0,1,0,-1,1,0)\}$.
@@ -237,13 +241,16 @@
         \item
             Hecke operators, star-involution, degeneracy maps -- these can all
             be expressed using modular symbols.
+            \pause
         \item
             A decomposition of $A$ into a sum of its simple subvarieties --
             done by carefully playing with Hecke operators and degeneracy maps.
+            \pause
         \item
             Shimura and cuspidal subgroup -- Shimura is the kernel of a
             difference of degeneracy maps, cuspidal can be obtain via
             integration pairing.
+            \pause
         \item
             Essentially, linear algebra.
     \end{itemize}
@@ -257,12 +264,15 @@
             \[
                 y^2 + y = x^3 - x^2 - 10x - 20.
             \]
+            \pause
         \item
             In our presentation, a basis for $H_1(J, \ZZ)$ is given by
             $\mathcal{B}=\{(1,8), (1,9)\}$.
+            \pause
         \item
             Consider the 5-torsion point $x$ with $[x]_\mathcal{B}=(1/5, 2/5)$.
             What's the Galois action?
+            \pause
         \item
             Galois action is easier to determine when it's a point on the
             Weierstrass equation. $(11/5 \mu_5^3 + 11/5 \mu_5^2 + 3/5, 22/5
@@ -273,9 +283,11 @@
 \section{Computing rational torsion subgroup for $J_0(N)$}
 
 \begin{frame}{Why did I start with rational torsion subgroup?}
+    \pause
     \begin{itemize}
         \item
             I understood the word ``rational''.
+    \pause
         \item
             I understood the word ``torsion''.
     \end{itemize}
@@ -377,6 +389,24 @@
     \Large{$J_0(30)$ is the motivating example for the first half of my thesis}
 \end{frame}
 
+\begin{frame}{Totally split $J_0(N)$}
+    \begin{definition}
+        A Jacobian $J_0(N)$ is \emph{totally split} if it is isogenous over
+        $\QQ$ to a product of elliptic curves.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{The totally split hope}
+    \begin{itemize}
+        \item
+            The rational torsion points of elliptic curves can be determined
+            using Nagell-Lutz.
+        \item
+            Using some Galois cohomology, we can try to reconstruct the
+            rational torsion of $J_0(N)$ from its elliptic factors.
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Upper bound}
     \begin{itemize}
         \item
@@ -430,15 +460,19 @@
         \item
             $J_0(30)$ decomposes as a sum of 3 of its elliptic subvarieties
             $E_1+E_2+E_3$.
+            \pause
         \item
             We have $E_1, E_2$ are isomorphic to the elliptic curve $J_0(15)$
             and $E_3$ is isomorphic to an elliptic curve of conductor 30. They
             are all rank 0.
+            \pause
         \item
             $E_1, E_2$: \texttt{15a1} $E_1(\QQ)_\tor \cong E_2(\QQ)_\tor \cong
             \ZZ/4\times \ZZ/2$
+            \pause
         \item
             $E_3$: \texttt{30a1} $E_3(\QQ)_\tor \cong \ZZ/6$.
+            \pause
         \item
             Let $J_\old=E_1+E_2$ and $E_3=J_\old$.
     \end{itemize}
@@ -448,10 +482,13 @@
     \begin{itemize}
         \item
             We'll start by trying to compute $J_\old(\QQ)_\tor$.
+            \pause
         \item
             Rational torsion order is not multiplicative on exact sequences.
+            \pause
         \item
             But it is multiplicative on direct sums.
+            \pause
         \item
             We start by showing $J_\old$ is a direct sum of 2 elliptic
             subvarieties.
@@ -471,6 +508,7 @@
             Let $L$ be a divisor of $N$. For every divisor $t_1,\ldots,t_r$ of
             $N/L$, there exists a morphism $d_t:J_0(L)\to J_0(N)$, called the
             degeneracy map. This map has finite kernel.
+            \pause
         \item
             Let $\Phi_L ^r: J_0(L)^r \to J_0(N)$ be given by
             \[
@@ -502,6 +540,7 @@
         \]
         where $F$ is the $J_1(L)$-optimal curve in the isogeny class of $E$.
     \end{proposition}
+    \pause
     \begin{theorem}[Ribet '90]
         If $N/L=p$ is a prime coprime to $L$, then $\ker\Phi_L ^r = \Sigma(L)_0
         ^r$.
@@ -518,9 +557,11 @@
             So by previous proposition, $J_\old$ is
             isomorphic to the direct sum of elliptic curves $J_0(15)$:
             \texttt{15a1} and $J_1(15)$: \texttt{15a8}
+            \pause
         \item
             $J_\old(\QQ)_\tor\cong J_0(15)(\QQ)_\tor \times J_1(15)(\QQ)_\tor
             \cong (\ZZ/4\times \ZZ/2)\times \ZZ/4$.
+            \pause
         \item
             Using Sage, the group invariants for $J_\old \cap C(\QQ)$ are
             $[2,4,4]$. So they match!
@@ -531,23 +572,7 @@
     \Huge{Whiteboard time}
 \end{frame}
 
-\begin{frame}{The totally split hope}
-    \begin{itemize}
-        \item
-            The rational torsion points of elliptic curves can be determined
-            using Nagell-Lutz.
-        \item
-            Using some Galois cohomology, we can try to reconstruct the
-            rational torsion of $J_0(N)$ from its elliptic factors.
-    \end{itemize}
-\end{frame}
 
-\begin{frame}{Totally split $J_0(N)$}
-    \begin{definition}
-        A Jacobian $J_0(N)$ is \emph{totally split} if it is isogenous over
-        $\QQ$ to a product of elliptic curves.
-    \end{definition}
-\end{frame}
 
 \begin{frame}{Enumerating totally split $J_0(N)$}
     \begin{theorem}[L.]
@@ -641,8 +666,10 @@ $J_0(N)$ with $N$ prime}
         \item
             One question, we hoped to answer was: given a modular abelian
             variety, can we enumerate its rational isogeny class?
+            \pause
         \item
             In general, this seems hopelessly difficult.
+            \pause
         \item
             But Frank Calegari had an idea for a special case!
     \end{itemize}
@@ -653,15 +680,19 @@ $J_0(N)$ with $N$ prime}
         \item
             Let $A$ be a modular abelian variety and $\varphi:A\to A'$ be
             $\QQ$-isogeny.
+            \pause
         \item
             The image $A'$ is determined, up to isomorphism, by $\ker\varphi$
             which is a finite $G_\QQ$-submodule of $A(\QQbar)$.
+            \pause
         \item
             Every finite $G_\QQ$-submodule of $A(\QQbar)$ yields an isogeny.
+            \pause
         \item
             Define an equivalence relation on the set of finite odd-order
             $G_\QQ$-submodules of $A(\QQbar)$ given by $M_1\sim M_2$ if and only if
             $A/M_1\cong A/M_2$.
+            \pause
         \item
             We can enumerate the $\QQ$-isogeny class of $A$ by enumerating the
             $G_\QQ$-submodules of $A(\QQbar)$, up to equivalence.
@@ -669,23 +700,41 @@ $J_0(N)$ with $N$ prime}
 \end{frame}
 
 \begin{frame}{Background}
-    Let $A\subseteq J_0(N)$ be a simple abelian variety with $N$ prime and
-    $\TT_A = \Im(\TT\to \End(A))$ integrally closed.
+    Running hypothesis: Let $A\subseteq J_0(N)$ be a simple abelian variety
+    with $N$ prime and $\TT_A = \Im(\TT\to \End(A))$ integrally closed.
+            \pause
     \begin{itemize}
         \item
             The endomorphism ring and Hecke algebra of $A$ isomorphic to an
             order of a number field of degree equal to $\dim A$.
+            \pause
         \item
             The Eisenstein ideal, $\mathcal{I}\subseteq \TT$, is the ideal
             generated by $T_\ell-(1+\ell)$ for $\ell\neq N$ prime. Let
             $\I=\Im(\I\to \End(A))$.
+            \pause
         \item
             A prime of $\TT$ is Eisenstein if it divides $\I$ and
             non-Eisenstein otherwise. Same in $\TT_A$. This means that there
             are only finitely many Eisenstein primes.
+            \pause
         \item
             Let $\p\subseteq \TT_A$ be a prime. Then $A[\p]$ is irreducible as
             a $G_\QQ$-module if and only if $\p$ is non-Eisenstein.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Computational results}
+    \begin{itemize}
+        \item 
+            There are 236 simple abelian variety $A\subseteq J_0(N)$ for $N$
+            prime less than 500.
+        \item
+            For all but 12 of these 236, $\TT_A$ is integrally closed. The smallest
+            non-integrally closed one is at level 257.
+        \item
+            Out of these 236-12=224 $A$'s, $\dim A<25$ for 219 of them. The
+            class group for all these are trivial.
     \end{itemize}
 \end{frame}
 
@@ -700,19 +749,34 @@ $J_0(N)$ with $N$ prime}
         \]
         for some $C\in \H$.
     \end{theorem}
+            \pause
     \begin{itemize}
         \item
             This is going to be really useful! Because it handles all the
             modules supported on the infinitely many non-Eisenstein primes.
+            \pause
         \item
             The $\TT_A$-support of a $G_\QQ$-module?!??!?!?!
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Generalize Approach}
+\begin{frame}{General Approach}
+    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime. The
+    goal is to enumerate, up to isomorphism, the abelian subvarieties $A'$
+    isogenous to $A$ by an odd-degree isogeny. We'll call this the odd-degree
+    isogeny class.
+            \pause
     \begin{itemize}
         \item 
-            Enumerate, up to equivalence, 
+            Enumerate, up to equivalence, the $G_\QQ$-modules supported on the
+            non-Eisenstein primes of odd residue characteristic.
+            \pause
+        \item 
+            Enumerate, up to equivalence, the $G_\QQ$-modules supported on the
+            Eisenstein primes of odd residue characteristic.
+            \pause
+        \item
+            Combine.
     \end{itemize}
 \end{frame}
 
@@ -734,11 +798,14 @@ $J_0(N)$ with $N$ prime}
             It suffices to prove this on $\ell$-primary parts for prime
             $\ell>2$. It suffices to prove this for each each
             $G_\QQ$-composition factor of $M$.
+            \pause
         \item
             So assume $M$ is $\ell$-torsion.
+            \pause
         \item
             Ribet ('91) shows that $\TT/\ell \TT$ is generated by $T_p$ for
             $p\nmid \ell N$. So it suffices to show $T_p M \subseteq M$.
+            \pause
         \item
             By Eichler-Shimura, $T_p = F+p/F\in \End(J_{/\F_p})$, where $F$ is
             Frobenius. So we derivate the $T_p$-stability from its
@@ -747,10 +814,12 @@ $J_0(N)$ with $N$ prime}
 \end{frame}
 
 \begin{frame}{Non-eisenstein implies kernel of Hecke}
-    \begin{theorem}[Helm]
+    We adapt a theorem of David Helm.
+    \begin{theorem}[D. Helm]
         Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT$-module,
         only on the non-Eisenstein primes. If $D=\Ann_\TT(M)$, then $M=J[D]$.
     \end{theorem}
+            \pause
 \begin{block}{Same for $A$}
     Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT_A$-module,
     only on the non-Eisenstein primes. If $D=\Ann_{\TT_A}(M)$, then $M=A[D]$.
@@ -804,8 +873,85 @@ $J_0(N)$ with $N$ prime}
 \end{frame}
 
 \begin{frame}{Eisenstein part}
-    
+    We adapt a theorem of Klosin and Papikian. 
+
+    \begin{proposition}
+        Suppose $\p\subseteq \TT_A$ is an Eisenstein prime of odd residue
+        characteristic $p$ dividing $\num((p-1)/12)$ exactly. Suppose
+        $M\subseteq A[\p^s]$ for some $s\geq 1$. Suppose $A[\p]\not\subseteq
+        M$. 
+
+        [[Suppose there exists a set $L$ consisting of odd rational primes
+        $\ell\equiv 1 \pmod{p^2 N}$ such that $p^3\nmid \#\bigcap_{\ell\in L}
+        A[\eta_\ell]$, where $\eta_\ell=T_\ell-(\ell+1)$.]]
+
+        Then $M\subseteq A[\p]$.
+    \end{proposition}
+    We will apply this to the case where $\p$ is principal.
 \end{frame}
 
+\begin{frame}{Eisenstein part cont.}
+    Suppose $A$ is a simple subvariety of $J_0(N)$ with $N$ prime and $\TT_A$
+    integrally closed.
+            \pause
+    \begin{itemize}
+        \item 
+            Suppose $\p=(\alpha)$ is principal. Suppose $M\subseteq A[\p^s]$.
+            \pause
+        \item
+            Consider the isogeny $\phi:A\to A/M$.
+            \pause
+        \item
+            If $A[\p]=A[\alpha]\subseteq M$, then $\phi=\alpha\circ \phi'$ for
+            some isogeny $\phi'$ of strictly smaller degree.
+            \pause
+        \item
+            So for our purposes of isogeny enumeration, we can assume
+            $A[\p]\not\subseteq M$.
+            \pause
+        \item
+            This puts us in the setting of the proposition so $M\subseteq
+            A[\p]$.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{Eisenstein isogenies}
+    \begin{proposition}
+        Suppose $\phi:A\to A'$ is an isogeny with $\ker\phi$ supported on $\p$.
+
+        [[Suppose there exists a set $L$ consisting of odd rational primes
+        $\ell\equiv 1 \pmod{p^2 N}$ such that $p^3\nmid \#\bigcap_{\ell\in L}
+        A[\eta_\ell]$, where $\eta_\ell=T_\ell-(\ell+1)$.]]
+
+        Then $A'\cong A/X$ for some $X\subseteq A[\p]$.
+    \end{proposition}
+\end{frame}
+
+\begin{frame}{Summary}
+    \begin{itemize}
+        \item 
+            Suppose $A\subseteq J_0(N)$ is a simple abelian variety with $N$ prime.
+            \pause
+        \item
+            Suppose $\TT_A$ is integrally closed and $\Cl(\TT_A)=1$.
+            \pause
+        \item
+            Let $n=\num((p-1)/12)$. Suppose the odd part of $n$ is squarefree.
+            \pause
+        \item
+            Suppose there exists a set $L$ consisting of odd rational primes
+            $\ell\equiv 1 \pmod{p^2 N}$ such that $p^3\nmid \#\bigcap_{\ell\in L}
+            A[\eta_\ell]$, where $\eta_\ell=T_\ell-(\ell+1)$.
+            \pause
+        \item
+            If $\phi:A\to A'$ is an odd-degree isogeny, then $A'\cong A/X$,
+            where $X$ is a $G_\QQ$-submodule of $A[\mathcal{I}]$.
+            \pause
+        \item
+            The $G_\QQ$-submodules of $A[\mathcal{I}]\subseteq J[\I]=C\times
+            \Sigma$ are easy to determine. Here $C$ is the cuspidal subgroup
+            which is constant and $\Sigma$ is the Shimura subgroup which is of
+            $\mu$-type.
+    \end{itemize}
+\end{frame}
 \end{document}
