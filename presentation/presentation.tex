@@ -190,7 +190,7 @@
             $H_1(J, \QQ)/H_1(J, \QQ)$.
         \item
             (Defining $B$) Give a basis for the subspace $V:=H_1(B,
-            \QQ)\subseteq H_1(J, \QQ)$. Then $H_1(B, \ZZ)=V\cap H_1(J, \QQ)$.
+            \QQ)\subseteq H_1(J, \QQ)$. Then $H_1(B, \ZZ)=V\cap H_1(J, \ZZ)$.
         \item
             (Defining $G$) Give a basis for the lattice $L$, $H_1(B, \ZZ)
             \subseteq L \subseteq H_1(B, \QQ)$ such that $G\cong \Lambda/H_1(B,
@@ -238,9 +238,8 @@
             Hecke operators, star-involution, degeneracy maps -- these can all
             be expressed using modular symbols.
         \item
-            A decomposition of $A$ into a sum of its simple subvarieties. The
-            simple new subvariety appear with multiplicity one, the simple old
-            subvarieties are images of degeneracy maps.
+            A decomposition of $A$ into a sum of its simple subvarieties --
+            done by carefully playing with Hecke operators and degeneracy maps.
         \item
             Shimura and cuspidal subgroup -- Shimura is the kernel of a
             difference of degeneracy maps, cuspidal can be obtain via
@@ -265,8 +264,9 @@
             Consider the 5-torsion point $x$ with $[x]_\mathcal{B}=(1/5, 2/5)$.
             What's the Galois action?
         \item
-            $(11/5 \mu_5^3 + 11/5 \mu_5^2 + 3/5, 22/5 \mu_5 ^3 + 11/5 \mu_5^2 +
-            33/5 \mu_5 + 14/5)$
+            Galois action is easier to determine when it's a point on the
+            Weierstrass equation. $(11/5 \mu_5^3 + 11/5 \mu_5^2 + 3/5, 22/5
+            \mu_5 ^3 + 11/5 \mu_5^2 + 33/5 \mu_5 + 14/5)$
     \end{itemize}
 \end{frame}
 
@@ -275,9 +275,9 @@
 \begin{frame}{Why did I start with rational torsion subgroup?}
     \begin{itemize}
         \item
-            I understood the word rational.
+            I understood the word ``rational''.
         \item
-            I understood the word torsion.
+            I understood the word ``torsion''.
     \end{itemize}
 \end{frame}
 
@@ -373,6 +373,10 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{$J_0(30)$}
+    \Large{$J_0(30)$ is the motivating example for the first half of my thesis}
+\end{frame}
+
 \begin{frame}{Upper bound}
     \begin{itemize}
         \item
@@ -406,9 +410,6 @@
 %     \end{itemize}
 % \end{frame}
 
-\begin{frame}{$J_0(30)$}
-    \Large{$J_0(30)$ is the motivating example for the first half of my thesis}
-\end{frame}
 
 \begin{frame}{Computing $J_0(30)(\QQ)_\tor$}
     \begin{itemize}
@@ -433,6 +434,11 @@
             We have $E_1, E_2$ are isomorphic to the elliptic curve $J_0(15)$
             and $E_3$ is isomorphic to an elliptic curve of conductor 30. They
             are all rank 0.
+        \item
+            $E_1, E_2$: \texttt{15a1} $E_1(\QQ)_\tor \cong E_2(\QQ)_\tor \cong
+            \ZZ/4\times \ZZ/2$
+        \item
+            $E_3$: \texttt{30a1} $E_3(\QQ)_\tor \cong \ZZ/6$.
         \item
             Let $J_\old=E_1+E_2$ and $E_3=J_\old$.
     \end{itemize}
@@ -509,8 +515,15 @@
             $30/15=2$ is a prime coprime to $15$, and $J_0(15)$ is an
             elliptic curve.
         \item
-            So by previous proposition, $J_\old$ is a direct sum of elliptic
-            curves.
+            So by previous proposition, $J_\old$ is
+            isomorphic to the direct sum of elliptic curves $J_0(15)$:
+            \texttt{15a1} and $J_1(15)$: \texttt{15a8}
+        \item
+            $J_\old(\QQ)_\tor\cong J_0(15)(\QQ)_\tor \times J_1(15)(\QQ)_\tor
+            \cong (\ZZ/4\times \ZZ/2)\times \ZZ/4$.
+        \item
+            Using Sage, the group invariants for $J_\old \cap C(\QQ)$ are
+            $[2,4,4]$. So they match!
     \end{itemize}
 \end{frame}
 
@@ -555,7 +568,7 @@
             \item
                 The rational torsion order of $J_0(p)$ is $n=\num((p-1)/12)$.
             \item
-                If a prime $\ell$ divides $n$ then $\ell$ divides the rational
+                By Emerton ('03), if a prime $\ell$ divides $n$ then $\ell$ divides the rational
                 torsion order of some elliptic curve of prime conductor.
             \item
                 Elliptic curves of prime conductor don't have much rational
@@ -575,20 +588,25 @@
         \item
             If $N$ is bad so are all its multiples.
         \item
-            We do a breadth-first search on the divisible tree of positive integers
+            We do a search on the divisible tree of positive integers
             supported on the good prime.
         \item
-            If we find a bad node, we can prune that branch.
+            If we find a bad integer, we can prune that branch.
+        \item
+            Eventually, we prune enough.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Results}
-    There are 46 rank-0 totally split $J_0(N)$. The Generalized Ogg Conjecture
-    has been verified for all but 9 of them. In those cases, the index by
-    bounded by a power of 2.
+    There are 46 rank-0 totally split $J_0(N)$ given by 
+    \begin{gather*}
+        N=11, 14, 15, 17, 19, 20, 21, 22, 24, 26, 27, 28, 30, 32, 33, \\
+        34, 36, 38, 40, 42, 44, 45, 48, 49, 50, 52, 54, 56, 60, 64, \\
+        66, 72, 75, 76, 80, 84, 90, 96, 100, 108, 120, 132, 144, 150, 168, 180
+    \end{gather*}
+    The Generalized Ogg Conjecture has been verified for all but 9 of them. In
+    those cases, the index by bounded by a power of 2.
 \begin{table}%
-    \label{tab:rank_zero_bound}
-    \caption{Bound on $[J_0(N)(\QQ)_\tor:C(N)(\QQ)]$}
     \centering
     \begin{tabular}{rr}
         \toprule
@@ -663,13 +681,13 @@ $J_0(N)$ with $N$ prime}
             $\I=\Im(\I\to \End(A))$.
         \item
             A prime of $\TT$ is Eisenstein if it divides $\I$ and
-            non-Eisenstein otherwise. Same in $\TT_A$.
+            non-Eisenstein otherwise. Same in $\TT_A$. This means that there
+            are only finitely many Eisenstein primes.
         \item
             Let $\p\subseteq \TT_A$ be a prime. Then $A[\p]$ is irreducible as
             a $G_\QQ$-module if and only if $\p$ is non-Eisenstein.
     \end{itemize}
 \end{frame}
-
 
 \begin{frame}{F. Calegari's Theorem}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime. Let
@@ -684,7 +702,17 @@ $J_0(N)$ with $N$ prime}
     \end{theorem}
     \begin{itemize}
         \item
+            This is going to be really useful! Because it handles all the
+            modules supported on the infinitely many non-Eisenstein primes.
+        \item
             The $\TT_A$-support of a $G_\QQ$-module?!??!?!?!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Generalize Approach}
+    \begin{itemize}
+        \item 
+            Enumerate, up to equivalence, 
     \end{itemize}
 \end{frame}
 
@@ -721,8 +749,13 @@ $J_0(N)$ with $N$ prime}
 \begin{frame}{Non-eisenstein implies kernel of Hecke}
     \begin{theorem}[Helm]
         Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT$-module,
-        only on the non-Eisenstein primes. If $I=\Ann_\TT(M)$, then $M=J[I]$.
+        only on the non-Eisenstein primes. If $D=\Ann_\TT(M)$, then $M=J[D]$.
     \end{theorem}
+\begin{block}{Same for $A$}
+    Let $M$ be a finite odd-order $G_\QQ$-module supported, as a $\TT_A$-module,
+    only on the non-Eisenstein primes. If $D=\Ann_{\TT_A}(M)$, then $M=A[D]$.
+\end{block}
+
 \end{frame}
 
 \begin{frame}{Back to F. Calegari's theorem}
@@ -744,6 +777,15 @@ $J_0(N)$ with $N$ prime}
 \end{frame}
 
 \begin{frame}[fragile]{Back to F. Calegari's theorem cont.}
+    \begin{theorem}[F. Calegari]
+        Suppose $\phi:A\to A'$ be an isogeny with $\ker\phi$ supported only on the
+        non-Eisenstein primes of odd residue characteristic. Then
+        \[
+            A'\cong A/A[C]
+        \]
+        for some $C\in \H$, where $\H$ is a set of odd integral representatives
+        for $\Cl(\TT_A)$.
+    \end{theorem}
     \[
         \begin{tikzcd}
             A/A[bD]
@@ -759,6 +801,10 @@ $J_0(N)$ with $N$ prime}
             A/A[C]
         \end{tikzcd}
     \]
+\end{frame}
+
+\begin{frame}{Eisenstein part}
+    
 \end{frame}
 
 

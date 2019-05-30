@@ -1,5 +1,14 @@
 \frametitle{Back to F. Calegari's theorem cont.}
-\[
+\begin{theorem}[F. Calegari]
+        Suppose $\phi:A\to A'$ be an isogeny with $\ker\phi$ supported only on the
+        non-Eisenstein primes of odd residue characteristic. Then
+        \[
+            A'\cong A/A[C]
+        \]
+        for some $C\in \H$, where $\H$ is a set of odd integral representatives
+        for $\Cl(\TT_A)$.
+    \end{theorem}
+    \[
         \begin{tikzcd}
             A/A[bD]
             \arrow[r, "\sim", "b"']
