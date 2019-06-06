@@ -292,11 +292,151 @@ desired.
 %        \item{} [Output representatives]
 %            Use isomorphism testing 
 %            %TODO
-%            % (Algorithm~\ref{alg:isom_testing})
+%            % (Algorithm~\ref{alg:ism_testing})
 %            to produce a set of representatives of $\M(A[X])$ of elements of
 %            $W$.
 %    \end{enumerate}
 %\end{algorithm}
+
+\section{Non-Eisenstein part}%
+\label{sec:non_eisenstein_part}
+
+In this section, we will show how to how to bound the odd-degree non-Eisenstein
+isogenies by the class group of $\TT_A$.
+
+\begin{proposition}
+    \label{prop:acbd_iso}
+    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
+    Suppose $\TT_A$ is integrally closed. Suppose $aC=bD$. Then there is an
+    isomorphism $\varphi:A/A[D] \to A/A[C]$ with $b\varphi = a$.
+\end{proposition}
+\begin{proof}
+    We will first establish the isomorphisms $b:A/A[bD]\to A/A[D]$ and
+    $a:A/A[aC]\to A/A[C]$.
+    \[
+        \begin{tikzcd}
+            0
+            \arrow[r]
+            &
+            (A/A[D])[b]
+            \arrow[hookrightarrow]{r}
+            &
+            A/A[D]
+            \arrow[twoheadrightarrow]{r}{b}
+            &
+            A/A[D]
+            \arrow[r]
+            &
+            0
+        \end{tikzcd}.
+    \]
+    We have that $x\in (A/A[D])[b]$ if and only if $bx \in A[D]$ if and only if
+    $x \in A[bD]$. Hence, $(A/A[D])[b]=A[bD]/A[D]$ so $b:A/A[bD]\xra{\sim}
+    A[D]$. A similar argument applies for $a$. Now using $aC=bD$, we have
+    \[
+        \begin{tikzcd}
+            A/A[bD]
+            \arrow[r, "\sim", "b"']
+            \ar[equal]{d}
+            &
+            A/A[D]
+            \ar[d, "\sim" labl, "\phi"]
+            \\
+            A/A[a C]
+            \arrow[r, "\sim", "a"']
+            &
+            A/A[C],
+        \end{tikzcd}
+    \]
+    as desired.
+\end{proof}
+
+\begin{theorem}[Frank Calegari]
+    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
+    Suppose $\TT_A$ is integrally closed. Suppose $\varphi:A\to A'$ is an
+    isogeny with $\ker\varphi$ supported on the non-Eisenstein primes of odd
+    residue characteristic. Then
+    \[
+        A' \isom A/A[C]
+    \]
+    for some $C\in \H$.
+\end{theorem}
+\begin{proof}
+    Let $M=\ker\varphi$. Then $M$ is a finite odd-order $G_\QQ$-module. By
+    Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a $\TT_A[G_\QQ]$-module.
+    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, there exists an ideal
+    $D$ of $\TT_A$. Now there exists $a,b\in \TT_A$ and $C\in H$, such that
+    $aD=bC$. By Proposition~\ref{prop:acbd_iso},
+    \[
+        A'\isom A/A[D]\isom A/A[C].
+    \]
+\end{proof}
+
+
+\begin{proposition}
+    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
+    Suppose $\TT_A$ is integrally closed. Suppose $X\subseteq A(\QQbar)_\odd$.
+    Let $X_{ne} = \sum_{\p \in \P_{ne}} X[\p^\infty]$. For each $\p_j\in \P_e$,
+    let $e_j$ be the minimal integer such that $X[\p_j ^\infty]\subseteq X[\p_j
+    ^{e_j}]$. $X\sim A[C]\oplus Y_e$, where $Y_e\subseteq \sum X[\p_j ^{e_j}]$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    \label{prop:reduce}
+    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
+    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ be an
+    odd-degree isogeny. Then there exists $C\in \H$ and a $\TT_A[G_\QQ]$-module
+    $Y_e$ supported, as a $\TT_A$-module, on the Eisenstein primes of odd
+    residue characteristic, such that
+    \[
+        A'\isom A/(A[C]\oplus Y_e).
+    \]
+\end{proposition}
+\begin{proof}
+    By Proposition~\ref{prop:G_modules_are_hecke}, $\ker\varphi$ is a
+    $\TT_A[G_\QQ]$-module. We write $\ker\varphi = X_{ne} \oplus X_e$ with
+    $X_{ne}$ and $X_e$ $\TT_A$ supported on the non-Eisenstein and Eisenstein
+    primes, respectively.
+
+    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, $X_{ne} = A[D]$, where
+    $D=\Ann_{\TT_A} X_{ne}$. There exists $a,b\in \TT_A$ and $C\in \H$, such
+    that $aC=bD$. By~\ref{}, there exists an isomorphism $\psi:A/A[D]\to
+    A/A[C]$ satisfying $\psi \circ b = a$.
+
+    The previous isomorphism $\psi$ induces an isomorphism $\psi':A/(A[D]\oplus
+    X_e)\to A/(A[C] + \psi(X_e))$. Let $Y_e = \psi(X_e)\cap A[\I^\infty]$. It
+    is clear that $Y_e$ is supported, as a $\TT_A$-modules, on the Eisenstein
+    primes of odd residue characteristic. It remains to show $A[C] + \psi(X_e)
+    = A[C]\oplus Y_e$. We will show this locally.
+
+    Let $\p$ be an Eisenstein prime of odd-residue characteristic. Then
+    $\psi(X_e)_\p = (Y_e)_\p$ and $A[C]_\p=0$ so $A[C]+\psi(X_e)=Y_e$. Now
+    suppose $\p$ is a non-Eisenstein prime of odd-residue characteristic. Since
+    $(Y_e)_\p = 0$, we need to show $\psi(X_e)_\p \subseteq A[C]_\p$. We have
+    that
+    \[
+        v_\p(\psi) =  v_\p(a)-v_\p(b) = v_\p(D) - v_\p(C) \leq v_\p(C).
+    \] 
+    So by Lemma~\ref{}, $\psi(X_e)_\p \subseteq A[C]_\p$, as desired.
+\end{proof}
+
+\begin{corollary}[Frank Calegari]
+    Suppose $A\subseteq J_0(N)$ is a simple abelian subvariety with $N$ prime.
+    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ is an isogeny
+    with $\ker\varphi$ supported only on the non-Eisenstein primes of
+    odd-residue characteristic, then
+    \[
+        A' \isom A/A[C]
+    \]
+    for some $C\in \H$.
+\end{corollary}
+\begin{proof}
+    The corollary follows by setting $X_e=0$ in the proof of
+    Proposition~\ref{prop:reduce}
+\end{proof}
 
 \section{Eisenstein part}%
 \label{sec:eisenstein_part}
@@ -583,17 +723,18 @@ $\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
 \section{Eisenstein Isogenies}%
 \label{sec:eisenstein_isogenies}
 
-The goal of this section is to prove the thing
 
 \begin{proposition}
     Let $A$ be a simple abelian subvariety of $J_0(N)$ with $N$ prime. Suppose
     $\p\subseteq \TT_A$ is an Eisenstein prime with residue characteristic
-    $p>2$. Suppose $p$ divides $\mathrm{num}((N-1)/12)$ exactly.
+    $p>2$. Suppose $p$ divides $\mathrm{num}((N-1)/12)$ exactly. Let $M$ be a
+    $\TT_A[G_\QQ]$-module supported, as a $\TT_A$-module, only on $\p$.
 \end{proposition}
 
 \begin{lemma}
+    \label{lem:abelian_extension}
     Let $K=\QQ(M)$. Then $K$ is an abelian extension unramified away from $p$
-    and $N$.
+    and $N$ so $K\subseteq \QQ(\mu_{p^{n_1}N^{n_2}})$.
 \end{lemma}
 \begin{proof}
     We first establish that $K$ is an abelian extension. Since $\p$ is a DVR,
@@ -616,7 +757,7 @@ The goal of this section is to prove the thing
 \end{proof}
 
 \begin{lemma}
-    We have $K\subseteq \QQ(\mu_{p^2N})$
+    We have $K\subseteq \QQ(\mu_{p^2N})$.
 \end{lemma}
 \begin{proof}
     Recall $\p$ is principally generated by $\alpha$. Following the second
@@ -642,7 +783,22 @@ The goal of this section is to prove the thing
         \end{tikzcd}
     \end{equation}
     We have that $A[\p]\cong C[p]\times \Sigma[p]$ so $M\cap A[\p]$ is either
-    $C[p]$ or $\Sigma[p]$. In either case, $\# M\cap A[\p] = p$
+    $C[p]$ or $\Sigma[p]$. In either case, $\# M\cap A[\p] = p$ and $pM=M\cap
+    A[\p]$.
+    
+    Let $F=\QQ(\mu_{pN})$. Then $\Gal(\QQbar/F)$ acts trivially on $pM$ in
+    \eqref{eq:McapAp}, so $\Gal(KF/F)$ is in the subgroup of units of $(\ZZ/p^2
+    \ZZ)$ which satisfies $ap\equiv p \pmod{p^2}$. The subgroup of such units
+    form a cyclic subgroup of order $p$ in $(\ZZ/p^2\ZZ)^\times$. Hence, $KF/F$
+    is an abelian extension of degree $1$ or $p$, unramified away from $p$ and
+    $N$. So $KF\subseteq \QQ(\mu_{p^{n_1}N^{n_2})}$ for some $n_1,n_2\geq 1$.
+    We have
+    \[
+        \Gal(\QQ(\mu_{p^{n_1}N^{n_2}})/F) \cong 
+        \ZZ/p^{n_1-1} \times \ZZ/N^{n_2-1}.
+    \]
+    Since $KF$ is an extension of degree dividing $p$ and $p\nmid N$,
+    $K\subseteq KF \subseteq \QQ(\mu_{p^2N})$, as desired.
 \end{proof}
 
 
@@ -726,59 +882,6 @@ In this section, we will bound the support
     \end{enumerate}
 \end{proof}
 
-\begin{proposition}
-    \label{prop:reduce}
-    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ be an
-    odd-degree isogeny. Then there exists $C\in \H$ and a $\TT_A[G_\QQ]$-module
-    $Y_e$ supported, as a $\TT_A$-module, on the Eisenstein primes of odd
-    residue characteristic, such that
-    \[
-        A'\isom A/(A[C]\oplus Y_e).
-    \]
-\end{proposition}
-\begin{proof}
-    By Proposition~\ref{prop:G_modules_are_hecke}, $\ker\varphi$ is a
-    $\TT_A[G_\QQ]$-module. We write $\ker\varphi = X_{ne} \oplus X_e$ with
-    $X_{ne}$ and $X_e$ $\TT_A$ supported on the non-Eisenstein and Eisenstein
-    primes, respectively.
-
-    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, $X_{ne} = A[D]$, where
-    $D=\Ann_{\TT_A} X_{ne}$. There exists $a,b\in \TT_A$ and $C\in \H$, such
-    that $aC=bD$. By~\ref{}, there exists an isomorphism $\psi:A/A[D]\to
-    A/A[C]$ satisfying $\psi \circ b = a$.
-
-    The previous isomorphism $\psi$ induces an isomorphism $\psi':A/(A[D]\oplus
-    X_e)\to A/(A[C] + \psi(X_e))$. Let $Y_e = \psi(X_e)\cap A[\I^\infty]$. It
-    is clear that $Y_e$ is supported, as a $\TT_A$-modules, on the Eisenstein
-    primes of odd residue characteristic. It remains to show $A[C] + \psi(X_e)
-    = A[C]\oplus Y_e$. We will show this locally.
-
-    Let $\p$ be an Eisenstein prime of odd-residue characteristic. Then
-    $\psi(X_e)_\p = (Y_e)_\p$ and $A[C]_\p=0$ so $A[C]+\psi(X_e)=Y_e$. Now
-    suppose $\p$ is a non-Eisenstein prime of odd-residue characteristic. Since
-    $(Y_e)_\p = 0$, we need to show $\psi(X_e)_\p \subseteq A[C]_\p$. We have
-    that
-    \[
-        v_\p(\psi) =  v_\p(a)-v_\p(b) = v_\p(D) - v_\p(C) \leq v_\p(C).
-    \] 
-    So by Lemma~\ref{}, $\psi(X_e)_\p \subseteq A[C]_\p$, as desired.
-\end{proof}
-
-\begin{corollary}[Frank Calegari]
-    Suppose $A\subseteq J_0(N)$ is a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ is an isogeny
-    with $\ker\varphi$ supported only on the non-Eisenstein primes of
-    odd-residue characteristic, then
-    \[
-        A' \isom A/A[C]
-    \]
-    for some $C\in \H$.
-\end{corollary}
-\begin{proof}
-    The corollary follows by setting $X_e=0$ in the proof of
-    Proposition~\ref{prop:reduce}
-\end{proof}
 
 \begin{corollary}
     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
