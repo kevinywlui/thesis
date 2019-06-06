@@ -298,7 +298,7 @@ desired.
 %    \end{enumerate}
 %\end{algorithm}
 
-\section{Non-Eisenstein part}%
+\section{Bounding non-Eisenstein part}%
 \label{sec:non_eisenstein_part}
 
 In this section, we will show how to how to bound the odd-degree non-Eisenstein
@@ -352,6 +352,7 @@ isogenies by the class group of $\TT_A$.
 \end{proof}
 
 \begin{theorem}[Frank Calegari]
+    \label{thm:frank}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
     Suppose $\TT_A$ is integrally closed. Suppose $\varphi:A\to A'$ is an
     isogeny with $\ker\varphi$ supported on the non-Eisenstein primes of odd
@@ -373,6 +374,13 @@ isogenies by the class group of $\TT_A$.
 \end{proof}
 
 
+\section{Bounding support and valuations}%
+\label{sec:bounding_support_and_valuations}
+
+The goal of this section is to allow us to change the non-Eisenstein part
+without missing up the Eisenstein part too much.
+
+
 \begin{proposition}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
     Suppose $\TT_A$ is integrally closed. Suppose $X\subseteq A(\QQbar)_\odd$.
@@ -381,7 +389,10 @@ isogenies by the class group of $\TT_A$.
     ^{e_j}]$. $X\sim A[C]\oplus Y_e$, where $Y_e\subseteq \sum X[\p_j ^{e_j}]$.
 \end{proposition}
 \begin{proof}
-    
+    By Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a
+    $\TT_A[G_\QQ]$-module. By Theorem~\ref{thm:non_eisenstein_kernel_hecke},
+    there exists an ideal $D$ of $\TT_A$. Now there exists $a,b\in \TT_A$ and
+    $C\in H$, such that $aD=bC$.
 \end{proof}
 
 \begin{proposition}
@@ -521,204 +532,6 @@ isogenies by the class group of $\TT_A$.
 
 
 
-\section{Bounding non-Eisenstein part}%
-\label{sec:bounding_non_eisenstein_part}
-
-In Section~\ref{sec:non_eisenstein_modules_are_kernels_of_hecke}, we showed
-that every finite odd-order $G_\QQ$-submodule of $A(\QQbar)_\tor$ supported, as
-a $\TT_A$-module, only on the non-Eisenstein primes are of the form $A[C]$ for
-some ideal $C$ of $\TT_A$. In this section, we will assume $\TT_A$ is
-integrally closed. The goal now is to prove Proposition~\ref{} which
-allows to reduce the non-Eisenstein part of an odd-degree isogeny to a finite
-list enumerated by the class group of $\TT_A$. 
-
-Let $\mathcal{H}$ be a set of integral representatives for $\Cl(\TT_A)$ coprime
-to $2\mathcal{I}_A$.
-
-The motivating idea this chapter is the following theorem of Frank Calegari
-communicated to William Stein. (I should ask Frank Calegari if he can be
-cited.)
-\begin{theorem}[F. Calegari]
-    Let $J=J_0(N)$ with $N$ prime. Let $A$ be a simple abelian subvariety of
-    $J$ with $\TT_A$ integrally closed. Suppose $\varphi:A\to A'$ is an isogeny
-    with kernel supported only on the non-Eisenstein primes of odd residue
-    characteristic. Then
-    \[
-        A' \cong A/A[D]
-    \]
-    for some $D\in \mathcal{H}$.
-\end{theorem}
-
-
-\section{Bounding support and valuations}%
-\label{sec:bounding_support_and_valuations}
-
-The goal of this section is to give an ideal $Q$ such that
-$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$ (Proposition~\ref{prop:bound_support}). In
-light of Faltings' Isogeny Theorem, there exists $k$ such that
-$\M(A[Q^k])=\M(A(\QQbar)_\odd)$. We give a method for finding this $k$ as
-Proposition~\ref{prop:stop_looking}. We now have all the necessary ingredients
-for Algorithm~\ref{alg:odd_isogeny_class}.
-
-\begin{lemma}\label{lem:com_alg}
-    Let $a,b\in \TT_A$, $\p$ such the localization $(\TT_A)_\p$ is a DVR, and
-    $M$ an finite odd $G_\QQ$-submodule of $A(\QQbar)$ with $Z=\Ann_{\TT_A} M$.
-    Then
-    \begin{enumerate}
-        \item
-            If $v_\p(Z) = k$, then $M[\p^\infty]\subseteq A[\p^k]$.
-        \item
-            We have $b^{-1}(A[Z])=A[bZ]$. This holds locally at $\p$ as well so
-            $b_\p ^{-1} A[Z]_\p = A[bZ]_\p$.
-        \item
-            Let $r=v_\p(b)-v_\p(a)+k$ and $\phi=a\circ b^{-1}$. If $r\leq
-            0$, then $\phi(M)[\p^\infty]=0$ so $\phi(M)_\p=0$.
-
-            If $r>0$, then
-            $\phi(M)[\p^\infty]\subseteq A[\p^r]$. Here $b^{-1}$ is the
-            preimage of $b$.
-    \end{enumerate}
-    We will take on the convention that for negative $r$, $A[\p^r]=0$. So we can
-    write the last part as $\phi(M)[\p]\subseteq A[\p^r]$.
-\end{lemma}
-\begin{proof}
-    \mbox{}
-    \begin{enumerate}
-        \item
-            Suppose $x\in M[\p^\infty]$. Then $x\in A[\p^\infty]$. Moreover,
-            $v_\p(\Ann_{\TT_A} x) \leq v_\p(Z) = k$ so $x\in A[\p^k]$.
-        \item
-            We have $x\in b^{-1}(A[Z])$ if and only if $bx \in A[Z]$ if and
-            only if $x\in A[bZ]$.
-        \item
-            Suppose $r\leq 0$. Then $\phi_\p \in Z_\p$ so
-            \[
-                \phi(M)[p^\infty]\subseteq \phi(M[\p^\infty])
-                \subseteq \phi(A[\p^k]) = 0.
-            \]
-            Suppose $r>0$. Then $x\in \phi(M)[\p^\infty] =
-            \phi(M[\p^\infty])\subseteq (a\circ
-            b^{-1})(A[\p^k])=A[\p^r]$.
-    \end{enumerate}
-\end{proof}
-
-
-\begin{lemma}\label{lem:principal_gives_iso}
-    Let $C, D$ be nonzero ideals of $\TT_A$, $a,b\in \TT_A$ be nonzero, and $aC
-    = bD$. Then there exists an isomorphism $\phi:A/A[D]\to A/A[C]$ such that
-    $\phi\circ b=a$.
-\end{lemma}
-\begin{proof}
-    Our argument will now reference the following diagram.
-    \[
-        \begin{tikzcd}
-            A/A[bD]
-            \arrow[r, "\sim", "b"']
-            \ar[equal]{d}
-            &
-            A/A[D]
-            \ar[d, "\sim" labl, "\phi"]
-            \\
-            A/A[a C]
-            \arrow[r, "\sim", "a"']
-            &
-            A/A[C]
-        \end{tikzcd}
-    \]
-    We first establish the $b$ and $a$ isomorphism. We have the exact
-    sequence
-    \[
-        \begin{tikzcd}
-            0
-            \arrow[r]
-            &
-            (A/A[D])[b]
-            \arrow[hookrightarrow]{r}
-            &
-            A/A[D]
-            \arrow[twoheadrightarrow]{r}{b}
-            &
-            A/A[D]
-            \arrow[r]
-            &
-            0
-        \end{tikzcd}.
-    \]
-    We have that $x\in (A/A[D])[b]$ if and only if $bx \in A[D]$ if and only if
-    $x \in A[bD]$. Hence, $(A/A[D])[b]=A[bD]/A[D]$ so $b:A/A[bD]\xra{\sim}
-    A[D]$. A similar argument applies for $a$.
-
-    We can now chase the diagram to obtain an isomorphism $\phi:A/A[D]\riso
-    A/A[C]$, as desired.
-\end{proof}
-
-Recall $\TT_A$ is assumed to be integrally closed. Let $H=\{C_i\}$ be a set of
-odd-norm integral representatives for $\Cl(\TT_A)$. Let $D$ be the set of
-primes of $\TT_A$ dividing $C_i$ for some $C_i\in H$, $E$ be the set of primes
-dividing the Eisenstein ideal, and $S=D\cup E$.
-
-\begin{proposition}%
-    \label{prop:bound_support}
-    Every finite odd-order $G_\QQ$-submodule is equivalent to one supported on
-    $S$.
-\end{proposition}
-\begin{proof}
-    Let $M$ be a finite odd $G_\QQ$-submodule. Let $M=M_{S'}\oplus M_S$ be the
-    direct sum decomposition of $M$ with $\Supp M_X \subseteq X$. By
-    Theorem~\ref{thm:non_eisenstein_kernel_hecke}, there exists an ideal
-    $I$ of $\TT_A$ with $V(I)\subseteq S'$. Since $S'$ consists of only
-    invertible primes, $I$ is also invertible. So there exists nonzero $a,b\in
-    \TT_A$ such that $bI=aC$. By Lemma~\ref{lem:principal_gives_iso}, there
-    exists an isomorphism $\phi:A/A[I]\to A/A[C]$ such that $\phi\circ b = a$.
-    Let $\psi:A/A[I]\to A/(A[I]+M_S)$ be the isogeny given by quotienting by
-    $M_S/A[I]$. Then $\phi$ induces an isomorphism $\phi':A/(A[I]+M_S)\to
-    A/(A[C]+\phi(M_S))$.
-
-    It is clear that $\Supp_{\TT_A}(A[C])\subseteq S$ so it remains to show
-    that $\phi(M_S)_\p =0$ for all $\p \in S'$. Let $\p\in S'$, then
-    $v_\p(b)-v_\p(a)+v_\p(\Ann(M_S))=v_\p(C)-v_\p(I)+v_\p(\Ann(M_S)) \leq 0$
-    since $V(C),V(\Ann(M_S))\subseteq S$. By Lemma~\ref{lem:com_alg},
-    $\phi(M_S)_\p = 0$. Therefore, $A[C]+\phi(M_S)$ is supported on $S$.
-\end{proof}
-
-From henceforth, we assume that $\TT_A$ is integrally closed. We can now choose
-$H=\{C_i\}$ to be a set of integral representatives for $\Cl(\TT_A)$ of odd
-norm. Let $Q=\lcm(\{C:C\in H\}\cup \{\p:\p\in S_1\})$. We have that $V(Q)=S$
-so, in light of Proposition~\ref{prop:bound_support},
-$\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$.
-
-\begin{proposition}%
-    \label{prop:stop_looking}
-    Suppose $\TT_A$ is integrally closed. Suppose $\M(A[Q^k])=\M(A[Q^{k+1}])$
-    then $\M(A[Q^k])=\M(A[Q^\infty])$.
-
-    In terms of isogenies, this claim states that if $G_\QQ$-submodules of
-    $A[Q^{k+1}]$ produce no new odd-isogenies not found in $A[Q^k]$, then
-    $G_\QQ$-submodules of $A[Q^k]$ give the entire odd-isogeny class.
-\end{proposition}
-\begin{proof}
-    Every isogeny can be factored into a composition of irreducible isogenies.
-    Let $A'=A/M$ be a abelian variety with $M$ a $G_\QQ$-submodule of $A[Q^k]$. We
-    will show that the image of $A'$ under an irreducible isogeny is equivalent
-    to $A/Y$ for some $Y\in A[Q^{k+1}]$. This suffices because when
-    $A[Q^k]=A[Q^{k+1}]$, we obtain the full isogeny class.
-
-    Let $M'\subseteq A(\QQbar)_\odd$ be an extension of $M$ by an irreducible
-    $G_\QQ$-module $Y$. Let $\m$ be the annihilator of $Y$. If $\m\in S$, then
-    $M\subseteq A[\m Q^k]\subseteq A[Q^{k+1}]$ and we are done. So assume
-    $\m\notin S$ so $\m$ is an odd Eisenstein prime and $Y=A[\m]$
-    (Theorem~\ref{thm:irreducible_G_sub}). Since $\m\notin \Supp_{\TT_A}(M)$,
-    $M' = A[\m]\oplus M$. As in Proposition~\ref{prop:bound_support}, there is
-    an isomorphism $\phi':A/(A[I]+M_S)\to A/(A[C]+\phi(M_S))$ with $\phi\circ b
-    = a$. The goal is to show $A[C]+\phi(M)\subseteq A[Q^k]$. Since
-    $A[C]\subseteq A[Q^{k+1}]$ so it suffices to show $\phi(M)\subseteq
-    A[Q^{k+1}]$.
-
-    As in Proposition~\ref{prop:bound_support}, $\Supp\phi(M)\subseteq S$. For all
-    $\p\in S$ (remember that $\m \notin S$), $v_\p(b)-v_\p(a) =
-    v_\p(C)-v_\p(\m)=v_\p(C)$ so by Lemma~\ref{lem:com_alg},
-    $\phi(M)\subseteq A[Q^{k+1}]$, as desired.
-\end{proof}
 
 \section{Eisenstein Isogenies}%
 \label{sec:eisenstein_isogenies}
