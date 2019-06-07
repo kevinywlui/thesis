@@ -231,88 +231,60 @@ for all odd non-Eisenstein primes $\m$. We have $M^\vee _\m = T_\m J / I'
 T_\m J\cong J[I']_\m ^\vee$. Therefore, by taking annihilators of the dual,
 we have that $I_\m = I'_\m$ and then by taking duals $M_\m = J[I]_\m$, as
 desired.
-
 \end{proof}
-%\section{Enumerating representatives of $A[X]$}
-
-%Assume $\TT_A$ is integrally closed and let $X$ be an odd ideal of $\TT_A$. The
-%goal of this section is to give a set of representatives for $\M(A[X])$ by
-%first enumerating the $G_\QQ$-submodules of $A[X]$. We
-%have the decomposition $X=\bigoplus_{\p\in \Supp_{\TT_A} (X)} X[\p^{v_\p(X)}]$
-%so it suffices to enumerate the $G_\QQ$-submodules of $A[\p^s]$ for any $s\geq
-%1$. This will now follow from Mazur's study of the Galois action on torsion
-%points~\cite[\S 14]{mazur:eisenstein}.
-
-%\begin{proposition}[Mazur]\label{prop:all_G_subs}
-%    Let $\p$ be a prime of residue characteristic $\ell>2$.
-%    \begin{enumerate}
-%        \item
-%            If $\p$ is Eisenstein, then $A[\p]=C_A[\ell]\oplus \Sigma_A[\ell]$,
-%            where $C_A=C\cap A$ and $\Sigma_A=\Sigma \cap A$ with $C$ and
-%            $\Sigma$ the cuspidal and Shimura subgroups of $J$. The
-%            $G_\QQ$-submodules of $A[\p]$ are the direct sum of $\ZZ$-submodules of
-%            $C_A[\ell]$ and $\ZZ$-submodules of $\Sigma_A[\ell]$.
-%        \item
-%            if $\p$ is non-Eisenstein, $A[\p]$ is irreducible~\cite[Prop
-%            14.2]{mazur:eisenstein} as as a $G_\QQ$-module so the only
-%            $G_\QQ$-submodules are $0$ and $A[\p]$.
-%    \end{enumerate}
-%\end{proposition}
-%\begin{proof}
-%    The Eisenstein case is~\cite[Corollary 16.3]{mazur:eisenstein} along with
-%    the fact that $C[\ell]\isom \ZZ/\ell$ and $\Sigma[\ell]\isom \mu\ell$.
-
-%    The non-Eisenstein case is~\cite[Propositon 14.2]{mazur:eisenstein}.
-%\end{proof}
-
-%Let $a\in \p^{s-1}\setminus \p^s$ so $a$ generates $\p^{s-1}/\p^s$ as a
-%$k_\p$-space. There exists a $\TT_A[G_\QQ]$-injection given by
-%$\phi_s:A[\p^s]/A[\p^{s-1}]\to A[\p]$. The $G_\QQ$-submodules, $M$, of
-%$A[\p^s]$ are then the $\ZZ$-submodules of $A[\p^s]$ such that $M\cap
-%A[\p^{s-1}]$ and $\phi_s(M)$ are $G_\QQ$-submodules. This yields the following
-%algorithm.
-
-%\begin{algorithm}{Enumerating $G_\QQ$-submodules of {$A[X]$}}%
-%    \label{alg:enumerating_AX}
-%    Given an odd ideal $X$ of $\TT_A$. This algorithm will output a set of
-%    representatives for $\M(A[X])$.
-%    \begin{enumerate}
-%        \item{} [Factor $X$]
-%            Compute the factorization $X=\prod \p_i ^{e_i}$.
-%        \item{} [Non-Eisenstein part]
-%            For each non-Eisenstein $\p_i$, let $W_i=\{A[\p^j]: 0 \leq j
-%            \leq e_i\}$.
-%        \item{} [Eisenstein part]
-%            For each Eisenstein $\p_i$, set $V_1$ to be the set of
-%            $G_\QQ$-submodules of $A[\p]$. For $j=2,\ldots,e_i$, set $V_j$ to
-%            be the set of $\ZZ$-submodules, $M$, of $A[\p^j]$ such that $M\cap
-%            A[\p^{j-1}]\in V_{j-1}$ and $\phi(M)\in V_1$.
-%        \item{} [Combine]
-%            Combine the $W_i$'s to form $W=\{\sum_i M_i: M_i \in W_i\}$.
-%        \item{} [Output representatives]
-%            Use isomorphism testing 
-%            %TODO
-%            % (Algorithm~\ref{alg:ism_testing})
-%            to produce a set of representatives of $\M(A[X])$ of elements of
-%            $W$.
-%    \end{enumerate}
-%\end{algorithm}
 
 \section{Bounding non-Eisenstein part}%
 \label{sec:non_eisenstein_part}
 
-In this section, we will show how to how to bound the odd-degree non-Eisenstein
-isogenies by the class group of $\TT_A$.
+Recall that a prime of $\TT_A$ is non-Eisenstein if it does not divides the
+Eisenstein ideal $\TT_A$. There are infinitely many non-Eisenstein primes. The
+goal of this section is to the bound the images of isogenies of $A$ supported
+on the non-Eisenstein by the class group of $\TT_A$ when $\TT_A$ is integrally
+closed. In particular, we will prove a theorem of Frank Calegari.
 
-\begin{proposition}
-    \label{prop:acbd_iso}
+Let $\H$ be a set of integral representatives for $\Cl(\TT_A)$ coprime to
+$2\I_A$.
+
+\begin{theorem}[Frank Calegari]
+    \label{thm:frank}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Suppose $aC=bD$. Then there is an
-    isomorphism $\varphi:A/A[D] \to A/A[C]$ with $b\varphi = a$.
-\end{proposition}
+    Suppose $\TT_A$ is integrally closed. Let $M$ be a $\TT_A[G_\QQ]$-submodule
+    of $A(\QQbar)$ supported only on the non-Eisenstein primes of odd residue
+    characteristic. Then there exists $\varphi\in \TT_A\otimes \QQ$ and $C\in
+    H$, such that, there is an isomorphism
+    \[
+        \varphi:A/M\to A/A[C].
+    \] 
+    Moreover,
+    \[
+        v_\p(\varphi) =
+        \begin{cases}
+            0            & \text{if } \p\in \P_e, \\
+            \geq v_\p(C) & \text{if } \p\nmid \P_{ne}.
+        \end{cases}
+    \]
+\end{theorem}
 \begin{proof}
-    We will first establish the isomorphisms $b:A/A[bD]\to A/A[D]$ and
-    $a:A/A[aC]\to A/A[C]$.
+    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, if $D=\Ann_{\TT_A} M$,
+    then $M=A[D]$. We have that there exists $a,b\in \TT_A$ and $C\in H$, such
+    that $aC=bD$. We will justify the following commutative diagram.
+    \[
+        \begin{tikzcd}
+            A/A[bD]
+            \arrow[r, "\sim", "b"']
+            \ar[equal]{d}
+            &
+            A/A[D]
+            \ar[d, "\sim" labl, "\phi"]
+            \\
+            A/A[a C]
+            \arrow[r, "\sim", "a"']
+            &
+            A/A[C],
+        \end{tikzcd}
+    \]
+    
+    We will first establish the isomorphism $b:A/A[bD]\to A/A[D]$.
     \[
         \begin{tikzcd}
             0
@@ -332,45 +304,21 @@ isogenies by the class group of $\TT_A$.
     \]
     We have that $x\in (A/A[D])[b]$ if and only if $bx \in A[D]$ if and only if
     $x \in A[bD]$. Hence, $(A/A[D])[b]=A[bD]/A[D]$ so $b:A/A[bD]\xra{\sim}
-    A[D]$. A similar argument applies for $a$. Now using $aC=bD$, we have
-    \[
-        \begin{tikzcd}
-            A/A[bD]
-            \arrow[r, "\sim", "b"']
-            \ar[equal]{d}
-            &
-            A/A[D]
-            \ar[d, "\sim" labl, "\phi"]
-            \\
-            A/A[a C]
-            \arrow[r, "\sim", "a"']
-            &
-            A/A[C],
-        \end{tikzcd}
-    \]
-    as desired.
-\end{proof}
+    A[D]$. A similar argument applies for $a:A/A[aC]\to A/A[C]$.
 
-\begin{theorem}[Frank Calegari]
-    \label{thm:frank}
-    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Suppose $\varphi:A\to A'$ is an
-    isogeny with $\ker\varphi$ supported on the non-Eisenstein primes of odd
-    residue characteristic. Then
+    We have that
     \[
-        A' \isom A/A[C]
+        v_\p(\varphi)=v_\p(a)-v_\p(b) = v_\p(D)-v_\p(C).
     \]
-    for some $C\in \H$.
-\end{theorem}
-\begin{proof}
-    Let $M=\ker\varphi$. Then $M$ is a finite odd-order $G_\QQ$-module. By
-    Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a $\TT_A[G_\QQ]$-module.
-    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, there exists an ideal
-    $D$ of $\TT_A$. Now there exists $a,b\in \TT_A$ and $C\in H$, such that
-    $aD=bC$. By Proposition~\ref{prop:acbd_iso},
+    If $\p\in P_e$, then $v_\p(C), v_\p(D)=0$ so
     \[
-        A'\isom A/A[D]\isom A/A[C].
+        v_\p(\varphi) =
+        \begin{cases}
+            0            & \text{if } \p\in \P_e \\
+            \geq -v_\p(C) & \text{if } \p\nmid \P_{ne}.
+        \end{cases}
     \]
+    
 \end{proof}
 
 
