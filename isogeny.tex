@@ -391,66 +391,63 @@ without missing up the Eisenstein part too much.
 \begin{proof}
     By Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a
     $\TT_A[G_\QQ]$-module. By Theorem~\ref{thm:non_eisenstein_kernel_hecke},
-    there exists an ideal $D$ of $\TT_A$. Now there exists $a,b\in \TT_A$ and
-    $C\in H$, such that $aD=bC$.
-\end{proof}
+    there exists an ideal $D$ of $\TT_A$ such that $X_{ne}=A[D]$. Now there
+    exists $a,b\in \TT_A$ and $C\in H$, such that $aD=bC$. By
+    Proposition~\ref{prop:acbd_iso}, there is an isomorphism $\varphi:A/X_{ne}\to
+    A/A[C]$ satisfying $b\varphi=a$.
 
-\begin{proposition}
-    \label{prop:reduce}
-    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ be an
-    odd-degree isogeny. Then there exists $C\in \H$ and a $\TT_A[G_\QQ]$-module
-    $Y_e$ supported, as a $\TT_A$-module, on the Eisenstein primes of odd
-    residue characteristic, such that
+    Now consider the isogeny $\psi:A/X_e\to A/(X_{ne}+X_e)$ given by
+    quotienting by $X_e$. Under $\varphi$, this
+    induces the isogeny $\psi':A/A[C]\to A/(A[C]+\varphi(X_e))$ given by
+    quotienting by $\varphi(X_e)$. So we have the following exact sequence.
     \[
-        A'\isom A/(A[C]\oplus Y_e).
-    \]
-\end{proposition}
-\begin{proof}
-    By Proposition~\ref{prop:G_modules_are_hecke}, $\ker\varphi$ is a
-    $\TT_A[G_\QQ]$-module. We write $\ker\varphi = X_{ne} \oplus X_e$ with
-    $X_{ne}$ and $X_e$ $\TT_A$ supported on the non-Eisenstein and Eisenstein
-    primes, respectively.
-
-    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, $X_{ne} = A[D]$, where
-    $D=\Ann_{\TT_A} X_{ne}$. There exists $a,b\in \TT_A$ and $C\in \H$, such
-    that $aC=bD$. By~\ref{}, there exists an isomorphism $\psi:A/A[D]\to
-    A/A[C]$ satisfying $\psi \circ b = a$.
-
-    The previous isomorphism $\psi$ induces an isomorphism $\psi':A/(A[D]\oplus
-    X_e)\to A/(A[C] + \psi(X_e))$. Let $Y_e = \psi(X_e)\cap A[\I^\infty]$. It
-    is clear that $Y_e$ is supported, as a $\TT_A$-modules, on the Eisenstein
-    primes of odd residue characteristic. It remains to show $A[C] + \psi(X_e)
-    = A[C]\oplus Y_e$. We will show this locally.
-
-    Let $\p$ be an Eisenstein prime of odd-residue characteristic. Then
-    $\psi(X_e)_\p = (Y_e)_\p$ and $A[C]_\p=0$ so $A[C]+\psi(X_e)=Y_e$. Now
-    suppose $\p$ is a non-Eisenstein prime of odd-residue characteristic. Since
-    $(Y_e)_\p = 0$, we need to show $\psi(X_e)_\p \subseteq A[C]_\p$. We have
-    that
-    \[
-        v_\p(\psi) =  v_\p(a)-v_\p(b) = v_\p(D) - v_\p(C) \leq v_\p(C).
+        \begin{tikzcd}
+            A/X_{ne}
+            \arrow[r, "\psi"]
+            \arrow[d, "\varphi"]
+            &
+            A/(X_{ne}+X_e)
+            \arrow[d, "\varphi'"]
+            \\
+            A/A[C]
+            \arrow[r, "\psi'"]
+            &
+            A/(A[C]+\varphi(X_e)).
+        \end{tikzcd}
     \] 
-    So by Lemma~\ref{}, $\psi(X_e)_\p \subseteq A[C]_\p$, as desired.
-\end{proof}
 
-\begin{corollary}[Frank Calegari]
-    Suppose $A\subseteq J_0(N)$ is a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ is an isogeny
-    with $\ker\varphi$ supported only on the non-Eisenstein primes of
-    odd-residue characteristic, then
+    Let $Y_e = \varphi(X_e)\cap A[\I^\infty]$. We will show that
+    \begin{equation}
+        \label{eq:ac_ye}
+        A[C]+\varphi(X_e) = A[C]+Y_e.
+    \end{equation}
+    Since $A[C]$ is supported away from $\P_e$, we have that \eqref{eq:ac_ye}
+    holds on $\p$-primary parts for $\p\in \P_e$. Let $\p\in \P_{ne}$. To show
+    \eqref{eq:ac_ye} holds on $\p$-primary parts for $\p \in \P_{ne}$, it
+    suffices to show that $\varphi(X_e)[\p^\infty]\subseteq A[C]$. We have that
     \[
-        A' \isom A/A[C]
+        v_\p(\varphi) = v_\p(a)-v_\p(b) = v_\p(D) - v_\p(C).
     \]
-    for some $C\in \H$.
-\end{corollary}
-\begin{proof}
-    The corollary follows by setting $X_e=0$ in the proof of
-    Proposition~\ref{prop:reduce}
+    Since $X_e$ is supported away from $\p$, by Lemma~\ref{},
+    $\varphi(X_e)[\p^\infty] \subseteq $ so by Lemma, we are done.
 \end{proof}
 
 \section{Eisenstein part}%
 \label{sec:eisenstein_part}
+
+\begin{proposition}
+    Suppose $A\subseteq J_0(N)$ is a simple abelian subvariety with $N$ prime.
+    Let $\p$ be an Eisenstein prime of $\TT_A$ of odd residue characteristic
+    $p$. Let $C$ and $\Sigma$
+    be the cuspidal and Shimura subgroups of $J_0(N)$. Suppose $A[\p]\neq 0$,
+    then $A[\p]=J_0(N)[\p]=C[p^\infty]\oplus \Sigma[p^\infty]$. Moreover, the
+    $G_\QQ$-submodules of $A[\p]$ are of the form $H_C\oplus H_\Sigma$, where
+    $H_C\subseteq C[p^\infty]$ and $H_\Sigma\subseteq \Sigma[p^\infty]$ are any
+    subgroups.
+\end{proposition}
+\begin{proof}
+    %TODO
+\end{proof}
 
 \begin{corollary}
     Suppose $A\subseteq J_0(N)$ is a simple abelian subvariety with $N$ prime.
@@ -639,70 +636,9 @@ without missing up the Eisenstein part too much.
     $X_C\subseteq C$ and $X_\Sigma\subseteq \Sigma$.
 \end{proof}
 
-\section{Bounding the support}
+\section{Computational Results}
 
-In this section, we will bound the support
-
-
-\begin{proposition}
-    Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Let $\varphi:A\to A'$ be an isogeny.
-    Then
-    \[
-        A' \isom A/X
-    \]
-    with $X$ supported on $S$
-\end{proposition}
-
-
-\begin{lemma}
-    Let $a,b\in \TT_A$, $\p$ such the localization $(\TT_A)_\p$ is a DVR, and
-    $M$ an finite odd $G_\QQ$-submodule of $A(\QQbar)$ with $Z=\Ann_{\TT_A} M$.
-    Suppose $v_\p(Z)=k$.
-    \begin{enumerate}
-        \item
-            We have $M[\p^\infty]\subseteq A[\p^k]$.
-        \item
-            We have $b^{-1}(A[Z])=A[bZ]$. This holds locally at $\p$ as well so
-            $b_\p ^{-1} A[Z]_\p = A[bZ]_\p$.
-        \item
-            Let $r=v_\p(b)-v_\p(a)+k$ and $\phi\in \End(A)$ satisfies
-            
-            If $r\leq
-            0$, then $\phi(M)[\p^\infty]=0$ so $\phi(M)_\p=0$.
-
-            If $r>0$, then $\phi(M)[\p^\infty]\subseteq A[\p^r]$.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    \mbox{}
-    \begin{enumerate}
-        \item
-            Suppose $x\in M[\p^\infty]$. Then $x\in A[\p^\infty]$. Moreover,
-            $v_\p(\Ann_{\TT_A} x) \leq v_\p(Z) = k$ so $x\in A[\p^k]$.
-        \item
-            We have $x\in b^{-1}(A[Z])$ if and only if $bx \in A[Z]$ if and
-            only if $x\in A[bZ]$.
-        \item
-            Suppose $r\leq 0$. Then $\phi_\p \in Z_\p$ so
-            \[
-                \phi(M)[p^\infty]\subseteq \phi(M[\p^\infty])
-                \subseteq \phi(A[\p^k]) = 0.
-            \]
-            Suppose $r>0$. Then $x\in \phi(M)[\p^\infty] =
-            \phi(M[\p^\infty])\subseteq (a\circ
-            b^{-1})(A[\p^k])=A[\p^r]$.
-    \end{enumerate}
-\end{proof}
-
-
-\begin{corollary}
-    Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
-    Suppose $\TT_A$ is integrally closed with $\Cl(\TT_A) = 1$. Suppose
-    $n=\mathrm{num}((N-1)/12)$ is squarefree blahblah holds. Then
-    blahblah.
-\end{corollary}
-
+Here are computational results.
 
 
 
