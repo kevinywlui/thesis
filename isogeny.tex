@@ -234,7 +234,7 @@ desired.
 \end{proof}
 
 \section{Bounding non-Eisenstein part}%
-\label{sec:non_eisenstein_part}
+\label{sec:bounding_non_eisenstein_part}
 
 Recall that a prime of $\TT_A$ is non-Eisenstein if it does not divides the
 Eisenstein ideal $\TT_A$. There are infinitely many non-Eisenstein primes. The
@@ -260,7 +260,7 @@ $2\I_A$.
         v_\p(\varphi) =
         \begin{cases}
             0            & \text{if } \p\in \P_e, \\
-            \geq v_\p(C) & \text{if } \p\nmid \P_{ne}.
+            \geq v_\p(C) & \text{if } \p\in \P_{ne}.
         \end{cases}
     \]
 \end{theorem}
@@ -314,70 +314,71 @@ $2\I_A$.
     \[
         v_\p(\varphi) =
         \begin{cases}
-            0            & \text{if } \p\in \P_e \\
-            \geq -v_\p(C) & \text{if } \p\nmid \P_{ne}.
+            0             & \text{if } \p\in \P_e \\
+            \geq -v_\p(C) & \text{if } \p\in \P_{ne}.
         \end{cases}
-    \]
-    
+    \] 
 \end{proof}
 
 
 \section{Bounding support and valuations}%
 \label{sec:bounding_support_and_valuations}
 
-The goal of this section is to allow us to change the non-Eisenstein part
-without missing up the Eisenstein part too much.
-
+Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime. Suppose
+$\TT_A$ is integrally closed. Suppose $\psi:A\to A'$ be an odd-isogeny. Then
+$M=\ker\psi$ is a $G_\QQ$-submodule of $A(\QQbar)_\odd$. By
+Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a $\TT_A[G_\QQ]$-module so
+we can decompose $M$ as $M_{ne}\oplus M_e$, where $M_{ne}$ and $M_e$ are
+$\TT_A[G_\QQ]$-submodules supported, as $\TT_A$-modules, only on $\P_{ne}$ and
+$\P_e$, respectively. As we saw in Section~\ref{sec:eisenstein_isogenies},
+$M_{ne}\sim A[C]$. The goal of this section is to show $M=M_{ne}\oplus M_e\sim
+A[C]\oplus Y_e$, where $Y_e$ does not differ from $M_e$ too much.
 
 \begin{proposition}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
-    Suppose $\TT_A$ is integrally closed. Suppose $X\subseteq A(\QQbar)_\odd$.
-    Let $X_{ne} = \sum_{\p \in \P_{ne}} X[\p^\infty]$. For each $\p_j\in \P_e$,
-    let $e_j$ be the minimal integer such that $X[\p_j ^\infty]\subseteq X[\p_j
-    ^{e_j}]$. $X\sim A[C]\oplus Y_e$, where $Y_e\subseteq \sum X[\p_j ^{e_j}]$.
+    Suppose $\TT_A$ is integrally closed. Suppose $\psi:A\to A'$ be an
+    odd-isogeny. Let $M, M_{ne}, M_e$ be as above. Then
+    \[
+        A'\isom A/(A[C]\oplus Y_e),
+    \]
+    where $\Supp_{\TT_A} Y_e\subseteq \P_e$. Moreover, if $e_j$'s are exponents
+    such that $M_e\subseteq \sum_{\p_j\in \P_e} A[\p_j ^{e_j}]$ then
+    $Y_e\subseteq \sum_{\p_j \in \P_e} A[\p_j ^{e_j}]$.
 \end{proposition}
 \begin{proof}
-    By Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a
-    $\TT_A[G_\QQ]$-module. By Theorem~\ref{thm:non_eisenstein_kernel_hecke},
-    there exists an ideal $D$ of $\TT_A$ such that $X_{ne}=A[D]$. Now there
-    exists $a,b\in \TT_A$ and $C\in H$, such that $aD=bC$. By
-    Proposition~\ref{prop:acbd_iso}, there is an isomorphism $\varphi:A/X_{ne}\to
-    A/A[C]$ satisfying $b\varphi=a$.
-
-    Now consider the isogeny $\psi:A/X_e\to A/(X_{ne}+X_e)$ given by
-    quotienting by $X_e$. Under $\varphi$, this
-    induces the isogeny $\psi':A/A[C]\to A/(A[C]+\varphi(X_e))$ given by
-    quotienting by $\varphi(X_e)$. So we have the following exact sequence.
+    By Theorem~\ref{thm:frank}, there exists $\varphi\in \TT_A\otimes \QQ$ and
+    $C\in \H$, such that $\varphi:A/M_{ne}\to A/A[C]$ is an isomorphism with
+    \[
+        v_\p(\varphi) =
+        \begin{cases}
+            0            & \text{if } \p\in \P_e, \\
+            \geq v_\p(C) & \text{if } \p\in \P_{ne}.
+        \end{cases}
+    \]
+    Let $\psi:A/M_{ne}\to A/(M_{ne}+M_e)$ be the isogeny corresponding to
+    quotienting by $M_e$. Let $\psi':A/A[C]\to A(A[C]+\varphi(M_e))$. We have
+    that $\varphi$ is also an isomorphism from $A/(M_{ne}+M_e)\to
+    A(A[C]+\varphi(M_e))$. 
     \[
         \begin{tikzcd}
-            A/X_{ne}
+            A/M_{ne}
             \arrow[r, "\psi"]
             \arrow[d, "\varphi"]
             &
-            A/(X_{ne}+X_e)
+            A/(M_{ne}+M_e)
             \arrow[d, "\varphi'"]
             \\
             A/A[C]
             \arrow[r, "\psi'"]
             &
-            A/(A[C]+\varphi(X_e)).
+            A/(A[C]+\varphi(M_e)).
         \end{tikzcd}
     \] 
-
-    Let $Y_e = \varphi(X_e)\cap A[\I^\infty]$. We will show that
-    \begin{equation}
-        \label{eq:ac_ye}
-        A[C]+\varphi(X_e) = A[C]+Y_e.
-    \end{equation}
-    Since $A[C]$ is supported away from $\P_e$, we have that \eqref{eq:ac_ye}
-    holds on $\p$-primary parts for $\p\in \P_e$. Let $\p\in \P_{ne}$. To show
-    \eqref{eq:ac_ye} holds on $\p$-primary parts for $\p \in \P_{ne}$, it
-    suffices to show that $\varphi(X_e)[\p^\infty]\subseteq A[C]$. We have that
-    \[
-        v_\p(\varphi) = v_\p(a)-v_\p(b) = v_\p(D) - v_\p(C).
-    \]
-    Since $X_e$ is supported away from $\p$, by Lemma~\ref{},
-    $\varphi(X_e)[\p^\infty] \subseteq $ so by Lemma, we are done.
+    Since $\varphi(M_e)$ is $\TT_A$-module, we can write it as $X_{ne}\oplus
+    X_e$. Let $\p\in \P_{ne}$. Since $v_\p(\varphi)\geq v_\p(C)$, by
+    Lemma~\ref{}, $X_{ne}\subseteq A[C]$ so $A[C]+\varphi(M_e) = A[C]\oplus
+    X_e$. Now let $\p\in \P_e$. Since $v_\p(\varphi)=0$, by Lemma~\ref{}, we
+    have that $Y_e\subseteq \sum_{\p_j \in \P_e} A[\p_j ^{e_j}]$, as desired.
 \end{proof}
 
 \section{Eisenstein part}%
