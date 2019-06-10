@@ -4,8 +4,8 @@
 A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
 product of elliptic curves. The classification and construction of totally
 split Jacobians of genus 2 curves has been
-well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two}
-and large rational torsion subgroup of totally split Jacobians of genus 2 and 3
+well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two} and
+large rational torsion subgroup of totally split Jacobians of genus 2 and 3
 curves have been found~\cite{howe-leprevost-poonen:large}. The original
 motivation of this project was to compute the rational torsion subgroup for as
 many $J_0(N)$ as possible. The first $N$ for which Sage fails is $J_0(30)$
@@ -13,10 +13,11 @@ which happens to be a product of 3 elliptic curves. The author and his adviser
 were able to compute the rational torsion subgroup using the fact that
 $J_0(30)$ is totally split, the fact that rational torsion subgroups of
 elliptic curves can be computed, and Galois cohomology. The goal of this
-section is to prove that there are finitely many totally split $J_0(N)$, to
-give a general (but totally impractical) method for computing the rational
-torsion subgroup, and to present some more practical techniques for computing
-the rational torsion subgroup.
+chapter is to see how far we can push these techniques. In particular, we will
+show that there are finitely many totally split $J_0(N)$, give a general (but
+totally impractical) method for computing the rational torsion subgroup, and
+present some more practical techniques for computing the rational torsion
+subgroup.
 
 
 \section{Provably enumerating the set of totally split $J_0(N)$}
@@ -49,16 +50,26 @@ suggested proving this using asymptotic bounds.
     finitely many totally split $J_0(N)$.
 \end{proof}
 Neither of their arguments gave an effective method of enumeration. The goal of
-this subsection is to provably enumerate the set of $J_0(N)$ that are totally
+this section is to provably enumerate the set of $J_0(N)$ that are totally
 split. There are 71 of totally split $J_0(N)$ that are nontrivial (see
 Table~\ref{tab:split}).
 
-
 We have that $J_0(N)$ is totally split if and only if its dimension is equal to
 the number of (modular) elliptic curves of conductor $N$. If $N$ is less than
-the upper limit of conductors in the Cremona Database, then determining whether
-$J_0(N)$ is totally split is a quick computation since there is a closed-form
-formula for $\dim J_0(N)$.
+the upper limit of conductors in the Cremona Database, then the hard work has
+been done and determining whether $J_0(N)$ is totally split is a quick
+computation since there is a closed-form formula for $\dim J_0(N)$.
+
+Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
+\emph{bad} otherwise. The simple factors of $J_0(N)$ are isogenous to simple
+factors of $J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad,
+then so is any multiple of $N$. 
+
+In Lemma~\ref{lem:good_primes}, we will enumerate all good primes. We can now
+do a search on the divisibility tree of the positive integers supported on the
+good primes. Moreover, we can prune a branch whenever we encounter a bad
+integer during our search. Theorem~\ref{thm:finite_totally_split} asserts that
+all branches are eventually pruned so this search yields all good integers.
 
 \begin{lemma}
     \label{lem:good_primes}
@@ -103,14 +114,7 @@ formula for $\dim J_0(N)$.
     $37$ are totally split.
 \end{proof}
 
-Call a positive integer $N$ \emph{good}, if $J_0(N)$ is totally split and
-\emph{bad} otherwise. The simple factors of $J_0(N)$ are isogenous to simple
-factors of $J_0(MN)$ for any positive integer $M$. Therefore, if $N$ is bad,
-then so is any multiple of $N$. This allows us to prune divisibility branches
-while doing a search for good integers on the divisibility tree of the positive
-integers. Theorem~\ref{thm:finite_totally_split} asserts that all branches are
-eventually pruned so the number of good integers is finite.
-
+The following procedure is a breath-first search.
 \begin{algorithm}{Enumerating Good Integers}
     \label{alg:find_split}
     Let $S$ be the set of primes found in Lemma~\ref{lem:good_primes}. This
@@ -144,12 +148,12 @@ eventually pruned so the number of good integers is finite.
     the added benefit of provably enumerating the totally split $J_0(N)$.
 \end{proof}
 
-
 \section{Enumerating rational torsion is algorithmic}
 \label{sec:enumerating_is_algorithmic}
 
-Here we give a completely impractical algorithm to compute the rational torsion
-subgroup of a totally split Jacobian $J_0(N)$ just to show it is algorithmic.
+In this section, we give a completely impractical algorithm to compute the
+rational torsion subgroup of a totally split Jacobian $J_0(N)$ just to show it
+is algorithmic.
 \begin{proposition}
     Suppose $A$ is a totally split abelian subvariety of $J=J_0(N)$ Then we can
     compute the following data:
@@ -232,8 +236,7 @@ Generalized Ogg conjecture is the assertion that we have equality. In this
 section, we will give techniques for bounding the index
 $[J_0(\QQ)_\tor:C(N)(\QQ)]$.
 
-Our main interest is the totally split rank-0 case
-though our techniques may apply more generally (Example~\ref{}). There are 46
+We will be primarily interested in rank-0 totally split $J_0(N)$. There are 46
 totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
 Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
 able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
@@ -244,7 +247,7 @@ able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
 In this subsection, we give two techniques for giving an upper bound for
 $J_0(N)(\QQ)_\tor$. The first technique uses reduction modulo $p$,
 Eicher-Shimura, and the Hecke polynomial to obtain a bound on the order. The
-second technique gives an ideal, $I^*$, similar to Mazur's Eisenstein ideal so
+second technique gives an ideal, $I^*$, similar to Mazur's Eisenstein ideal, so
 that $J_0(N)(\QQ)_\tor\subseteq J_0(N)[I]$. We will be primarily using the
 second technique for our computations but we give the first technique to
 motivate the second.
@@ -327,8 +330,8 @@ a group $A_f(\QQ)_\tor$ is trivial or $A_f(\QQ)_\tor \cong \ZZ/2$.
 This next technique avoids both of the mentioned disadvantages of the first
 technique. This technique was created by William Stein and will be elaborated
 on as part of a forthcoming paper by Hao Chen, the author, and William Stein.
-The idea give to construct an ideal $I$ so that $J_0(N)(\QQ)_\tor\subseteq
-J_0(N)[I]$.
+The idea give to construct an ideal $I^*$ so that $J_0(N)(\QQ)_\tor\subseteq
+J_0(N)[I^*]$.
 
 For any odd prime $\ell$ of good reduction (so $\ell\nmid 2N$), let
 $\eta_\ell = T_\ell - (\ell+1)$.
@@ -352,17 +355,20 @@ $\eta_\ell = T_\ell - (\ell+1)$.
 \end{proof}
 
 Let $I= \langle \eta_\ell:\ell\nmid 2N \rangle$. By
-Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $s$ be
-the star-involution~\ref{}, and $I^*=I + \langle 1-s \rangle$. William Stein
-calls this the Real Eisenstein Ideal. We have that $J(\CC)[1-s]=J(\RR)$ so
-combined with Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq
-J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$ and define
+Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $\star$
+be the star-involution~\ref{}, and $I^*=I + \langle 1-\star \rangle$. William
+Stein calls this the Real Eisenstein Ideal. We have that
+$J(\CC)[1-\star]=J(\RR)$ so combined with Lemma~\ref{lem:rational_is_eta},
+$J(\QQ)_\tor\subseteq J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r
+\rangle$ and define
 \begin{equation}%
     \label{eq:stein_eta_group}
-    E_r = J[I_r ^*]
+    E_r = J[I_r ^*].
 \end{equation}
-which again contains $J(\QQ)_\tor$. So an upper bound is given by computing
-$E_r$ for sufficiently large $r$.
+We have
+\[
+    C\subseteq J(QQ)_\tor \subseteq E_r.
+\]
 
 \section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
@@ -518,3 +524,6 @@ Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
             \end{enumerate}
     \end{enumerate}
 \end{algorithm}
+
+\section{Examples}
+

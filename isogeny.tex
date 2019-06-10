@@ -46,30 +46,6 @@ $\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$
 enumerating the finite $G_\QQ$-submodules of $\M(A[Q^k])$. In summary, we have
 the following algorithm.
 
-\begin{algorithm}{Odd isogeny class}%
-    \label{alg:odd_isogeny_class}
-    Let $A$ be a simple abelian subvariety with $\TT_A$ integrally closed. This
-    algorithm will enumerate the class of abelian varieties isomorphic
-    isogenous to $A$ by an odd-degree isogeny.
-    \begin{enumerate}
-        \item{} [Class group representatives]
-            Compute a set of odd integral representatives $H=\{C_i\}$ of
-            $\Cl(\TT_A)$. Let $Q = (\prod_{C_i\in H} C_i)(\prod_{\p\in E} \p)$,
-            where $E$ is the set of primes dividing the Eisenstein ideal.
-        \item{} [Initialize search]
-            Set $r=1$ and $X_{r-1}=\emptyset$.
-        \item{} [$G_\QQ$-submodules of $A[Q^r]$]
-            Use Algorithm~\ref{alg:enumerating_AX} to give a set, $X_r$, of
-            representatives for $\M(A[Q^r])$.
-        \item{} [Done?]
-            By Corollary~\ref{prop:stop_looking}, if for all $x\in X_r$, $x\sim
-            y$ for some $y\in X_{r-1}$, then $X_r$ is a set of representatives
-            for $\M(A(\QQbar)_\odd)$. If this is not the case, increment $r$
-            and repeat the last step.
-        \item{} [Quotient and output]
-            Output $A/M$ for $M\in X_r$.
-    \end{enumerate}
-\end{algorithm}
 
 \section{Finite odd-order Galois Modules are Hecke}%
 \label{sec:finite_odd_order_galois_modules_are_hecke}
@@ -321,6 +297,7 @@ $2\I_A$.
 \end{proof}
 
 
+
 \section{Bounding support and valuations}%
 \label{sec:bounding_support_and_valuations}
 
@@ -543,6 +520,43 @@ ideals.
 
 Here are computational results.
 
+\section{Further Questions}
 
+A few questions arise naturally from our results. In this chapter, we take on
+the hypothesis that $\TT_A$ is integrally closed, $\Cl(\TT_A)$ is trivial, and
+(eisenstein condition).
+
+Suppose $\TT_A$ is not integrally closed. Then the valuation argument we use in
+Theorem~\ref{thm:frank} will no longer apply. However, we can still bound the
+support of the kernel of the isogenies. In particular, let $\H'$ be a set of
+integral representatives for $\Cl(\TT_A)$ and $\P'$ be the set of primes
+dividing the elements of $H$ and the conductor of $\TT_A$ in its integral
+closure. Then by a similar argument to Theorem~\ref{thm:frank}, we can prove
+\begin{proposition}
+    Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
+    Let $\psi:A\to A'$ be an odd-degree isogeny. Then
+    \[
+        A'\cong A/X
+    \]
+    where $X$ is a $\TT_A[G_\QQ]$-submodule of $A(\QQbar)$ supported, as a
+    $\TT_A$-module, on the elements of $\P'\cup \P_e$.
+\end{proposition}
+Another challenge that arise under this hypothesis is enumerating the
+$G_\QQ$-submodule of $A[\p^s]$ when $\p$ is a non-Eisenstein prime. For
+simplicity, assume $s=2$. Following
+the second paragraph of~\cite[\S 14]{mazur:eisenstein}, let $a_1,\ldots,a_r\in
+\p$ generate $\p/\p^2$ as a $(\TT_A/\p)$-vector space. We have the
+$\TT_A[G_\QQ]$-injection, $A[\p^2]/A[\p]\to A[\p]^r$ given by $x+A[\p]\mapsto
+(a_1x,\ldots,a_rx)$. If $(\TT_A)_\p$ is a DVR\@, then $r=1$ and the
+$G_\QQ$-submodule of $A[\p^2]$ are $A[\p^k]$ for $k=0,1,2$. This trick no
+longer holds if $(\TT_A)_\p$ is not a DVR\@.
+
+In all of our experiments, we could not a find a case where $\TT_A$ is
+integrally closed but $\Cl(\TT_A)$ is non-trivial. The Hecke eigenvalue field
+$\TT_A\otimes \QQ$ is totally real so the folklore claims that $\Cl(\TT_A)$
+will often be trivial. However, this could still be potentially interesting as
+the infinitude of number fields with trivial class group is an open problem. 
+
+Lastly, we have not been able to find 
 
 \end{document}
