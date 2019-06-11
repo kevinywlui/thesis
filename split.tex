@@ -377,16 +377,12 @@ subgroup $\Sigma_N$ which is a finite subgroup of $\mu$-type and order
 $\num((N-1)/12)$.
 
 To approximate $J[I^*]$, let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$
-and define
-\begin{equation}%
-    \label{eq:stein_eta_group}
-    E_r = J[I_r ^*].
-\end{equation}
+and define $E_r = J[I_r ^*]$.
 We have
-\[
+\begin{equation}%
+    \label{eq:eta_equation}
     C_N(\QQ)\subseteq J(QQ)_\tor \subseteq E_r \subseteq J[I^*].
-\]
-
+\end{equation}
 
 \section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
@@ -394,30 +390,31 @@ We have
 \subsection{Galois cohomology}%
 \label{sub:galois_cohomology}
 
-Let $A, B$ be abelian subvarieties of a totally split Jacobian $J_0(N)$. Then
-the exact sequence
+Let $A, E$ be abelian subvarieties of $J$ with $E$ an elliptic curve and
+$E\not\subseteq A$. Then
 \begin{equation}%
     \label{eq:ses_ab}
     \begin{tikzcd}
         0 \arrow[r] &
-        A\cap B \arrow[r,"d"] &
-        A\times B \arrow[r,"s"] &
-        A+B \arrow[r] &
+        A\cap E \arrow[r,"d"] &
+        A\times E \arrow[r,"s"] &
+        A+E \arrow[r] &
         0,
     \end{tikzcd}
 \end{equation}
-where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$ yields the sequence
+where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$. By applying Galois cohomology, we
+obtain the long exact sequence:
 \begin{equation}%
     \label{eq:les_ab}
     \begin{tikzcd}
         0 \rar 
         &
-        (A\cap B)(\QQ) \rar 
+        (A\cap E)(\QQ) \rar 
         &
-        (A\times B)(\QQ) \rar
+        (A\times E)(\QQ) \rar
         \arrow[phantom, ""{coordinate, name=W}]{d}
         &
-        (A+B)(\QQ)
+        (A+E)(\QQ)
         \arrow[
         rounded corners,
         to path={%
@@ -428,82 +425,68 @@ where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$ yields the sequence
         }
         ]{dll} \\
         &
-        H^1(\QQ,A\cap B) \rar["\gamma"] 
+        H^1(\QQ,A\cap E) \rar["\gamma"] 
         &
-        H^1(\QQ,A\times B) \rar 
+        H^1(\QQ,A\times E) \rar 
         & \ldots.
     \end{tikzcd}
 \end{equation}
 We now have
-\begin{equation}%
+\begin{equation*}%
     \label{eq:galois_cohomology_order}
-    \# (A+B)(\QQ) =
-    \frac{\# (A\times B)(\QQ) \# \ker\gamma}{\# (A\cap B)(\QQ)}.
+    \# (A+E)(\QQ) =
+    \frac{\# (A\times E)(\QQ) \# \ker\gamma}{\# (A\cap E)(\QQ)}.
+\end{equation*}
+We will use this equality to inductively compute the rational torsion order of
+$J$. Suppose we are able to compute the rational torsion order of $A$ for some
+abelian subvariety $A$. The rational torsion of $E$ can be identified using
+Nagell-Lutz. So we are able to compute $\#(A\times E)(\QQ)$ and $\#(A\cap
+E)(\QQ)$. The hard part is $\#\ker\gamma$ and in general, we will only be able
+to bound this term.
+
+Let $\beta:H^1(\QQ, A\cap E)\to H^1(\QQ, E)$ be the map induced by the
+inclusion of $A\cap E$ into $E$. Then $\ker\gamma\subseteq \ker\beta$. We have
+that $A\cap E$ is some finite Galois group of $E$ and it is often the case that
+$A\cap E=E[n]$ for some positive integer $n$. In this case, by Kummer Theory,
+we have that
+\[
+    \#\ker\gamma\leq \#\ker\beta = \frac{\# E(\QQ)}{\# (nE(\QQ))}.
+\]
+Putting this altogether, when $A\cap E=E[n]$ for some positive integer $n$,
+\begin{equation}
+    \label{eq:galois_cohomology_bound}
+    \# (A+E)(\QQ) \leq
+    \frac{\# (A\times E)(\QQ)\#E(\QQ)}{\# (A\cap E)(\QQ)\#(nE(\QQ))}. 
 \end{equation}
 
-When $J$ is a rank-0 totally split Jacobian, \eqref{eq:galois_cohomology_order}
-gives way to inductively determine the rational torsion order
-$J(\QQ)_\tor=J(\QQ)$. Let $J$ be a rank-0 totally split Jacobian of dimension
-$k$ so $J = \sum_{i=1} ^k E_i$, where $E_i$ are elliptic subvarieties of $J$.
-We can compute the torsion order of $E_i$. To do induction, let these things.
+This now yields an inductive algorithm for computing the rational torsion order
+of any rank-0 abelian totally split subvariety $X$ of $J_0(N)$.
 
-\begin{algorithm}{Bounding rational torsion order}%
-    \label{alg:bound_rational_torsion_order}
-    Given a $k$-dimensional totally split rank-0 abelian subvariety $X$ of
-    $J_0(N)$. This algorithm returns a bound on $[X(\QQ)_\tor:C_X(\QQ)]$, where
-    $C_X=C(N)\cap X$.
-    \begin{itemize}
-        \item{} [Factor $X$ into elliptic curve subvarieties] 
-            Use Algorithm~\ref{} to factor $X$ into elliptic curve
-            subvarieties, $E_1,\ldots,E_k$.
-        \item{} [Iteractively add one-dimension piece]
-            Let $A_r = \sum_{i=1} ^r E_i$. We will interactively compute a
-            bound $b_r$ on things. %TODO fill in
-            \begin{itemize}
-                \item{} [Generic bound from $S$]
-                    Let $b=\# S_X/\#C_X(\QQ)$, where $S_X=S\cap X$ and
-                    $C_X=C(N)\cap X$.
-                \item{} [Refine using known results]
-                    The results of~\ref{} gives of the support, $S$, of
-                    $[X(\QQ):C_X(\QQ)]$. So if
-                    necessary, replace $b$ with the part of $b$ supported on
-                    $S$.
-                \item{} [Use Kummer sequence]
-                    If $A\cap B\neq B[n]$ for any $n$, skip this step.
-                    Otherwise, set $c=\# B(\QQ) / \#(nB(\QQ))$.
-                    A bound on $[Y(\QQ)_\tor:C_Y(\QQ)]$ is given by
-                    \[
-                        b' =
-                        \frac{\#C_A(\QQ)\cdot B(\QQ)\cdot c\cdot
-                        b_{i-1}}{\#(A\cap B)(\QQ)\cdot\# C_{A+B}(\QQ)}.
-                    \]
-                \item{} [Finish]
-                    Set $b_i=\gcd(b,b')$.
-            \end{itemize}
-        \item{} [Return]
-            Return $b_k$.
-    \end{itemize}
-\end{algorithm}
+\subsection{Reducing to smaller abelian subvarieties}%
+\label{sub:reducing_to_smaller_abelian_subvarieties}
 
-
-\subsection{Approach to computing $J(\QQ)_\tor$}%
-\label{sub:approach_to_computing_j_qq__tor_}
-
+We now take advantage to \eqref{eq:eta_equation} to show that it often suffices
+to verify the Generalized Ogg Conjecture on some abelian subvarieties of $J$.
 \begin{proposition}
-    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C(N)(\QQ)$ (for
+    Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C_N(\QQ)$ (for
     example $E=E_r$~\eqref{eq:stein_eta_group}). Let $x_1,\ldots,x_r\in E$ be a
-    set of representatives of $E/(C(N)(\QQ))$. Suppose for each $i$, there
+    set of representatives of $E/(C_N(\QQ))$. Suppose for each $i$, there
     exists an abelian subvariety $A_i$ of $J_0(N)$ satisfying the Generalized
-    Ogg Conjecture and containing $x_i$. Then $C(N)(\QQ)=J_0(N)(\QQ)_\tor$ so
+    Ogg Conjecture and containing $x_i$. Then $C_N(\QQ)=J_0(N)(\QQ)_\tor$ so
     $J_0(N)$ satisfies the Generalized Ogg Conjecture.
 \end{proposition}
 \begin{proof}
-    We already have $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
+    We already have $C_N(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
     reverse inclusion, let $x\in J_0(N)(\QQ)_\tor\subseteq E$. Then $x\in
-    x_i+C(N)(\QQ)$ for some representative $x_i$. This implies $x_i\in
+    x_i+C_N(\QQ)$ for some representative $x_i$. This implies $x_i\in
     J_0(N)(\QQ)_\tor$. But $A_i$ satisfies the Generalized Ogg Conjecture so
-    $x_i\in C(N)(\QQ)$. Hence, $x\in C(N)(\QQ)$.
+    $x_i\in C_N(\QQ)$. Hence, $x\in C_N(\QQ)$.
 \end{proof}
+
+We will give an example of using this trick in Example~\ref{}.
+
+\subsection{Summary of techniques}%
+\label{sub:summary_of_techniques} 
 
 Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
 \begin{theorem}%
@@ -519,27 +502,26 @@ Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
 \end{theorem}
 
 \begin{algorithm}%
-    Given a totally split Jacobian $J=J_0(N)$, this algorithm will output a
-    bound on $[J(\QQ)_\tor:C(N)(\QQ)]$, where $C(N)$ is the cuspidal subgroup
-    of $J$.
+    \label{alg:final_bouind}
+    Given a totally split rank-0 Jacobian $J=J_0(N)$ of dimension $k$, this
+    algorithm will output a bound on $[J(\QQ)_\tor:C_N(\QQ)]$, where $C_N$ is
+    the cuspidal subgroup of $J$.
     \begin{enumerate}
         \item{} [Upper bound by $E_{50}$]
-            Set $r=50$ in~\eqref{eq:stein_eta_group} and compute $E_{50}$.
+            Set $r=50$ in~\eqref{eq:stein_eta_group} and compute $E=E_{50}$.
         \item{} [Set of representatives]
             Compute a list of elements $x_1,\ldots,x_s\in E_{50}$ that form a
             set of representatives for $E_{50}/C(N)$.
+        \item{} [Decompose $J$]
+            Use Algorithm~\ref{} to decompose $J$ into $J=\sum_{i=1} ^k E_j$,
+            where $E_j$ are elliptic curves. 
         \item{} [Reduce to smaller abelian varieties]
-            For each $x_i$, try to find an abelian variety $A_i$ satisfying the
-            Generalized Ogg conjecture.
-            \begin{enumerate}
-                \item{} [Factor $J$]
-                    Write $J=\sum A_i$.
-                \item{} [Sequence of sums of abelian subvarieties]
-                    Form increasing sum of abelian varieties
-                \item{} [Check Generalized Ogg conjecture]
-                    Check the Generalized Ogg conjectures using Galois
-                    cohomology.
-            \end{enumerate}
+            Let $V$ be the set of abelian subvarieties obtained by taking sums
+            of $E_j$'s. Let each $x_i$, find $A_i\in V$ of minimal dimension
+            such that $x_i\in A_i$.
+        \item{} [Galois cohomology]
+            Use Subsection~\ref{sub:galois_cohomology} to verify the
+            Generalized Ogg Conjecture on each $A_i$.
     \end{enumerate}
 \end{algorithm}
 
