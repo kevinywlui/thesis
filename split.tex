@@ -2,7 +2,9 @@
 \label{chap:totally_split}
 
 A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
-product of elliptic curves. The classification and construction of totally
+product of elliptic curves. 
+
+The classification and construction of totally
 split Jacobians of genus 2 curves has been
 well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two} and
 large rational torsion subgroup of totally split Jacobians of genus 2 and 3
@@ -231,15 +233,18 @@ is algorithmic.
 \section{Strategies for computing the rational torsion subgroup}
 \label{sec:strategies_for_rational_torsion}
 
-By~\ref{}, we have the inclusion $C(N)(\QQ)\subseteq J_0(N)(\QQ)_\tor$ and the
-Generalized Ogg conjecture is the assertion that we have equality. In this
-section, we will give techniques for bounding the index
-$[J_0(\QQ)_\tor:C(N)(\QQ)]$.
+The Generalized Ogg Conjecture is equivalent to the assertion that
+$[J_0(N)(\QQ)_\tor:C_N(\QQ)]=1$. In this section, we give strategies for
+bounding this index when $J_0(N)$ is a rank-0 totally split Jacobian. We are
+able to compute generators for $C_N(\QQ)$ in our presentation~\ref{} and the
+group order. Therefore, when $[J_0(N)(\QQ):C_N(\QQ)]=1$, we are able to compute
+generators for $J_0(N)(\QQ)_\tor$ in our presentation~\ref{} and the group
+order.
 
-We will be primarily interested in rank-0 totally split $J_0(N)$. There are 46
-totally split rank 0 $J_0(N)$ and we have verified the Generalized Ogg
-Conjecture for all but 9 Jacobians (Table~\ref{}). In those 9 cases, we are
-able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
+Using these strategies, we are able to able to verify the Generalized Ogg
+Conjecture for all but 9 rank-0 $J_0(N)$. In these 9 cases, we are
+able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2
+(Table~\ref{}).
 
 \subsection{Upper bound}%
 \label{sub:upper_bound}
@@ -250,29 +255,26 @@ Eicher-Shimura, and the Hecke polynomial to obtain a bound on the order. The
 second technique gives an ideal, $I^*$, similar to Mazur's Eisenstein ideal, so
 that $J_0(N)(\QQ)_\tor\subseteq J_0(N)[I]$. We will be primarily using the
 second technique for our computations but we give the first technique to
-motivate the second.
+motivate the second and we will be using the first technique
 
 \subsubsection{Reduction modulo primes}%
 \label{ssub:reduction_modulo_primes}
+Let $A$ be a modular abelian variety and $K$ be a number field. A common
+technique for bounding $A(K)_\tor$ is to reduce modulo completely split primes
+$p$ of $K$ of good reduction for $A$. In particular,
+by~\cite[Appendix]{katz:torsion}, if $\mathcal{A}$ is the Neron model for $A$
+and $p$ a prime completely split of $K$ of good reduction for $A$, then
+\[
+    A(K)_\tor \hookrightarrow \mathcal{A}_{/p}(\Fp)
+\]
+so $\# A(K)_\tor \mid \#\mathcal{A}_{/p}(\Fp)$.
 
-Let $A$ be a modular abelian variety with good reduction at primes $p$. A
-common technique for bounding $A(\QQ)_\tor$ is to inject it into the
-$\Fp$-points for odd primes $p$ of good reduction. In particular,
-by~\cite[Appendix]{katz:torsion}, if $\mathcal{A}$ is the Neron model for $A$,
-then the reduction map gives the inclusion
-\[
-    A(\QQ)_\tor \hookrightarrow \mathcal{A}_{/p}(\Fp).
-\]
-In particular, if $S$ is any set of good odd primes,
-\[
-    \# A(\QQ)_\tor = \gcd_{p\in S}\{ \# \mathcal{A}_{/p}(\Fp)\}.
-\]
 The expression $\#\mathcal{A}_{\p}(\Fp)$ is an isogeny invariant and
 multiplicative on direct products. So it suffices to describe how to compute
-$\mathcal{A}_{/p}(\Fp)$ when $A=A_f\subseteq J_0(N)$ (for $A_f\subseteq
-J_1(N)$, see~\cite[\S 3.5]{agashe-stein:bsd}). Let $F_p$ be the absolute
-Frobenius at $p$ by Eicher-Shimura, $T_p = F_p + p/F_p\in
-\End(\mathcal{A}_{/p})$. Then
+$\mathcal{A}_{/p}(\Fp)$ when $A\subseteq J_0(N)$ is a simple abelian subvariety
+of the new subvariety of $J_0(N)$ (for $A\subseteq J_1(N)$, see~\cite[\S
+3.5]{agashe-stein:bsd}). Let $F_p$ be the absolute Frobenius at $p$. By the
+Eicher-Shimura relations, $T_p = F_p + p/F_p\in \End(\mathcal{A}_{/p})$. Then
 \begin{align}
     \label{eq:katz_bound}
     \begin{split}
@@ -284,9 +286,17 @@ Frobenius at $p$ by Eicher-Shimura, $T_p = F_p + p/F_p\in
     \end{split}
 \end{align}
 The last term is the characteristic polynomial of the matrix associated to the
-Hecke operator $T_p$. We now give the current \sage (Version 8.7)
-implementation of this algorithm by William Stein.
+Hecke operator $T_p$ which can be computed~\ref{}.
 
+We now return to the case of $K=\QQ$ and will apply the more general number
+field case in Chapter~\ref{chap:isogeny_class}. So in the case where $K=\QQ$
+and $A=J_0(N)$, we have that for any finite set $S$ of odd prime not dividing
+$N$,
+\[
+    \# J_0(N)(\QQ)_\tor \mid \gcd_{p\in S} \#\mathcal{J}_{/p}(\Fp).
+\]
+We now give the current \sage (Version 8.7) implementation of this idea by
+William Stein.
 \begin{algorithm}{Upper bound on rational torsion order}%
     \label{alg:upper_bound_stable}
     Given a modular Jacobian $J_0(N)$, this algorithm outputs an upper bound
@@ -318,7 +328,7 @@ increase the stability threshold. This Jacobian is the first $J_0(N)$ that
 totally split Jacobian project of this thesis.
 
 The second is the loss of information of the group structure. For example,
-suppose for some $A_f$ and odd primes $p,q$ of good reduction, we have the
+suppose for some $A$ and odd primes $p,q$ of good reduction, we have the
 group isomorphisms $\mathcal{A}_{/p}(\Fp)\cong \ZZ/2\times \ZZ/2$ and
 $\mathcal{A}_{/q}(\F_q)\cong \ZZ/4$. If we look only at the orders, we can only
 deduce $\# A_f(\QQ)_\tor\mid 4$. However, the group structure tells us that as
@@ -328,10 +338,10 @@ a group $A_f(\QQ)_\tor$ is trivial or $A_f(\QQ)_\tor \cong \ZZ/2$.
 \label{ssub:real_eisenstein_kernel}
 
 This next technique avoids both of the mentioned disadvantages of the first
-technique. This technique was created by William Stein and will be elaborated
-on as part of a forthcoming paper by Hao Chen, the author, and William Stein.
-The idea give to construct an ideal $I^*$ so that $J_0(N)(\QQ)_\tor\subseteq
-J_0(N)[I^*]$.
+technique. This technique was discovered by William Stein and will be
+elaborated on as part of a forthcoming paper by Hao Chen, the author, and
+William Stein. The idea give to construct an ideal $I^*$ so that
+$J_0(N)(\QQ)_\tor\subseteq J_0(N)[I^*]$.
 
 For any odd prime $\ell$ of good reduction (so $\ell\nmid 2N$), let
 $\eta_\ell = T_\ell - (\ell+1)$.
@@ -343,10 +353,10 @@ $\eta_\ell = T_\ell - (\ell+1)$.
 \begin{proof}
     Let $\ell$ be an odd prime of good reduction.
     By~\cite[Appendix]{katz:torsion}, there the reduction modulo $\ell$ map
-    yields the inclusion $\tau:J(\QQ)_\tor \hookrightarrow J_{/\ell}(\F_\ell)$.
-    Let $F_\ell$ be the absolute Frobenius of of $J_{/\ell}$. By Eicher-Shimura,
-    $T_\ell=F_\ell+\ell/F_\ell$. Let $x\in J(\QQ)_\tor$ so
-    $F_\ell(\tau(x))=\tau(x)$. We have
+    yields the inclusion $\tau:J(\QQ)_\tor \hookrightarrow
+    \mathcal{J}_{/\ell}(\F_\ell)$. Let $F_\ell$ be the absolute Frobenius of of
+    $\mathcal{J}_{/\ell}$. By Eicher-Shimura, $T_\ell=F_\ell+\ell/F_\ell$. Let
+    $x\in J(\QQ)_\tor$ so $F_\ell(\tau(x))=\tau(x)$. We have
     \[
         \tau(\eta_\ell(x)) = (T_\ell-(\ell+1))\tau(x) =
         (F_\ell+\ell/F_\ell-(\ell+1))\tau(x) = 0.
@@ -356,19 +366,27 @@ $\eta_\ell = T_\ell - (\ell+1)$.
 
 Let $I= \langle \eta_\ell:\ell\nmid 2N \rangle$. By
 Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $\star$
-be the star-involution~\ref{}, and $I^*=I + \langle 1-\star \rangle$. William
-Stein calls this the Real Eisenstein Ideal. We have that
-$J(\CC)[1-\star]=J(\RR)$ so combined with Lemma~\ref{lem:rational_is_eta},
-$J(\QQ)_\tor\subseteq J[I^*]$. Let $I_r ^* = \langle \eta_\ell:\ell\leq r
-\rangle$ and define
+be the star-involution (\ref{}) so $J(\CC)(1-\star)=J(\RR)$. and $I^*=I +
+\langle 1-\star \rangle$. William Stein calls this the Real Eisenstein Ideal.
+We have that $J(\CC)[1-\star]=J(\RR)$ so combined with
+Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I^*]$. Extending $I$
+to $I^*$ is an important step in our strategy because it is often the case that
+$J[I]$ is strictly larger than $J[I^*]$. For instance, if $J=J_0(N)$ with $N$
+prime, then by~\cite[Cor. 16.3]{mazur:eisenstein}, $J[I]$ contains the Shimura
+subgroup $\Sigma_N$ which is a finite subgroup of $\mu$-type and order
+$\num((N-1)/12)$.
+
+To approximate $J[I^*]$, let $I_r ^* = \langle \eta_\ell:\ell\leq r \rangle$
+and define
 \begin{equation}%
     \label{eq:stein_eta_group}
     E_r = J[I_r ^*].
 \end{equation}
 We have
 \[
-    C\subseteq J(QQ)_\tor \subseteq E_r.
+    C_N(\QQ)\subseteq J(QQ)_\tor \subseteq E_r \subseteq J[I^*].
 \]
+
 
 \section{General approach to bound}%
 \label{sec:galois_cohomology_bounds}
