@@ -14,9 +14,11 @@ We will call this the \emph{odd-degree isogeny class} of $A$.
 More precisely, let $\TT$ be the Hecke algebra of $J_0(N)$ and $\TT_A$ be the
 image of $\TT$ in $\End(A)$. There exists a newform $f=\sum a_n q^n$ associated
 $A$. By~\cite[Prop. 7.14]{shimura:intro}, $\TT_A$ is isomorphic to an order of
-the Hecke eigenvalue field, $K_f=\QQ(\ldots,a_n,\ldots)$. The goal of this chapter
-is to enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is integrally
-closed and (when Proposition~\ref{} works).
+the Hecke eigenvalue field, $K_f=\QQ(\ldots,a_n,\ldots)$. The goal of this
+Chapter is to enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is
+integrally closed, $\Cl(\TT_A)$ is trivial, and when the hypothesis of
+Corollary~\ref{cor:eisenstein} holds.
+
 
 Unless otherwise stated, in this chapter, all abelian varieties, isogenies, and
 isomorphisms are defined over $\QQ$.
@@ -29,33 +31,26 @@ $\M(X)$ be the set of equivalence classes of finite odd-order
 $G_\QQ$-submodules of $A(\QQbar)$ with a representative that is a submodule of
 $X$. Let $A(\QQbar)_\odd$ be the odd-torsion part of $A(\QQbar)$. The goal of
 this chapter can then be restated as enumerating a set of representatives for
-$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed and (when
-Proposition~\ref{} works). 
+$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed, $\Cl(\TT_A)$ is trivial
+and (when Proposition~\ref{prop:eisenstein_cyclic} works). 
 
 We begin by showing every finite $G_\QQ$-submodule of $A(\QQbar)_\odd$ is a
 $\TT_A$-module (Proposition~\ref{prop:G_modules_are_hecke}). This is useful
 because the $\TT_A$-structure is more easily understood than the
 $G_\QQ$-structure. For instance, we are now able to talk about the
-$\TT_A$-support of finite odd-order $G_\QQ$-submodules. We then show that every
-finite odd-order $G_\QQ$-submodule is equivalent to one support on $S$
-(\ref{prop:bound_support}). Now we construct an ideal $Q$ of $\TT_A$ such that
-$S$ is the set of primes dividing $Q$. So $\M(A[Q^\infty])=\M(A(\QQbar)_\odd$.
-We will then give an method for determining an integer $k$ such that
-$\M(A[Q^k])=\M(A[Q^\infty])=\M(A(\QQbar)_\odd)$
-(Proposition~\ref{prop:bound_support}). Lastly, we give an algorithm for
-enumerating the finite $G_\QQ$-submodules of $\M(A[Q^k])$. In summary, we have
-the following algorithm.
-
+$\TT_A$-support of finite odd-order $G_\QQ$-submodules. We then use a theorem
+of Frank Calegari (\ref{thm:frank}) to prove that the odd-degree non-Eisenstein
+isogenies are trivial. Finally, we use Corollary~\ref{cor:eisenstein}
 
 \section{Finite odd-order Galois Modules are Hecke}%
 \label{sec:finite_odd_order_galois_modules_are_hecke}
 
-The goal of this section is to prove every finite odd-order $G_\QQ$-submodule $M$
-of $A(\QQbar)$ is a Hecke module (Proposition~\ref{prop:G_modules_are_hecke}). The
-Galois action of $J(\QQbar)$ has been extensively studied by
-Mazur~\cite{mazur:eisenstein}, so we weaken our hypothesis to $M$ a
-$G_\QQ$-submodule of $J(\QQbar)_\odd$. This is allowed because $A$ is
-$\TT[G_\QQ]$-stable.
+The goal of this section is to prove every finite odd-order $G_\QQ$-submodule
+$M$ of $A(\QQbar)$ is a Hecke module
+(Proposition~\ref{prop:G_modules_are_hecke}). The Galois action of
+$J(\QQbar)_\odd$ has been extensively studied by Mazur~\cite{mazur:eisenstein},
+so we weaken our hypothesis to $M$ a finite $G_\QQ$-submodule of
+$J(\QQbar)_\odd$. This is allowed because $A$ is $\TT[G_\QQ]$-stable.
 
 It suffices to prove $M$ is $\TT$-stable for each $G_\QQ$-composition factor $V$
 of $M[\ell^\infty]$ for $\ell>2$. The irreducibility of $V$ implies that it is
@@ -111,33 +106,48 @@ $\TT$-stability from its $G_\QQ$-stability.
 \section{Non-Eisenstein modules are kernels of Hecke}%
 \label{sec:non_eisenstein_modules_are_kernels_of_hecke}
 
-In light of Section~\ref{sec:finite_odd_order_galois_modules_are_hecke}, all
-finite odd-order $G_\QQ$-submodules of $J(\QQbar)$ are $\TT$-modules. We will
-now use this fact freely and will often refer to the $\TT$-support of a finite
-odd-order $G_\QQ$-submodule.
+In the previous section, we show that every finite odd-order $G_\QQ$-submodules of
+$J(\QQbar)$ and $A(\QQbar)$ are $\TT[G_\QQ]$-modules and
+$\TT_A[G_\QQ]$-modules, respectively. The goal now is to show if $M$ is a
+finite-odd order $\TT_A[G_\QQ]$-submodule $A(\QQbar)$ supported only on the
+non-Eisenstein primes as a $\TT_A$-module then $M=A[\Ann_{\TT_A} M]$. As in the
+previous section, since $A$ is $\TT[G]$-invariant, we can instead take the
+hypothesis that $M$ is a finite-odd order $\TT[G_\QQ]$-submodule of $J(\QQbar)$
+supported as a $\TT$-module only on the non-Eisenstein primes, then
+$M=J[\Ann_{\TT} M]$.
 
-The goal now is to identify the finite odd-order $G_\QQ$-submodules of
-$J(\QQbar)_\odd$ supported, as a $\TT$-module, on the non-Eisenstein primes by
-their $\TT$-annihilators. Using Proposition~\ref{prop:G_modules_are_hecke}, we
-can already do this in the irreducible case.
+If $M$ is any $\TT[G_\QQ]$-submodule of $J(\QQbar)$, it is always the case that
+$M\subseteq J[\Ann_{\TT} M]$. It is for the reverse inclusion where we need to
+use the fact that $M$ is supported only on the non-Eisenstein primes of
+odd-residue characteristic. The crucial fact we use about non-Eisenstein primes
+is that, by~\cite[Prop. 14.2]{mazur:eisenstein}, if $\m$ is a non-Eisenstein of
+odd residue characteristic, then $J[\m]$ is an irreducible $G_\QQ$-module.
 
+We are already able to show that $M=J[\Ann_{\TT} M]$ when $M$ is irreducible as
+a $\TT[G_\QQ]$-submodule.
 \begin{proposition}
     Let $\m$ be a non-Eisenstein prime of odd residue characteristic, if $M$ is
-    a nonzero finite irreducible $G_\QQ$-submodule of $J(\QQbar)$ supported
-    only on $\m$ as a $\TT$-module, then $M=J[\m]$.
+    a nonzero finite irreducible $\TT[G_\QQ]$-submodule of $J(\QQbar)$
+    supported only on $\m$ as a $\TT$-module, then $M=J[\m]$.
 \end{proposition}
 \begin{proof}
-    By Lemma~\ref{lem:cherry_street}, the $\TT$-annihilator of $M$ is $\m$.
-    Hence, $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
+    Let $\a=\Ann_{\TT}(M)$. We will first show that $\a=\m$ by showing $\a$ is
+    maximal. Let $e$ be the exponent of $M$ as an abelian group. We have that
+    $e\in \a$ and $\TT/e\TT$ is a finite ring so it suffices to show that $\a$
+    is a prime ideal. Suppose $x,y\not\in \Ann_{\TT}(M)$. Then $yM$ is a nonzero
+    $\TT[G_\QQ]$-submodule of the irreducible module $M$ so $yM=M$. Similarly, $xyM = xM$ is
+    nonzero. Therefore, $yx\notin \Ann_{\TT}(M)$ so $\a=\m$.
+
+    Now $M\subseteq J[\m]$ but $J[\m]$ is an irreducible
     $G_\QQ$-module~\cite[Proposition 14.2]{mazur:eisenstein} so $M=J[\m]$.
 \end{proof}
 
-The general case will follow from a mild adaptation of the work of David
+The general case will follow from a trivial adaptation of the work of David
 Helm~\cite{helm:jacobian}. Helm considers the case of Jacobians, $J$, of
 Shimura curves. One of the key inputs into Helm's proof is that for the maximal
 ideals $\m$ in question is that if $T_\m J$ is the contravariant $\m$-adic Tate
 module, then $T_\m J/\m T_\m J\cong J[\m]^\vee$ is dimension two over $\TT/\m$
-and irreducible as a $G_\QQ$-module. By~\cite[Prop. 14.2]{mazur:eisenstein},
+and is irreducible as a $G_\QQ$-module. By~\cite[Prop. 14.2]{mazur:eisenstein},
 this is also the case for $J=J_0(N)$ with $N$ prime and $\m$ a non-Eisenstein
 prime of odd residue characteristic.
 
@@ -214,12 +224,12 @@ desired.
 
 Recall that a prime of $\TT_A$ is non-Eisenstein if it does not divides the
 Eisenstein ideal $\TT_A$. There are infinitely many non-Eisenstein primes. The
-goal of this section is to the bound the images of isogenies of $A$ supported
-on the non-Eisenstein by the class group of $\TT_A$ when $\TT_A$ is integrally
-closed. In particular, we will prove a theorem of Frank Calegari.
+goal of this section is to bound isomorphism classes of $A/X$ with
+$\Supp_{\TT_A} X\subseteq \P_{ne}$ by $\Cl(\TT_A)$. In particular, we will
+prove a theorem of Frank Calegari.
 
 Let $\H$ be a set of integral representatives for $\Cl(\TT_A)$ coprime to
-$2\I_A$.
+$2\I_A$. 
 
 \begin{theorem}[Frank Calegari]
     \label{thm:frank}
@@ -231,6 +241,7 @@ $2\I_A$.
     \[
         \varphi:A/M\to A/A[C].
     \] 
+    % TODO:fix
     Moreover,
     \[
         v_\p(\varphi) =
@@ -464,6 +475,7 @@ ideals.
 \end{proof}
 
 \begin{corollary}
+    \label{cor:eisenstein}
     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
     Suppose $\TT_A$ is integrally closed and $\#\Cl(\TT_A)=1$. Let $n_\odd$ be
     the odd part of $\mathrm{numerator}((N-1)/12)$. Suppose that for each prime
