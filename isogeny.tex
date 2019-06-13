@@ -231,82 +231,72 @@ prove a theorem of Frank Calegari.
 Let $\H$ be a set of integral representatives for $\Cl(\TT_A)$ coprime to
 $2\I_A$. Suppose $M$ is $\TT_A$-supported only on the primes of $\P_{ne}$. By
 Theorem~\ref{thm:non_eisenstein_kernel_hecke}, $M=A[\a]$ with $\a=\Ann_{\TT_A}
-M$. Now there exists $s,t\in \TT_A$ and $\b \in \H$, such that $s\a=t\b$.
+M$. Now there exists $s,t\in \TT_A$ and $\b \in \H$, such that $s\a=t\b$. We
+will show that $\varphi=s\circ t^{-1}\in \TT_A\otimes \QQ$ is well-defined and
+yields an isomorphism $A/M\to A/A[\b]$. Lastly, we will make some remarks about
+the $\p$-adic valuation of $\varphi$ that we will use in
+Section~\ref{sec:bounding_support_and_valuations} 
 
 \begin{theorem}[Frank Calegari]
     \label{thm:frank}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
     Suppose $\TT_A$ is integrally closed. Let $M$ be a $\TT_A[G_\QQ]$-submodule
     of $A(\QQbar)$ supported only on the non-Eisenstein primes of odd residue
-    characteristic. Then there exists $\varphi\in \TT_A\otimes \QQ$ and $C\in
+    characteristic. Then there exists $\varphi\in \TT_A\otimes \QQ$ and $\b\in
     H$, such that, there is an isomorphism
     \[
-        \varphi:A/M\to A/A[C].
+        \varphi:A/M\to A/A[\b].
     \] 
-    % TODO:fix
-    Moreover,
-    \[
-        v_\p(\varphi) =
-        \begin{cases}
-            0            & \text{if } \p\in \P_e, \\
-            \geq v_\p(C) & \text{if } \p\in \P_{ne}.
-        \end{cases}
-    \]
+    Moreover, $v_\p(\varphi)=0$ if $\p\in \P_e$ and $v_\p(\varphi)\leq
+    v_\p(\b)$ if $\p\in \P_{ne}$.
 \end{theorem}
 \begin{proof}
-    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, if $D=\Ann_{\TT_A} M$,
-    then $M=A[D]$. We have that there exists $a,b\in \TT_A$ and $C\in H$, such
-    that $aC=bD$. We will justify the following commutative diagram.
+    By Theorem~\ref{thm:non_eisenstein_kernel_hecke}, if $\a=\Ann_{\TT_A} M$,
+    then $M=A[\a]$. We have that there exists $s,t\in \TT_A$ and $\b\in H$,
+    such that $s\a=t\b$. We will justify the following commutative diagram.
     \[
         \begin{tikzcd}
-            A/A[bD]
-            \arrow[r, "\sim", "b"']
+            A/A[s\a]
+            \arrow[r, "\sim", "s"']
             \ar[equal]{d}
             &
-            A/A[D]
+            A/A[\a]
             \ar[d, "\sim" labl, "\phi"]
             \\
-            A/A[a C]
-            \arrow[r, "\sim", "a"']
+            A/A[t\b]
+            \arrow[r, "\sim", "t"']
             &
-            A/A[C],
+            A/A[\b],
         \end{tikzcd}
     \]
     
-    We will first establish the isomorphism $b:A/A[bD]\to A/A[D]$.
+    We will first establish the isomorphism $s:A/A[s\a]\to A/A[\a]$.
     \[
         \begin{tikzcd}
-            0
-            \arrow[r]
+            0 \arrow[r]
             &
-            (A/A[D])[b]
+            (A/A[\a])[s]
             \arrow[hookrightarrow]{r}
             &
-            A/A[D]
-            \arrow[twoheadrightarrow]{r}{b}
+            A/A[\a]
+            \arrow[twoheadrightarrow]{r}{s}
             &
-            A/A[D]
+            A/A[\a]
             \arrow[r]
             &
             0
         \end{tikzcd}.
     \]
-    We have that $x\in (A/A[D])[b]$ if and only if $bx \in A[D]$ if and only if
-    $x \in A[bD]$. Hence, $(A/A[D])[b]=A[bD]/A[D]$ so $b:A/A[bD]\xra{\sim}
-    A[D]$. A similar argument applies for $a:A/A[aC]\to A/A[C]$.
+    We have that $x\in (A/A[\a])[b]$ if and only if $bx \in A[\a]$ if and only if
+    $x \in A[s\a]$. Hence, $(A/A[\a])[b]=A[s\a]/A[\a]$ so $b:A/A[s\a]\xra{\sim}
+    A[\a]$. A similar argument applies for $a:A/A[t\b]\to A/A[\b]$.
 
     We have that
     \[
-        v_\p(\varphi)=v_\p(a)-v_\p(b) = v_\p(D)-v_\p(C).
+        v_\p(\varphi)=v_\p(t)-v_\p(s) = v_\p(\a)-v_\p(\b).
     \]
-    If $\p\in P_e$, then $v_\p(C), v_\p(D)=0$ so
-    \[
-        v_\p(\varphi) =
-        \begin{cases}
-            0             & \text{if } \p\in \P_e \\
-            \geq -v_\p(C) & \text{if } \p\in \P_{ne}.
-        \end{cases}
-    \] 
+    If $\p\in P_e$, then $v_\p(C), v_\p(D)=0$. Therefore, $v_\p(\varphi)=0$ if
+    $\p\in \P_e$ and $v_\p(\varphi)\leq v_\p(\b)$ if $\p\in \P_{ne}$.
 \end{proof}
 
 
@@ -321,34 +311,34 @@ Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a $\TT_A[G_\QQ]$-module so
 we can decompose $M$ as $M_{ne}\oplus M_e$, where $M_{ne}$ and $M_e$ are
 $\TT_A[G_\QQ]$-submodules supported, as $\TT_A$-modules, only on $\P_{ne}$ and
 $\P_e$, respectively. As we saw in Section~\ref{sec:eisenstein_isogenies},
-$M_{ne}\sim A[C]$. The goal of this section is to show $M=M_{ne}\oplus M_e\sim
-A[C]\oplus Y_e$, where $Y_e$ does not differ from $M_e$ too much.
+$M_{ne}\sim A[\b]$. The goal of this section is to show $A/M=A/(M_{ne}\oplus
+M_e) \cong A/(A[\b]\oplus Y_e)$ while controlling the difference between $M_e$
+and $Y_e$.
 
-\begin{proposition}
+
+\begin{proposition}%
+    \label{prop:controll_supp}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
     Suppose $\TT_A$ is integrally closed. Suppose $\psi:A\to A'$ be an
     odd-isogeny. Let $M, M_{ne}, M_e$ be as above. Then
     \[
-        A'\isom A/(A[C]\oplus Y_e),
+        A'\isom A/(A[\b]\oplus X_e),
     \]
-    where $\Supp_{\TT_A} Y_e\subseteq \P_e$. Moreover, if $e_j$'s are exponents
-    such that $M_e\subseteq \sum_{\p_j\in \P_e} A[\p_j ^{e_j}]$ then
-    $Y_e\subseteq \sum_{\p_j \in \P_e} A[\p_j ^{e_j}]$.
+    where $\Supp_{\TT_A} X_e\subseteq \P_e$. Moreover, for each $\p\in \P_e$,
+    let $e_\p$ be the smallest nonnegative integer such that
+    $M_e[\p^{\infty}]\subseteq A[\p^{e_\p}]$. Then, for each $\p\in \P_e$, we
+    have $X_e[\p^\infty]\subseteq A[\p^{e_\p}]$.
 \end{proposition}
 \begin{proof}
     By Theorem~\ref{thm:frank}, there exists $\varphi\in \TT_A\otimes \QQ$ and
-    $C\in \H$, such that $\varphi:A/M_{ne}\to A/A[C]$ is an isomorphism with
-    \[
-        v_\p(\varphi) =
-        \begin{cases}
-            0            & \text{if } \p\in \P_e, \\
-            \geq v_\p(C) & \text{if } \p\in \P_{ne}.
-        \end{cases}
-    \]
+    $\b\in \H$, such that $\varphi:A/M_{ne}\to A/A[\b]$ is an isomorphism with
+    $v_\p(\varphi)=0$ if $\p\in \P_e$ and $v_\p(\varphi)\leq v_\p(\b)$ if
+    $\p\in \P_{ne}$.
+
     Let $\psi:A/M_{ne}\to A/(M_{ne}+M_e)$ be the isogeny corresponding to
-    quotienting by $M_e$. Let $\psi':A/A[C]\to A(A[C]+\varphi(M_e))$. We have
+    quotienting by $M_e$. Let $\psi':A/A[\b]\to A(A[\b]+\varphi(M_e))$. We have
     that $\varphi$ is also an isomorphism from $A/(M_{ne}+M_e)\to
-    A(A[C]+\varphi(M_e))$. 
+    A(A[\b]+\varphi(M_e))$. 
     \[
         \begin{tikzcd}
             A/M_{ne}
@@ -358,55 +348,59 @@ A[C]\oplus Y_e$, where $Y_e$ does not differ from $M_e$ too much.
             A/(M_{ne}+M_e)
             \arrow[d, "\varphi'"]
             \\
-            A/A[C]
+            A/A[\b]
             \arrow[r, "\psi'"]
             &
-            A/(A[C]+\varphi(M_e)).
+            A/(A[\b]+\varphi(M_e)).
         \end{tikzcd}
     \] 
     Since $\varphi(M_e)$ is $\TT_A$-module, we can write it as $X_{ne}\oplus
-    X_e$. Let $\p\in \P_{ne}$. Since $v_\p(\varphi)\geq v_\p(C)$, by
-    Lemma~\ref{}, $X_{ne}\subseteq A[C]$ so $A[C]+\varphi(M_e) = A[C]\oplus
-    X_e$. Now let $\p\in \P_e$. Since $v_\p(\varphi)=0$, by Lemma~\ref{}, we
-    have that $Y_e\subseteq \sum_{\p_j \in \P_e} A[\p_j ^{e_j}]$, as desired.
+    X_e$. Let $\p\in \P_{ne}$. Since $M_e$ is supported away from $\p$ and
+    $v_\p(\varphi)\leq v_\p(\b)$, $\varphi(M_e)[\p^\infty]\subseteq A[\b]$.
+    Therefore, $A[\b] + \varphi(M_e)=A[\b] + X_{e}$. Now if $\p\in \P_e$
+    instead, we have that $v_\p(\varphi)=0$ and $M_e[\p^\infty]\subseteq
+    A[\p^\infty]$ so $X_e[\p^\infty]=\varphi(M_e)[\p^\infty]\subseteq
+    \varphi(A[\p^{e_\p}])\subseteq A[\p^{e_\p}]$.
 \end{proof}
 
+As a corollary, we can give an explicit set of primes such that %TODO
 \begin{corollary}
-    Let $M$ be a finite odd-order $G_\QQ$-submodule of $A(\QQbar)$. Then $M\sim
-    X$ for some $\TT_A[G_\QQ]$-submodule of $A(\QQbar)$ supported on $\P_\H\cup
-    \P_e$, where $\P_\H$ is the set of primes dividing $C$ for some $C\in \H$
-    and $\P_e$ is the set of Eisenstein primes of odd residue characteristic.
+    Let $\P_\H$ be the union of the set of primes dividing elements of $\H$ with
+    the set of Eisenstein prime of odd-residue characteristic. If $A'$ is
+    isogenous to $A$ by an odd-degree isogeny, $A'\cong A/X$ for some
+    $\TT_A[G]$-submodule of $A(\QQbar)$ supported on $\H$.
 \end{corollary}
 
 \section{Eisenstein part}%
 \label{sec:eisenstein_part}
 
-The goal now is to be able enumerate the isogenies supported on the Eisenstein
-ideals.
+In this section, we will follow these people to the LIGHT %TODO
 
 \begin{proposition}{{\cite[Prop. 4.5]{klosin-papikian:ribet}}}%
     \label{prop:eisenstein_cyclic}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime. Let
-    $\p$ be an Eisenstein prime of $\TT_A$ of residue characteristic $p>2$ with
-    $p$ dividing $\mathrm{num}((N-1)/12)$ exactly. Suppose $\p$ is principally
-    generated by $\alpha$. Suppose that $M\subseteq A[\p^\infty]$.
-    If $A[\p]\not\subseteq M$, then $M\subseteq A[\p]$.
+    $\p$ be an Eisenstein prime of $\TT_A$ of odd residue characteristic $p$.
+    Suppose there exists $\ell\equiv 1\pmod{p^2N}$ such that $p^3\nmid
+    \mathcal{A}_{/\ell}(\FF_\ell)$, where $\mathcal{A}_{/\ell}$ is the
+    reduction of the Neron model of $A$ at $\ell$. Suppose that $M\subseteq
+    A[\p^\infty]$. If $A[\p]\not\subseteq M$, then $M\subseteq A[\p]$.
 \end{proposition}
 \begin{proof}
     We will assume $A[\p]\not\subseteq M$ and $M\not\subseteq A[\p]$, and
     derive a contradiction by showing $p^3\mid \#A(\F_\ell)$ for all rational
     primes $\ell \equiv 1\pmod{p^2N}$.
 
-    By~\cite[Cor. 16.3]{mazur:eisenstein}, $A[\p]=C[p]\oplus \Sigma[p]$. Since
-    $\Sigma[p]$ is of $\mu$-type, $\QQ(A[\p])=\QQ(\mu_p)$. Let
-    $F=\QQ(\mu_{pN})$ and $K=\QQ(M)$. Then both $A[\p]$ and $M$ are constant
-    over $KF$. Since $A[\p]\not\subseteq M$ and $M\not\subseteq A[\p]$, we have
-    that $p^3\mid A(K)_\tor$. The goal now is to show that $KF\subseteq
-    \QQ(\mu_{p^2 N})$.
-    
+    Let $K=\QQ(M)$. By~\cite[Cor. 16.3]{mazur:eisenstein}, $A[\p]=C[p]\oplus
+    \Sigma[p]$. Since $\Sigma[p]$ is of $\mu$-type, $\QQ(A[\p])=\QQ(\mu_p)$.
+    Let $F=\QQ(\mu_{pN})$ and $K=\QQ(M)$. Then both $A[\p]$ and $M$ are
+    constant over $KF$. Since $A[\p]\not\subseteq M$ and $M\not\subseteq
+    A[\p]$, we have that $p^3\mid A(K)_\tor$. The goal now is to show that if
+    $\ell\equiv 1\pmod{p^2N}$ is a rational prime then $\ell$ is completely
+    split over $K$. We will do this by showing $K \subseteq \QQ(\mu_{p^2 N})$.
+
     \begin{lemma}[{\cite[Lem. 4.6]{klosin-papikian:ribet}}]
-        The number field $K=\QQ(M)$ is an abelian extension unramified away
-        from $p, N$.
+        The number field $K=\QQ(M)$ is an abelian extension of $\QQ$ unramified
+        away from $p, N$.
     \end{lemma}
     \begin{proof}
         Since $M$ is supported only on $\p$ as a $\TT_A$-module, we may view
@@ -474,61 +468,69 @@ ideals.
         degree 1 or $p$. In either case, $K\subseteq KF \subseteq \QQ(\mu_p ^2,
         \mu_N)$.
     \end{proof}
+
+    Now suppose $\ell\equiv 1\pmod{p^2 N}$ is a rational prime. Then $\ell$ is
+    completely split over $K$ so, as in Section~\ref{sub:upper_bound},
+    by~\cite[Appendix]{katz:galois}, there is an inclusion
+    \[
+        A(K)_\tor\hookrightarrow \mathcal{A}_{/\F_\ell}(\F_\ell).
+    \]
+    Since $p^3\mid \#A(K)_\tor$, $\p^3\mid \#\mathcal{A}_{/\F_\ell}(\F_\ell)$,
+    as desired.
 \end{proof}
 
 \begin{corollary}
     \label{cor:eisenstein}
-    Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
-    Suppose $\TT_A$ is integrally closed and $\#\Cl(\TT_A)=1$. Let $n_\odd$ be
-    the odd part of $\mathrm{numerator}((N-1)/12)$. Suppose that for each prime
-    $p\mid n_\odd$, there exists a prime $\ell\equiv 1 \pmod{p^2N}$, such that,
-    $p^3\nmid \#A(\F_\ell)$. Then if $\psi:A\to A'$ is an odd-degree isogeny
-    with $\ker\psi$ supported only on the Eisenstein primes. Then
+    Let $A$ be a simple abelian subvariety of $J_0(N)$ with $N$ prime. Suppose
+    $\TT_A$ is integrally closed. Suppose that for all Eisenstein primes $\p$
+    of odd residue characteristic $p$ with $A[\p]$ nontrivial, $\p$ is
+    principal and there exists a rational prime $\ell\equiv 1\pmod{p^2N}$ such
+    that $p^3\nmid \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to
+    A'$ is an isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
     \[
-        A'\isom A/X,
+        A'\isom A/M
     \]
-    where $X=\sum X_p$, where $X_p$ is either $C[p]$ or $\Sigma[p]$.
+    with $\Supp_{\TT_A}(M)\subseteq \P_e$ and $M[\p^\infty]=(C_N\cap A)[p]$ or
+    $(\Sigma_N\cap A)[p]$ for all $\p\in \P_e$. Here $C_N$ and $\Sigma_N$ are
+    the cuspidal and Shimura subgroups of $J_0(N)$.
 \end{corollary}
 \begin{proof}
-    We will first simplify $\psi$. Suppose that for some Eisenstein prime, $\p$
-    of odd-residue characteristic, $A[\p]$ is non-trivial and $A[\p]\subseteq
-    X$. The ideal $\p$ is principally generated by some $\alpha\in \TT_A$. The
-    isogeny $\psi$ now factors as $\psi=\psi'\circ \alpha$ with $\Im \psi'=\Im
-    \psi = A'$. We can now replace $\psi$ with $\psi'$. We can repeat this
-    process, if needed, until we obtain an isogeny $\psi:A\to A'$ whose kernel
-    does not contain $A[\p]\neq 0$ for any Eisenstein prime, $\p$, of odd-residue
-    characteristic.
+    We begin by simplifying $\varphi$ so that we can apply
+    Proposition~\ref{prop:eisenstein_cyclic}. Suppose that for some $\p\in
+    \P_e$, $0\neq A[\p]\subseteq \ker\varphi$. By assumption, $\p$ is
+    principally generated by some $\alpha\in \TT_A$. The isogeny $\varphi$ now
+    factors as $\varphi=\varphi'\circ \alpha$. We have
+    $\Im\varphi'=\Im\varphi=A$ and the strict containment of kernels
+    $\ker\varphi'\subsetneq \ker\varphi$. If needed, we can repeat this
+    process, so we may assume that $\varphi':A\to A'$ is an isogeny with
+    $\Supp_{\TT_A}\ker\varphi'\subseteq \P_e$ and $A[\p]\not\subseteq
+    \ker\varphi'$ for any $\p\in \P_e$ with $A[\p]\neq 0$.
 
-    Since $X$ is supported, as a $\TT_A$-module, on the elements of $\P_e$, we
-    have
-    \[
-        X = \oplus_{\p\in \P_e} X\cap A[\p^\infty].
-    \]
-    And now by~\ref{TODO}, $X\cap A[\p^\infty]$ is either $C[p]$ or
-    $\Sigma[p]$, as desired.
+    Let $M=\ker\varphi'$. Now by Proposition~\ref{prop:eisenstein_cyclic},
+    $M[\p^\infty]\subsetneq A[\p]$ so $M[\p^\infty]=(C_N\cap A)[p]$ or
+    $(\Sigma_N\cap A)[p]$ for all $\p\in \P_e$.
 \end{proof}
 
 
 \section{Combining Eisenstein and non-Eisenstein parts}%
 \label{sec:combining_eisenstein_and_non_eisenstein_parts}
 
-\begin{theorem}
+% TODO
+\begin{theorem}%
+    \label{thm:combine}
     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
-    Suppose $\TT_A$ is integrally closed and $\#\Cl(\TT_A)=1$. Let $n_\odd$ be
-    the odd part of $\mathrm{numerator}((N-1)/12)$. Suppose that for each prime
-    $p\mid n_\odd$, there exists a prime $\ell\equiv 1 \pmod{p^2N}$, such that,
-    $p^3\nmid \#A(\F_\ell)$. Then if $\psi:A\to A'$ is an odd-degree isogeny
+    Suppose $\TT_A$ is integrally closed and $\#\Cl(\TT_A)=1$. Suppose that for
+    all Eisenstein primes $\p$ of odd residue characteristic $p$ with $A[\p]$
+    nontrivial, there exists a rational prime $\ell\equiv 1\pmod{p^2N}$ such
+    that $p^3\nmid \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to
+    A'$ is an isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
     \[
-        A'\isom A/X
+        A'\isom A/M
     \]
-    where $X=X_C\oplus X_\Sigma$ where $X_C\subseteq A\cap C$ and $X_\Sigma
-    \subseteq A\cap \Sigma$ are any subgroups.
+    with $\Supp_{\TT_A}(M)\subseteq \P_e$ and $M[\p^\infty]=(C_N\cap A)[p]$ or
+    $(\Sigma_N\cap A)[p]$ for all $\p\in \P_e$. Here $C_N$ and $\Sigma_N$ are
+    the cuspidal and Shimura subgroups of $J_0(N)$.
 \end{theorem}
-\begin{proof}
-    By Theorem~\ref{thm:frank}, $A'\isom A/Y$ with $X$ a $G_\QQ$-submodule of
-    $A(\QQbar)$ supported only on the non-Eisenstein primes of odd-residue
-    characteristic. And now by Proposition~\ref{}, $Y\sim X$
-\end{proof}
 
 \section{Computational Results}
 
