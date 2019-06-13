@@ -19,28 +19,24 @@ Chapter is to enumerate the odd-degree isogeny class of $A$ when $\TT_A$ is
 integrally closed, $\Cl(\TT_A)$ is trivial, and when the hypothesis of
 Corollary~\ref{cor:eisenstein} holds.
 
-
 Unless otherwise stated, in this chapter, all abelian varieties, isogenies, and
 isomorphisms are defined over $\QQ$.
 
-The image of an isogeny is determined by its kernel up to isomorphism. So we
-define an equivalence relation on the set of finite odd-order
-$G_\QQ$-submodules of $A(\QQbar)$ given by $M_1\sim M_2$ if and only if
-$A/M_1\isom A/M_2$. For any odd-order $G_\QQ$-submodule $X$ of $A(\QQbar)$, let
-$\M(X)$ be the set of equivalence classes of finite odd-order
-$G_\QQ$-submodules of $A(\QQbar)$ with a representative that is a submodule of
-$X$. Let $A(\QQbar)_\odd$ be the odd-torsion part of $A(\QQbar)$. The goal of
-this chapter can then be restated as enumerating a set of representatives for
-$\M(A(\QQbar)_\odd)$ when $\TT_A$ is integrally closed, $\Cl(\TT_A)$ is trivial
-and (when Proposition~\ref{prop:eisenstein_cyclic} works). 
-
+The image of an odd-degree isogeny, $\varphi:A\to A'$, is determined, up to
+isomorphism, by its kernel, $M$, which is a finite $G_\QQ$-submodule of $A(\QQbar)$.
 We begin by showing every finite $G_\QQ$-submodule of $A(\QQbar)_\odd$ is a
-$\TT_A$-module (Proposition~\ref{prop:G_modules_are_hecke}). This is useful
-because the $\TT_A$-structure is more easily understood than the
-$G_\QQ$-structure. For instance, we are now able to talk about the
-$\TT_A$-support of finite odd-order $G_\QQ$-submodules. We then use a theorem
-of Frank Calegari (\ref{thm:frank}) to prove that the odd-degree non-Eisenstein
-isogenies are trivial. Finally, we use Corollary~\ref{cor:eisenstein}
+$\TT_A[G_\QQ]$-module (Proposition~\ref{prop:G_modules_are_hecke}). This is
+useful because the $\TT_A$-structure is more easily understood than the
+$G_\QQ$-structure. Let $\I_A$ be the image of the Eisenstein ideal $\I$ into
+$\End(A)$. A prime of $\TT_A$ is Eisenstein if it divides $\I_\A$ and is
+non-Eisenstein otherwise. Let $\P_e$ be the set of Eisenstein primes of
+odd-residue characteristic and $\P_{ne}$ be the set of non-Eisenstein primes of
+odd-residue characteristic. We will use a theorem of Frank Calegari
+(Theorem~\ref{thm:frank}) to prove that the image of an odd-degree isogeny is
+isomorphic to one whose kernel is supported, as a $\TT_A$-module, only on
+$\P_e$. Finally, we adapt the work of Krzysztof Klosin and Mihran Papikian to
+enumerate the isomorphic classes of abelian varieties isogenous to $A$ by an
+isogeny supported on $\P_e$.
 
 \section{Finite odd-order Galois Modules are Hecke}%
 \label{sec:finite_odd_order_galois_modules_are_hecke}
@@ -310,14 +306,14 @@ $M=\ker\psi$ is a $G_\QQ$-submodule of $A(\QQbar)_\odd$. By
 Proposition~\ref{prop:G_modules_are_hecke}, $M$ is a $\TT_A[G_\QQ]$-module so
 we can decompose $M$ as $M_{ne}\oplus M_e$, where $M_{ne}$ and $M_e$ are
 $\TT_A[G_\QQ]$-submodules supported, as $\TT_A$-modules, only on $\P_{ne}$ and
-$\P_e$, respectively. As we saw in Section~\ref{sec:eisenstein_isogenies},
-$M_{ne}\sim A[\b]$. The goal of this section is to show $A/M=A/(M_{ne}\oplus
-M_e) \cong A/(A[\b]\oplus Y_e)$ while controlling the difference between $M_e$
-and $Y_e$.
+$\P_e$, respectively. Using Theorem~\ref{thm:frank}, $A/M_{ne} \isom A/A[\b]$
+for some $\b\in \H$. The goal of this section is to show $A/M=A/(M_{ne}\oplus
+M_e) \isom A/(A[\b]\oplus X_e)$ while controlling the difference between $M_e$
+and $X_e$.
 
 
 \begin{proposition}%
-    \label{prop:controll_supp}
+    \label{prop:control_supp}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime.
     Suppose $\TT_A$ is integrally closed. Suppose $\psi:A\to A'$ be an
     odd-isogeny. Let $M, M_{ne}, M_e$ be as above. Then
@@ -374,7 +370,9 @@ As a corollary, we can give an explicit set of primes such that %TODO
 \section{Eisenstein part}%
 \label{sec:eisenstein_part}
 
-In this section, we will follow these people to the LIGHT %TODO
+In this section, we will follow the work of Krzysztof Klosin and Mihran
+Papikian to enumerate the isomorphic classes of abelian varieties isogenous to
+$A$ by an isogeny supported on $\P_e$.
 
 \begin{proposition}{{\cite[Prop. 4.5]{klosin-papikian:ribet}}}%
     \label{prop:eisenstein_cyclic}
@@ -515,7 +513,7 @@ In this section, we will follow these people to the LIGHT %TODO
 \section{Combining Eisenstein and non-Eisenstein parts}%
 \label{sec:combining_eisenstein_and_non_eisenstein_parts}
 
-% TODO
+
 \begin{theorem}%
     \label{thm:combine}
     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
@@ -531,48 +529,54 @@ In this section, we will follow these people to the LIGHT %TODO
     $(\Sigma_N\cap A)[p]$ for all $\p\in \P_e$. Here $C_N$ and $\Sigma_N$ are
     the cuspidal and Shimura subgroups of $J_0(N)$.
 \end{theorem}
+\begin{proof}
+    Since $\TT_A$ is principal, by Proposition~\ref{prop:control_supp}, we have
+    that $A'\isom A/X$ with $X$ a $\TT_A[G_\QQ]$-submodule of $A(\QQbar)$ such
+    that $\Supp_{\TT_A}X\subseteq \P_e$. And now Corollary~\ref{cor:eisenstein}
+    yields the desired result.
+\end{proof}
 
 \section{Computational Results}
 
 Here are computational results.
 
-\section{Further Questions}
+% \section{Further Questions}
 
-A few questions arise naturally from our results. In this chapter, we take on
-the hypothesis that $\TT_A$ is integrally closed, $\Cl(\TT_A)$ is trivial, and
-(eisenstein condition).
+% A few questions arise naturally from our results. In this chapter, we take on
+% the hypothesis that $\TT_A$ is integrally closed, $\Cl(\TT_A)$ is trivial, and
+% the hypothesis of Corollary~\ref{cor:eisenstein}.
 
-Suppose $\TT_A$ is not integrally closed. Then the valuation argument we use in
-Theorem~\ref{thm:frank} will no longer apply. However, we can still bound the
-support of the kernel of the isogenies. In particular, let $\H'$ be a set of
-integral representatives for $\Cl(\TT_A)$ and $\P'$ be the set of primes
-dividing the elements of $H$ and the conductor of $\TT_A$ in its integral
-closure. Then by a similar argument to Theorem~\ref{thm:frank}, we can prove
-\begin{proposition}
-    Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
-    Let $\psi:A\to A'$ be an odd-degree isogeny. Then
-    \[
-        A'\cong A/X
-    \]
-    where $X$ is a $\TT_A[G_\QQ]$-submodule of $A(\QQbar)$ supported, as a
-    $\TT_A$-module, on the elements of $\P'\cup \P_e$.
-\end{proposition}
-Another challenge that arise under this hypothesis is enumerating the
-$G_\QQ$-submodule of $A[\p^s]$ when $\p$ is a non-Eisenstein prime. For
-simplicity, assume $s=2$. Following
-the second paragraph of~\cite[\S 14]{mazur:eisenstein}, let $a_1,\ldots,a_r\in
-\p$ generate $\p/\p^2$ as a $(\TT_A/\p)$-vector space. We have the
-$\TT_A[G_\QQ]$-injection, $A[\p^2]/A[\p]\to A[\p]^r$ given by $x+A[\p]\mapsto
-(a_1x,\ldots,a_rx)$. If $(\TT_A)_\p$ is a DVR\@, then $r=1$ and the
-$G_\QQ$-submodule of $A[\p^2]$ are $A[\p^k]$ for $k=0,1,2$. This trick no
-longer holds if $(\TT_A)_\p$ is not a DVR\@.
+% Suppose $\TT_A$ is not integrally closed. Then the valuation argument we use in
+% Theorem~\ref{thm:frank} will no longer apply. However, we can still bound the
+% support of the kernel of the isogenies. In particular, let $\H'$ be a set of
+% integral representatives for $\Cl(\TT_A)$ and $\P'$ be the set of primes
+% dividing the elements of $H$ and the conductor of $\TT_A$ in its integral
+% closure. Then by a similar argument to Theorem~\ref{thm:frank}, we can prove
+% \begin{proposition}
+%     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
+%     Let $\psi:A\to A'$ be an odd-degree isogeny. Then
+%     \[
+%         A'\cong A/X
+%     \]
+%     where $X$ is a $\TT_A[G_\QQ]$-submodule of $A(\QQbar)$ supported, as a
+%     $\TT_A$-module, on the elements of $\P'\cup \P_e$.
+% \end{proposition}
+% Another challenge that arise under this hypothesis is enumerating the
+% $G_\QQ$-submodule of $A[\p^s]$ when $\p$ is a non-Eisenstein prime. For
+% simplicity, assume $s=2$. Following
+% the second paragraph of~\cite[\S 14]{mazur:eisenstein}, let $a_1,\ldots,a_r\in
+% \p$ generate $\p/\p^2$ as a $(\TT_A/\p)$-vector space. We have the
+% $\TT_A[G_\QQ]$-injection, $A[\p^2]/A[\p]\to A[\p]^r$ given by $x+A[\p]\mapsto
+% (a_1x,\ldots,a_rx)$. If $(\TT_A)_\p$ is a DVR\@, then $r=1$ and the
+% $G_\QQ$-submodule of $A[\p^2]$ are $A[\p^k]$ for $k=0,1,2$. This trick no
+% longer holds if $(\TT_A)_\p$ is not a DVR\@.
 
-In all of our experiments, we could not a find a case where $\TT_A$ is
-integrally closed but $\Cl(\TT_A)$ is non-trivial. The Hecke eigenvalue field
-$\TT_A\otimes \QQ$ is totally real so the folklore claims that $\Cl(\TT_A)$
-will often be trivial. However, this could still be potentially interesting as
-the infinitude of number fields with trivial class group is an open problem. 
+% In all of our experiments, we could not a find a case where $\TT_A$ is
+% integrally closed but $\Cl(\TT_A)$ is non-trivial. The Hecke eigenvalue field
+% $\TT_A\otimes \QQ$ is totally real so the folklore claims that $\Cl(\TT_A)$
+% will often be trivial. However, this could still be potentially interesting as
+% the infinitude of number fields with trivial class group is an open problem. 
 
-Lastly, we have not been able to find 
+% Lastly, we have not been able to find 
 
 \end{document}
