@@ -12,23 +12,28 @@ We begin by giving an explicit description of modular abelian varieties that is
 suitable for linear algebraic computations. We represent modular abelian
 varieties explicitly as follows. Let $A$ be a modular abelian variety and
 $\varphi:A\to J$ a finite degree morphism. Let $B$ be the image of $A$ in $J$.
-Then there is an isogeny $B$ to $A$ with kernel $G$ such that $A\cong B/G$.
-\begin{equation}
+By dualizing, there is an isogeny $B$ to $A$ with kernel $G$ such that $A\isom
+B/G$.
+\begin{equation*}
     \label{eq:defining_data}
     \begin{tikzcd}
-        &
-        &
-        A \arrow[d]\arrow[dr,"\varphi"] &
-        &
-        &
-        \\
-        0 \arrow[r] &
-        G \arrow[r] &
-        B \arrow[r] &
-        J \arrow[r] &
-        0
+        0 \arrow[r]
+            &
+            G \arrow[r]
+            &
+            B \arrow[r]\arrow[rd]
+            &
+            A \arrow[d, "\varphi"]
+            \arrow[r]
+            &0
+            \\
+            &
+            &
+            &
+            J
+            &
     \end{tikzcd}
-\end{equation}
+\end{equation*}
 So we can represent any modular abelian variety $J$ by giving $G\subseteq
 B\subseteq J$ all defined over $\QQ$.
 
@@ -61,34 +66,98 @@ for some $N$, $V\subseteq H_1(J, \QQ)$, $L$ a lattice containing $V\cap H_1(J,
 \ZZ)$. Since the $\QQ$-span of $L$ is $V$, $V$ can be recovered from $L$ so $A$
 can also be specified by $(L, J)$, denote $A\sim (L, J)$.
 
+\section{Modular Symbols}
+\label{sec:modular_symbols}
+
+The computational tools presented in this chapter will be built on top of the
+theory of modular symbols. As mentioned in Section~\ref{sec:defining_data},
+modular symbols give a finite presentation of $H_1(J, \ZZ)$. For instance, a
+$\ZZ$-basis for $H_1(J_0(15), \ZZ)$ is given by the set of Manin symbols
+$\{(1,8), (1,9)\}$. We will not need to delve into the underlying theory of
+modular symbols and we will take it as a blackbox. We instead refer the reader
+to~\cite[\S 3]{stein:modform}.
+
+Similarly, the Hecke operators~\cite[\S 8.3]{stein:modform}, the degeneracy
+maps~\cite[\S 8.6]{stein:modform}, and the star involution~\cite[\S
+8.5]{stein:modform} can all be defined via modular symbols and thus induce maps
+on modular Jacobians.
+
+\section{Finite Subgroups}
+
+The goal of this section is to establish some background for computing with
+finite subgroups of modular abelian varieties.
+
+\subsection{Defining Data}
+
+Let $A=(V, L, J)$ be a modular abelian variety. A finite subgroup $G$ of $A$
+can be specified by giving a defining lattice $\mathcal{L}$ such that
+$\mathcal{L}/L = G$.
+
+Given 2 finite subgroups $G_1=(\mathcal{L}_1, A)$ and $G_2=(\mathcal{L}_2, A)$,
+a map $\phi: G_1\to G_2$ can be given as a map on the defining lattices.
+
+\subsection{Intersection of Finite Subgroups}
+\label{sec:finitegroup_intersection}
+Let $G=(\mathcal{L}_1, A)$ and $H=(\mathcal{L}_2, A)$ be finite subgroups of an
+modular abelian variety $A=(L, V, J)$. Let $\mathcal{L}_1 ' = \mathcal{L}_1+L$
+and $\mathcal{L}_2 ' = \mathcal{L}_2 + L$. Then the intersection $G\cap H$ is
+the group $(\mathcal{L}, A)$, where $\mathcal{L}=\mathcal{L}_1\cap
+\mathcal{L}_2 \cap V$.
+
+\subsection{Sums of Finite Subgroups}
+
+Let $G=(\mathcal{L}_1, A)$ and $H=(\mathcal{L}_2, A)$ be finite subgroups of
+$A=(L, V, J)$. The sum is given by $G+H=(\mathcal{L}_1 + \mathcal{L}_2+L, A)$.
+
+\subsection{Quotients of Finite Subgroups}
+
+Let $G=(\mathcal{L}_1, A)$ and $H=(\mathcal{L}_2, A)$ be finite subgroups of
+$A=(L, V, J)$ with $H\set G$ so $\mathcal{L}_2\set \mathcal{L}_1$. The quotient
+is given by $G/H=(\mathcal{L}_1/\mathcal{L}_2, A/H)$, where the computation of
+$A/H$ is given in Section~\ref{sec:quotients}.
+
 \section{Morphisms}%
 \label{sec:morphisms}
+
+The goal of this section is to establish some background for computing with
+morphisms between modular abelian varieties.
 
 \subsection{Defining Data}%
 \label{sub:defining_data}
 
+Let $A=(L, V, J)$ and $B=(L', V', J')$ be modular abelian varieties and
+$\Phi:A\to B$ a map of abelian varieties. Then $\Phi$ induces a map on rational
+homology and is also completely determined by the map on rational homology. So
+we will defined $\Phi:A\to B$ by giving $\Phi_V:V\to V'$. For brevity, we will
+use $\Phi$ to denote the maps on defining lattices, rational homology, and
+abelian varieties.
+
 \subsection{Kernel}%
 \label{sub:kernel}
+
+Let $\Phi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
+and $B=(L', V', J')$. Let $V_K=\ker \phi_V$ and $L_K=L\cap V_K$. Then the
+kernel $K$ of $\phi$ is the extension of the abelian variety $K^0 = (L_K, V_K,
+J)$ by the finite component group $\Phi^{-1}(L')/L$.
 
 \subsection{Image}%
 \label{sub:image}
 
-\section{Finite Subgroups}%
-\label{sec:finite_subgroups}
+Let $\Phi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
+and $B=(L', V', J')$. The image of $\Phi$ in $B$ is the abelian subvariety
+$\Phi(A)=(L'', \Phi(V), J')$, where $L''=\Phi(V)\cap L'$.
 
-\section{Modular Symbols}
-\label{sec:modular_symbols}
 
-Modular symbols give a 
+\subsection{Quotienting by finite subgroup}%
+\label{sub:quotienting_by_finite_subgroup}
 
-\section{Natural Maps}%
-\label{sec:alg_natural_maps}
-The Hecke operators~\cite[\S 8.3]{stein:modform}, degeneracy maps~\cite[\S
-8.6]{stein:modform}, and star involution~\cite[\S 8.5]{stein:modform} are
-useful maps defined on modular symbols which, in turn, induce maps on the
-Jacobian.
+Let $A=(L, V, J)$ be a modular abelian variety with a finite subgroup
+$G=\mathcal{L}, A)$. There is an isogeny $\vphi_G: A\to A'=(L+\mathcal{L}, V,
+J)$ with kernel exactly $G$ given by the identity map on rational homology.
 
-\subsection{Decomposition and Verification of Abelian Subvarieties}
+
+
+\section{Decomposition and Verification of Abelian Subvarieties}
 \label{sec:decomp_verify}
 
 Let $B$ be an abelian subvariety of $J$. The defining data of $B$ is given by
@@ -96,14 +165,11 @@ $(L, V, J)$, where $V=H_1(B,\QQ)$ and $L = H_1(B, \ZZ)$. Since $L = V\cap
 H_1(J, \ZZ)$, the abelian subvariety $B$ is completely determined by the
 subspace $V\subseteq H_1(J, \QQ)$, denoted $B\sim (V, J)$. As mentioned in
 Section~\ref{sec:defining_data}, not every subspace $V$ of $H_1(J, \QQ)$
-corresponds to an abelian subvariety.
+corresponds to an abelian subvariety. The following algorithm will determine
+when $V$ does correspond to an abelian subvariety. When $V$ does correspond to
+an abelian subvariety $B$, we will also give a decomposition of $B$ into simple
+abelian subvarieties.
 
-In this section, we will give an algorithm for determining when a subspace $V$
-of $H_1(J, \QQ)$ corresponds to an abelian subvariety $B$, meaning $B\sim (V,
-J)$. When $V$ does correspond to an abelian subvariety $B$, we will also give
-a decomposition of $B$ into simple abelian subvarieties.
-
-% TODO: abelian subvariety need not be Hecke stable...
 \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
     \label{alg:decomp_and_verify_subvarieties}
     Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
@@ -111,58 +177,90 @@ a decomposition of $B$ into simple abelian subvarieties.
     into simple abelian subvarieties $X_i=(V_i, J)$ of $B$, otherwise, this
     algorithm will return `not a subvariety'.
     \begin{enumerate}
-        \item{} [$\ZZ$-basis for Hecke algebra]
-            Let $\TT$ be the Hecke algebra of $J$ and $s$ be the Sturm bound of
-            $\TT$. By~\cite[Appendix]{lario-schoof}, $\{T_1,T_2,\ldots, T_s\}$
-            spans $\TT$ as a $\ZZ$-module. So we can compute a $\ZZ$-basis
-            $\mathcal{B}$ of $\TT$.
-        \item{} [Decompose into potential Hecke eigenspaces]
-            We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
-            W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
-            dividing $N$, such that either $W_i$ either corresponds to an
-            abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
-            abelian subvariety and we can return `not a subvariety'.
+        \item{} [Decompose $J$]
+            Use Algorithm~\ref{alg:decomp_J} to decompose $J$ as $J=\sum_f
+            X_f$, where $X_f=(W_f, J)$ is the sum of all abelian subvarieties
+            of $J$ isogenous to $A_f$, where $A_f$ is the optimal quotient
+            attached to $f$.
+        \item{} [Intersect with $V$]
+            Set $V_f=V\cap W_f$. It suffices to show that each $V_f$
+            corresponds to an abelian subvariety. So we will explain the rest
+            of our algorithm for just a single $V_f$ with $f$ a newform of
+            level $L$.
+        \item{} [Build up to $V_f$]
+            We now have that $V_f$ corresponds to an abelian subvariety if and
+            only if $V_f=\sum U_i$, where each $U_i$ corrs to image.
             \begin{enumerate}
-                \item{} [Initialize]
-                    Set $j=1$.
-                \item{} [Decompose into eigenspaces]
-                    Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
-                    n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
-                    U_{j, k}\neq V$, return `not a subvariety'.
-                \item{} [Compare with newforms]
-                    Let $S_{j,k}$ be the set of newforms whose $\ell$th Fourier
-                    coefficient agrees with the eigenvalue of $T_\ell$ on
-                    $U_{j, k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for
-                    any $k=1,\ldots,n_j$, return `not a subvariety'. If $S_{j,k}$ is not
-                    singleton for any $k=1,\ldots, n_j$, increment $j$ and
-                    return to (b). Otherwise, $S_{j,k}$ is singleton for all
-                    $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
+                \item{} [Initiate]
+                    Set $S_0=0$.
+                \item
+                    Set
             \end{enumerate}
-        \item{} [Is isogenous to power?]
-            We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
-            and give its decomposition. The $W_i$'so are pairwise non-isogenous
-            so we will do this individually for each $W_i$ and consider just a
-            single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
-            Let $d_1,\ldots,d_r:J_H(L)\to J_H(N)$ be the full collection of
-            degeneracy maps from $J_H(L)$ to $J_H(N)$. Set $U=\{0\}$ and 
-            \begin{enumerate}
-                \item{} [Image of $\QQ$-combination of $d_j$'s?]
-                    Choose any $v\in V\setminus U$. By
-                    Proposition~\ref{prop:integral_degen}, if $W$ is an abelian
-                    subvariety then there exists $q_1,\ldots,q_r\in \QQ$
-                    such that $v\in \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If this is not the case, return
-                    `NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
-                    \delta_i\right)$. If $R\not\subset V$, return `not a
-                    subvariety'.
-                \item{} [Full space?]
-                    Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
-                    return to (B).
-            \end{enumerate}
-        \item{} [Output]
     \end{enumerate}
 \end{algorithm}
 
+% TODO: abelian subvariety need not be Hecke stable...
+% \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
+%     \label{alg:decomp_and_verify_subvarieties}
+%     Let $J=J_H(N)$ and $V$ be a subspace of $H_1(J, \QQ)$. If $V$ corresponds
+%     to a subvariety $B$ of $J$, then this algorithm will return a decomposition
+%     into simple abelian subvarieties $X_i=(V_i, J)$ of $B$, otherwise, this
+%     algorithm will return `not a subvariety'.
+%     \begin{enumerate}
+%         \item{} [$\ZZ$-basis for Hecke algebra]
+%             Let $\TT$ be the Hecke algebra of $J$ and $s$ be the Sturm bound of
+%             $\TT$. By~\cite[Appendix]{lario-schoof}, $\{T_1,T_2,\ldots, T_s\}$
+%             spans $\TT$ as a $\ZZ$-module. So we can compute a $\ZZ$-basis
+%             $\mathcal{B}$ of $\TT$.
+%         \item{} [Decompose into potential Hecke eigenspaces]
+%             We first decompose $V$ into a direct sum $V=W_1\oplus \cdots \oplus
+%             W_r$ so that, for each $W_i$, there exists a newform $f_i$ of level
+%             dividing $N$, such that either $W_i$ either corresponds to an
+%             abelian subvariety isogenous to a power of $A_{f_i}$ or is not an
+%             abelian subvariety and we can return `not a subvariety'.
+%             \begin{enumerate}
+%                 \item{} [Initialize]
+%                     Set $j=1$.
+%                 \item{} [Decompose into eigenspaces]
+%                     Compute the simultaneous eigenspaces $U_{j,1},\ldots,U_{j,
+%                     n_j}$ of $\{T_1,\ldots,T_j\}$. If $\sum_{k=1} ^{n_j}
+%                     U_{j, k}\neq V$, return `not a subvariety'.
+%                 \item{} [Compare with newforms]
+%                     Let $S_{j,k}$ be the set of newforms whose $\ell$th Fourier
+%                     coefficient agrees with the eigenvalue of $T_\ell$ on
+%                     $U_{j, k}$ for $l=1,\ldots,j$. If $S_{j, k}$ is empty for
+%                     any $k=1,\ldots,n_j$, return `not a subvariety'. If $S_{j,k}$ is not
+%                     singleton for any $k=1,\ldots, n_j$, increment $j$ and
+%                     return to (b). Otherwise, $S_{j,k}$ is singleton for all
+%                     $k$ so let $S_{j,k}=\{f_k\}$ and $W_k=U_{j,k}$.
+%             \end{enumerate}
+%         \item{} [Is isogenous to power?]
+%             We now verify that each $W_i$ is isogenous to a power of $A_{f_i}$
+%             and give its decomposition. The $W_i$'so are pairwise non-isogenous
+%             so we will do this individually for each $W_i$ and consider just a
+%             single pair $W$ and $A_f$ with $f$ being a newform of level $L$.
+%             Let $d_1,\ldots,d_r:J_H(L)\to J_H(N)$ be the full collection of
+%             degeneracy maps from $J_H(L)$ to $J_H(N)$. Set $U=\{0\}$ and 
+%             \begin{enumerate}
+%                 \item{} [Image of $\QQ$-combination of $d_j$'s?]
+%                     Choose any $v\in V\setminus U$. By
+%                     Proposition~\ref{prop:integral_degen}, if $W$ is an abelian
+%                     subvariety then there exists $q_1,\ldots,q_r\in \QQ$
+%                     such that $v\in \Im \left(\sum_{i=1} ^r q_i
+%                     \delta_i\right)$. If this is not the case, return
+%                     `NO'. Let $R = \Im \left(\sum_{i=1} ^r q_i
+%                     \delta_i\right)$. If $R\not\subset V$, return `not a
+%                     subvariety'.
+%                 \item{} [Full space?]
+%                     Replace $U$ with $U+R$. If $V=U$, we are done. Otherwise,
+%                     return to (B).
+%             \end{enumerate}
+%         \item{} [Output]
+%     \end{enumerate}
+% \end{algorithm}
+
+\section{Finite Subgroups}%
+\label{sec:finite_subgroups}
 \section{Cuspidal subgroup and rational cuspidal subgroup}%
 \label{sec:cuspidal_subgroup}
 
@@ -223,59 +321,64 @@ $d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
 
 Let $A$ be a simple modular abelian variety isogenous to $A_f$, where $f$ is a
 newform of level $L$. The goal of this section is to explicitly give an isogeny
-from $A_f ^\vee\subseteq J_0(L)$ to $A$.
-%TODO
+from $A_f ^\vee\subseteq J_0(L)$ to $A$. 
+
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
-    Given a simple modular abelian variety
-    gives a newform $f$ and a linear combination of degeneracy maps
-    $\phi=\sum n_i d_i:J_0(L)\to J_0(N)$ such that $\phi(A_f)=A$ with $L$ the
-    level of $f$.
+    Given a simple abelian subvariety $A$ of $J=J_H(N)$, this algorithm returns
+    a newform $f$ of level $L$, and an isogeny $\varphi:A_f ^\vee\to A$, where
+    $A_f ^\vee\subseteq J_H(L)$ is the optimal subvariety attached to $f$.
     \begin{enumerate}
-        \item{} [Decompose]
-            Use Algorithm~\ref{alg:decomp_and_verify_subvarieties} to obtain
-            the decomposition $J_0(N)=\sum_f V_f$, where the sum runs over
-            newforms $f$ of level dividing $N$ and $V_f$ is the sum of all
-            abelian subvarieties of $J_0(N)$ isogenous to $A_f$.
+        \item{} [Decompose $J$]
+            Use Algorithm~\ref{alg:decomp_J} to obtain the decomposition
+            $J=\sum_f V_f$, where the sum runs over newforms $f$ of level
+            dividing $N$ and $V_f$ is the sum of all abelian subvarieties of
+            $J_H(N)$ isogenous to $A_f$.
         \item{} [Determine newform]
             Find the newform $f$ of level $L$ so that $A\subseteq V_f$.
         \item{} [Basis under degeneracy]
-            Let $\{b_1,\ldots,b_r\}$ be a $\ZZ$-basis for $\Lambda_{A_f}$ and
-            $\{d_1,\ldots,d_s\}$ be the set of degeneracy maps $d_j:J_0(L)\to
-            J_0(N)$.
+            Let $\{b_1,\ldots,b_r\}$ be a $\ZZ$-basis for the defining lattice
+            of $A_f^\vee$ and $\{\delta_1,\ldots,\delta_s\}$ be the set of degeneracy
+            maps $\delta_j:J_H(L)\to J_H(N)$.
         \item{} [Solve system]
-            Let $x$ be any nonzero element element of $\Lambda_A$. Find
-            $c_{ij}\in \QQ$ such that $x=\sum c_{ij} d_j(b_i)$.
-        \item{} [Output]
+            Let $x$ be any nonzero element of the defining lattice of
+            $A_f^\vee$. Find $c_{ij}\in \QQ$ such that $x=\sum c_{ij}
+            d_j(b_i)$.
+        \item{} [Clear denominators]
             Let $i', j'$ be such that $c_{i'j'}\neq 0$. Let
             $(n_1,\ldots,n_s)\in \ZZ^s$ be the vector obtained by
             clearing denominators from $(c_{i'1},\ldots,c_{i's})$.
+        \item{} [Output]
+            The desired isogeny is now given by $\varphi=\sum_{j=1} ^s n_j
+            \delta_j|_{A_f ^\vee}$.
     \end{enumerate}
 \end{algorithm}
 
+% In the case of a elliptic curve subvariety $E$ of $J_0(N)$, we can also return
+% the Weierstrass equation for $E$. This is 
 
-\begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}%
-    \label{alg:weierstrass}
-    Given a simple 1-dimensional subvariety $E$ of $J_0(N)$. This algorithm
-    returns the Weierstrass equation for $E$.
-    \begin{enumerate}
-        \item{}
-            [Isogeny from optimal subvariety] Use
-            Algorithm~\ref{alg:simple_degen} to find a newform $f$ of level
-            $L$ and isogenies $\phi:A_f\to E$.
-        \item{}
-            [Weierstrass of optimal subvariety] The Cremona tables contain the
-            Weierstrass equations for optimal subvarieties of $J_0(L)$ so in
-            particular, for $A_f$.
-        \item{}
-            [Kernel] Compute the kernel $M$ of $\phi$ and use the complex
-            exponential map to identify $M$ as a set of points, $M'$ on the
-            Weierstrass equation for $A_f$.
-        \item{}
-            [Velu's formulas] Output the Weierstrass equation of $A_f/M'$ using
-            Vela's formulas.
-    \end{enumerate}
-\end{algorithm}
+% \begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}%
+%     \label{alg:weierstrass}
+%     Given an elliptic curve subvariety $E$ of $J_0(N)$. This algorithm
+%     returns the Weierstrass equation for $E$.
+%     \begin{enumerate}
+%         \item{}
+%             [Isogeny from optimal subvariety] Use
+%             Algorithm~\ref{alg:simple_degen} to find a newform $f$ of level
+%             $L$ and isogenies $\phi:A_f\to E$.
+%         \item{}
+%             [Weierstrass of optimal subvariety] The Cremona tables contain the
+%             Weierstrass equations for optimal subvarieties of $J_0(L)$ so in
+%             particular, for $A_f$.
+%         \item{}
+%             [Kernel] Compute the kernel $M$ of $\phi$ and use the complex
+%             exponential map to identify $M$ as a set of points, $M'$ on the
+%             Weierstrass equation for $A_f$.
+%         \item{}
+%             [Velu's formulas] Output the Weierstrass equation of $A_f/M'$ using
+%             Vela's formulas.
+%     \end{enumerate}
+% \end{algorithm}
 
 \section{Homomorphism spaces}
 
@@ -354,9 +457,6 @@ Proposition~\ref{prop:extend_QQ}.
     $\varphi\in \Hom(A,B)$.
 \end{proof}
 
-\subsection{Homomorphism space}%
-\label{sub:_hom_a_b_}
-
 \subsection{Endomorphism Algebra as Field}%
 \label{sub:endomorphism_algebra_as_field}
 
@@ -389,6 +489,33 @@ Proposition~\ref{prop:extend_QQ}.
 \end{algorithm}
 %TODO: proof
 
+\subsection{Homomorphism space}%
+\label{sub:_hom_a_b_}
+
+Let $A, B$ be isogenous simple abelian varieties. The goal of this section is
+to compute $\Hom(A,B)$.
+
+\begin{algorithm}[Compute $\Hom(A,B)$]
+    Given simple modular abelian varieties $A, B$, this algorithm computes
+    $\Hom(A,B)$.
+    \begin{enumerate}
+        \item{} [Isogenous?]
+            Use Algorithm~\ref{alg:isogenous} to determine if $A$ is isogenous
+            to $B$. If not, then $\Hom(A,B)$ is trivial and we are done. If so,
+            let $\varphi:A\to B$ be an isogeny.
+        \item{} [Compute $\End(A)$]
+            Use Algorithm~\ref{alg:end_A} to compute the endomorphism ring of
+            $A$.
+        \item{} [Image of $\End(A)$]
+            Compute the image, $H$, of $\End(A)$
+        \item{} [Saturate]
+            Compute the saturation of $H$ in $\Hom(L_1, L_2)$.
+    \end{enumerate}
+\end{algorithm}
+\begin{proof}
+    
+\end{proof}
+
 
 
 \section{Isogeny and isomorphism testing}
@@ -402,14 +529,13 @@ modular abelian varieties are isomorphic.
     $A, B$ are isomorphic. If so, this algorithm will also return an
     isomorphism between $A, B$.
     \begin{enumerate}
+        \item{} [Isogenous?]
+            Use Algorithm~\ref{alg:isogenous} to determine if $A$ is isogenous
+            to $B$. If not, then $A$ and $B$ are not isomorphic and we are
+            done. If so, let $\varphi:A\to B$ be an isogeny.
         \item{}
-            [Isogenous?] Use Algorithm~\ref{} to find newforms $f,g$ and
-            isogenies $\phi_f:A_f\to A$ and $\phi_g:A_g\to B$. If $f\neq g$,
-            return `not isomorphic'. Otherwise, let $\phi:B\to A=\phi_g ^\vee
-            \circ \phi_f$.
-        \item{}
-            [Square degree?] The composition $\phi^\vee \circ \phi:B\to B$ is
-            the multiplication by $d$ map where $d$ is the degree of $\phi$. If
+            [Square degree?] The composition $\varphi^\vee \circ \varphi:B\to B$ is
+            the multiplication by $d$ map where $d$ is the degree of $\varphi$. If
             $d$ is not square, return `not isomorphic'.
         \item{}
             [Endomorphism algebra] Use Algorithm~\ref{} to find a number field
@@ -418,7 +544,7 @@ modular abelian varieties are isomorphic.
         \item{}
             [Homomorphism space] Use Algorithm~\ref{} to compute $\Hom(A,B)$.
         \item{}
-            [Image under $\phi$] Compute the image $H_f$ of $\Hom(A, B)$ in
+            [Image under $\varphi$] Compute the image $H_f$ of $\Hom(A, B)$ in
             $\End(A)$ by composing with $f$.
         \item{}
             [Norm equation] Find solutions $x_1,\ldots,x_r$, up to units in

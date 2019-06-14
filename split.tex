@@ -28,10 +28,10 @@ subgroup.
 The modular Jacobian $J_0(N)$ is totally split if and only if all newforms of
 level dividing $N$ have rational Hecke coefficients. We expect this to be rare.
 In fact, there are only finitely many totally split $J_0(N)$. Ralph Greenberg
-quickly gave an argument on the way to UW Number Theory Seminar lunch proving
-the set of totally split $J_0(N)$ is finite but his argument did not give an
-effective method of enumeration. Moreover, at Sage Days 87, Alyson Dienes
-suggested proving this using asymptotic bounds.
+quickly gave an argument on the way to a University of Washington Number
+Theory Seminar lunch proving the set of totally split $J_0(N)$ is finite but
+his argument did not give an effective method of enumeration. Moreover, at Sage
+Days 87, Alyson Dienes suggested proving this using asymptotic bounds.
 \begin{proposition}%
     \label{prop:totally_split}
     The set of totally split $J_0(N)$ is finite.
@@ -487,6 +487,25 @@ We will give an example of using this trick in Example~\ref{}.
 
 \subsection{Summary of techniques}%
 \label{sub:summary_of_techniques} 
+
+\subsubsection{Elliptic curves case}%
+\label{ssub:elliptic_curves_case}
+
+\begin{proposition}
+    The $N$ for which $J_0(N)$ is an elliptic curve are:
+    \[
+        11, 14, 15, 17, 19, 20, 21, 24, 27, 32, 36, 49.
+    \]
+\end{proposition}
+
+E50/C gives it.
+[22, 26, 28, 50, 38, 44, 54, 52, 76]
+
+3 dim stuff
+[30, 33, 34, 40, 45, 48, 64]
+64 is when E is in cuspidal.
+
+
 
 Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
 \begin{theorem}%
