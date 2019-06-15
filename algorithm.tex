@@ -321,6 +321,32 @@ abelian subvarieties.
     \end{enumerate}
 \end{algorithm}
 
+By applying the previous algorithm to 1-dimension abelian subvarieties, we can
+recover the Weierstrass equation.
+
+\begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}%
+    \label{alg:weierstrass}
+    Given an elliptic curve subvariety $E$ of $J_0(N)$. This algorithm
+    returns the Weierstrass equation for $E$.
+    \begin{enumerate}
+        \item{}
+            [Isogeny from optimal subvariety] Use
+            Algorithm~\ref{alg:simple_degen} to find a newform $f$ of level
+            $L$ and an isogeny $\varphi:A_f ^\vee\to E$.
+        \item{}
+            [Weierstrass of optimal subvariety] The Cremona tables contain the
+            Weierstrass equations for optimal subvarieties of $J_0(L)$ so in
+            particular, for $A_f$.
+        \item{}
+            [Kernel] Compute the kernel $M$ of $\varphi$ and use the complex
+            exponential map to identify $M$ as a set of points, $M'$ on the
+            Weierstrass equation for $A_f ^\vee$.
+        \item{}
+            [Velu's formulas] Output the Weierstrass equation of $A_f ^\vee/M'$ using
+            Vela's formulas.
+    \end{enumerate}
+\end{algorithm}
+
 % TODO: abelian subvariety need not be Hecke stable...
 % \begin{algorithm}{Decomposing and Verifying Abelian Subvarieties}
 %     \label{alg:decomp_and_verify_subvarieties}
@@ -381,38 +407,9 @@ abelian subvarieties.
 %     \end{enumerate}
 % \end{algorithm}
 
-
-\section{Simple abelian subvarieties as image of degeneracies}
-
-Let $A$ be a simple modular abelian variety isogenous to $A_f$, where $f$ is a
-newform of level $L$. The goal of this section is to explicitly give an isogeny
-from $A_f ^\vee\subseteq J_0(L)$ to $A$. 
-
 % In the case of a elliptic curve subvariety $E$ of $J_0(N)$, we can also return
 % the Weierstrass equation for $E$. This is 
 
-% \begin{algorithm}{Weierstrass equation of 1-dimension abelian subvariety}%
-%     \label{alg:weierstrass}
-%     Given an elliptic curve subvariety $E$ of $J_0(N)$. This algorithm
-%     returns the Weierstrass equation for $E$.
-%     \begin{enumerate}
-%         \item{}
-%             [Isogeny from optimal subvariety] Use
-%             Algorithm~\ref{alg:simple_degen} to find a newform $f$ of level
-%             $L$ and isogenies $\varphi:A_f\to E$.
-%         \item{}
-%             [Weierstrass of optimal subvariety] The Cremona tables contain the
-%             Weierstrass equations for optimal subvarieties of $J_0(L)$ so in
-%             particular, for $A_f$.
-%         \item{}
-%             [Kernel] Compute the kernel $M$ of $\varphi$ and use the complex
-%             exponential map to identify $M$ as a set of points, $M'$ on the
-%             Weierstrass equation for $A_f$.
-%         \item{}
-%             [Velu's formulas] Output the Weierstrass equation of $A_f/M'$ using
-%             Vela's formulas.
-%     \end{enumerate}
-% \end{algorithm}
 
 \section{Homomorphism spaces}
 

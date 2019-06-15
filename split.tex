@@ -2,24 +2,16 @@
 \label{chap:totally_split}
 
 A Jacobian is said to be \emph{totally split} if it is $\QQ$-isogenous to a
-product of elliptic curves. 
-
-The classification and construction of totally
-split Jacobians of genus 2 curves has been
-well-studied~\cite{bruin-doerksen:split_genus_two,kuhn:split_genus_two} and
-large rational torsion subgroup of totally split Jacobians of genus 2 and 3
-curves have been found~\cite{howe-leprevost-poonen:large}. The original
-motivation of this project was to compute the rational torsion subgroup for as
-many $J_0(N)$ as possible. The first $N$ for which Sage fails is $J_0(30)$
-which happens to be a product of 3 elliptic curves. The author and his adviser
-were able to compute the rational torsion subgroup using the fact that
-$J_0(30)$ is totally split, the fact that rational torsion subgroups of
-elliptic curves can be computed, and Galois cohomology. The goal of this
-chapter is to see how far we can push these techniques. In particular, we will
-show that there are finitely many totally split $J_0(N)$, give a general (but
-totally impractical) method for computing the rational torsion subgroup, and
-present some more practical techniques for computing the rational torsion
-subgroup.
+product of elliptic curves. As mentioned in the introduction, the first $N$ for
+which \sage fails to compute the rational torsion subgroup is $J_0(30)$ which
+happens to be a product of 3 elliptic curves. The author and his adviser were
+able to compute the rational torsion subgroup using the fact that $J_0(30)$ is
+totally split, the fact that rational torsion subgroups of elliptic curves can
+be computed, and Galois cohomology. The goal of this chapter is to see how far
+we can push these techniques. In particular, we will show that there are
+finitely many totally split $J_0(N)$, give a general (but totally impractical)
+method for computing the rational torsion subgroup, and present some more
+practical techniques for computing the rational torsion subgroup.
 
 
 \section{Provably enumerating the set of totally split $J_0(N)$}
@@ -476,38 +468,35 @@ to verify the Generalized Ogg Conjecture on some abelian subvarieties of $J$.
     $J_0(N)$ satisfies the Generalized Ogg Conjecture.
 \end{proposition}
 \begin{proof}
-    We already have $C_N(\QQ)\subseteq J_0(N)(\QQ)_\tor$ (\ref{}). To show the
+    We already have $C_N(\QQ)\subseteq J_0(N)(\QQ)_\tor$. To show the
     reverse inclusion, let $x\in J_0(N)(\QQ)_\tor\subseteq E$. Then $x\in
     x_i+C_N(\QQ)$ for some representative $x_i$. This implies $x_i\in
     J_0(N)(\QQ)_\tor$. But $A_i$ satisfies the Generalized Ogg Conjecture so
     $x_i\in C_N(\QQ)$. Hence, $x\in C_N(\QQ)$.
 \end{proof}
 
-We will give an example of using this trick in Example~\ref{}.
+% We will give an example of using this trick in Example~\ref{}.
 
-\subsection{Summary of techniques}%
-\label{sub:summary_of_techniques} 
+% \subsection{Summary of techniques}%
+% \label{sub:summary_of_techniques} 
 
-\subsubsection{Elliptic curves case}%
-\label{ssub:elliptic_curves_case}
+% \subsubsection{Elliptic curves case}%
+% \label{ssub:elliptic_curves_case}
 
-\begin{proposition}
-    The $N$ for which $J_0(N)$ is an elliptic curve are:
-    \[
-        11, 14, 15, 17, 19, 20, 21, 24, 27, 32, 36, 49.
-    \]
-\end{proposition}
+% \begin{proposition}
+%     The $N$ for which $J_0(N)$ is an elliptic curve are:
+%     \[
+%         11, 14, 15, 17, 19, 20, 21, 24, 27, 32, 36, 49.
+%     \]
+% \end{proposition}
 
-E50/C gives it.
-[22, 26, 28, 50, 38, 44, 54, 52, 76]
+% E50/C gives it.
+% [22, 26, 28, 50, 38, 44, 54, 52, 76]
 
-3 dim stuff
-[30, 33, 34, 40, 45, 48, 64]
-64 is when E is in cuspidal.
+% 3 dim stuff
+% [30, 33, 34, 40, 45, 48, 64]
+% 64 is when E is in cuspidal.
 
-
-
-Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
 \begin{theorem}%
     \label{thm:verification_rank_zero}
     There are 45 totally split rank-0 Jacobians $J_0(N)$ (See
@@ -516,11 +505,21 @@ Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
     \[
         84,90,96,120,132,144,150,168,180
     \]
-    In these cases, they are bounded by a power of 2. See
+    In these cases, $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ bounded by a power of 2. See
     Table~\ref{tab:rank_zero_bound}.
 \end{theorem}
+\begin{proof}
+    We use Section~\ref{sec:galois_cohomology_bounds} to bound
+    $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$.
 
-\begin{algorithm}%
+    If $N$ is not one of 
+    \[
+        84,90,96,120,132,144,150,168,180,
+    \]
+    then we use Algorithm~\ref{alg:final_bound} to show that the index is 1.
+\end{proof}
+\begin{algorithm}[]%
+    \label{alg:final_bound}
     Given a totally split rank-0 Jacobian $J=J_0(N)$ of dimension $k$, this
     algorithm will output a bound on $[J(\QQ)_\tor:C_N(\QQ)]$, where $C_N$ is
     the cuspidal subgroup of $J$.
@@ -531,8 +530,8 @@ Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
             Compute a list of elements $x_1,\ldots,x_s\in E_{50}$ that form a
             set of representatives for $E_{50}/C(N)$.
         \item{} [Decompose $J$]
-            Use Algorithm~\ref{} to decompose $J$ into $J=\sum_{i=1} ^k E_j$,
-            where $E_j$ are elliptic curves. 
+            Decompose $J$~\ref{sub:decomposition_of_j_} into $J=\sum_{i=1} ^k
+            E_j$, where $E_j$ are elliptic curves. 
         \item{} [Reduce to smaller abelian varieties]
             Let $V$ be the set of abelian subvarieties obtained by taking sums
             of $E_j$'s. Let each $x_i$, find $A_i\in V$ of minimal dimension
@@ -545,3 +544,127 @@ Using Algorithm~\ref{alg:final_bound}, we have the following theorem.
 
 \section{Examples}
 
+Let $J=J_0(30)$. This is the first level for which \sage (Version 8.7) cannot
+compute the order of the rational torsion subgroup. 
+
+\subsection{Rational Torsion Subgroup}
+
+This variety has dimension
+3 and Mordell-Weil rank 0.
+\begin{sagecode}
+\begin{sagecell}
+sage: J = J0(30)
+sage: J.decomposition()
+\end{sagecell}
+\begin{sageout}
+[
+Simple abelian subvariety 15a(1,30) of dimension 1 of J0(30),
+Simple abelian subvariety 15a(2,30) of dimension 1 of J0(30),
+Simple abelian subvariety 30a(1,30) of dimension 1 of J0(30)
+]
+\end{sageout}
+\end{sagecode}
+\begin{sagecode}
+\begin{sagecell}
+sage: L = J.lseries()
+sage: L.vanishes_at_1()
+\end{sagecell}
+\begin{sageout}
+False
+\end{sageout}
+\end{sagecode}
+
+The rational cuspidal subgroup $C(\QQ)$ provides a lower bound on the rational
+torsion subgroup. The group $C(\QQ)$ is of order 192.
+\begin{sagecode}
+\begin{sagecell}
+sage: J.rational_cuspidal_subgroup()
+\end{sagecell}
+\begin{sageout}
+Finite subgroup with invariants [2, 4, 24] over QQ of Abelian variety J0(30) of dimension 3
+\end{sageout}
+\end{sagecode}
+
+Let $A$ and $B$ be the old subvariety and new subvariety of $J_0(30)$. The
+exact sequence
+\begin{equation}
+    \label{j30_ses}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        A\cap B \arrow[r,"d"] &
+        A\times B \arrow[r,"s"] &
+        J \arrow[r] &
+        0,
+    \end{tikzcd}
+\end{equation}
+where $d(x)=(x,-x)$ and $s(x,y)=(x+y)$ yields the sequence
+\begin{equation}\label{j30_gal_co}
+        \begin{tikzcd}
+            0 \rar &
+            (A\cap B)(\QQ) \rar &
+            (A\times B)(\QQ) \rar
+                 \ar[draw=none]{d}[name=X, anchor=center]{}
+            & J(\QQ) \ar[rounded corners,
+                to path={ -- ([xshift=2ex]\tikztostart.east)
+                          |- (X.center) \tikztonodes
+                          -| ([xshift=-2ex]\tikztotarget.west)
+                          -- (\tikztotarget)}]{dll}[at end]{} \\
+                          &
+            H^1(\QQ,A\cap B) \rar["\gamma"] &
+            H^1(\QQ,A\times B) \rar & \ldots
+        \end{tikzcd}
+\end{equation}
+
+The old subvariety $A$ decomposes
+as a product of two elliptic curves coming from $J_0(15)$ and the new
+subvariety $B$ is the elliptic curve with Cremona label $30a1$.
+
+Since $30/15$ is prime, the hypothesis of Corollary~\ref{cor:elliptic_decomp} is
+satisfied so the old subvariety is isomorphic over $\QQ$ to $E\times F$, where
+the Cremona labels are $E:15a1$, $F:15a8$. We can compute the rational torsion
+order of elliptic curves so $\#A(\QQ)=32$ and $\#B(\QQ)=6$. The intersection
+$A\cap B$ is is isomorphic as groups to $\ZZ/2\times \ZZ/2$ so $A\cap B= B[2]$.
+This means $(A\cap B)(\QQ)\cong \ZZ/2$. 
+\begin{sagecode}
+\begin{sagecell}
+sage: A = J.old_subvariety()
+sage: B = J.new_subvariety()
+sage: A.intersection(B)[0].invariants()
+\end{sagecell}
+\begin{sageout}
+[2, 2]
+\end{sageout}
+\end{sagecode}
+
+Moreover, 
+\begin{equation}
+    \begin{split}
+        \ker (H^1(\QQ, A\cap B) \to&H^1(\QQ, A\times B))
+    \subseteq 
+    \\
+    \ker (&H^1(\QQ, B[2]) \to H^1(\QQ,  B))
+    =
+    B(\QQ)/2B(\QQ).
+    \end{split}
+\end{equation}
+
+This implies $\#\ker\gamma\leq 2$ in~\eqref{j30_gal_co}. Piecing everything
+together
+\[
+    \# J_0(30)(\QQ) =
+    \frac{\#A(\QQ)\cdot \#B(\QQ) \cdot \#\ker\gamma}{\#(A\cap B)(\QQ)}
+    \leq 192.
+\]
+It follows that $J_0(30)(\QQ)=C(\QQ)$ and is isomorphic to $\ZZ/2\times
+\ZZ/4\times \ZZ/24$.
+
+\subsection{Reduction mod $p$ is not enough}
+
+We have the isogeny
+\[
+    J_0(30) \sim E\times E\times F,
+\]
+where $E:15a1$ and $F:30a2$ are elliptic curves with $\#E(\QQ)=8$ and
+$\#F(\QQ)=12$. This means that $U(S)\geq 8\cdot 8 \cdot 12=768$. This means
+that the reduction mod $p$ strategy alone is not enough to show that
+$J(\QQ)_\tor$ is cuspidal.

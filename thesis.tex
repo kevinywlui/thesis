@@ -2,6 +2,7 @@
 \setcounter{tocdepth}{1}  % Print the chapter and sections to the toc
 \usepackage{subfiles}
 \usepackage{url}
+\usepackage{sage}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true}
 \usepackage{booktabs}
@@ -19,6 +20,10 @@
     Arithmetic of Totally Split Modular Jacobians and Enumeration of Isogeny
     Classes of Prime Level Simple Modular Abelian Varieties
 }
+
+\dedication{to mom and dad}
+
+
 \Author{Kevin Lui}
 \Year{2019}
 \Program{Mathematics}
@@ -26,13 +31,12 @@
 \Chair{William Stein}{Professor}{Mathematics}
 \Signature{Ralph Greenberg}
 \Signature{Bianca Viray}
-\Signature{Yen-Chi Chen}
+% \Signature{Yen-Chi Chen}
 
 \copyrightpage
-
 \titlepage
-\tableofcontents
-\listoftables
+
+\setcounter{page}{-1}
 \abstract{%
 In this thesis, we aim to give algorithms for computing two key invariants of
 the modular Jacobians $J_0(N)$.
@@ -47,17 +51,30 @@ computing the rational torsion subgroup, and later give techniques for
 computing the rational torsion order for rank-0 totally split Jacobians
 $J_0(N)$. 
 
-Next we will give an algorithm for computing the rational odd-isogeny class of a
-simple abelian subvariety $A$ of $J_0(N)$ for prime $N$, under mild conditions.
-In particular, when the Hecke algebra of $A$ is isomorphic to a maximal order
-of a number field, we are able to enumerate the odd-isogeny class. This will allow
-us to build a table of isogeny graphs of simple abelian subvarieties of
-$J_0(N)$.
+Next we will give an algorithm for computing the rational odd-isogeny class of
+a simple abelian subvariety $A$ of $J_0(N)$ for prime $N$, under mild
+conditions. This is done by showing every $G_\QQ$-submodule of $A(\QQbar)_\odd$
+is a Hecke module and then attacking the non-Eisenstein and Eisenstein
+isogenies separately.
 }
 
+\tableofcontents
+\listoftables
+
+
+\acknowledgments{
+    I would like to first and foremost my advisor William Stein for helping me
+    through this thesis. I have learned to much by working with him and this
+    thesis would not be possible without him.
+
+    Next I would like to thank my officemates in Padelford C-8D for making
+    every day of graduate school a experience.
+    
+    Lastly, I would like to thank my family for their love and support.
+}
+\dedication{\begin{center}to my mom and dad\end{center}}
 
 \textpages
-
 \include{preface}
 \include{introduction}
 \include{theoretical}
