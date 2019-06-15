@@ -4,14 +4,123 @@
 Let $X_0(N)$ be the modular curve whose non-cuspidal points parameterize
 complex elliptic curve with some additional $N$-torsion data. Let
 $J_0(N)=\Jac(X_0(N))$ be the Jacobian variety of $X_0(N)$. The study of
-$J_0(N)$ has yielded many deep results in arithmetic geometry.
+$J_0(N)$ has yielded many deep results in arithmetic geometry. Two notable
+examples are:
+\begin{itemize}
+    \item 
+        Mazur~\cite{mazur:eisenstein} bounds the possible group structures for
+        the rational torsion subgroup of an elliptic curve over $\QQ$ by
+        understanding the rational torsion subgroup of $J_0(N)$.
+    \item
+        The Modularity Theorem for elliptic curves over $\QQ$ states that for
+        every elliptic curve $E$, there is a surjective map $J_0(N)\to E$,
+        where $N$ is the conductor of $E$. As a step towards proving Fermat's
+        Last Theorem, Taylor and
+        Wiles~\cite{wiles:fermat}\cite{taylor-wiles:fermat} prove the
+        Modularity Theorem for semistable stable elliptic curves. The full
+        Modularity Theorem was later established following the completion
+        of~\cite{breuil-conrad-diamond-taylor}.
+\end{itemize}
+
+The goal of this thesis is to study the computational aspects of $J_0(N)$. The
+most interesting work will be presented in Chapter~\ref{chap:totally_split} and
+Chapter~\ref{chap:isogeny_class}. But before arriving at these chapters, we
+will lay down some theoretical and algorithmic preliminaries in
+Chapter~\ref{chap:prelim} and Chapter~\ref{chap:algorithms}.
 
 \section{Rational torsion points}%
 \label{sec:rational_torsion_points}
 
-% The rational torsion subgroup is an 
+As part of his landmark paper bounding the possible group structures for the
+rational torsion subgroup of an elliptic curve. As a key step, Mazur proves the
+Ogg Conjecture:
+\begin{theorem}[{\cite[Thm. 1]{mazur:eisenstein}}]
+    Let $N$ be prime and $C_N$ be the cuspidal subgroup of $J_0(N)$. Then
+    \[
+        J_0(N)(\QQ)_\tor = C_N(\QQ).
+    \]
+\end{theorem}
+A natural generalization is to allow $N$ to be composite. This is the
+Generalized Ogg Conjecture.
+\begin{conjecture}[Generalized Ogg Conjecture]
+    Let $C_N$ be the cuspidal subgroup of $J_0(N)$. Then
+    \[
+        J_0(N)(\QQ)_\tor = C_N(\QQ).
+    \]
+\end{conjecture}
+There been some progress towards this conjecture, particularly, away from $2$
+and $3$.
+\begin{enumerate}
+    \item 
+        When $N$ is prime, $J_0(N)(\QQ)_\tor =C(N)(\QQ)$.~\cite[Thm.
+        1]{mazur:eisenstein}
+    \item
+        When $p\geq 5$ is a prime and $r$ a positive integer,
+        \[
+            J_0(p^r)(\QQ)[q^\infty] = C(p^r)(\QQ)[q^\infty]
+        \]
+        for any prime $q\nmid 6p$. If $r=2$, the result holds for any prime
+        $q\nmid 2p$.~\cite[Thm. 4]{ling:cuspidal_pr}
+    \item
+        When $N$ is a positive squarefree integer,
+        \[
+            J_0(N)(\QQ)[q^\infty]=C(N)(\QQ)[q^\infty]
+        \]
+        for $q\nmid 6$.~\cite[Thm. 3.6.2]{ohta:rational_torsion_2}
+    \item
+        When $p>3$,
+        \[
+            J_0(3p)(\QQ)[3^\infty] = C(3p)(\QQ)[3^\infty]
+        \]
+        unless $p\equiv 1 \pmod{9}$ and $3^{\frac{p-1}{3}} \equiv 1
+        \pmod{9}$.~\cite{yoo:rational}
+    \item
+        When $N$ is any positive integer,
+        \[
+            J_0(N)(\QQ)[q^\infty]=0
+        \]
+        for $q\nmid 6N\pi(N)$, where $\pi(N) = \prod_{p\mid N}
+        (p^2-1)$.~\cite[Thm. 1.2]{ren:rational}
+\end{enumerate}
+
+The original motivation of the rational torsion subgroup project is to compute
+the rational torsion subgroup for $J_0(N)$ for as many $N$'s as possible. The
+first $J_0(N)$ for which \Sage (Version 8.7) cannot compute is $J_0(30)$ which
+happens to be a product of 3 elliptic curves. The author and his advisor were
+able to compute the rational torsion subgroup using the fact that $J_0(30)$ is
+totally split, the fact that rational torsion subgroups of elliptic curves can
+be computed, and Galois cohomology.
+
+The goal of this project is to see how far we can push these techniques. In
+particular, we are able to provably enumerate the set of totally split $J_0(N)$
+(Theorem~\ref{thm:finite_totally_split}). There are 71 nontrivial $N$'s for
+which $J_0(N)$ is totally split. Of these 71 abelian varieties, there are 46
+$N$'s for which $J_0(N)$ has algebraic rank 0. We will be able to verify the
+Generalized Ogg Conjecture for all but $9$ abelian varieties. For those $9$
+abelian varieties, we are able to bound the discrepancy
+$[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2.
+
 
 \section{Rational isogeny class}%
 \label{sec:rational_isogeny_class}
 
-%TODO 
+By Faltings' isogeny theorem, the rational isogeny class of any abelian variety
+is finite. We would now like to be able to  enumerate the rational isogeny
+class of any modular abelian variety (Defintion~\ref{defn:modabvar}) within our
+computational framework (Chapter~\ref{chap:algorithms}). In particular, if $A$
+is a modular abelian variety, we wish to give a set of finite $G_\QQ$-subgroups
+of $A(\QQbar)$, $\{M_1,\ldots,M_r\}$ such that $\{A/M_1,\ldots,A/M_r\}$ is a
+set of pairwise non-isomorphic abelian varieties.
+
+The goal of enumerating the rational isogeny class of any modular abelian
+variety seems hopelessly difficult. We will need to take on a few hypothesis.
+In particular, when $A$ is a simple abelian subvariety of $J_0(N)$ with
+integrally closed Hecke algebra $\TT_A\subseteq \End(A)$, Frank Calegari had an
+idea to bound the images of isogenies supported only on the non-Eisenstein
+primes of odd-residue characteristic by the class group of $\TT_A$. So we will
+take on these hypothesis and attempt to enumerate the odd-degree isogeny class
+of $A$ when $\TT_A$ is integrally closed. From our computational experiments,
+when $\TT_A$ is integrally closed, the class group is often trivial so, in
+these cases, it remains the enumerate the Eisenstein isogenies. We then adapt
+the work of Krzysztof Klosin and Mihran Papikian to enumerate the isogenies
+supported on the Eisenstein primes of odd-residue characteristic.

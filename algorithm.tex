@@ -73,9 +73,9 @@ The computational tools presented in this chapter will be built on top of the
 theory of modular symbols. As mentioned in Section~\ref{sec:defining_data},
 modular symbols give a finite presentation of $H_1(J, \ZZ)$. For instance, a
 $\ZZ$-basis for $H_1(J_0(15), \ZZ)$ is given by the set of Manin symbols
-$\{(1,8), (1,9)\}$. We will not need to delve into the underlying theory of
-modular symbols and we will take it as a blackbox. We instead refer the reader
-to~\cite[\S 3]{stein:modform}.
+$\{(1,8), (1,9)\}$. For this thesis, we will not need to delve into the
+underlying theory of modular symbols and we will take it as a blackbox. We
+instead refer the reader to~\cite[\S 3, \S 8, \S 9]{stein:modform}.
 
 Similarly, the Hecke operators~\cite[\S 8.3]{stein:modform}, the degeneracy
 maps~\cite[\S 8.6]{stein:modform}, and the star involution~\cite[\S
@@ -85,7 +85,11 @@ on modular Jacobians.
 \section{Finite Subgroups}
 
 The goal of this section is to establish some background for computing with
-finite subgroups of modular abelian varieties.
+finite subgroups of modular abelian varieties. We begin by explaining how we
+will present the data of a finite subgroup. We then go over some basic
+arithmetic performed on finite subgroup. Lastly, we will discuss computing the
+cuspidal and Shimura subgroup which will be used extensively in the upcoming
+chapters.
 
 \subsection{Defining Data}
 
@@ -94,10 +98,11 @@ can be specified by giving a defining lattice $\mathcal{L}$ such that
 $\mathcal{L}/L = G$.
 
 Given 2 finite subgroups $G_1=(\mathcal{L}_1, A)$ and $G_2=(\mathcal{L}_2, A)$,
-a map $\phi: G_1\to G_2$ can be given as a map on the defining lattices.
+a map $\varphi: G_1\to G_2$ can be given as a map on the defining lattices.
 
 \subsection{Intersection of Finite Subgroups}
 \label{sec:finitegroup_intersection}
+
 Let $G=(\mathcal{L}_1, A)$ and $H=(\mathcal{L}_2, A)$ be finite subgroups of an
 modular abelian variety $A=(L, V, J)$. Let $\mathcal{L}_1 ' = \mathcal{L}_1+L$
 and $\mathcal{L}_2 ' = \mathcal{L}_2 + L$. Then the intersection $G\cap H$ is
@@ -182,26 +187,26 @@ morphisms between modular abelian varieties.
 \label{sub:defining_data}
 
 Let $A=(L, V, J)$ and $B=(L', V', J')$ be modular abelian varieties and
-$\Phi:A\to B$ a map of abelian varieties. Then $\Phi$ induces a map on rational
+$\varphi:A\to B$ a map of abelian varieties. Then $\varphi$ induces a map on rational
 homology and is also completely determined by the map on rational homology. So
-we will defined $\Phi:A\to B$ by giving $\Phi_V:V\to V'$. For brevity, we will
-use $\Phi$ to denote the maps on defining lattices, rational homology, and
+we will defined $\varphi:A\to B$ by giving $\varphi_V:V\to V'$. For brevity, we will
+use $\varphi$ to denote the maps on defining lattices, rational homology, and
 abelian varieties.
 
 \subsection{Kernel}%
 \label{sub:kernel}
 
-Let $\Phi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
-and $B=(L', V', J')$. Let $V_K=\ker \phi_V$ and $L_K=L\cap V_K$. Then the
-kernel $K$ of $\phi$ is the extension of the abelian variety $K^0 = (L_K, V_K,
-J)$ by the finite component group $\Phi^{-1}(L')/L$.
+Let $\varphi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
+and $B=(L', V', J')$. Let $V_K=\ker \varphi_V$ and $L_K=L\cap V_K$. Then the
+kernel $K$ of $\varphi$ is the extension of the abelian variety $K^0 = (L_K, V_K,
+J)$ by the finite component group $\varphi^{-1}(L')/L$.
 
 \subsection{Image}%
 \label{sub:image}
 
-Let $\Phi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
-and $B=(L', V', J')$. The image of $\Phi$ in $B$ is the abelian subvariety
-$\Phi(A)=(L'', \Phi(V), J')$, where $L''=\Phi(V)\cap L'$.
+Let $\varphi:A\to B$ be a morphism between modular abelian varieties $A=(L, V, J)$
+and $B=(L', V', J')$. The image of $\varphi$ in $B$ is the abelian subvariety
+$\varphi(A)=(L'', \varphi(V), J')$, where $L''=\varphi(V)\cap L'$.
 
 
 \subsection{Quotienting by finite subgroup}%
@@ -215,6 +220,37 @@ J)$ with kernel exactly $G$ given by the identity map on rational homology.
 
 \section{Decomposition and Verification of Abelian Subvarieties}
 \label{sec:decomp_verify}
+
+\begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
+    \label{alg:simple_degen}
+    Given a simple abelian subvariety $A$ of $J=J_H(N)$, this algorithm returns
+    a newform $f$ of level $L$, and an isogeny $\varphi:A_f ^\vee\to A$, where
+    $A_f ^\vee\subseteq J_H(L)$ is the optimal subvariety attached to $f$.
+    \begin{enumerate}
+        \item{} [Decompose $J$]
+            Use Algorithm~\ref{alg:decomp_J} to obtain the decomposition
+            $J=\sum_f V_f$, where the sum runs over newforms $f$ of level
+            dividing $N$ and $V_f$ is the sum of all abelian subvarieties of
+            $J_H(N)$ isogenous to $A_f$.
+        \item{} [Determine newform]
+            Find the newform $f$ of level $L$ so that $A\subseteq V_f$.
+        \item{} [Basis under degeneracy]
+            Let $\{b_1,\ldots,b_r\}$ be a $\ZZ$-basis for the defining lattice
+            of $A_f^\vee$ and $\{\delta_1,\ldots,\delta_s\}$ be the set of degeneracy
+            maps $\delta_j:J_H(L)\to J_H(N)$.
+        \item{} [Solve system]
+            Let $x$ be any nonzero element of the defining lattice of
+            $A_f^\vee$. Find $c_{ij}\in \QQ$ such that $x=\sum c_{ij}
+            d_j(b_i)$.
+        \item{} [Clear denominators]
+            Let $i', j'$ be such that $c_{i'j'}\neq 0$. Let
+            $(n_1,\ldots,n_s)\in \ZZ^s$ be the vector obtained by
+            clearing denominators from $(c_{i'1},\ldots,c_{i's})$.
+        \item{} [Output]
+            The desired isogeny is now given by $\varphi=\sum_{j=1} ^s n_j
+            \delta_j|_{A_f ^\vee}$.
+    \end{enumerate}
+\end{algorithm}
 
 Let $B$ be an abelian subvariety of $J$. The defining data of $B$ is given by
 $(L, V, J)$, where $V=H_1(B,\QQ)$ and $L = H_1(B, \ZZ)$. Since $L = V\cap
@@ -334,37 +370,6 @@ Let $A$ be a simple modular abelian variety isogenous to $A_f$, where $f$ is a
 newform of level $L$. The goal of this section is to explicitly give an isogeny
 from $A_f ^\vee\subseteq J_0(L)$ to $A$. 
 
-\begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
-    \label{alg:simple_degen}
-    Given a simple abelian subvariety $A$ of $J=J_H(N)$, this algorithm returns
-    a newform $f$ of level $L$, and an isogeny $\varphi:A_f ^\vee\to A$, where
-    $A_f ^\vee\subseteq J_H(L)$ is the optimal subvariety attached to $f$.
-    \begin{enumerate}
-        \item{} [Decompose $J$]
-            Use Algorithm~\ref{alg:decomp_J} to obtain the decomposition
-            $J=\sum_f V_f$, where the sum runs over newforms $f$ of level
-            dividing $N$ and $V_f$ is the sum of all abelian subvarieties of
-            $J_H(N)$ isogenous to $A_f$.
-        \item{} [Determine newform]
-            Find the newform $f$ of level $L$ so that $A\subseteq V_f$.
-        \item{} [Basis under degeneracy]
-            Let $\{b_1,\ldots,b_r\}$ be a $\ZZ$-basis for the defining lattice
-            of $A_f^\vee$ and $\{\delta_1,\ldots,\delta_s\}$ be the set of degeneracy
-            maps $\delta_j:J_H(L)\to J_H(N)$.
-        \item{} [Solve system]
-            Let $x$ be any nonzero element of the defining lattice of
-            $A_f^\vee$. Find $c_{ij}\in \QQ$ such that $x=\sum c_{ij}
-            d_j(b_i)$.
-        \item{} [Clear denominators]
-            Let $i', j'$ be such that $c_{i'j'}\neq 0$. Let
-            $(n_1,\ldots,n_s)\in \ZZ^s$ be the vector obtained by
-            clearing denominators from $(c_{i'1},\ldots,c_{i's})$.
-        \item{} [Output]
-            The desired isogeny is now given by $\varphi=\sum_{j=1} ^s n_j
-            \delta_j|_{A_f ^\vee}$.
-    \end{enumerate}
-\end{algorithm}
-
 % In the case of a elliptic curve subvariety $E$ of $J_0(N)$, we can also return
 % the Weierstrass equation for $E$. This is 
 
@@ -376,13 +381,13 @@ from $A_f ^\vee\subseteq J_0(L)$ to $A$.
 %         \item{}
 %             [Isogeny from optimal subvariety] Use
 %             Algorithm~\ref{alg:simple_degen} to find a newform $f$ of level
-%             $L$ and isogenies $\phi:A_f\to E$.
+%             $L$ and isogenies $\varphi:A_f\to E$.
 %         \item{}
 %             [Weierstrass of optimal subvariety] The Cremona tables contain the
 %             Weierstrass equations for optimal subvarieties of $J_0(L)$ so in
 %             particular, for $A_f$.
 %         \item{}
-%             [Kernel] Compute the kernel $M$ of $\phi$ and use the complex
+%             [Kernel] Compute the kernel $M$ of $\varphi$ and use the complex
 %             exponential map to identify $M$ as a set of points, $M'$ on the
 %             Weierstrass equation for $A_f$.
 %         \item{}
