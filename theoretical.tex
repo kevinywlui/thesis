@@ -1,6 +1,9 @@
 \chapter{Theoretical Preliminaries}%
 \label{chap:prelim}
 
+In this chapter, we will review some theoretical preliminaries needed for
+future chapters. 
+
 \section{Modular Abelian Varieties}
 
 In Chapter~\ref{chap:isogeny_class}, we will discuss enumerating the isogeny
@@ -10,7 +13,7 @@ class of abelian variety containing the subquotients of $J_0(N)$.
 \begin{definition}
     \label{defn:modabvar}
     Let $A$ be an abelian variety over $\QQ$. Then $A$ is \emph{modular} if
-    there exists some $N$ and a finite degree morphism $\phi:A\to J_1(N)$.
+    there exists some $N$ and a finite degree morphism $\varphi:A\to J_1(N)$.
 
     Note that modularity is closed under isogenies, subvarieties, and products.
 \end{definition}
@@ -20,47 +23,12 @@ $J_0(N)\to J_1(N)$. The kernel of this map, $\Sigma(N)$, is finite and is the
 Shimura subgroup of $J_0(N)$. Therefore, all abelian varieties isogenous to a
 simple subvariety of $J_0(N)$ are modular.
 
+\section{Old subvariety and degeneracy maps}
 
-% \section{Galois Representations}
-
-% \subsection{$\ell$-adic representation}%
-% \label{sub:_ell_adic_representation}
-
-% Let $B$ be a simple abelian variety over $\QQ$ with an embedding of a number
-% field $E$ into its endomorphism algebra $\End(B)\otimes \QQ$. By functoriality,
-% $E$ acts on the on the $\dim B$-dimensional vector space $\mathrm{Lie}(B)$.
-% Therefore, there is a divisibility bound $\deg E\mid \dim B$. The simple
-% abelian varieties that achieve this bound are called
-% \emph{$\GL_2$-type}~\cite[\S 2]{ribet:abvars}. To motivate this definition,
-% observe that $B[n]\cong (\ZZ/n)^{2\dim B}$ so $V_\ell(B)$ is a rank-2 $E\otimes
-% \QQ_\ell$-module. Therefore, the $G_\QQ$-action on $V_\ell(B)$ gives the
-% representation $G_\QQ\to \GL_2(E\otimes \QQ_\ell)$. More generally, we say an
-% abelian variety is \emph{$\GL_2$-type} if it is isogenous to a product of
-% simple $\GL_2$-type abelian varieties.
-
-% Modular abelian varieties provide a large class of examples of such varieties.
-% Let $f=\sum a_n q^n$ be a newform of $S_2(\Gamma_1(N))$ and
-% $K_f=\QQ(\ldots,a_n,\ldots)$ be the \emph{Hecke eigenvalue field} of $f$.
-% Shimura~\cite[Theorem 7.14]{shimura:intro} associates to $f$ an abelian variety
-% $A_f$ defined over $\QQ$ and an embedding of $K_f$ into the endomorphism
-% algebra $\End(A_f)\otimes \QQ$ with $\deg K_f = \dim A_f$.
-
-% This shows that every modular abelian varieties is of $\GL_2$-type so a natural
-% question is whether every $\GL_2$-type abelian variety is modular. Assuming Serre's
-% modularity conjecture~\cite[3.2.4]{serre:conjectures}, Ribet~\cite[Thm.
-% 4.4]{ribet:abvars} shows that the every $\GL_2$-type abelian variety is
-% modular. The Serre's modularity has now been proved~\cite{}, so
-% \begin{theorem}[Khare, Wintenberg]
-%     Every $\GL_2$-type abelian variety over $\QQ$ is modular.
-% \end{theorem}
-
-\section{Natural maps}%
-\label{sec:natural_maps}
-
-In this section, we will describe some common maps encountered in the study of
-modular abelian varieties. We will only give the theoretical description of
-these maps. An explicit description that is more readily used for computations
-will be described in Section~\ref{sec:alg_natural_maps}.
+The goal of this section is to prove Corollary~\ref{cor:elliptic_decomp} which
+gives a direct sum decomposition of certain abelian subvarieties of $J_0(N)$.
+This will be particularly useful for computing the rational torsion order of
+$J_0(N)$ as rational torsion order is multiplicative on direct sums.
 
 \subsection{Degeneracy Maps}%
 \label{sub:degeneracy_maps}
@@ -71,69 +39,33 @@ modular curves, forms, and Jacobians of level $L$ and $N$. For ease of
 exposition, we will present the $\Gamma_0(N)$ case. The same arguments
 generalize easily to $\Gamma_1(N)$.
 
-We first give the more algebraic construction. Recall that the non-cuspidal
+We give the more algebraic construction. Recall that the non-cuspidal
 points of $X_0(N)$ correspond to elliptic curves with some $N$-torsion data.
 The degeneracy map to $X_0(L)$ will forget some of this data. More precisely,
 on the non-cuspidal points
 \begin{equation}
     \label{eq:degen_moduli}
     \begin{split}
-        d_{L,t}: Y_0(N)  \to Y_0(L) \\
-        [ E, C_N ]       \mapsto [ E/C_t, C_L ' ],
+        \delta_t: Y_0(N)  \to Y_0(L) \\
+        [ E, G_N ]       \mapsto [ E/G_t, G_L ' ],
     \end{split}
 \end{equation}
-where $C_N$ is a cyclic subgroup of $E$ of order $N$, $C_t$ is the unique
-cyclic subgroup of $C_N$ of order $t$, and $C_L '\subseteq C_N/C_t$ is the
-unique subgroup of order $L$. By~\cite[Chap. 1, Prop. 6.8]{hartshorne},
-$d_{L,t}$ extends uniquely to a map (which we give the same name). By Pic and
-Alb functoriality, this induces the maps $d_{L,t} ^*:J_0(L)\to J_0(N)$, $d_{L,
-t*} :J_0(N)\to J_0(L)$, respectively.
-
-There is a more complex-analytic construction. Here we will view the
-non-cuspidal points of $X_0(N)$ as $\Gamma_0(N)\setminus \h$. Under this
-interpretation, \eqref{eq:degen_moduli} becomes
-\begin{equation}
-    \label{eq:degen_analytic}
-    \begin{split}
-        d_{L,t}: \Gamma_0(N)\setminus \h \to \Gamma_0(L)\setminus \h \\
-        \Gamma_0(N)z\mapsto \Gamma_0(L) tz.
-    \end{split}
-\end{equation}
-
-There is both a contravariant (Picard) and covariant (Albanese) construction of
-the Jacobian. Consequently, we have the following diagram
-\[
-    here is a diagram.
-\]
-The bottom map is $p+1$ because of this!! %TODO
-
-% TODO
-% \subsection{Hecke operators}%
-% \label{sub:hecke_operators}
-
-% The Hecke operators are given by this thing.
-
-\subsection{Endomorphism Ring}
-
-Let $A$ be a simple abelian variety so $A\sim A_f$ for some newform $f=\sum
-a_n q^n$. Let $K_f=\QQ(\ldots,a_n,\ldots)$ be the Hecke eigenvalue field of
-$f$. By~\cite[Prop. 7.14]{shimura:intro}, the endomorphism algebra
-$\End(A_f)\otimes \QQ$ is isomorphic to $K_f$ and is generated as a
-$\QQ$-vector space by the Hecke operators. It follows that both the
-endomorphism ring and the Hecke algebra of $A_f$ are isomorphic to orders of
-$K_f$. Since $A\sim A_f$, the endomorphism ring of $A$ is also isomorphic to an
-order of $K_f$.
-
+where $G_N$ is a cyclic subgroup of $E$ of order $N$, $G_t$ is the unique
+cyclic subgroup of $G_N$ of order $t$, and $G_L '\subseteq G_N/G_t$ is the
+unique subgroup of order $L$. By~\cite[Ghap. 1, Prop. 6.8]{hartshorne},
+$\delta_t$ extends uniquely to a map (which we give the same name). By Pic
+and Alb functoriality, this induces the maps $\delta_t ^*:J_0(L)\to
+J_0(N)$, $\delta_{t*} :J_0(N)\to J_0(L)$, respectively.
 
 \subsection{Optimal Elliptic Curves}%
 \label{sub:optimal_elliptic_curves}
 
 Let $E$ be an elliptic curve of conductor $N$. By the Modularity Theorem for
 elliptic curves~\cite{breuil-conrad-diamond-taylor}. There exists a surjection
-$\phi:J_0(N)\onto E$. In general, $\ker\phi$ is not connected. There does
-$\phi':J_0(N)\onto E'$ with $E'$ isogenous to $E$ so that $\ker\phi'$ is
-connected. By multiplicity one, this $E'$ is unique in its isogeny
-class. This leads to the definition of optimal quotients.
+$\varphi:J_0(N)\onto E$. In general, $\ker\varphi$ is not connected. There does
+$\varphi':J_0(N)\onto E'$ with $E'$ isogenous to $E$ so that $\ker\varphi'$ is
+connected. By multiplicity one, this $E'$ is unique in its isogeny class. This
+leads to the definition of optimal quotients.
 
 \begin{definition}%
     \label{defn:optimal_quotient}
@@ -178,6 +110,17 @@ split because both elliptic curves and Jacobians are self-dual.
     kernel $C^\vee$.
 \end{proof}
 
+In particular, if $f$ is a newform of level $N$, then there is an optimal
+quotient $A_f$ of $J_0(N)$ attached to $f$. By dualizing, we obtain an abelian
+subvariety $A_f ^\vee\subseteq J_0(N)$. We call this the \emph{optimal abelian
+subvariety} attached to $f$.
+\begin{definition}
+    \label{defn:optimal_subvariety}
+    Let $f$ be a newform of level $N$ and $A_f$ be the optimal quotient of
+    $J_0(N)$ attached to $f$. We call $A_f^\vee\subseteq J_0(N)$, the
+    \emph{optimal abelian subvariety} attached to $f$.
+\end{definition}
+
 Using the machinery of modular symbols, Cremona has created large databases of
 elliptic curves and their invariants, including the $J_0(N)$-optimal curve in
 each isogeny class. In this database, the curves are labeled $NXT$, where $N$
@@ -199,13 +142,12 @@ isogeny classes of prime conductor. Vatsal~\cite[Thm.
 containing an elliptic curve $E$ such that for some prime $\ell\geq 7$,
 $E[\ell]$ is reducible and $E$ is ordinary at $\ell$.
 
-\section{Old subvariety}%
-\label{sec:old_subvariety}
+\subsection{Old subvariety}%
+\label{sub:old_subvariety}
 
 Let $L$ be a proper divisor of $N$ and $t_1,\ldots,t_r$ be divisors of $N/L$ in
-some order. For each divisor $t_i$, the degeneracy map
-(\ref{sub:degeneracy_maps} $\delta_i$ gives an
-embedding $\delta_{i} ^*:J_0(L)\to J_0(N)$. We now gather all the degeneracy
+any order. For each divisor $t_i$, the degeneracy maps give a finite-degree
+morphism $\delta_{t_i} ^*:J_0(L)\to J_0(N)$. We now gather all the degeneracy
 maps coming from $J_0(N)$ to define
 \[
     \Phi_L ^N = \prod_{i=1} ^r \delta_{t_i} ^* : J_0(L)^r \to J_0(N).
@@ -215,34 +157,34 @@ The \emph{old subvariety} of $J_0(N)$ is $\sum_{L\mid N} \Im\Phi_L ^N$ and the
 
 There is a strong relationship between $\ker \Phi_L ^N$ and
 \[
-    \Sigma(L)_0 ^r =\{(x_1,\ldots,x_r)\in \Sigma(L)^r: \sum x_i = 0\}.
+    (\Sigma_L)_0 ^r =\{(x_1,\ldots,x_r)\in \Sigma_L ^r: \sum x_i = 0\}.
 \]
 Because degeneracy maps agree on the Shimura subgroup~\cite[Theorem
-4]{ling-oesterle:shimura}, $\Sigma(L)_0 ^r \subseteq \ker\Phi_L ^N$. The reverse
-equality was established by Ribet when $M$ a prime coprime to $L$ and was
-generalized by Ling to:
+4]{ling-oesterle:shimura}, $(\Sigma_L)_0 ^r \subseteq \ker\Phi_L ^N$. The
+reverse equality was established by Ribet when $M$ a prime coprime to $L$ and
+was generalized by Ling to:
 \begin{theorem}[{\cite[Prop. 1]{ribet:raising}\cite[Thm. 3]{ling:shimura}}]
     \label{thm:ribet-ling}
     Let $L$ and $M$ be relatively prime integers with $M$ squarefree. Let
     \[
-        \Phi_L ^N = \prod_{i=1} ^r d_{L,t_i} ^* : J_0(L)^r \to J_0(LM)
+        \Phi_L ^N = \prod_{i=1} ^r d_{t_i} ^* : J_0(L)^r \to J_0(LM)
     \]
     be as defined above. Then
     \begin{enumerate}
         \item
-            If $L$ is odd or $M$ is prime, then $\Sigma(L)_0 ^r=\ker\Phi_L ^N$.
+            If $L$ is odd or $M$ is prime, then $(\Sigma_L)_0 ^r=\ker\Phi_L ^N$.
         \item
             If $L$ is even and $M$ is not a prime, then $[\ker\Phi_L ^N:
-            \Sigma(L)_0 ^r]$ is a power of 2.
+            (\Sigma_L)_0 ^r]$ is a power of 2.
     \end{enumerate}
 \end{theorem}
 
-However, when $\ker\Phi_L ^N = \Sigma(L)_0 ^r$, there is an useful direct sum
+However, when $\ker\Phi_L ^N = (\Sigma_L)_0 ^r$, there is an useful direct sum
 decomposition of $\Im\Phi_L ^N$, especially when $J_0(L)$ is an elliptic curve.
 
 \begin{corollary}
     \label{cor:elliptic_decomp}
-    Suppose that $\ker\Phi_L ^N = \Sigma(L)_0 ^r$ and $E=J_0(L)$ is an elliptic
+    Suppose that $\ker\Phi_L ^N = (\Sigma_L)_0 ^r$ and $E=J_0(L)$ is an elliptic
     curve. Then there is a $\QQ$-isomorphism
     \[
         \Im\Phi_L ^N \cong E \times F^{r-1},
@@ -264,9 +206,9 @@ the BSD invariants of the elliptic curves $E$ and $F$.
 
 \begin{proposition}
     \label{prop:decomp}
-    Suppose $\ker\Phi_L ^N=\Sigma(L)_0 ^r$. Then there is a $\QQ$-isomorphism
+    Suppose $\ker\Phi_L ^N=(\Sigma_L)_0 ^r$. Then there is a $\QQ$-isomorphism
     \[
-        \Im\Phi_L ^N \cong J_0(L)\times \Im(J_0(L)\to J_1(L))^r.
+        \Im\Phi_L ^N \cong J_0(L)\times \Im(J_0(L)\to J_1(L))^{r-1}.
     \]
 \end{proposition}
 \begin{proof}
@@ -275,8 +217,8 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     \[
         D_i =
         \begin{cases}
-            \delta_i                    & \text{if } i = 1\\
-            \delta_i - m_i \delta_{i-1} & \text{if } 2\leq i \leq r.
+            \delta_i ^*                   & \text{if } i = 1\\
+            \delta_i ^* - m_i \delta_{i-1} ^* & \text{if } 2\leq i \leq r.
         \end{cases}
     \]
     We first show $\Im\Phi_L ^N = \bigoplus_{i=1} ^r \Im D_i$.
@@ -314,7 +256,7 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     This implies that $y_1=0$ so $D_1(y_1)=0$. Moreover, for $i=2,\ldots,r$,
     \begin{equation*}
         D_i(y_i)
-            = \delta_{i-1}(-y_i) + \delta_i (y_i)
+            = \delta_{i-1} ^*(-y_i) + \delta_i ^* (y_i)
             = \Phi_L ^N (0,\ldots,0,-y_i,y_i,0,\ldots,0)
             = 0,
     \end{equation*}
@@ -323,23 +265,70 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     in~\eqref{eq:phiLprime} are trivial so $\sum \Im D_i$ is direct.
 
     It remains to show $D_1(J_0(L))\cong J_0(L)$ and $D_i(J_0(L))\cong
-    \Im(J_0(L)\to J_1(L))$ for $i\geq 2$. Notice that
-    $D_1(x)=\Phi_L ^N(x,0,\ldots,0)$ and $D_i(x)=\Phi_L ^N(\ldots,-m_ix,x,\ldots)$.
-    Since $\ker\Phi_L ^N=\Sigma(L)_0 ^r$, $\ker D_1=0$ and $\ker D_i=\Sigma(L)$
-    for $i\geq 2$, as desired.
+    \Im(J_0(L)\to J_1(L))$ for $i\geq 2$. Notice that $D_1(x)=\Phi_L
+    ^N(x,0,\ldots,0)$ and $D_i(x)=\Phi_L ^N(\ldots,-m_ix,x,\ldots)$. Since
+    $\ker\Phi_L ^N=\Sigma(L)_0 ^r$, $\ker D_1=0$ and $\ker D_i=\Sigma(L)$ for
+    $i\geq 2$, as desired.
 \end{proof}
 
+\section{Subvarieties of $J_0(N)$}%
+\label{sec:subvarieties_of_j_0_n_}
+
+In this section, we will prove that every simple abelian subvariety of $J_0(N)$
+is the image of degeneracy map and discuss some interesting questions arising
+from this. This fact will be extensively used in the decomposition algorithms
+of Chapter~\ref{chap:algorithms}
+
+\begin{proposition}
+    \label{prop:integral_degen}
+    Let $A$ be a simple abelian subvariety of $J_0(N)$. There exists a divisor
+    $L$ of $N$ and a newform $f$ of level $L$ such that $A_f \sim A$. Let
+    $\delta_1 ^*,\ldots,\delta_r ^*$ be the full collection of degeneracy maps
+    from $J_0(L)$ to $J_0(N)$. Then there exists integers $n_1,\ldots,n_r$ such
+    that $S:=\sum n_i \delta_i ^*|_{A_f ^\vee}: A_f^\vee\to A$ is an isogeny
+    from $A_f^\vee$ to $A$. Note that $S$ is defined over $\QQ$.
+\end{proposition}
+\begin{proof}
+    Let $V_f=\sum_{i=1} ^r \delta_i(A_f ^\vee)$ and $\Phi:(A_f ^\vee)^r \to
+    V_f$ be defined by $\Phi(x_1,\ldots,x_r) = \delta_1 ^*(x_1)+\cdots+\delta_r
+    ^*(x_r)$. Let $K_f$ be the Fourier coefficient field of $f$. Since $A$ is
+    an abelian subvariety of $V_f$, there exists $M\in \End(V)\otimes \QQ \cong
+    M_{r\times r}(\End(A_f ^\vee)\otimes\QQ) = M_{r\times r} (K_f)$ such that
+    $\Im M = A$. Let $i:A_f ^\vee\to (A_f ^\vee)^r$ be the inclusion map into
+    the first coordinate. Then there exists $U\in \Aut((A_f ^\vee)^r)=\GL_r
+    (K_f)$ such that,
+    \[
+        \begin{tikzcd}
+            A_f ^\vee\arrow[r,"i"] &
+            (A_f ^\vee)^r \arrow[r, dotted, "U"] &
+            (A_f ^\vee) ^r \arrow[r, "D"] &
+            V_f \arrow[r, "M"] &
+            A,
+        \end{tikzcd}
+    \]
+    the map $T:=M \circ \Phi \circ U\circ i:A_f ^\vee\to A\in \Hom_0(A_f, A)$
+    is nonzero. Since degeneracy maps are $K_f$-linear, there exists
+    coefficients $a_1,\ldots,a_r\in K_f$ such that $T = \sum a_i \delta_i ^*$.
+    Now there exists $b\in \ZZ^*$ such that $T':=bT\in \Hom(A_f ^\vee, A)$ is
+    nonzero and hence an isogeny. As complex tori, $A_f\isom \CC^n/\Lambda_{A_f
+    ^\vee}$ and $A\isom \CC^n/\Lambda_A$. Since $T'(\Lambda_{A_f ^\vee})\subset
+    \Lambda_A$, $T'=\sum q_i \delta_i ^*$ for $q_i\in \QQ$. Finally, there
+    exists $w\in \ZZ^*$ such that $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
+\end{proof}
 
 \section{Connectedness of Hecke Algebra}%
 \label{sec:connectedness_of_hecke_algebra}
 
 Mazur~\cite[Prop. 10.6]{mazur:eisenstein} proves that the Hecke Algebra
-$\TT(N)$ for $J_0(N)$ with $N$ prime is connected. This was done by showing any
+$\TT$ for $J_0(N)$ with $N$ prime is connected. This was done by showing any
 direct product decomposition of $J_0(N)$ with $N$ prime contradicts the
 irreducibility of the $\theta$-divisor. This was surprising to the author
 as~\ref{cor:elliptic_decomp} gives a direct sum decomposition of $J_0(22)$. In
 this section, we dissect Mazur's proof and give a mild generalization.
 Moreover, we will explain why Mazur's argument fails in the composite case.
+
+In this section, let $V_A$ be the sum of all abelian subvarieties of $J_0(N)$
+isogenous to $A$. Let $V_f=V_{A_f}$.
 
 \subsection{General results for semistable Jacobians}
 
@@ -377,9 +366,9 @@ fact freely and will make no reference to the field of definition.
 \begin{lemma}
     \label{lem:faithful}
     Let $R$ be a ring acting faithfully on $J$. Let $S=\{A_1,\ldots,A_k\}$ be a
-    set of representatives of the isogeny class of subvarieties of $J$.
-    Suppose that for all $A\in S$, and every idempotent $r\in R$, either
-    $rV_A=0$ or $rV_A=V_A$. Then $\Spec R$ is connected.
+    set of representatives of the isogeny class of subvarieties of $J$. Suppose
+    that for all $A\in S$, and every idempotent $r\in R$, either $rV_A=0$ or
+    $rV_A=V_A$. Then $\Spec R$ is connected.
 \end{lemma}
 \begin{proof}
     Recall that $\Spec R$ is connected if and only if $R$ contains an
@@ -401,7 +390,7 @@ fact freely and will make no reference to the field of definition.
     Lemma~\ref{lem:decomp_isogeny}.
 \end{proof}
 
-\subsection{Application to modular abelian varieties}
+\subsection{Application to $J_0(N)$}
 
 The goal now is to apply Lemma~\ref{lem:faithful} to the case of semistable
 $J$ and subrings of the Hecke algebra $\TT$. Recall that the action of the
@@ -420,14 +409,19 @@ Hecke algebra on $J$ is faithful.
     connected.
 \end{proposition}
 \begin{proof}
-    By Lemma~\ref{lem:faithful}, it suffices to show that for any newform
-    $f$, and $r\in \TT'$, $rV_f=V_f$ or $rV_f=0$. Fix a newform $f$ of level
-    $L$ and $r\in \TT'$. We now abuse notation by overloading $T_\ell$ and $r$
-    as operators on $A_f$, $A_f^s$, and $J$. In the Formulaire section
-    of~\cite{ribet:old}, for $\ell\nmid N$, $T_\ell\circ \phi=\phi\circ T_\ell$
-    when $N$ is prime. However, this is also true with $N$ squarefree since
-    $T_\ell$ commutes with the pushforward and pullback of any degeneracy map
-    $\delta_d$ with $d\mid N$. So for any prime $\ell\nmid N$,
+    By Lemma~\ref{lem:faithful}, it suffices to show that for any newform $f$,
+    and $r\in \TT'$, $rV_{A_f}=V_{A_f}$ or $rV_{A_f}=0$. Fix a newform $f$ of
+    level $L$ and $r\in \TT'$. Let $s$ be the number of divisors of $N/L$. We
+    now abuse notation by overloading $T_\ell$ and $r$ as operators on $A_f
+    ^\vee$, $(A_f ^\vee)^s$, and $J$. Following the notation
+    of~\ref{sub:old_subvariety}, let $\Phi_f = (\Phi_L ^N) |_{(A_f ^\vee)^s}:
+    (A_f ^vee)^s \to J_0(N)$.
+
+    In the Formulaire section of~\cite{ribet:old}, for $\ell\nmid N$,
+    $T_\ell\circ \phi=\phi\circ T_\ell$ when $N$ is prime. However, this is
+    also true with $N$ squarefree since $T_\ell$ commutes with the pushforward
+    and pullback of any degeneracy map $\delta_d ^*$ with $d\mid N$. So for any
+    prime $\ell\nmid N$,
     \[
         T_\ell(\Phi_f(x_1,\ldots,x_s))
         = \Phi_f(T_\ell(x_1),\ldots,T_\ell(x_s)).
@@ -439,10 +433,10 @@ Hecke algebra on $J$ is faithful.
     \]
     Therefore,
     \[
-        rV_f = r(\Phi_f(A_f)) = \Phi_f(rA_f,\ldots,rA_f)
+        rV_f = r(\Phi_f(A_f ^\vee)) = \Phi_f(rA_f^\vee,\ldots,rA_f^\vee)
     \]
-    but $A_f$ is simple so either $rA_f=A_f$ or $rA_f=0$. Therefore, by
-    Lemma~\ref{lem:faithful}, $\Spec\TT'$ is connected.
+    but $A_f ^\vee$ is simple so either $rA_f ^\vee=A_f ^\vee$ or $rA_f
+    ^\vee=0$. Therefore, by Lemma~\ref{lem:faithful}, $\Spec\TT'$ is connected.
 \end{proof}
 
 \begin{example}
@@ -450,7 +444,8 @@ Hecke algebra on $J$ is faithful.
     gives is essentially the same as
     Proposition~\ref{prop:new_jacobian_connected}. We see that this fails for
     $J=J_0(22)$ since $J=d_1(J_0(11))+d_2(J_0(11))$ so the factors appear with
-    multiplicity greater than 1.
+    multiplicity greater than 1. So one of the key difference is the
+    multiplicities in which the simple factors appear.
 
     Using \sage, we can show that the Hecke algebra of $J_0(22)$ is isomorphic
     to $\ZZ[i]$ and is thus connected. On the other hand,
@@ -459,87 +454,56 @@ Hecke algebra on $J$ is faithful.
 \end{example}
 
 
-\section{Subvarieties of $J_0(N)$}%
-\label{sec:subvarieties_of_j_0_n_}
+% \begin{proposition}
+%     \label{prop:star_eisenstein}
+%     Suppose $(L, N)$ satisfies the $\star$-condition. Then $\ker S\subseteq
+%     \Sigma(L)$. In particular, this isogeny is Eisenstein.
+% \end{proposition}
+% \begin{proof}
+%     Suppose $x\in \ker S$. Then $(n_1 x, \ldots, n_r x)\in \ker\Phi_L ^N =
+%     \Sigma(L)_0 ^r$. Hence, $n_i x\in \Sigma(L)$ for all $i$. Since
+%     $\gcd(n_1,\ldots,n_r)=1$, $x\in \Sigma(L)$.
+% \end{proof}
 
-In this section, we will prove that every abelian subvariety of $J_0(N)$ is the
-image of degeneracy map and discuss some interesting questions arising from
-this.
+% \begin{question}
+%     \label{question:iso}
+%     Let $A$ be a simple subvariety of $J_0(N)$ for some $N$. Let $\mathcal{I}$
+%     be the isogeny class of $A$. For all $B\in \mathcal{I}$, is $B$ a
+%     subvariety of $J_0(M)$ for some $M$?
+% \end{question}
 
-\begin{proposition}
-    \label{prop:integral_degen}
-    Let $A$ be a simple subvariety of $J_0(N)$. There exists a divisor $L$ of
-    $N$ and a newform $f$ of level $L$ such that $A_f \sim A$. Let
-    $d_1,\ldots,d_r$ be the full collection of degeneracy maps from $J_0(L)$ to
-    $J_0(N)$. Then there exists integers $n_1,\ldots,n_r$ such that $S:=\sum
-    n_i d_i|_{A_f}: A_f\to A$ is an isogeny from $A_f$ to $A$. Note that $S$ is
-    defined over $\QQ$.
-\end{proposition}
-\begin{proof}
-    Let $V_f=\sum_{i=1} ^r d_i(A_f)$ and $\Phi:A_f ^r \to V_f$ be defined by
-    $D(x_1,\ldots,x_r) = d_1(x_1)+\cdots+d_r(x_r)$. Let $K_f$ be the Fourier
-    coefficient field of $f$. Since $A$ is an abelian subvariety of $V_f$, there
-    exists $M\in \End_0(V)\cong M_r(\End_0(A_f)) = M_r (K_f)$ such that $\Im M
-    = A$. Let $i:A_f\to A_f ^r$ be the inclusion map into the first coordinate.
-    Then there exists $U\in \Aut(A_f ^r)=\GL_r (K_f)$ such that,
-    \[
-        \begin{tikzcd}
-            A_f \arrow[r,"i"] &
-            A_f ^r \arrow[r, dotted, "U"] &
-            A_f ^r \arrow[r, "D"] &
-            V_f \arrow[r, "M"] &
-            A,
-        \end{tikzcd}
-    \]
-    the map $T:=M \circ \Phi \circ U\circ i:A_f\to A\in \Hom_0(A_f, A)$ is
-    nonzero. Since degeneracy maps are $K_f$-linear, there exists coefficients
-    $a_1,\ldots,a_r\in K_f$ such that $T = \sum a_i d_i$. Now there exists
-    $b\in \ZZ^*$ such that $T':=bT\in \Hom(A_f, A)$ is nonzero and hence an
-    isogeny. Since $T'(\Lambda_{A_f})\subset \Lambda_A$, $T'=\sum q_i d_i$
-    for $q_i\in \QQ$. Finally, there exists $w\in \ZZ^*$ such that
-    $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
-\end{proof}
+% \begin{example}
+%     Suppose $I$ is a Neumann-Setzer isogeny class of elliptic curves of
+%     conductor $p$. Then there are exactly 2 elliptic curves $E_0$ and $E_1$,
+%     where $E_0$ is $J_0(p)$-optimal and $E_1$ is $J_1(p)$-optimal
+%     (Stein-Watkins). Viewing $E_0$ as a subvariety of $J_0(p)$ and taking $q$
+%     to be a prime distinct from $p$, we have
+%     \[
+%         E_1 \isom \Im (d_1-d_q)(E_0)\subseteq J_0(pq),
+%     \]
+%     where $d_1, d_q:J_0(p)\to J_0(pq)$ are the natural degeneracy maps. This
+%     gives an affirmative answer to Question~\ref{question:iso} in the
+%     Neumann-Setzer isogeny class case.
+% \end{example}
 
 
-\begin{proposition}
-    \label{prop:star_eisenstein}
-    Suppose $(L, N)$ satisfies the $\star$-condition. Then $\ker S\subseteq
-    \Sigma(L)$. In particular, this isogeny is Eisenstein.
-\end{proposition}
-\begin{proof}
-    Suppose $x\in \ker S$. Then $(n_1 x, \ldots, n_r x)\in \ker\Phi_L ^N =
-    \Sigma(L)_0 ^r$. Hence, $n_i x\in \Sigma(L)$ for all $i$. Since
-    $\gcd(n_1,\ldots,n_r)=1$, $x\in \Sigma(L)$.
-\end{proof}
+% \begin{question}
+%     Let $M$ be a $\Gal(\QQbar/\QQ)$-submodule of $J_0(L)$. Does there exists
+%     $N$ and an integral linear combination of degeneracy maps $S:=\sum n_i d_i$
+%     such that $\ker S=M$?
+% \end{question}
 
-\begin{question}
-    \label{question:iso}
-    Let $A$ be a simple subvariety of $J_0(N)$ for some $N$. Let $\mathcal{I}$
-    be the isogeny class of $A$. For all $B\in \mathcal{I}$, is $B$ a
-    subvariety of $J_0(M)$ for some $M$?
-\end{question}
+% \begin{question}
+%     Is $\ker S$ always Eisenstein? This is true under the $\star$-condition.
+% \end{question}
 
-\begin{example}
-    Suppose $I$ is a Neumann-Setzer isogeny class of elliptic curves of
-    conductor $p$. Then there are exactly 2 elliptic curves $E_0$ and $E_1$,
-    where $E_0$ is $J_0(p)$-optimal and $E_1$ is $J_1(p)$-optimal
-    (Stein-Watkins). Viewing $E_0$ as a subvariety of $J_0(p)$ and taking $q$
-    to be a prime distinct from $p$, we have
-    \[
-        E_1 \isom \Im (d_1-d_q)(E_0)\subseteq J_0(pq),
-    \]
-    where $d_1, d_q:J_0(p)\to J_0(pq)$ are the natural degeneracy maps. This
-    gives an affirmative answer to Question~\ref{question:iso} in the
-    Neumann-Setzer isogeny class case.
-\end{example}
+% \subsection{Endomorphism Ring}
 
-
-\begin{question}
-    Let $M$ be a $\Gal(\QQbar/\QQ)$-submodule of $J_0(L)$. Does there exists
-    $N$ and an integral linear combination of degeneracy maps $S:=\sum n_i d_i$
-    such that $\ker S=M$?
-\end{question}
-
-\begin{question}
-    Is $\ker S$ always Eisenstein? This is true under the $\star$-condition.
-\end{question}
+% Let $A$ be a simple abelian variety so $A\sim A_f$ for some newform $f=\sum
+% a_n q^n$. Let $K_f=\QQ(\ldots,a_n,\ldots)$ be the Hecke eigenvalue field of
+% $f$. By~\cite[Prop. 7.14]{shimura:intro}, the endomorphism algebra
+% $\End(A_f)\otimes \QQ$ is isomorphic to $K_f$ and is generated as a
+% $\QQ$-vector space by the Hecke operators. It follows that both the
+% endomorphism ring and the Hecke algebra of $A_f$ are isomorphic to orders of
+% $K_f$. Since $A\sim A_f$, the endomorphism ring of $A$ is also isomorphic to an
+% order of $K_f$.

@@ -66,6 +66,11 @@ for some $N$, $V\subseteq H_1(J, \QQ)$, $L$ a lattice containing $V\cap H_1(J,
 \ZZ)$. Since the $\QQ$-span of $L$ is $V$, $V$ can be recovered from $L$ so $A$
 can also be specified by $(L, J)$, denote $A\sim (L, J)$.
 
+In this Chapter, it'll be convenient to allow other Jacobian besides $J_1(N)$.
+If $H$ is congruence subgroup with $\Gamma_1(N)\subseteq H\subseteq
+\Gamma_0(N)$, we will denote $\Jac(X_H(N))$ by $J_H(N)$. For the purposes of
+this thesis, we usually take $J_H(N)$ to mean $J_0(N)$ or $J_1(N)$.
+
 \section{Modular Symbols}
 \label{sec:modular_symbols}
 
@@ -117,40 +122,42 @@ $A=(L, V, J)$. The sum is given by $G+H=(\mathcal{L}_1 + \mathcal{L}_2+L, A)$.
 \subsection{Quotients of Finite Subgroups}
 
 Let $G=(\mathcal{L}_1, A)$ and $H=(\mathcal{L}_2, A)$ be finite subgroups of
-$A=(L, V, J)$ with $H\set G$ so $\mathcal{L}_2\set \mathcal{L}_1$. The quotient
-is given by $G/H=(\mathcal{L}_1/\mathcal{L}_2, A/H)$, where the computation of
-$A/H$ is given in Section~\ref{sec:quotients}.
+$A=(L, V, J)$ with $H\subseteq G$ so $\mathcal{L}_2\subseteq \mathcal{L}_1$.
+The quotient is given by $G/H=(\mathcal{L}_1/\mathcal{L}_2, A/H)$, where the
+computation of $A/H$ is given in
+Section~\ref{sub:quotienting_by_finite_subgroup}.
 
 \subsection{Cuspidal subgroup and rational cuspidal subgroup}%
 \label{sub:cuspidal}
 
 In this section, we will review the computation of the cuspidal and rational
-cuspidal subgroups. More precisely, we %lattice
+cuspidal subgroups. 
 
-The Generalized Ogg Conjecture states that the rational
-cuspidal subgroup of $J_0(N)$ is equal to $J_0(N)(\QQ)_\tor$. Consequently, the
-computation of the rational cuspidal subgroup will be a crucial input to
-Chapter~\ref{chap:totally_split} where we attempt to verify the Generalized Ogg
-Conjecture for totally split $J_0(N)$. Moreover, along with the Shimura
-subgroup (Section~\ref{sec:shimura_subgroup}), when $N$ is prime, the cuspidal
-subgroup will be cyclic Galois subgroups of $J_0(N)(\QQbar)_\tor$ and will
-hence correspond to nontrivial isogenies. This idea will be applied in
-Chapter~\ref{chap:isogeny_class}, where we attempt to enumerate the odd-degree
-isogeny of simple subvarieties of $J_0(N)$ for $N$ prime.
+% The Generalized Ogg Conjecture states that the rational
+% cuspidal subgroup of $J_0(N)$ is equal to $J_0(N)(\QQ)_\tor$. Consequently, the
+% computation of the rational cuspidal subgroup will be a crucial input to
+% Chapter~\ref{chap:totally_split} where we attempt to verify the Generalized Ogg
+% Conjecture for totally split $J_0(N)$. Moreover, along with the Shimura
+% subgroup (Section~\ref{sec:shimura_subgroup}), when $N$ is prime, the cuspidal
+% subgroup will be cyclic Galois subgroups of $J_0(N)(\QQbar)_\tor$ and will
+% hence correspond to nontrivial isogenies. This idea will be applied in
+% Chapter~\ref{chap:isogeny_class}, where we attempt to enumerate the odd-degree
+% isogeny of simple subvarieties of $J_0(N)$ for $N$ prime.
 
 The cusps of $X_H(N)$ are the equivalence classes of $\P^1(\QQ)$ under
 $\Gamma_H(N)$. We will denote the elements by $[x/y]_{\Gamma_H(N)}$. The
-\defn{cuspidal subgroup} $C$ of $J$ is the subgroup of degree-0 divisors
+\defn{cuspidal subgroup} $C_N$ of $J_H(N)$ is the subgroup of degree-0 divisors
 $(\alpha)-(\beta)$ where $\alpha, \beta$ are cusps on $J$. More generally, if
 $A=(L, V, J)$ is a modular abelian variety that is the quotient of $B$ by $L$.
-Then the cuspidal subgroup of $A$ is defined to be $(C\cap B)/L$, where $C$ is
-the cuspidal subgroup of $J$.
+Then the cuspidal subgroup of $A$ is defined to be $(C_N\cap B)/L$, where $C_N$ is
+the cuspidal subgroup of $J_H(N)$.
 
-% TODO: explain how to compute cuspidal subgroup
-The Galois structure of the cuspidal subgroup is well-understood~\cite[\S
-1.3]{stevens:thesis}. The points of the cuspidal subgroup are
-$\QQ(\mu_N)$-rational under the following Galois action. There is an abstract
-group homomorphism $\Gal(\QQ(\mu_N)/\QQ)\cong \ZZ/N\ZZ)^*$, let
+The computational of $C_N$ is given in~\cite[\S 3.8]{stein:phd} and we will now
+discuss the computation of the rational cuspidal subgroup. The Galois structure
+of the cuspidal subgroup is well-understood~\cite[\S 1.3]{stevens:thesis}. The
+points of the cuspidal subgroup are $\QQ(\mu_N)$-rational under the following
+Galois action. There is an abstract group homomorphism
+$\Gal(\QQ(\mu_N)/\QQ)\cong \ZZ/N\ZZ)^*$, let
 \[
     \sigma_d\in \Gal(\Q(\mu_N)/\Q):\mu_N\mapsto \mu_N ^d
 \]
@@ -159,23 +166,25 @@ then
     \sigma_d([x/y]_{\Gamma_1})=[x/d'y]_{\Gamma_1},
 \]
 where $dd'\equiv 1 \mod{N}$. This explicit description of the Galois action
-\emph{rational cuspidal subgroup} $C(\QQ):=C^{\Gal(\QQ(\mu)/\QQ)}$.
+\emph{rational cuspidal subgroup} $C_N:=C_N ^{\Gal(\QQ(\mu)/\QQ)}$.
 
 \subsection{Shimura subgroup}%
 \label{sub:shimura}
 
 In this section, we will explain how to compute the Shimura subgroup of
-$J_0(N)$. The \defn{Shimura subgroup}, $\Sigma(N)$, is the kernel of the
-natural map $J_0(N)\to J_1(N)$. This will be useful in
-Chapter~\ref{chap:totally_split}, where 
-Moreover, the Shimura subgroup is a Galois subgroup of $J_0(N)(\QQ)_\tor$. This
-fact will be used in Chapter~\ref{chap:isogeny_class} where we enumerate
+$J_0(N)$. The \defn{Shimura subgroup}, $\Sigma_N$, is the kernel of the natural
+map $J_0(N)\to J_1(N)$. This will be useful in
+Chapter~\ref{chap:totally_split}, where Moreover, the Shimura subgroup is a
+Galois subgroup of $J_0(N)(\QQ)_\tor$. This fact will be used in
+Chapter~\ref{chap:isogeny_class} where we enumerate the rational isogeny
+classes.
 
-Let $\Sigma(N)$ be the Shimura subgroup of $J_0(N)$ so $\Sigma(N)$ is the
-kernel of the natural map $J_0(N)\to J_1(N)$. To compute $\Sigma(N)$, we will
-use a theorem by Ribet. We will choose some odd prime $p$ coprime to $N$,
-by~\cite[Prop. 1]{ribet:raising}, $\Sigma(N)=\ker(d_1-d_p)$, where
-$d_1,d_p:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to $1,p$.
+Let $\Sigma_N$ be the Shimura subgroup of $J_0(N)$ so $\Sigma_N$ is the kernel
+of the natural map $J_0(N)\to J_1(N)$. To compute $\Sigma_N$, we will use a
+theorem by Ribet. We will choose some odd prime $p$ coprime to $N$,
+by~\cite[Prop. 1]{ribet:raising}, $\Sigma_N=\ker(d_1-d_p)$, where $\delta_1
+^*,\delta_p ^*:J_0(N)\to J_0(pN)$ are the degeneracy maps corresponding to
+$1,p$. The computation of the kernel is given in~\ref{sub:kernel}.
 
 \section{Morphisms}%
 \label{sec:morphisms}
@@ -217,9 +226,18 @@ $G=\mathcal{L}, A)$. There is an isogeny $\vphi_G: A\to A'=(L+\mathcal{L}, V,
 J)$ with kernel exactly $G$ given by the identity map on rational homology.
 
 
-
 \section{Decomposition and Verification of Abelian Subvarieties}
 \label{sec:decomp_verify}
+
+\subsection{Decomposition of $J_H(N)$}%
+\label{sub:decomposition_of_j_}
+
+The decomposition of $J_H(N)$ is equivalent to the decomposition of the
+cuspidal modular symbol space of $\Gamma_H(N)$. This is discussed in~\cite[\S
+9]{stein:modform}.
+
+\subsection{Simple abelian subvarieties}%
+\label{sub:simple_abelian_subvarieties}
 
 \begin{algorithm}{Simple abelian subvarieties as image of degeneracies}%
     \label{alg:simple_degen}
