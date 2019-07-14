@@ -228,15 +228,15 @@ is algorithmic.
 The Generalized Ogg Conjecture is equivalent to the assertion that
 $[J_0(N)(\QQ)_\tor:C_N(\QQ)]=1$. In this section, we give strategies for
 bounding this index when $J_0(N)$ is a rank-0 totally split Jacobian. We are
-able to compute generators for $C_N(\QQ)$ in our presentation~\ref{} and the
-group order. Therefore, when $[J_0(N)(\QQ):C_N(\QQ)]=1$, we are able to compute
-generators for $J_0(N)(\QQ)_\tor$ in our presentation~\ref{} and the group
-order.
+able to compute generators for $C_N(\QQ)$ in our presentation
+(\ref{sub:cuspidal}) and the group order. Therefore, when
+$[J_0(N)(\QQ):C_N(\QQ)]=1$, we are able to compute generators for
+$J_0(N)(\QQ)_\tor$ in our presentation.
 
 Using these strategies, we are able to able to verify the Generalized Ogg
 Conjecture for all but 9 rank-0 $J_0(N)$. In these 9 cases, we are
 able to bound the index $[J_0(N)(\QQ)_\tor:C_N(\QQ)]$ by a power of 2
-(Table~\ref{}).
+(Table~\ref{tab:rank_zero_bound}).
 
 \subsection{Upper bound}%
 \label{sub:upper_bound}
@@ -278,7 +278,8 @@ Eicher-Shimura relations, $T_p = F_p + p/F_p\in \End(\mathcal{A}_{/p})$. Then
     \end{split}
 \end{align}
 The last term is the characteristic polynomial of the matrix associated to the
-Hecke operator $T_p$ which can be computed~\ref{}.
+Hecke operator $T_p$ which can be computed using
+Section~\ref{sec:modular_symbols}.
 
 We now return to the case of $K=\QQ$ and will apply the more general number
 field case in Chapter~\ref{chap:isogeny_class}. So in the case where $K=\QQ$
@@ -300,9 +301,9 @@ William Stein.
             Let $i=0$, $p_0$ be the smallest prime greater than 2 not dividing
             $N$.
         \item{} [Add another factor]
-            Use~\ref{} to compute the matrix associated to $T_{p_0}$. Let $m_i
-            = \mathrm{charpoly}(T_p)(p+1)$. If $i=0$, set $B_i=m_i$. Otherwise,
-            set $B_i=\gcd(B_{i-1}, m_i)$.
+            Use Section~\ref{sec:modular_symbols} to compute the matrix
+            associated to $T_{p_0}$. Let $m_i = \mathrm{charpoly}(T_p)(p+1)$.
+            If $i=0$, set $B_i=m_i$. Otherwise, set $B_i=\gcd(B_{i-1}, m_i)$.
         \item{} [Stable?/Output]
             If $i\leq 2$, increment $i$ and return to Step 2. Otherwise, if
             $B_i\neq B_{i-2}$, return to Step 2. Otherwise, $B_i$ has been
@@ -312,7 +313,7 @@ William Stein.
 There are two disadvantages to Algorithm~\ref{alg:upper_bound_stable}.
 
 The first is that is isogeny invariant so we expect the bound to not be tight.
-In Example~\ref{}, we show that there exists an abelian variety isogenous to
+In Section~\ref{sec:example}, we show that there exists an abelian variety isogenous to
 $J_0(30)$ with strictly greater rational torsion order. So
 Algorithm~\ref{alg:upper_bound_stable} will never give a tight bound even if we
 increase the stability threshold. This Jacobian is the first $J_0(N)$ that
@@ -358,7 +359,7 @@ $\eta_\ell = T_\ell - (\ell+1)$.
 
 Let $I= \langle \eta_\ell:\ell\nmid 2N \rangle$. By
 Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I]$. Now let $\star$
-be the star-involution (\ref{}) so $J(\CC)(1-\star)=J(\RR)$. and $I^*=I +
+be the star-involution so $J(\CC)(1-\star)=J(\RR)$. and $I^*=I +
 \langle 1-\star \rangle$. William Stein calls this the Real Eisenstein Ideal.
 We have that $J(\CC)[1-\star]=J(\RR)$ so combined with
 Lemma~\ref{lem:rational_is_eta}, $J(\QQ)_\tor\subseteq J[I^*]$. Extending $I$
@@ -461,7 +462,7 @@ We now take advantage to \eqref{eq:eta_equation} to show that it often suffices
 to verify the Generalized Ogg Conjecture on some abelian subvarieties of $J$.
 \begin{proposition}
     Let $E$ be finite subset of $J_0(N)(\QQ)_\tor$ containing $C_N(\QQ)$ (for
-    example $E=E_r$~\eqref{eq:stein_eta_group}). Let $x_1,\ldots,x_r\in E$ be a
+    example $E=E_r$~\eqref{eq:eta_equation}). Let $x_1,\ldots,x_r\in E$ be a
     set of representatives of $E/(C_N(\QQ))$. Suppose for each $i$, there
     exists an abelian subvariety $A_i$ of $J_0(N)$ satisfying the Generalized
     Ogg Conjecture and containing $x_i$. Then $C_N(\QQ)=J_0(N)(\QQ)_\tor$ so
@@ -518,14 +519,14 @@ to verify the Generalized Ogg Conjecture on some abelian subvarieties of $J$.
     \]
     then we use Algorithm~\ref{alg:final_bound} to show that the index is 1.
 \end{proof}
-\begin{algorithm}[]%
+\begin{algorithm}{}%
     \label{alg:final_bound}
     Given a totally split rank-0 Jacobian $J=J_0(N)$ of dimension $k$, this
     algorithm will output a bound on $[J(\QQ)_\tor:C_N(\QQ)]$, where $C_N$ is
     the cuspidal subgroup of $J$.
     \begin{enumerate}
         \item{} [Upper bound by $E_{50}$]
-            Set $r=50$ in~\eqref{eq:stein_eta_group} and compute $E=E_{50}$.
+            Set $r=50$ in~\eqref{eq:eta_equation} and compute $E=E_{50}$.
         \item{} [Set of representatives]
             Compute a list of elements $x_1,\ldots,x_s\in E_{50}$ that form a
             set of representatives for $E_{50}/C(N)$.
@@ -542,7 +543,8 @@ to verify the Generalized Ogg Conjecture on some abelian subvarieties of $J$.
     \end{enumerate}
 \end{algorithm}
 
-\section{Examples}
+\section{Example}
+\label{sec:example}
 
 Let $J=J_0(30)$. This is the first level for which \sage (Version 8.7) cannot
 compute the order of the rational torsion subgroup. 

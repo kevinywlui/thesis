@@ -359,7 +359,8 @@ and $X_e$.
     \varphi(A[\p^{e_\p}])\subseteq A[\p^{e_\p}]$.
 \end{proof}
 
-As a corollary, we can give an explicit set of primes such that %TODO
+As a corollary, we can give an explicit set of primes such that the image of every
+odd-degree isogeny of $A$ is equivalent to one supported on this set of primes.
 \begin{corollary}
     Let $\P_\H$ be the union of the set of primes dividing elements of $\H$ with
     the set of Eisenstein prime of odd-residue characteristic. If $A'$ is
@@ -372,13 +373,16 @@ As a corollary, we can give an explicit set of primes such that %TODO
 
 In this section, we will follow the work of Krzysztof Klosin and Mihran
 Papikian to enumerate the isomorphic classes of abelian varieties isogenous to
-$A$ by an isogeny supported on $\P_e$.
+$A$ by an isogeny supported on $\P_e$. This section is a straightforward
+adaption of their work.
+
 
 \begin{proposition}{{\cite[Prop. 4.5]{klosin-papikian:ribet}}}%
     \label{prop:eisenstein_cyclic}
     Let $A\subseteq J_0(N)$ be a simple abelian subvariety with $N$ prime. Let
     $\p$ be an Eisenstein prime of $\TT_A$ of odd residue characteristic $p$.
-    Suppose there exists $\ell\equiv 1\pmod{p^2N}$ such that $p^3\nmid
+    Suppose $A[\p]\neq 0$ and $A[\p]=J_0(N)[\p]$. Suppose there exists
+    $\ell\equiv 1\pmod{p^2N}$ such that $p^3\nmid
     \mathcal{A}_{/\ell}(\FF_\ell)$, where $\mathcal{A}_{/\ell}$ is the
     reduction of the Neron model of $A$ at $\ell$. Suppose that $M\subseteq
     A[\p^\infty]$. If $A[\p]\not\subseteq M$, then $M\subseteq A[\p]$.
@@ -469,7 +473,7 @@ $A$ by an isogeny supported on $\P_e$.
 
     Now suppose $\ell\equiv 1\pmod{p^2 N}$ is a rational prime. Then $\ell$ is
     completely split over $K$ so, as in Section~\ref{sub:upper_bound},
-    by~\cite[Appendix]{katz:galois}, there is an inclusion
+    by~\cite[Appendix]{katz:torsion}, there is an inclusion
     \[
         A(K)_\tor\hookrightarrow \mathcal{A}_{/\F_\ell}(\F_\ell).
     \]
@@ -481,10 +485,11 @@ $A$ by an isogeny supported on $\P_e$.
     \label{cor:eisenstein}
     Let $A$ be a simple abelian subvariety of $J_0(N)$ with $N$ prime. Suppose
     $\TT_A$ is integrally closed. Suppose that for all Eisenstein primes $\p$
-    of odd residue characteristic $p$ with $A[\p]$ nontrivial, $\p$ is
-    principal and there exists a rational prime $\ell\equiv 1\pmod{p^2N}$ such
-    that $p^3\nmid \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to
-    A'$ is an isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
+    of odd residue characteristic $p$ with $A[\p]$ nontrivial,
+    $A[\p]=J_0(N)[\p]$, $\p$ is principal, and there exists a rational prime
+    $\ell\equiv 1\pmod{p^2N}$ such that $p^3\nmid
+    \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to A'$ is an
+    isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
     \[
         A'\isom A/M
     \]
@@ -513,15 +518,15 @@ $A$ by an isogeny supported on $\P_e$.
 \section{Combining Eisenstein and non-Eisenstein parts}%
 \label{sec:combining_eisenstein_and_non_eisenstein_parts}
 
-
 \begin{theorem}%
     \label{thm:combine}
     Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N$ prime.
     Suppose $\TT_A$ is integrally closed and $\#\Cl(\TT_A)=1$. Suppose that for
     all Eisenstein primes $\p$ of odd residue characteristic $p$ with $A[\p]$
-    nontrivial, there exists a rational prime $\ell\equiv 1\pmod{p^2N}$ such
-    that $p^3\nmid \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to
-    A'$ is an isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
+    nontrivial, $A[\p]=J_0(N)[\p]$, and there exists a rational prime
+    $\ell\equiv 1\pmod{p^2N}$ such that $p^3\nmid
+    \#\mathcal{A}_{/\F_\ell}(/\F_\ell)$. Then if $\varphi:A\to A'$ is an
+    isogeny with $\Supp_{\TT_A} \ker\varphi\subseteq \P_e$, then
     \[
         A'\isom A/M
     \]
@@ -536,11 +541,20 @@ $A$ by an isogeny supported on $\P_e$.
     yields the desired result.
 \end{proof}
 
-Under these hypothesis, we obtain a set $S$ of abelian varieties such that if
-$A'\sim A$ is a odd-degree isogeny, then $A'\isom A''$ for some $A''$ in $S$.
-Now by applying isomorphism testing, we obtain the odd-degree isogeny class of
-$A$. 
+\subsection{Computational Results}
 
+For $N\leq 100$, there are 34 simple abelian varieties satisfying the
+hypothesis of Theorem~\ref{thm:combine}. In these cases, the hypothesis of
+Theorem~\ref{thm:combine} is satisfied. By applying isomorphism testing
+(Algorithm~\ref{alg:isomorphism_testing}), on the result of
+Theorem~\ref{thm:combine}, we have
+\begin{corollary}
+    Suppose $A$ is a simple abelian subvariety of $J_0(N)$ with $N<100$ and
+    where the hypothesis of Theorem~\ref{thm:combine} holds. Then the
+    odd-degree isogeny class of $A$ is given by $\{A, A/(\Sigma_N)_\odd,
+    A/(C_N)_\odd\}$. Here we are asserting that the elements of this set are
+    pairwise non-isomorphic.
+\end{corollary}
 
 % \section{Further Questions}
 

@@ -19,7 +19,7 @@ class of abelian variety containing the subquotients of $J_0(N)$.
 \end{definition}
 
 The natural quotient of $X_1(N)\to X_0(N)$ induces a finite degree map
-$J_0(N)\to J_1(N)$. The kernel of this map, $\Sigma(N)$, is finite and is the
+$J_0(N)\to J_1(N)$. The kernel of this map, $\Sigma_N$, is finite and is the
 Shimura subgroup of $J_0(N)$. Therefore, all abelian varieties isogenous to a
 simple subvariety of $J_0(N)$ are modular.
 
@@ -212,7 +212,7 @@ the BSD invariants of the elliptic curves $E$ and $F$.
     \]
 \end{proposition}
 \begin{proof}
-    Let $e$ be the exponent of $\Sigma(L)$. For $i=1,\ldots,r-1$, let $m_i$ be
+    Let $e$ be the exponent of $\Sigma_L$. For $i=1,\ldots,r-1$, let $m_i$ be
     integers so that $m_i \equiv 1 \pmod{e}$. Define $D_i:J_0(L)\to J_0(N)$ by
     \[
         D_i =
@@ -242,14 +242,14 @@ the BSD invariants of the elliptic curves $E$ and $F$.
         \label{eq:phiLprime}
         \Phi_L ^N (y_1,\ldots,y_r) =D_1(y_1)+ \cdots +D_r(y_r)=0.
     \end{equation}
-    Then that $T(y_1,\ldots,y_r)\in \ker\Phi_L ^N=\Sigma(L)_0 ^r$.  This
-    immediately implies that $y_r\in \Sigma(L)$ and then, by repeated
-    back-substitution, $y_i\in \Sigma(L)$ for $i=1,\ldots,r$. Since $m_i \equiv
+    Then that $T(y_1,\ldots,y_r)\in \ker\Phi_L ^N=(\Sigma_L)_0 ^r$.  This
+    immediately implies that $y_r\in \Sigma_L$ and then, by repeated
+    back-substitution, $y_i\in \Sigma_L$ for $i=1,\ldots,r$. Since $m_i \equiv
     1 \pmod{e}$,
     \[
         T(y_1,\ldots,y_r)=(y_1-y_2,y_2-y_3,\ldots,y_{n-1}-y_n,y_n).
     \]
-    Since $T(y_1,\ldots,y_r)\in \Sigma(L)_0 ^r$,
+    Since $T(y_1,\ldots,y_r)\in (\Sigma_L)_0 ^r$,
     \[
         (y_1-y_2)+(y_2-y_3)+\cdots+(y_{n-1}-y_n)+y_n =0.
     \]
@@ -261,13 +261,13 @@ the BSD invariants of the elliptic curves $E$ and $F$.
             = 0,
     \end{equation*}
     where the last equality follows from the fact
-    $(0,\ldots,0,-y_i,y_i,0,\ldots,0)\in \Sigma(L)_0 ^r$. Therefore, the terms
+    $(0,\ldots,0,-y_i,y_i,0,\ldots,0)\in (\Sigma_L)_0 ^r$. Therefore, the terms
     in~\eqref{eq:phiLprime} are trivial so $\sum \Im D_i$ is direct.
 
     It remains to show $D_1(J_0(L))\cong J_0(L)$ and $D_i(J_0(L))\cong
     \Im(J_0(L)\to J_1(L))$ for $i\geq 2$. Notice that $D_1(x)=\Phi_L
     ^N(x,0,\ldots,0)$ and $D_i(x)=\Phi_L ^N(\ldots,-m_ix,x,\ldots)$. Since
-    $\ker\Phi_L ^N=\Sigma(L)_0 ^r$, $\ker D_1=0$ and $\ker D_i=\Sigma(L)$ for
+    $\ker\Phi_L ^N=(\Sigma_L)_0 ^r$, $\ker D_1=0$ and $\ker D_i=\Sigma_L$ for
     $i\geq 2$, as desired.
 \end{proof}
 
@@ -313,7 +313,7 @@ of Chapter~\ref{chap:algorithms}
     nonzero and hence an isogeny. As complex tori, $A_f\isom \CC^n/\Lambda_{A_f
     ^\vee}$ and $A\isom \CC^n/\Lambda_A$. Since $T'(\Lambda_{A_f ^\vee})\subset
     \Lambda_A$, $T'=\sum q_i \delta_i ^*$ for $q_i\in \QQ$. Finally, there
-    exists $w\in \ZZ^*$ such that $S:=wT'=\sum n_i d_i$ with $n_i\in \ZZ$.
+    exists $w\in \ZZ^*$ such that $S:=wT'=\sum n_i \delta_i ^*$ with $n_i\in \ZZ$.
 \end{proof}
 
 \section{Connectedness of Hecke Algebra}%
